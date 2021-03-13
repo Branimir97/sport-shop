@@ -17,28 +17,33 @@
     float: left;
 }
 
-.carousel-item{
+#carousel-image-info .carousel-item{
     height: 200px;
 }
 
-.carousel .carousel-indicators li{
+#carousel-image-info .carousel .carousel-indicators li{
     margin-right: 10px!important;
     width: 10px;
     height: 10px;
     border-radius: 100%;
+    cursor: pointer;
 }
 
-.carousel-item img{
+#carousel-image-info .carousel-item img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.recommended-categories{
-    margin-top: 10px;
+.recommended-categories .item1,
+.recommended-categories .item2,
+.recommended-categories .activity{
+    padding: 10px!important;
 }
 
-.recommended-categories img {
+.recommended-categories .item1 img,
+.recommended-categories .item2 img,
+.recommended-categories .activity img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -46,6 +51,7 @@
 
 .recommended-categories p {
     position: absolute;
+    color: #fff;
 }
 
 @media (min-width: 768px) {
@@ -59,7 +65,7 @@
         width: 20%;
         float: left;
     }
-    .carousel-item{
+    #carousel-image-info .carousel-item{
         height: 700px;
     }
 }

@@ -6,16 +6,30 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="inline-row-slider bg-danger p-3 text-center">
-            <p>Inline row slider</p>
+
+        <div id="carousel-short-info" class="carousel text-center bg-warning p-2 mb-1">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="7000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <p>Ovo je poruka#1.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <p>Ovo je poruka#2.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <p>Ovo je poruka#3.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="carousel mb-5">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+        <div id="carousel-image-info" class="carousel mb-1">
+            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li class="mr-1" data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li class="mr-1" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li class="mr-1" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -28,104 +42,62 @@
                         <img src="/images/basketball.jpg" alt="Third slide">
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
         </div>
 
-        <div class="row recommended-categories bg-primary text-center">
+        <div class="row recommended-categories">
             <div class="col-md-15">
                 <div class="row">
-                    <div class="col-sm-12 group1">
+                    <div class="col-sm-12 item1">
                         <p>Nogomet</p>
                         <img src="/images/football.jpg" alt="">
                     </div>
-                    <div class="col-sm-12 group2">
+                    <div class="col-sm-12 item2">
                         <p>Rukomet</p>
                         <img src="/images/handball.jpg" alt="">
                     </div>
                 </div>
             </div>
-            <div class="col-md-15">
+            <div class="col-md-15 activity">
                 <p>Trčanje</p>
                 <img src="/images/running.jpg" alt="">
             </div>
             <div class="col-md-15">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 item1">
                         <p>Košarka</p>
                         <img src="/images/basketball.jpg" alt="">
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 item2">
                         <p>Odbojka</p>
                         <img src="/images/volleyball.jpg" alt="">
                     </div>
                 </div>
             </div>
-            <div class="col-md-15">
+            <div class="col-md-15 activity">
                 <p>Fitness</p>
                 <img src="/images/fitness.jpg" alt="">
             </div>
             <div class="col-md-15">
                 <div class="row">
-                    <div class="col-sm-12 image-wrapper">
+                    <div class="col-sm-12 item1">
                         <p>Tenis</p>
                         <img src="/images/tennis.jpg" alt="">
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 item2">
                         <p>Stolni tenis</p>
                         <img src="/images/table-tennis.jpg" alt="">
                     </div>
                 </div>
             </div>
         </div>
-
-{#        <div class="recommended-categories">#}
-{#            <div class="group1">#}
-{#                <div class="item1">#}
-{#                    <p>Nogomet</p>#}
-{#                    <img src="/images/football.jpg" alt="">#}
-{#                </div>#}
-{#                <div class="item2">#}
-{#                    <p>Rukomet</p>#}
-{#                    <img src="/images/handball.jpg" alt="">#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="activity">#}
-{#                <p>Trčanje</p>#}
-{#                <img src="/images/running.jpg" alt="">#}
-{#            </div>#}
-{#            <div class="group2">#}
-{#                <div class="item1">#}
-{#                    <p>Košarka</p>#}
-{#                    <img src="/images/basketball.jpg" alt="">#}
-{#                </div>#}
-{#                <div class="item2">#}
-{#                    <p>Odbojka</p>#}
-{#                    <img src="/images/volleyball.jpg" alt="">#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="activity">#}
-{#                <p>Fitnesss</p>#}
-{#                <img src="/images/fitness.jpg" alt="">#}
-{#            </div>#}
-{#            <div class="group3">#}
-{#                <div class="item1">#}
-{#                    <p>Tenis</p>#}
-{#                    <img src="/images/tennis.jpg" alt="">#}
-{#                </div>#}
-{#                <div class="item2">#}
-{#                    <p>Stolni tenis</p>#}
-{#                    <img src="/images/table-tennis.jpg" alt="">#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-
     </div>
 {% endblock %}
