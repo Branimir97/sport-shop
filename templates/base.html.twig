@@ -6,6 +6,11 @@
 
         <link rel="stylesheet" href="{{ asset("css/footer.css") }}">
         <link rel="stylesheet" href="{{ asset("css/homepage.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/bootnavbar.css") }}">
+
+
+        <!-- FontAwesome -->
+        <script src="https://kit.fontawesome.com/f69451562f.js" crossorigin="anonymous"></script>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,16 +20,181 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
 
+        <script>
+            jQuery(document).ready(function($) {
+                $("li.dropdown a").click(function(e){
+                    $(this).next('ul.dropdown-menu').css("display", "block");
+                    e.stopPropagation();
+                });
+            });
+
+        </script>
     </head>
     <body>
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="main_navbar">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto justify-content-center">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Muškarci <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Žene</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Djeca
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Odjeća
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" href="#">Majice</a></li>
+                                <li><a class="dropdown-item" href="#">Hlače</a></li>
+                                <li><a class="dropdown-item" href="#">Jakne</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Odjevni dodaci
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Kape</a></li>
+                                        <li><a class="dropdown-item" href="#">Rukavice</a></li>
+                                        <li><a class="dropdown-item" href="#">Šalovi</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Left Dropdown
+                                    </a>
+                                    <ul class="dropdown-menu left" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li></li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Sportska oprema</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Ostalo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Akcijska ponuda</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto justify-content-end">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Prijava</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Popis želja</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Košarica</a>
+                </li>
+            </ul>
+
+{#            <form class="form-inline my-2 my-lg-0">#}
+{#                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+{#                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+{#            </form>#}
+        </div>
+    </nav>
     {% block body %}{% endblock %}
 
-    <footer>Footer</footer>
+    <footer class="text-center">
+        <div class="row p-3 mb-3">
+            <div class="col-sm-4">
+                <h5 class="mb-4">Informacije</h5>
+                <p><a href="">O nama</a></p>
+                <p><a href="">Kontakt</a></p>
+                <p><a href="">Loyalty program vjernosti</a></p>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="mb-4">Prijavi se na naš Newsletter</h5>
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                    <span class="input-group-btn">
+                        <button class="btn" type="submit">Subscribe Now</button>
+                     </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="mb-4">Društvene mreže</h5>
+                <p><a href="">Facebook</a></p>
+                <p><a href="">Instagram</a></p>
+                <p><a href="">Twitter</a></p>
+                <p><a href="">Youtube</a></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+{#                <h5 class="mb-4">Short info</h5>#}
+                <img src="/images/logo.png" alt="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis</p>
+            </div>
+            <div class="col-sm-3">
+                <h5 class="mb-4">Načini plaćanja</h5>
+            </div>
+            <div class="col-sm-3">
+                <h5 class="mb-4">Sponzori</h5>
+            </div>
+            <div class="col-sm-3 p-2">
+                <h5 class="mb-4">Lokacija</h5>
+                <div class="map">
+                    <iframe width="520"
+                            height="300"
+                            frameborder="0"
+                            scrolling="no"
+                            marginheight="0"
+                            marginwidth="0"
+                            id="gmap_canvas"
+                            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=Ulica%20Kneza%20Trpimira%202b%20Osijek+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                    </iframe>
+                    <a href='https://www.symptoma.hr/hr/info/covid-19#info'>COVID-19</a>
+                    <script type='text/javascript'
+                            src='https://embedmaps.com/google-maps-authorization/script.js?id=8a3df4aec8b2af26fcb590b8aa6761a07acaf5b2'>
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="bg-secondary text-center">
+            <p>@2021 -> All rights reserved</p>
+            <p>Developed by Branimir</p>
+        </div>
+    </footer>
+    <script src="js/bootnavbar.js"></script>
+    <script>
+        new bootnavbar();
+        // (function () {
+        // });
+    </script>
     </body>
 </html>

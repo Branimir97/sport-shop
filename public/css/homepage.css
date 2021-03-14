@@ -1,8 +1,3 @@
-*{
-    margin: 0!important;
-    padding: 0!important;
-}
-
 .col-xs-15,
 .col-sm-15,
 .col-md-15,
@@ -41,6 +36,13 @@
     padding: 10px!important;
 }
 
+.recommended-categories .item1:hover,
+.recommended-categories .item2:hover,
+.recommended-categories .activity:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
 .recommended-categories .item1 img,
 .recommended-categories .item2 img,
 .recommended-categories .activity img {
@@ -54,11 +56,25 @@
     color: #fff;
 }
 
+.info-line{
+    background-color: #AAAAAA;
+}
+
+.info-line .col-sm-3:not(:last-child){
+    border-right: 1px solid white!important;
+}
+
+.info-line p{
+    color: white;
+    text-transform: uppercase;
+}
+
 @media (min-width: 768px) {
     .col-sm-15 {
         width: 20%;
         float: left;
     }
+
 }
 @media (min-width: 992px) {
     .col-md-15 {
