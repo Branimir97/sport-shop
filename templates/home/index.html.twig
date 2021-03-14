@@ -3,10 +3,11 @@
 {% block title %}SportShop{% endblock %}
 
 {% block body %}
-    <div class="container-fluid mt-1">
+    <div class="container-fluid mt-1 pl-0 pr-0">
+
         <div id="carousel-short-info" class="carousel bg-warning">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="7000">
-                <div class="carousel-inner">
+                <div class="carousel-inner my-auto">
                     <div class="carousel-item active">
                         <p>Ovo je poruka#1.</p>
                     </div>
@@ -49,51 +50,24 @@
             </div>
         </div>
 
-        <div class="row recommended-categories">
-            <div class="col-md-15">
-                <div class="row">
-                    <div class="col-sm-12 item1">
-                        <p>Nogomet</p>
-                        <img src="/images/football.jpg" alt="">
-                    </div>
-                    <div class="col-sm-12 item2">
-                        <p>Rukomet</p>
-                        <img src="/images/handball.jpg" alt="">
-                    </div>
-                </div>
+        <div class="row ml-0 mr-0 recommended-categories bg-info">
+            <div class="col-sm-3">
+                <p>Nogomet</p>
+                <img src="/images/football.jpg" alt="">
             </div>
-            <div class="col-md-15 activity">
+            <div class="col-sm-3">
                 <p>Trčanje</p>
                 <img src="/images/running.jpg" alt="">
             </div>
-            <div class="col-md-15">
-                <div class="row">
-                    <div class="col-sm-12 item1">
-                        <p>Košarka</p>
-                        <img src="/images/basketball.jpg" alt="">
-                    </div>
-                    <div class="col-sm-12 item2">
-                        <p>Odbojka</p>
-                        <img src="/images/volleyball.jpg" alt="">
-                    </div>
-                </div>
+            <div class="col-sm-3">
+                <p>Košarka</p>
+                <img src="/images/basketball.jpg" alt="">
             </div>
-            <div class="col-md-15 activity">
+            <div class="col-sm-3">
                 <p>Fitness</p>
                 <img src="/images/fitness.jpg" alt="">
             </div>
-            <div class="col-md-15">
-                <div class="row">
-                    <div class="col-sm-12 item1">
-                        <p>Tenis</p>
-                        <img src="/images/tennis.jpg" alt="">
-                    </div>
-                    <div class="col-sm-12 item2">
-                        <p>Stolni tenis</p>
-                        <img src="/images/table-tennis.jpg" alt="">
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
+
 {% endblock %}

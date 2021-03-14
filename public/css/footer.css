@@ -3,12 +3,12 @@
 footer {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     background-color: #999999;
-    font-size: 25px;
+    font-size: 22px;
 }
 
-footer .map iframe{
-    width: 100%;
-}
+/*footer .map iframe{*/
+/*    width: 100%;*/
+/*}*/
 
 footer h5{
     text-transform: uppercase;
