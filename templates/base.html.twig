@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="{{ asset("css/homepage.css") }}">
         <link rel="stylesheet" href="{{ asset("css/bootnavbar.css") }}">
 
-
         <!-- FontAwesome -->
         <script src="https://kit.fontawesome.com/f69451562f.js" crossorigin="anonymous"></script>
 
@@ -24,38 +23,48 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
 
-        <script>
-            jQuery(document).ready(function($) {
-                $("li.dropdown a").click(function(e){
-                    $(this).next('ul.dropdown-menu').css("display", "block");
-                    e.stopPropagation();
-                });
-            });
-
-        </script>
     </head>
     <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="main_navbar">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="main_navbar">
+        <a class="navbar-brand" href="#">
+            <img src="/images/logo.png" alt="">
+            SportShop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto justify-content-center">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Muškarci <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Žene</a>
-                </li>
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        Djeca
+                        <i class="fas fa-male"></i> Muškarci
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Obuća
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" href="#">Tenisice</a></li>
+                                <li><a class="dropdown-item" href="#">Kopačke</a></li>
+                                <li><a class="dropdown-item" href="#">Patike za trčanje</a></li>
+                                <li><a class="dropdown-item" href="#">Čizme</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Dodaci
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Ulošci</a></li>
+                                        <li><a class="dropdown-item" href="#">Vezice</a></li>
+                                        <li><a class="dropdown-item" href="#">Impregnacijski sprejevi</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
@@ -76,30 +85,143 @@
                                         <li><a class="dropdown-item" href="#">Šalovi</a></li>
                                     </ul>
                                 </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-female"></i> Žene
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Obuća
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" href="#">Tenisice</a></li>
+                                <li><a class="dropdown-item" href="#">Kopačke</a></li>
+                                <li><a class="dropdown-item" href="#">Patike za trčanje</a></li>
+                                <li><a class="dropdown-item" href="#">Čizme</a></li>
                                 <li class="nav-item dropdown">
                                     <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        Left Dropdown
+                                        Dodaci
                                     </a>
-                                    <ul class="dropdown-menu left" aria-labelledby="navbarDropdown2">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <div class="dropdown-divider"></div>
-                                        <li></li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Ulošci</a></li>
+                                        <li><a class="dropdown-item" href="#">Vezice</a></li>
+                                        <li><a class="dropdown-item" href="#">Impregnacijski sprejevi</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Odjeća
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" href="#">Majice</a></li>
+                                <li><a class="dropdown-item" href="#">Hlače</a></li>
+                                <li><a class="dropdown-item" href="#">Jakne</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Odjevni dodaci
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Kape</a></li>
+                                        <li><a class="dropdown-item" href="#">Rukavice</a></li>
+                                        <li><a class="dropdown-item" href="#">Šalovi</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Sportska oprema</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-child"></i> Djeca
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Obuća
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" href="#">Tenisice</a></li>
+                                <li><a class="dropdown-item" href="#">Kopačke</a></li>
+                                <li><a class="dropdown-item" href="#">Patike za trčanje</a></li>
+                                <li><a class="dropdown-item" href="#">Čizme</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Dodaci
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Ulošci</a></li>
+                                        <li><a class="dropdown-item" href="#">Vezice</a></li>
+                                        <li><a class="dropdown-item" href="#">Impregnacijski sprejevi</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Odjeća
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item" href="#">Majice</a></li>
+                                <li><a class="dropdown-item" href="#">Hlače</a></li>
+                                <li><a class="dropdown-item" href="#">Jakne</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Odjevni dodaci
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        <li><a class="dropdown-item" href="#">Kape</a></li>
+                                        <li><a class="dropdown-item" href="#">Rukavice</a></li>
+                                        <li><a class="dropdown-item" href="#">Šalovi</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-futbol"></i> Sportska oprema
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <li><a class="dropdown-item" href="#">Nogomet</a></li>
+                        <li><a class="dropdown-item" href="#">Rukomet</a></li>
+                        <li><a class="dropdown-item" href="#">Košarka</a></li>
+                        <li><a class="dropdown-item" href="#">Odbojka</a></li>
+                        <li><a class="dropdown-item" href="#">Stolni tenis</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-exclamation-triangle"></i> Ostalo
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <li><a class="dropdown-item" href="#">Steznici</a></li>
+                        <li><a class="dropdown-item" href="#">Znojnici</a></li>
+                        <li><a class="dropdown-item" href="#">Ruksaci</a></li>
+                        <li><a class="dropdown-item" href="#">Čarape</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Ostalo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Akcijska ponuda</a>
+                    <a class="nav-link" href="">Akcijska ponuda</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto justify-content-end">
@@ -110,22 +232,23 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Prijava</a>
+                    <a class="nav-link" href="#">Prijava <i class="fas fa-sign-in-alt"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Popis želja</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Košarica</a>
+                    <a class="nav-link" href="#">Košarica <i class="fas fa-shopping-cart"></i></a>
                 </li>
             </ul>
-
-{#            <form class="form-inline my-2 my-lg-0">#}
-{#                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
-{#                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
-{#            </form>#}
         </div>
     </nav>
+
+    <script src="scripts/navigation-submenuHandler.js"></script>
+    <script src="scripts/bootnavbar.js"></script>
+    <script>
+        new bootnavbar();
+        // (function () {
+        // });
+    </script>
+
     {% block body %}{% endblock %}
 
     <footer class="text-center">
@@ -156,7 +279,6 @@
 
         <div class="row">
             <div class="col-sm-3">
-{#                <h5 class="mb-4">Short info</h5>#}
                 <img src="/images/logo.png" alt="">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis</p>
             </div>
@@ -190,11 +312,5 @@
             <p>Developed by Branimir</p>
         </div>
     </footer>
-    <script src="js/bootnavbar.js"></script>
-    <script>
-        new bootnavbar();
-        // (function () {
-        // });
-    </script>
     </body>
 </html>

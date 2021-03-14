@@ -1,13 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sport Shop{% endblock %}
-
-
+{% block title %}SportShop{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-
-        <div id="carousel-short-info" class="carousel text-center bg-warning p-2 mb-1">
+    <div class="container-fluid mt-1">
+        <div id="carousel-short-info" class="carousel bg-warning">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="7000">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -23,8 +20,7 @@
             </div>
         </div>
 
-
-        <div id="carousel-image-info" class="carousel mb-1">
+        <div id="carousel-image-info" class="carousel mt-1">
             <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
@@ -99,27 +95,5 @@
                 </div>
             </div>
         </div>
-
-
-{#        <div class="row info-line text-center p-2 mb-1">#}
-{#            <div class="col-lg-3">#}
-{#                <p>Načini plaćanja</p>#}
-{#                <h6>Tekst#1</h6>#}
-{#            </div>#}
-{#            <div class="col-lg-3">#}
-{#                <p>Radno vrijeme</p>#}
-{#                <h6>Tekst#2</h6>#}
-{#            </div>#}
-{#            <div class="col-lg-3">#}
-{#                <p>Slanje upita</p>#}
-{#                <h6>Tekst#3</h6>#}
-{#            </div>#}
-{#            <div class="col-lg-3">#}
-{#                <p>Loyalty program</p>#}
-{#                <h6>Saznaj više o našem programu vjernosti</h6>#}
-{#            </div>#}
-{#        </div>#}
-
-
     </div>
 {% endblock %}
