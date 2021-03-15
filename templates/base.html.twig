@@ -251,45 +251,153 @@
 
     {% block body %}{% endblock %}
 
-    <footer class="text-center mt-1">
-        <div class="row ml-0 mr-0 p-3 mb-3">
-            <div class="col-sm-4">
-                <h5 class="mb-4">Informacije</h5>
-                <p><a href="">O nama</a></p>
-                <p><a href="">Kontakt</a></p>
-                <p><a href="">Loyalty program vjernosti</a></p>
-            </div>
-            <div class="col-sm-4">
-                <h5 class="mb-4">Prijavi se na naš Newsletter</h5>
-                <div class="input-group">
-                    <input type="email" class="form-control" placeholder="Enter your email">
-                    <span class="input-group-btn">
-                        <button class="btn" type="submit">Subscribe Now</button>
-                     </span>
+    <footer>
+        <div class="footer-wrap">
+            <div class="container-fluid first_class">
+                <div class="row ml-0 mr-0">
+                    <div class="col-md-4 text-center">
+                        <h3>PRVI SAZNAJTE SVE NOVOSTI</h3>
+                        <p>Saznaj sve najnovije informacije o SportShop akcijama, događajima i poslovima.
+                            Prijavi se na naš newsletter!
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <form class="newsletter">
+                            <input type="text" placeholder="Email Address">
+                            <button class="newsletter_submit_btn" type="submit" title="Pretplati se">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <div class="standard_social_links">
+                                <div>
+                                    <li class="round-btn btn-facebook">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+{#                                    <li class="round-btn btn-linkedin">#}
+{#                                        <a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>#}
+{#                                    </li>#}
+                                    <li class="round-btn btn-twitter">
+                                        <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="round-btn btn-instagram">
+                                        <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="round-btn btn-envelop">
+                                        <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <h5 class="mb-4">Društvene mreže</h5>
-                <p><a href="">Facebook</a></p>
-                <p><a href="">Instagram</a></p>
-                <p><a href="">Twitter</a></p>
-                <p><a href="">Youtube</a></p>
+            <div class="second_class">
+                <div class="container-fluid second_class_bdr">
+                    <div class="row ml-0 mr-0">
+                        <div class="col-md-4 col-sm-6 text-center">
+                            <div class="footer-logo">
+                                <img src="/images/logo.png" alt="logo">
+                            </div>
+                            <p>Your one-stop career platform to find Jobs, Internships, Professional Trainings, Projects, and Volunteering Opportunities.</p>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <h3>Brze poveznice</h3>
+                            <ul class="footer-links">
+                                <li><a href="#">Naslovnica</a></li>
+                                <li><a href="#">O nama</a></li>
+                                <li><a href="#">Plaćanje i sigurnost</a></li>
+                                <li><a href="#">Uvjeti i odredbe</a></li>
+                                <li><a href="#">Loyalty program vjernosti</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <h3>Istaknute kategorije</h3>
+                            <ul class="footer-category">
+                                <div class="row ml-0 mr-0">
+                                    <div class="col-md-6">
+                                        <li><a href="#">Nogomet</a></li>
+                                        <li><a href="#">Rukomet</a></li>
+                                        <li><a href="#">Tenis</a></li>
+                                        <li><a href="#">Košarka</a></li>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <li><a href="#">Akcijska ponuda</a></li>
+                                        <li><a href="#">Ruksaci</a></li>
+                                        <li><a href="#">Steznici</a></li>
+                                        <li><a href="#">Znojnici</a></li>
+                                    </div>
+                                </div>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 text-center">
+                            <h3>Naša lokacija</h3>
+                            <div class="map">
+                                <iframe width="420"
+                                        height="300"
+                                        frameborder="0"
+                                        scrolling="no"
+                                        marginheight="0"
+                                        marginwidth="0"
+                                        id="gmap_canvas"
+                                        src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=Ulica%20Kneza%20Trpimira%202b%20Osijek+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                                </iframe>
+                                <a href='https://www.symptoma.hr/hr/info/covid-19#info'>COVID-19</a>
+                                <script type='text/javascript'
+                                        src='https://embedmaps.com/google-maps-authorization/script.js?id=8a3df4aec8b2af26fcb590b8aa6761a07acaf5b2'>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="bg-info p-2 text-center"> Copyright 2021 | All Rights Reserved by SportShop d.o.o.</div>
         </div>
+    </footer>
 
-        <div class="row ml-0 mr-0">
-            <div class="col-sm-3">
-                <img src="/images/logo.png" alt="">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis</p>
-            </div>
-            <div class="col-sm-3">
-                <h5 class="mb-4">Načini plaćanja</h5>
-            </div>
-            <div class="col-sm-3">
-                <h5 class="mb-4">Sponzori</h5>
-            </div>
-            <div class="col-sm-3">
-                <h5 class="mb-4">Lokacija</h5>
+    {#    <footer class="text-center mt-1">#}
+{#        <div class="row ml-0 mr-0 p-3 mb-3">#}
+{#            <div class="col-sm-4">#}
+{#                <h5 class="mb-4">Informacije</h5>#}
+{#                <p><a href="">O nama</a></p>#}
+{#                <p><a href="">Kontakt</a></p>#}
+{#                <p><a href="">Loyalty program vjernosti</a></p>#}
+{#            </div>#}
+{#            <div class="col-sm-4">#}
+{#                <h5 class="mb-4">Prijavi se na naš Newsletter</h5>#}
+{#                <div class="input-group">#}
+{#                    <input type="email" class="form-control" placeholder="Enter your email">#}
+{#                    <span class="input-group-btn">#}
+{#                        <button class="btn" type="submit">Subscribe Now</button>#}
+{#                     </span>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-4">#}
+{#                <h5 class="mb-4">Društvene mreže</h5>#}
+{#                <p><a href="">Facebook</a></p>#}
+{#                <p><a href="">Instagram</a></p>#}
+{#                <p><a href="">Twitter</a></p>#}
+{#                <p><a href="">Youtube</a></p>#}
+{#            </div>#}
+{#        </div>#}
+
+{#        <div class="row ml-0 mr-0">#}
+{#            <div class="col-sm-3">#}
+{#                <img src="/images/logo.png" alt="">#}
+{#                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis</p>#}
+{#            </div>#}
+{#            <div class="col-sm-3">#}
+{#                <h5 class="mb-4">Načini plaćanja</h5>#}
+{#            </div>#}
+{#            <div class="col-sm-3">#}
+{#                <h5 class="mb-4">Sponzori</h5>#}
+{#            </div>#}
+{#            <div class="col-sm-3">#}
+{#                <h5 class="mb-4">Lokacija</h5>#}
 {#                <div class="map">#}
 {#                    <iframe width="520"#}
 {#                            height="300"#}
@@ -305,8 +413,8 @@
 {#                            src='https://embedmaps.com/google-maps-authorization/script.js?id=8a3df4aec8b2af26fcb590b8aa6761a07acaf5b2'>#}
 {#                    </script>#}
 {#                </div>#}
-            </div>
-        </div>
-    </footer>
+{#            </div>#}
+{#        </div>#}
+{#    </footer>#}
 </body>
 </html>

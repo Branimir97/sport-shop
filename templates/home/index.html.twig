@@ -5,17 +5,17 @@
 {% block body %}
     <div class="container-fluid mt-1 pl-0 pr-0">
 
-        <div id="carousel-short-info" class="carousel bg-warning">
+        <div id="carousel-short-info" class="carousel bg-secondary text-center">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="7000">
-                <div class="carousel-inner my-auto">
+                <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <p>Ovo je poruka#1.</p>
+                        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Poruka#1</h4>
                     </div>
                     <div class="carousel-item">
-                        <p>Ovo je poruka#2.</p>
+                        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Poruka#2</h4>
                     </div>
                     <div class="carousel-item">
-                        <p>Ovo je poruka#3.</p>
+                        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Poruka#3</h4>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,11 @@
             </div>
         </div>
 
-        <h4 class="bg-secondary text-center mt-1 p-2 text-white recommended-categories-title">Istaknute kategorije</h4>
-        <div class="row ml-0 mr-0 mt-1 recommended-categories">
+        <!--Kad je korisnik prijavljen, izlistavanje preporučenih kategorija-->
+{#        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Preporučeni artikli</h4>#}
+
+        <h4 class="bg-secondary text-center mt-1 pt-1 text-white top-categories-title">Istaknute kategorije</h4>
+        <div class="row ml-0 mr-0 mt-1 top-categories">
             <div class="col-md-15">
                 <div class="row ml-0 mr-0 no-gutters">
                     <div class="col-md-12 mb-2 item1">
