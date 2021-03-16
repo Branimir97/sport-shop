@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap');
 
+*{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 18px;
+}
+
 nav, .dropdown-menu{
     font-family: 'Yanone Kaffeesatz', sans-serif;
     font-size: 19px!important;
@@ -86,12 +91,15 @@ h4.top-categories-title, h4.recommended-categories-title{
         width: 20%;
         float: left;
     }
-    #carousel-image-info .carousel-item{
+    #carousel-homepage-info .carousel-item{
         height: 700px;
     }
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1440px){
+    *{
+        font-size: 22px;
+    }
     .col-lg-15 {
         width: 20%;
         float: left;

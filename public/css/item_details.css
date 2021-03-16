@@ -19,8 +19,20 @@
 }
 
 
+.one-review{
+    border: 1px solid gray;
+    font-style: italic;
+}
+
+
 @media (min-width: 992px){
     #carousel-item-info .carousel-item{
         height: 400px;
+    }
+}
+
+@media (min-width: 1440px){
+    #carousel-item-info .carousel-item{
+        height: 500px;
     }
 }
