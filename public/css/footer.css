@@ -1,5 +1,6 @@
 .map iframe{
     width: 100%;
+    height: 200px;
 }
 
 .round-btn{
@@ -69,13 +70,13 @@
 
 .footer-wrap h3{
     color: #fff;
-    font-size: 17px;
+    font-size: 18px;
     text-transform: uppercase;
     margin-bottom: 25px;
 }
 
 .footer-wrap p{
-    font-size: 13px;
+    font-size: 15px;
     line-height: 24px;
     color: #b3b3b3;
     margin-top: 15px;
@@ -93,7 +94,7 @@
 }
 
 .footer-links li a{
-    font-size: 13px;
+    font-size: 15px;
     line-height: 30px;
     color: #ccc;
     text-decoration: none;
@@ -107,7 +108,7 @@
 }
 
 .footer-category li a{
-    font-size: 13px;
+    font-size: 15px;
     line-height: 30px;
     color: #ccc;
     text-decoration: none;
@@ -120,21 +121,21 @@
     color: #b3b3b3;
 }
 
-.address{
-    color: #b3b3b3;
-    font-size: 14px;
-    position: relative;
-    padding-left: 30px;
-    line-height: 30px;
-}
+/*.address{*/
+/*    color: #b3b3b3;*/
+/*    font-size: 14px;*/
+/*    position: relative;*/
+/*    padding-left: 30px;*/
+/*    line-height: 30px;*/
+/*}*/
 
-.address:before{
-    content: "\f101";
-    font-family: 'FontAwesome';
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+/*.address:before{*/
+/*    content: "\f101";*/
+/*    font-family: 'FontAwesome';*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*}*/
 
 .info a{
     color: #b3b3b3;
@@ -239,7 +240,5 @@ footer li{
 }
 
 @media(max-width:320px){
-    .copyright {
-        font-size: 13px;
-    }
+
 }
