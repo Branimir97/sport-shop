@@ -29,11 +29,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ["ROLE_USER"];
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $password;
 
@@ -56,6 +56,11 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $birthDate;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebookId;
 
     public function getId(): ?int
     {
@@ -182,6 +187,18 @@ class User implements UserInterface
     public function setBirthDate(\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(?string $facebookId): self
+    {
+        $this->facebookId = $facebookId;
 
         return $this;
     }
