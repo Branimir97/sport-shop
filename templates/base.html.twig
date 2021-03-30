@@ -241,9 +241,23 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Prijava <i class="fas fa-sign-in-alt"></i></a>
-                </li>
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user"></i> {{ app.user.name }} {{ app.user.surname }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="#">Moje narudžbe</a></li>
+                            <li><a class="dropdown-item" href="#">Postavke računa</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Odjava</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Prijava <i class="fas fa-sign-in-alt"></i></a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Košarica <i class="fas fa-shopping-cart"></i></a>
                 </li>
