@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Uredi podatke{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/edit_user.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h3 class="text-center mb-3 mt-2">Uređivanje podataka o korisniku</h3>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.name, {
+                    label: 'Ime'
+                }) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.surname, {
+                    label: 'Prezime'
+                }) }}
+            </div>
+            <div class="col-sm-12">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.gender, {
+                    label: 'Spol *'
+                }) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.birthDate, {
+                    label: 'Datum i godina rođenja *'
+                }) }}
+            </div>
+        </div>
+        <div class="text-center">
+            {{ include('user/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        </div>
+        <p class="m-0 mt-2">Ostale mogućnosti:</p>
+        {{ include('user/_delete_form.html.twig') }}
+
+        {{ form_end(form) }}
+        <a href="#" class="btn btn-outline-info mb-3">Izmjena lozinke</a>
+    </div>
+{% endblock %}
