@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postavke računa{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/account_settings.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if not app.user.gender or not app.user.birthDate %}
+            <p class="bg-danger text-white p-2 text-center">
+                <i class="fas fa-exclamation-circle"></i>
+                Vaš korisnički račun nije u potpunosti dovršen.
+                Ispunite preostale podatke s ciljem poboljšanja korisničkog iskustva.
+                <a href="#">Dovrši</a>
+            </p>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="mt-2 mb-3">Podaci o korisniku</h3>
+                <p>Ime: <strong>{{ app.user.name }}</strong></p>
+                <p>Prezime: <strong>{{ app.user.surname }}</strong></p>
+                <p>Email adresa: <strong>{{ app.user.email }}</strong></p>
+                {% if app.user.gender %}
+                     <p>Spol: <strong>{{ app.user.gender }}</strong></p>
+                {% endif %}
+                {% if app.user.birthDate %}
+                    <p>Spol: <strong>{{ app.user.birthDate|date("m/d/Y") }}</strong></p>
+                {% endif %}
+                <p>Račun kreiran: <strong>{{ app.user.createdAt|date("m/d/Y h:i:s") }}</strong></p>
+            </div>
+            <div class="col-sm-6">
+                <h3 class="mt-2 mb-3">Adrese isporuke</h3>
+                <p class="bg-danger p-2">Trenutno nije dodana niti jedna adresa za isporuku.</p>
+                <a class="btn btn-outline-info" href="#">Dodaj novu adresu</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

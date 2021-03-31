@@ -84,8 +84,6 @@ class MyFacebookAuthenticator extends SocialAuthenticator
             $user->setName($facebookUser->getFirstName());
             $user->setSurname($facebookUser->getLastName());
             $user->setEmail($facebookUser->getEmail());
-            $user->setGender("Male");
-            $user->setBirthDate(new \DateTime("2000-10-27"));
             $this->em->persist($user);
             $this->em->flush();
         }

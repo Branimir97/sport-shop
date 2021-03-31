@@ -75,8 +75,6 @@ class MyGoogleAuthenticator extends SocialAuthenticator
             $user->setName($googleUser->getFirstName());
             $user->setSurname($googleUser->getLastName());
             $user->setEmail($googleUser->getEmail());
-            $user->setGender("Male");
-            $user->setBirthDate(new \DateTime("2000-10-27"));
             $this->em->persist($user);
             $this->em->flush();
         }
