@@ -82,6 +82,11 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DeliveryAddress::class, mappedBy="user")
+     */
+    private $deliveryAddresses;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
@@ -260,6 +265,36 @@ class User implements UserInterface
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DeliveryAddress[]
+     */
+    public function getDeliveryAddresses(): Collection
+    {
+        return $this->deliveryAddresses;
+    }
+
+    public function addDeliveryAddress(DeliveryAddress $deliveryAddress): self
+    {
+        if (!$this->deliveryAddresses->contains($deliveryAddress)) {
+            $this->deliveryAddresses[] = $deliveryAddress;
+            $deliveryAddress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeliveryAddress(DeliveryAddress $deliveryAddress): self
+    {
+        if ($this->deliveryAddresses->removeElement($deliveryAddress)) {
+            // set the owning side to null (unless already changed)
+            if ($deliveryAddress->getUser() === $this) {
+                $deliveryAddress->setUser(null);
+            }
+        }
 
         return $this;
     }

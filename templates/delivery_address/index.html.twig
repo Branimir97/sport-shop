@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dodavanje nove adrese isporuke{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new_delivery_address.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h3 class="text-center mb-3 mt-2">Dodavanje nove adrese isporuke</h3>
+        {{ form_start(deliveryAddressForm) }}
+        <div class="row">
+            <div class="col-sm-12">
+                {{ form_row(deliveryAddressForm.street, {
+                    label: 'Ulica *'
+                }) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(deliveryAddressForm.city, {
+                    label: 'Grad *'
+                }) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(deliveryAddressForm.county, {
+                    label: 'Županija *'
+                }) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(deliveryAddressForm.postalCode, {
+                    label: 'Poštanski broj *'
+                }) }}
+            </div>
+            <div class="col-sm-8">
+                {{ form_row(deliveryAddressForm.country, {
+                    label: 'Država *'
+                }) }}
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-info mb-3">
+                Dodaj adresu
+            </button>
+        </div>
+        {{ form_end(deliveryAddressForm) }}
+    </div>
+{% endblock %}
