@@ -26,9 +26,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('color_index') }}">back to list</a>
+    <a href="{{ path('color_index') }}">
+        <i class="fas fa-arrow-alt-circle-left"></i>
+        Nazad na listu boja
+    </a>
 
-    <a href="{{ path('color_edit', {'id': color.id}) }}">edit</a>
+    <div class="text-center">
+        <a class="btn btn-outline-success" href="{{ path('color_edit', {'id': color.id}) }}">Uredi podatke</a>
 
-    {{ include('color/_delete_form.html.twig') }}
+        {{ include('color/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

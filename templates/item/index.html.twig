@@ -1,39 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item index{% endblock %}
+{% block title %}Upravljanje artiklima{% endblock %}
 
 {% block body %}
-    <h1>Item index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>RefNumber</th>
-                <th>Price</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for item in items %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.refNumber }}</td>
-                <td>{{ item.price }}</td>
-                <td>
-                    <a href="{{ path('item_show', {'id': item.id}) }}">show</a>
-                    <a href="{{ path('item_edit', {'id': item.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('item_new') }}">Create new</a>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje artiklima</h2>
+        {% if not items %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedan artikl u bazi podataka.</p>
+                <a href="{{ path('item_new') }}" class="btn btn-outline-info mb-3">Dodaj novi artikl</a>
+            </div>
+            {% else %}
+                <a href="{{ path('item_new') }}" class="btn btn-outline-info mb-3">Dodaj novi artikl</a>
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Naziv artikla</th>
+                        <th>Šifra artikla</th>
+                        <th>Cijena [kn]</th>
+                        <th>Mogućnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.cipher }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>
+                            <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Prikaži pojedinosti">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
+                                <i class="fas fa-user-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}

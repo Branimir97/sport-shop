@@ -42,7 +42,7 @@ class SizeController extends AbstractController
             return $this->redirectToRoute('size_index');
         }
 
-        return $this->render('size/register.html.twig', [
+        return $this->render('size/new.html.twig', [
             'size' => $size,
             'form' => $form->createView(),
         ]);

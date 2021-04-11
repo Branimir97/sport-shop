@@ -1,34 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item{% endblock %}
+{% block title %}{{ item.title }}{% endblock %}
 
 {% block body %}
-    <h1>Item</h1>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Artikl {{ item.title }}</h2>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ item.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ item.title }}</td>
-            </tr>
-            <tr>
-                <th>RefNumber</th>
-                <td>{{ item.refNumber }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ item.price }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ item.id }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ item.title }}</td>
+                </tr>
+                <tr>
+                    <th>RefNumber</th>
+                    <td>{{ item.cipher }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ item.price }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('item_index') }}">back to list</a>
+        <a href="{{ path('item_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu artikala
+        </a>
 
-    <a href="{{ path('item_edit', {'id': item.id}) }}">edit</a>
+        <div class="text-center">
+            <a class="btn btn-outline-success" href="{{ path('item_edit', {'id': item.id}) }}">Uredi podatke</a>
 
-    {{ include('item/_delete_form.html.twig') }}
+            {{ include('item/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

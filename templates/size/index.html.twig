@@ -3,35 +3,43 @@
 {% block title %}Size index{% endblock %}
 
 {% block body %}
-    <h1>Size index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Value</th>
-                <th>Type</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for size in sizes %}
-            <tr>
-                <td>{{ size.id }}</td>
-                <td>{{ size.value }}</td>
-                <td>{{ size.type }}</td>
-                <td>
-                    <a href="{{ path('size_show', {'id': size.id}) }}">show</a>
-                    <a href="{{ path('size_edit', {'id': size.id}) }}">edit</a>
-                </td>
-            </tr>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje veličinama</h2>
+        {% if not sizes %}
+        <div class="text-center">
+            <img src="{{ asset('images/logo.png') }}" alt="">
+            <p>Ne postoji niti jedna veličina u bazi podataka.</p>
+            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">Dodaj novu veličinu</a>
+        </div>
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('size_new') }}">Create new</a>
+            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">Dodaj novu veličinu</a>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Veličina</th>
+                    <th>Tip artikla</th>
+                    <th>Mogućnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for size in sizes %}
+                <tr>
+                    <td>{{ size.id }}</td>
+                    <td>{{ size.value }}</td>
+                    <td>{{ size.type }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('size_show', {'id': size.id}) }}" title="Prikaži pojedinosti">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="{{ path('size_edit', {'id': size.id}) }}" title="Uredi">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
 {% endblock %}

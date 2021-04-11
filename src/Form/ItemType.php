@@ -72,12 +72,7 @@ class ItemType extends AbstractType
                     'placeholder'=>'npr. 349,50'
                 ],
                 'label'=>'Cijena [kn]',
-            ])
-            ->add('submit', SubmitType::class, [
-                'label'=>'Save'
-            ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

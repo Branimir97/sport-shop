@@ -3,13 +3,18 @@
 {% block title %}Novi artikl{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/container.css') }}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1 class="text-center mt-2">Kreiranje novog artikla</h1>
+        <h2 class="text-center mt-2 bg-light p-2">Dodavanje novog artikla</h2>
 
         {{ include('item/_form.html.twig') }}
+
+        <a href="{{ path('item_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu artikala
+        </a>
     </div>
 {% endblock %}

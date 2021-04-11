@@ -1,39 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Upravljanje kategorijama{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                </td>
-            </tr>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje kategorijama</h2>
+        {% if not categories %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedna boja u bazi podataka.</p>
+                <a href="{{ path('category_new') }}" class="btn btn-outline-info mb-3">Dodaj novu kategoriju</a>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('category_new') }}">Create new</a>
+            <a href="{{ path('category_new') }}" class="btn btn-outline-info mb-3">Stvori novu kategoriju</a>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Naziv kategorije</th>
+                    <th>Vrijeme stvaranja</th>
+                    <th>Vrijeme posljednje izmjene</th>
+                    <th>Mogućnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.createdAt ? category.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ category.updatedAt ? category.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('category_show', {'id': category.id}) }}" title="Prikaži pojedinosti">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="{{ path('category_edit', {'id': category.id}) }}" title="Uredi">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </div>
 {% endblock %}

@@ -33,7 +33,7 @@ class DeliveryAddressController extends AbstractController
             return $this->redirectToRoute('account_settings');
         }
 
-        return $this->render('delivery_address/index.html.twig', [
+        return $this->render('delivery_address/details.html.twig', [
             'deliveryAddressForm' => $form->createView()
         ]);
     }

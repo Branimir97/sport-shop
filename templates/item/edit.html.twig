@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Item{% endblock %}
+{% block title %}{{ item.title }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Item</h1>
+    <div class="container">
+        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o artiklu</h2>
 
-    {{ include('item/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('item/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
 
-    <a href="{{ path('item_index') }}">back to list</a>
+        <a href="{{ path('item_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu artikala
+        </a>
 
-    {{ include('item/_delete_form.html.twig') }}
+        {{ include('item/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

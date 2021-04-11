@@ -1,39 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Color index{% endblock %}
+{% block title %}Upravljanje bojama{% endblock %}
 
 {% block body %}
-    <h1>Color index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Value</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for color in colors %}
-            <tr>
-                <td>{{ color.id }}</td>
-                <td>{{ color.value }}</td>
-                <td>{{ color.createdAt ? color.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ color.updatedAt ? color.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('color_show', {'id': color.id}) }}">show</a>
-                    <a href="{{ path('color_edit', {'id': color.id}) }}">edit</a>
-                </td>
-            </tr>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje bojama</h2>
+        {% if not colors %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedna boja u bazi podataka.</p>
+                <a href="{{ path('color_new') }}" class="btn btn-outline-info mb-3">Dodaj novu boju</a>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('color_new') }}">Create new</a>
+        <a href="{{ path('color_new') }}" class="btn btn-outline-info mb-3">Dodaj novu boju</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Boja</th>
+                    <th>Vrijeme stvaranja</th>
+                    <th>Vrijeme posljednje izmjene</th>
+                    <th>Mogućnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for color in colors %}
+                <tr>
+                    <td>{{ color.id }}</td>
+                    <td>{{ color.value }}</td>
+                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}" title="Prikaži pojedinosti">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="{{ path('user_edit', {'id': user.id}) }}" title="Uredi">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
 {% endblock %}
