@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Size{% endblock %}
+
+{% block body %}
+    <h1>Edit Size</h1>
+
+    {{ include('size/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('size_index') }}">back to list</a>
+
+    {{ include('size/_delete_form.html.twig') }}
+{% endblock %}

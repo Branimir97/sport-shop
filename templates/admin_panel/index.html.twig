@@ -2,17 +2,15 @@
 
 {% block title %}Admin Panel{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-{% endblock %}
-
 {% block body %}
-    <div class="container">
-        <h3 class="text-center mt-2 p-2 bg-light">Admin panel</h3>
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">Admin panel</h2>
         <a class="btn btn-light" href="{{ path('user_index') }}">Upravljanje korisnicima</a>
         <a class="btn btn-light" href="">Generiranje koda za popust</a>
         <a class="btn btn-light" href="">Upravljanje akcijama</a>
         <a class="btn btn-light" href="{{ path('category_index') }}">Upravljanje kategorijama</a>
         <a class="btn btn-light" href="{{ path('item_index') }}">Upravljanje proizvodima</a>
+        <a class="btn btn-light" href="{{ path('color_index') }}">Upravljanje bojama</a>
+        <a class="btn btn-light" href="{{ path('size_index') }}">Upravljanje veličinama</a>
     </div>
 {% endblock %}

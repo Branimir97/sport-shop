@@ -1,55 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Upravljanje korisnicima{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje korisnicima</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Gender</th>
-                <th>BirthDate</th>
-                <th>FacebookId</th>
-                <th>GoogleId</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.surname }}</td>
-                <td>{{ user.gender }}</td>
-                <td>{{ user.birthDate ? user.birthDate|date('Y-m-d') : '' }}</td>
-                <td>{{ user.facebookId }}</td>
-                <td>{{ user.googleId }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email adresa</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Spol</th>
+                    <th>Vrijeme registracije</th>
+                    <th>Vrijeme zadnjeg ažuriranja</th>
+                    <th>Mogućnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}" title="Prikaži pojedinosti">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="{{ path('user_edit', {'id': user.id}) }}" title="Uredi">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="13">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+        <a href="{{ path('app_register') }}" class="btn btn-outline-info mb-3">Stvori novog korisnika</a>
+    </div>
 {% endblock %}

@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container">
-        <h3 class="text-center mb-3 mt-2">Uređivanje podataka o korisniku</h3>
+        <h2 class="text-center mb-3 mt-2">Uređivanje podataka o korisniku</h2>
         {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
@@ -35,6 +35,10 @@
                 }) }}
             </div>
         </div>
+        <a href="{{ path('item_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu korisnika
+        </a>
         <div class="text-center">
             {{ include('user/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         </div>
@@ -42,8 +46,7 @@
         {{ include('user/_delete_form.html.twig') }}
 
         {{ form_end(form) }}
-        <a href="{{ path('user_index') }}">back to list</a>
 
-        <a href="#" class="btn btn-outline-info mb-3">Izmjena lozinke</a>
+        <a href="#" class="btn btn-outline-info mb-3">Resetiraj lozinku</a>
     </div>
 {% endblock %}

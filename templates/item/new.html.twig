@@ -1,37 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Item{% endblock %}
+{% block title %}Novi artikl{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1 class="text-center mt-2">Kreiranje novog artikla</h1>
 
-        {{ form_start(form) }}
-            {{ form_row(form.title, {
-                label:'Naziv'
-            }) }}
-
-            {% for category in categories %}
-                <p draggable="true" class="btn btn-info">{{ category.name }}</p>
-            {% endfor %}
-            {{ form_row(form.category, {
-                label:'Kategorije'
-            }) }}
-            {{ form_row(form.tag, {
-                label:'Tagovi'
-            }) }}
-            {{ form_row(form.size, {
-                label:'Dostupne veličine'
-            }) }}
-            {{ form_row(form.color, {
-                label:'Dostupne boje'
-            }) }}
-            {{ form_row(form.price, {
-                label:'Cijena'
-            }) }}
-            <a href="" class="btn btn-outline-success"></a>
-        {{ form_end(form) }}
-
-        <a href="{{ path('item_index') }}">back to list</a>
+        {{ include('item/_form.html.twig') }}
     </div>
 {% endblock %}
