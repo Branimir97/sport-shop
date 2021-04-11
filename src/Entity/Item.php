@@ -27,7 +27,7 @@ class Item
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $refNumber;
+    private $cipher;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,6 +43,16 @@ class Item
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="items")
      */
     private $tag;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -69,12 +79,12 @@ class Item
 
     public function getRefNumber(): ?string
     {
-        return $this->refNumber;
+        return $this->cipher;
     }
 
-    public function setRefNumber(string $refNumber): self
+    public function setRefNumber(string $cipher): self
     {
-        $this->refNumber = $refNumber;
+        $this->cipher = $cipher;
 
         return $this;
     }
@@ -135,6 +145,30 @@ class Item
     public function removeTag(Tag $tag): self
     {
         $this->tag->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
