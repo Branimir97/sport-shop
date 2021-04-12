@@ -1,47 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dodavanje nove adrese isporuke{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/new_delivery_address.css') }}">
-{% endblock %}
+{% block title %}Upravljanje adresama isporuka{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h3 class="text-center mb-3 mt-2">Dodavanje nove adrese isporuke</h3>
-        {{ form_start(deliveryAddressForm) }}
-        <div class="row">
-            <div class="col-sm-12">
-                {{ form_row(deliveryAddressForm.street, {
-                    label: 'Ulica *'
-                }) }}
-            </div>
-            <div class="col-sm-6">
-                {{ form_row(deliveryAddressForm.city, {
-                    label: 'Grad *'
-                }) }}
-            </div>
-            <div class="col-sm-6">
-                {{ form_row(deliveryAddressForm.county, {
-                    label: 'Županija *'
-                }) }}
-            </div>
-            <div class="col-sm-4">
-                {{ form_row(deliveryAddressForm.postalCode, {
-                    label: 'Poštanski broj *'
-                }) }}
-            </div>
-            <div class="col-sm-8">
-                {{ form_row(deliveryAddressForm.country, {
-                    label: 'Država *'
-                }) }}
-            </div>
-        </div>
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje adresama isporuka</h2>
+        {% if not delivery_addresses %}
         <div class="text-center">
-            <button type="submit" class="btn btn-outline-info mb-3">
-                Dodaj adresu
-            </button>
+            <img src="{{ asset('images/logo.png') }}" alt="">
+            <p>Ne postoji niti jedna adresa isporuke u bazi podataka.</p>
+            <a href="{{ path('delivery_address_new') }}" class="btn btn-outline-info mb-3">Dodaj novu adresu isporuke</a>
         </div>
-        {{ form_end(deliveryAddressForm) }}
+        {% else %}
+        <a href="{{ path('delivery_address_new') }}" class="btn btn-outline-info mb-3">Dodaj novu adresu isporuke</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ulica</th>
+                    <th>Grad</th>
+                    <th>Županija</th>
+                    <th>Poštanski broj</th>
+                    <th>Država</th>
+                    <th>Vrijeme stvaranja</th>
+                    <th>Vrijeme posljednje izmjene</th>
+                    <th>Mogućnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for delivery_address in delivery_addresses %}
+                <tr>
+                    <td>{{ delivery_address.id }}</td>
+                    <td>{{ delivery_address.street }}</td>
+                    <td>{{ delivery_address.city }}</td>
+                    <td>{{ delivery_address.county }}</td>
+                    <td>{{ delivery_address.postalCode }}</td>
+                    <td>{{ delivery_address.country }}</td>
+                    <td>{{ delivery_address.createdAt ? delivery_address.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('delivery_address_show', {'id': delivery_address.id}) }}" title="Prikaži pojedinosti">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}" title="Uredi">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
     </div>
 {% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adresa "{{ delivery_address.street }}"{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Adresa "{{ delivery_address.street }}"</h2>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ delivery_address.id }}</td>
+                </tr>
+                <tr>
+                    <th>Ulica</th>
+                    <td>{{ delivery_address.street }}</td>
+                </tr>
+                <tr>
+                    <th>Grad</th>
+                    <td>{{ delivery_address.city }}</td>
+                </tr>
+                <tr>
+                    <th>Županija</th>
+                    <td>{{ delivery_address.county }}</td>
+                </tr>
+                <tr>
+                    <th>Poštanski broj</th>
+                    <td>{{ delivery_address.postalCode }}</td>
+                </tr>
+                <tr>
+                    <th>Država</th>
+                    <td>{{ delivery_address.country }}</td>
+                </tr>
+                <tr>
+                    <th>Vrijeme stvaranja</th>
+                    <td>{{ delivery_address.createdAt ? delivery_address.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Vrijeme posljednje izmjene</th>
+                    <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('delivery_address_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu adresa isporuka
+        </a>
+
+        <div class="text-center">
+            <a class="btn btn-outline-success" href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}">Uredi podatke</a>
+
+            {{ include('delivery_address/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nova adresa isporuke{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove adrese isporuke</h2>
+
+        {{ include('delivery_address/_form.html.twig') }}
+
+        <a href="{{ path('delivery_address_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu adresa isporuka
+        </a>
+    </div>
+{% endblock %}

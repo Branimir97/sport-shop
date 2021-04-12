@@ -20,6 +20,8 @@
                         <th>Naziv artikla</th>
                         <th>Šifra artikla</th>
                         <th>Cijena [kn]</th>
+                        <th>Vrijeme stvaranja</th>
+                        <th>Vrijeme posljednje izmjene</th>
                         <th>Mogućnosti</th>
                     </tr>
                 </thead>
@@ -30,12 +32,14 @@
                         <td>{{ item.title }}</td>
                         <td>{{ item.cipher }}</td>
                         <td>{{ item.price }}</td>
+                        <td>{{ item.createdAt ? item.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                        <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                         <td>
                             <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Prikaži pojedinosti">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
-                                <i class="fas fa-user-edit"></i>
+                                <i class="fas fa-edit"></i>
                             </a>
                         </td>
                     </tr>

@@ -20,7 +20,7 @@ class AccountSettingsController extends AbstractController
     public function index(DeliveryAddressRepository $deliveryAddressRepository): Response
     {
         $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
-        return $this->render('account_settings/details.html.twig', [
+        return $this->render('account_settings/index.html.twig', [
             'deliveryAddresses'=>$deliveryAddresses
         ]);
     }
