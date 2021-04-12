@@ -28,18 +28,29 @@ class DeliveryAddressController extends AbstractController
     /**
      * @Route("/new", name="delivery_address_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, DeliveryAddressRepository $deliveryAddressRepository): Response
     {
         $deliveryAddress = new DeliveryAddress();
-        $form = $this->createForm(DeliveryAddressType::class, $deliveryAddress);
+        $form = $this->createForm(DeliveryAddressType::class, $deliveryAddress, ['isAdmin'=>$this->isGranted("ROLE_ADMIN")]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+            if($deliveryAddressRepository->findOneBy(['street'=>$formData->getStreet(), 'city'=>$formData->getCity(), 'county'=>$formData->getCounty()])) {
+                $this->addFlash('danger', 'Adresa isporuke već postoji na ovom korisničkom računu.');
+                return $this->redirectToRoute('account_settings');
+            }
+            $deliveryAddress->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($deliveryAddress);
             $entityManager->flush();
 
-            return $this->redirectToRoute('delivery_address_index');
+            $this->addFlash('success', 'Adresa isporuke uspješno dodana.');
+            if($this->isGranted("ROLE_ADMIN")){
+                return $this->redirectToRoute('delivery_address_index');
+            } else {
+                return $this->redirectToRoute('account_settings');
+            }
         }
 
         return $this->render('delivery_address/new.html.twig', [
@@ -69,7 +80,13 @@ class DeliveryAddressController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('delivery_address_index');
+            $this->addFlash('success', 'Adresa isporuke uspješno ažurirana.');
+
+            if($this->isGranted("ROLE_ADMIN")){
+                return $this->redirectToRoute('delivery_address_index');
+            } else {
+                return $this->redirectToRoute('account_settings');
+            }
         }
 
         return $this->render('delivery_address/edit.html.twig', [
@@ -81,14 +98,26 @@ class DeliveryAddressController extends AbstractController
     /**
      * @Route("/{id}", name="delivery_address_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, DeliveryAddress $deliveryAddress): Response
+    public function delete(Request $request, DeliveryAddress $deliveryAddress, DeliveryAddressRepository $deliveryAddressRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$deliveryAddress->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($deliveryAddress);
+
+            $deliveryAddress = $deliveryAddressRepository->findOneBy(['id'=>$request->get('id')]);
+            $this->addFlash(
+                'danger',
+                'Adresa "'.$deliveryAddress->getStreet().' '
+                .$deliveryAddress->getPostalCode().' '
+                .$deliveryAddress->getCity().'" uspješno obrisana.'
+            );
+
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('delivery_address_index');
+        if($this->isGranted("ROLE_ADMIN")){
+            return $this->redirectToRoute('delivery_address_index');
+        } else {
+            return $this->redirectToRoute('account_settings');
+        }
     }
 }

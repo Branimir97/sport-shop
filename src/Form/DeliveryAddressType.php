@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\DeliveryAddress;
+use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,6 +14,8 @@ class DeliveryAddressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $isAdmin = $options['isAdmin'];
+
         $builder
             ->add('street', null, [
                 'attr'=>[
@@ -43,12 +48,27 @@ class DeliveryAddressType extends AbstractType
                 'label'=>'Država'
             ])
         ;
+        if($isAdmin) {
+            $builder
+                ->add('user', EntityType::class, [
+                    'mapped'=>false,
+                    'class'=>User::class,
+                    'query_builder'=>function(EntityRepository $entityRepository) {
+                        return $entityRepository->createQueryBuilder('c');
+                    },
+                    'choice_label'=>'name',
+                    'help'=>"Odaberite korisnika kojem želite pridružiti ovu adresu",
+                    'label'=>'Korisnik'
+                ])
+            ;
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => DeliveryAddress::class,
+            'isAdmin' => false
         ]);
     }
 }

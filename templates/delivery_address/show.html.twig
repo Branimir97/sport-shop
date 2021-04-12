@@ -43,10 +43,17 @@
             </tbody>
         </table>
 
-        <a href="{{ path('delivery_address_index') }}">
-            <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu adresa isporuka
-        </a>
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('delivery_address_index') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                Lista adresa isporuka
+            </a>
+        {% else %}
+            <a href="{{ path('account_settings') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                Postavke računa
+            </a>
+        {% endif %}
 
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}">Uredi podatke</a>
