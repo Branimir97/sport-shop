@@ -10,11 +10,11 @@
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Dodavanje novog artikla</h2>
 
-        {{ include('item/_form.html.twig') }}
-
         <a href="{{ path('item_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Nazad na listu artikala
         </a>
+
+        {{ include('item/_form.html.twig') }}
     </div>
 {% endblock %}

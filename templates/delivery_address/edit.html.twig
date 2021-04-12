@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit DeliveryAddress{% endblock %}
+{% block title %}Adresa "{{ delivery_address.street }}"{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container.css") }}">
@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Uređivanje podataka o adresi isporuke</h2>
+        <h2 class="text-center mt-2 bg-light p-2">Adresa "{{ delivery_address.street }}"</h2>
 
         {{ include('delivery_address/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
 

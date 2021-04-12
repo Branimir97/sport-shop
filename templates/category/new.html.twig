@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category{% endblock %}
+{% block title %}Nova kategorija{% endblock %}
 
 {% block body %}
-    <h1>Create new Category</h1>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove kategorije</h2>
 
-    {{ include('category/_form.html.twig') }}
+        <a href="{{ path('category_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Nazad na listu kategorija
+        </a>
 
-    <a href="{{ path('category_index') }}">back to list</a>
+        {{ include('category/_form.html.twig') }}
+    </div>
 {% endblock %}

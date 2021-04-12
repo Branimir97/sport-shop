@@ -12,11 +12,36 @@ class DeliveryAddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('street')
-            ->add('city')
-            ->add('county')
-            ->add('postalCode')
-            ->add('country')
+            ->add('street', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. Kneza Trpimira 2B'
+                ],
+                'label'=>'Ulica'
+            ])
+            ->add('city', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. Osijek'
+                ],
+                'label'=>'Grad'
+            ])
+            ->add('county', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. Osječko-Baranjska'
+                ],
+                'label'=>'Županija'
+            ])
+            ->add('postalCode', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. 31000'
+                ],
+                'label'=>'Poštanski broj'
+            ])
+            ->add('country', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. Hrvatska'
+                ],
+                'label'=>'Država'
+            ])
         ;
     }
 
