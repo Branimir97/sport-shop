@@ -31,7 +31,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -49,7 +48,7 @@ class RegistrationController extends AbstractController
                 $this->addFlash('success', 'Novi korisnik uspješno registriran.');
                 $this->redirectToRoute('user_index');
             } else {
-                $this->addFlash('success', 'Uspješno ste se registrirali.');
+                $this->addFlash('success', 'Uspješno ste se registrirali. Automatski ste prijavljeni u sustav.');
                 return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

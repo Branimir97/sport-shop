@@ -54,7 +54,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash('success', 'Podaci o računu uspješno ažurirani.');
             if($this->isGranted("ROLE_ADMIN")){
                 return $this->redirectToRoute('user_index');

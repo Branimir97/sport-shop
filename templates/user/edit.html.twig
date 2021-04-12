@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Uredi podatke{% endblock %}
+{% block title %}Korisnik {{ user.name }} {{ user.surname }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/edit_user.css") }}">

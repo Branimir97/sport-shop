@@ -37,19 +37,18 @@ class UserFormType extends AbstractType
                 'label'=>'Spol'
             ])
             ->add('birthDate', DateType::class, [
+                'required'=>false,
                 'widget' => 'single_text',
                 'help'=>'Parametar nije obavezan, ali doprinosi boljem korisničkom iskustvu',
                 'label'=>'Datum i godina rođenja'
             ])
-
             ->add('email', null, [
                 'label'=>'Email adresa *'
             ]);
+
             if(!$isEditForm) {
                 $builder
                     ->add('password', RepeatedType::class, [
-                        // instead of being set onto the object directly,
-                        // this is read and encoded in the controller
                         'type'=>PasswordType::class,
                         'mapped' => false,
                         'first_options'  => [
@@ -73,7 +72,6 @@ class UserFormType extends AbstractType
                             ]),
                         ],
                     ])
-
                     ->add('agreeTerms', CheckboxType::class, [
                         'mapped' => false,
                         'constraints' => [
