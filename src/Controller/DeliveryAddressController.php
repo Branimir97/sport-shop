@@ -31,7 +31,7 @@ class DeliveryAddressController extends AbstractController
     public function new(Request $request, DeliveryAddressRepository $deliveryAddressRepository): Response
     {
         $deliveryAddress = new DeliveryAddress();
-        $form = $this->createForm(DeliveryAddressType::class, $deliveryAddress, ['isAdmin'=>$this->isGranted("ROLE_ADMIN")]);
+        $form = $this->createForm(DeliveryAddressType::class, $deliveryAddress);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
