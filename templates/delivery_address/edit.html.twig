@@ -10,7 +10,7 @@
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Adresa "{{ delivery_address.street }}"</h2>
 
-        {{ include('delivery_address/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('delivery_address/_create_form.html.twig', {'button_label': 'Spremi promjene'}) }}
 
         <a href="{{ path('delivery_address_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>

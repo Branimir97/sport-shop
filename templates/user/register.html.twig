@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registracija{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/container.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger mt-1 p-2 text-center" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        <h2 class="text-center mb-3 mt-2 p-2">Registracija novog korisnika</h2>
+
+        <div class="text-center">
+        {{ include('user/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

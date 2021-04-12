@@ -6,7 +6,7 @@
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Uređivanje podataka o boji ({{ color.value }})</h2>
 
-        {{ include('color/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('color/_create_form.html.twig', {'button_label': 'Spremi promjene'}) }}
 
         <a href="{{ path('color_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>

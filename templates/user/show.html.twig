@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Korisnik {{ user.name }} {{ user.surname }}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -34,31 +34,23 @@
                 </tr>
                 <tr>
                     <th>Datum i godina rođenja</th>
-                    <td>{{ user.birthDate ? user.birthDate|date('d.m.Y.') : '' }}</td>
+                    <td>{{ user.birthDate ? user.birthDate|date('d.m.Y.') : '-' }}</td>
                 </tr>
                 <tr>
-                <th>FacebookId</th>
-                {% if not user.facebookId %}
-                    <td>-</td>
-                    {% else %}
-                        <td>{{ user.facebookId }}</td>
-                {% endif %}
+                    <th>FacebookId</th>
+                    <td>{{ user.facebookId ? user.facebookId : '-' }}</td>
                 </tr>
                 <tr>
                     <th>GoogleId</th>
-                    {% if not user.googleId %}
-                        <td>-</td>
-                    {% else %}
-                        <td>{{ user.googleId }}</td>
-                    {% endif %}
+                    <td>{{ user.googleId ? user.googleId : '-' }}</td>
                 </tr>
                 <tr>
                     <th>Vrijeme registracije</th>
-                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme zadnjeg ažuriranja</th>
-                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <th>Vrijeme posljednje izmjene</th>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
                 </tr>
             </tbody>
         </table>

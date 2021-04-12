@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\UserFormType;
 use App\Form\UserType;
+use App\Repository\DeliveryAddressRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,13 +49,18 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserFormType::class, $user, ['isEditForm'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('account_settings');
+            $this->addFlash('success', 'Podaci o računu uspješno ažurirani.');
+            if($this->isGranted("ROLE_ADMIN")){
+                return $this->redirectToRoute('user_index');
+            } else {
+                return $this->redirectToRoute('account_settings');
+            }
         }
 
         return $this->render('user/edit.html.twig', [
@@ -74,5 +81,18 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/account/settings", name="account_settings", methods={"GET"})
+     * @param DeliveryAddressRepository $deliveryAddressRepository
+     * @return Response
+     */
+    public function settings(DeliveryAddressRepository $deliveryAddressRepository): Response
+    {
+        $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
+        return $this->render('user/account_settings.html.twig', [
+            'deliveryAddresses'=>$deliveryAddresses
+        ]);
     }
 }
