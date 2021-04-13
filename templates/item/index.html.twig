@@ -21,7 +21,7 @@
                         <th>Šifra artikla</th>
                         <th>Cijena [kn]</th>
                         <th>Vrijeme stvaranja</th>
-                        <th>Vrijeme posljednje izmjene</th>
+                        <th>Vrijeme zadnje izmjene</th>
                         <th>Mogućnosti</th>
                     </tr>
                 </thead>
@@ -32,7 +32,7 @@
                         <td>{{ item.title }}</td>
                         <td>{{ item.cipher }}</td>
                         <td>{{ item.price }}</td>
-                        <td>{{ item.createdAt ? item.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                        <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
                         <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                         <td>
                             <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Prikaži pojedinosti">

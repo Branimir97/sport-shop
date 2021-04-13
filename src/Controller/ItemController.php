@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use App\Entity\Tag;
 use App\Form\ItemType;
 use App\Repository\CategoryRepository;
 use App\Repository\ItemRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/item")
+ * @IsGranted("ROLE_ADMIN")
  */
 class ItemController extends AbstractController
 {
@@ -22,7 +25,7 @@ class ItemController extends AbstractController
     public function index(ItemRepository $itemRepository): Response
     {
         return $this->render('item/index.html.twig', [
-            'items' => $itemRepository->findAll(),
+            'items' => $itemRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -36,14 +39,37 @@ class ItemController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $item->setCipher(uniqid());
+
+            $categories = $form->get('category')->getData();
+            foreach($categories as $category) {
+                $item->addCategory($category);
+            }
+//            $tags = $form->get('tag')->getData();
+//            $explodedTags = explode(PHP_EOL, $tags);
+//            foreach($explodedTags as $tag) {
+//                $tagObject = new Tag();
+//                $tagObject->setName($tag);
+//                $item->addTag($tagObject);
+//            }
+
+            $sizes = $form->get('size')->getData();
+            foreach($sizes as $size) {
+                $item->addSize($size);
+            }
+            $colors = $form->get('color')->getData();
+            foreach($colors as $color) {
+                $item->addColor($color);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($item);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Artikl uspješno dodan.');
             return $this->redirectToRoute('item_index');
         }
 
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findBy([], ['id'=>'DESC']);
 
         return $this->render('item/new.html.twig', [
             'item' => $item,
@@ -73,6 +99,7 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno ažuriran.');
             return $this->redirectToRoute('item_index');
         }
 
@@ -90,6 +117,8 @@ class ItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($item);
+
+            $this->addFlash('danger', 'Artikl "'.$item->getTitle().'" uspješno obrisan.');
             $entityManager->flush();
         }
 
