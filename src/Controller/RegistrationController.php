@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Form\UserFormType;
+use App\Form\UserType;
 use App\Security\AppAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
     {
         $user = new User();
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,7 +46,7 @@ class RegistrationController extends AbstractController
 
             if($this->isGranted("ROLE_ADMIN")){
                 $this->addFlash('success', 'Novi korisnik uspješno registriran.');
-                $this->redirectToRoute('user_index');
+                return $this->redirectToRoute('user_index');
             } else {
                 $this->addFlash('success', 'Uspješno ste se registrirali. Automatski ste prijavljeni u sustav.');
                 return $guardHandler->authenticateUserAndHandleSuccess(

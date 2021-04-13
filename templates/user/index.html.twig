@@ -15,7 +15,7 @@
                     <th>Prezime</th>
                     <th>Spol</th>
                     <th>Vrijeme registracije</th>
-                    <th>Vrijeme zadnjeg ažuriranja</th>
+                    <th>Vrijeme zadnje izmjene</th>
                     <th>Mogućnosti</th>
                 </tr>
             </thead>
@@ -26,9 +26,9 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.surname }}</td>
-                    <td>{{ user.gender }}</td>
-                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
-                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ user.gender ? user.gender : '-' }}</td>
+                    <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
                     <td>
                         <a class="btn" href="{{ path('user_show', {'id': user.id}) }}" title="Prikaži pojedinosti">
                             <i class="fas fa-info-circle"></i>

@@ -46,11 +46,8 @@ class DeliveryAddressController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Adresa isporuke uspješno dodana.');
-            if($this->isGranted("ROLE_ADMIN")){
-                return $this->redirectToRoute('delivery_address_index');
-            } else {
-                return $this->redirectToRoute('account_settings');
-            }
+            return $this->redirectToRoute('account_settings');
+
         }
 
         return $this->render('delivery_address/new.html.twig', [
@@ -80,7 +77,9 @@ class DeliveryAddressController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Adresa isporuke uspješno ažurirana.');
+            $this->addFlash('success',
+                'Adresa isporuke "'.$deliveryAddress->getStreet().' '.
+                            $deliveryAddress->getPostalCode().' '.$deliveryAddress->getCity().'" uspješno ažurirana.');
 
             if($this->isGranted("ROLE_ADMIN")){
                 return $this->redirectToRoute('delivery_address_index');
@@ -107,7 +106,7 @@ class DeliveryAddressController extends AbstractController
             $deliveryAddress = $deliveryAddressRepository->findOneBy(['id'=>$request->get('id')]);
             $this->addFlash(
                 'danger',
-                'Adresa "'.$deliveryAddress->getStreet().' '
+                'Adresa isporuke "'.$deliveryAddress->getStreet().' '
                 .$deliveryAddress->getPostalCode().' '
                 .$deliveryAddress->getCity().'" uspješno obrisana.'
             );

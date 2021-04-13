@@ -9,10 +9,8 @@
         <div class="text-center">
             <img src="{{ asset('images/logo.png') }}" alt="">
             <p>Ne postoji niti jedna adresa isporuke u bazi podataka.</p>
-            <a href="{{ path('delivery_address_new') }}" class="btn btn-outline-info mb-3">Dodaj novu adresu isporuke</a>
         </div>
         {% else %}
-        <a href="{{ path('delivery_address_new') }}" class="btn btn-outline-info mb-3">Dodaj novu adresu isporuke</a>
         <table class="table">
             <thead>
                 <tr>

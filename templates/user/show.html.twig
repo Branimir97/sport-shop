@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th>Spol</th>
-                    <td>{{ user.gender }}</td>
+                    <td>{{ user.gender ? user.gender : '-' }}</td>
                 </tr>
                 <tr>
                     <th>Datum i godina rođenja</th>
@@ -46,11 +46,36 @@
                 </tr>
                 <tr>
                     <th>Vrijeme registracije</th>
-                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '-' }}</td>
+                    <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
                 </tr>
                 <tr>
                     <th>Vrijeme posljednje izmjene</th>
                     <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>Adrese isporuke</th>
+                    <td>
+                        {% if user.deliveryAddresses|length > 0 %}
+                            {% for deliveryAddress in user.deliveryAddresses %}
+                                    {{ deliveryAddress.street }}, {{ deliveryAddress.postalCode }} {{ deliveryAddress.city }} | {{ deliveryAddress.country }}<br>
+                                    <a href="{{ path('delivery_address_edit', {id:deliveryAddress.id}) }}">
+                                        Uredi podatke o adresi isporuke
+                                        <i class="fas fa-edit"></i>
+                                    </a><br>
+                            {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+
+{#                            {% for deliveryAddress in user.deliveryAddresses %}#}
+{#                                {{ deliveryAddress.street }}<br>#}
+{#                                <a href="{{ path('delivery_address_edit', {id:deliveryAddress.id}) }}">#}
+{#                                    Uredi podatke o adresi isporuke#}
+{#                                    <i class="fas fa-edit"></i>#}
+{#                                </a><br>#}
+{#                            {% endfor %}#}
                 </tr>
             </tbody>
         </table>

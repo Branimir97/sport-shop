@@ -3,18 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
-use App\Form\UserFormType;
 use App\Form\UserType;
 use App\Repository\DeliveryAddressRepository;
 use App\Repository\UserRepository;
-use App\Security\AppAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
  * @Route("/user")
@@ -49,12 +44,12 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserFormType::class, $user, ['isEditForm'=>true]);
+        $form = $this->createForm(UserType::class, $user, ['isEditForm'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Podaci o računu uspješno ažurirani.');
+            $this->addFlash('success', 'Podaci o korisniku "'.$user->getName().' '. $user->getSurname().'" uspješno ažurirani.');
             if($this->isGranted("ROLE_ADMIN")){
                 return $this->redirectToRoute('user_index');
             } else {
@@ -78,7 +73,11 @@ class UserController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
         }
-
+        if($this->isGranted("ROLE_ADMIN")) {
+            $this->addFlash('success', 'Korisnički račun uspješno obrisan.');
+            return $this->redirectToRoute('user_index');
+        }
+        $this->addFlash('success', 'Korisnički račun uspješno obrisan.');
         return $this->redirectToRoute('home');
     }
 

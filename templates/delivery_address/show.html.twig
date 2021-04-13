@@ -40,6 +40,15 @@
                     <th>Vrijeme posljednje izmjene</th>
                     <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                 </tr>
+                <tr>
+                    <th>Adresa pripada korisniku</th>
+                    <td>{{ delivery_address.user.name }} {{ delivery_address.user.surname }}<br>
+                        <a href="{{ path('user_edit', {id:delivery_address.user.id}) }}">
+                            Uredi podatke o korisniku
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
