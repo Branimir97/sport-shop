@@ -41,6 +41,9 @@
                             <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            <a href="{{ path('item_details', {'id': item.id}) }}" title="Prikaži iz pogleda korisnika">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

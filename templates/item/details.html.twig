@@ -13,7 +13,7 @@
                 <div id="carousel-item-info" class="carousel mt-1">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                            <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="0"></li>
                             <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
                             <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
                         </ol>
@@ -40,8 +40,21 @@
                 </div>
             </div>
             <div class="col-md-6 mt-3">
-                <h3 class="text-center">Dječje čarape</h3>
-                <p>Šifra artikla: 8555876</p>
+                <h3 class="text-center">{{ item.title }}</h3>
+                <div class="category text-center">
+                    {% if item.category|length == 1 %}
+                        <p>Kategorija artikla:
+                            <a href="#">{{ category.name }}</a>
+                        </p>
+                    {% else %}
+                        <p>Kategorije artikla:
+                            {% for category in item.category %}
+                                <a href="#">{{ category.name }}</a>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+                <p>Šifra artikla: {{ item.cipher }}</p>
                 <div class="text-right">
                     <a class="btn btn-outline-primary">Dodaj na popis želja <i class="ml-1 far fa-heart"></i> </a>
                 </div>
@@ -50,11 +63,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Odabir veličine</label>
                             <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Veličina#1</option>
-                                <option>Veličina#2</option>
-                                <option>Veličina#3</option>
-                                <option>Veličina#4</option>
-                                <option>Veličina#5</option>
+                                {% for size in item.sizes %}
+                                    <option>{{ size.value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -62,11 +73,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Odabir boje</label>
                             <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Boja#1</option>
-                                <option>Boja#2</option>
-                                <option>Boja#3</option>
-                                <option>Boja#4</option>
-                                <option>Boja#5</option>
+                                {% for color in item.colors %}
+                                    <option>{{ color.value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -77,7 +86,7 @@
                 </div>
                 <div class="row ml-0 mr-0">
                     <div class="col-md-6">
-                        <h6>Cijena: <b>23kn</b></h6>
+                        <h6>Cijena: <strong>{{ item.price }}</strong> kn</h6>
                     </div>
                     <div class="col-md-6 text-right">
                         <a class="text-center btn btn-outline-success">Dodaj u košaricu <i class="ml-1 fas fa-cart-plus"></i></a>
@@ -105,6 +114,4 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}

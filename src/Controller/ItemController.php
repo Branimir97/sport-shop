@@ -37,6 +37,7 @@ class ItemController extends AbstractController
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
         $form->handleRequest($request);
+        $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $item->setCipher(uniqid());
@@ -45,13 +46,15 @@ class ItemController extends AbstractController
             foreach($categories as $category) {
                 $item->addCategory($category);
             }
-//            $tags = $form->get('tag')->getData();
-//            $explodedTags = explode(PHP_EOL, $tags);
-//            foreach($explodedTags as $tag) {
-//                $tagObject = new Tag();
-//                $tagObject->setName($tag);
-//                $item->addTag($tagObject);
-//            }
+            $tags = $form->get('tag')->getData();
+            $explodedTags = explode(PHP_EOL, $tags);
+            foreach($explodedTags as $tag) {
+                $tagObject = new Tag();
+                $tagObject->setName("#".$tag);
+                $entityManager->persist($tagObject);
+                $item->addTag($tagObject);
+            }
+            $entityManager->flush();
 
             $sizes = $form->get('size')->getData();
             foreach($sizes as $size) {
@@ -123,5 +126,15 @@ class ItemController extends AbstractController
         }
 
         return $this->redirectToRoute('item_index');
+    }
+
+    /**
+     * @Route("/{id}/details", name="item_details", methods={"GET"})
+     */
+    public function details(Request $request, ItemRepository $itemRepository): Response
+    {
+        return $this->render('item/details.html.twig', [
+            'item' => $itemRepository->findOneBy(['id'=>$request->get('id')]),
+        ]);
     }
 }
