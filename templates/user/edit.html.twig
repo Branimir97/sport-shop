@@ -19,11 +19,12 @@
 
         <div class="text-center">
             {{ include('user/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+
+            {{ include('user/_delete_form.html.twig') }}
+
+            {% if not user.facebookId and not user.googleId %}
+                <a href="{{ path('reset_password', {id:user.id}) }}" class="btn btn-outline-info mb-3">Resetiraj lozinku</a>
+            {% endif %}
         </div>
-        <p class="m-0 mt-2">Ostale mogućnosti:</p>
-        {{ include('user/_delete_form.html.twig') }}
-
-
-        <a href="#" class="btn btn-outline-info mb-3">Resetiraj lozinku</a>
     </div>
 {% endblock %}

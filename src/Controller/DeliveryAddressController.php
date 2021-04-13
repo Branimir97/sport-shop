@@ -36,7 +36,7 @@ class DeliveryAddressController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            if($deliveryAddressRepository->findOneBy(['street'=>$formData->getStreet(), 'city'=>$formData->getCity(), 'county'=>$formData->getCounty()])) {
+            if($deliveryAddressRepository->findOneBy(['user'=>$this->getUser(),'street'=>$formData->getStreet(), 'city'=>$formData->getCity(), 'county'=>$formData->getCounty()])) {
                 $this->addFlash('danger', 'Adresa isporuke već postoji na ovom korisničkom računu.');
                 return $this->redirectToRoute('account_settings');
             }

@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Repository\DeliveryAddressRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
@@ -91,6 +94,65 @@ class UserController extends AbstractController
         $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
         return $this->render('user/account_settings.html.twig', [
             'deliveryAddresses'=>$deliveryAddresses
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/password/reset", name="reset_password", methods={"GET", "POST"})
+     */
+    public function resetPassword(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $user = $userRepository->findOneBy(['id'=>$request->get('id')]);
+
+        if(!is_null($user->getFacebookId()) || !is_null($user->getGoogleId())) {
+            return $this->redirectToRoute('account_settings');
+        }
+
+        $form = $this->createForm(ResetPasswordType::class, null, ['isAdmin'=>$this->isGranted("ROLE_ADMIN")]);
+        $form->handleRequest($request);
+
+        /** @var User $user */
+        if($form->isSubmitted() && $form->isValid())
+        {
+            if($this->isGranted("ROLE_ADMIN")){
+                $newPassword =  $form->get('password')->get('first')->getData();
+                $user->setPassword($passwordEncoder->encodePassword(
+                    $user,
+                    $newPassword
+                ));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Lozinka uspješno promijenjena.');
+                return $this->redirectToRoute('user_index');
+            }
+            else
+            {
+                $currentPassword = $form->get('current_password')->getData();
+                $userPassword = $passwordEncoder->isPasswordValid($user, $currentPassword);
+                if(!$userPassword)
+                {
+                    $form->get('current_password')->addError(new FormError('Neispravan unos trenutne lozinke.'));
+                }
+                $newPassword =  $form->get('password')->get('first')->getData();
+                $user->setPassword($passwordEncoder->encodePassword(
+                    $user,
+                    $newPassword
+                ));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Lozinka uspješno promijenjena.');
+                return $this->redirectToRoute('account_settings');
+            }
+        }
+        return $this->render('user/reset_password.html.twig', [
+            'form' => $form->createView(),
+            'user'=>$user,
         ]);
     }
 }

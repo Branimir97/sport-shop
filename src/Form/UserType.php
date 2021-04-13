@@ -58,15 +58,15 @@ class UserType extends AbstractType
                         'second_options' => [
                             'label' => 'Ponovni unos lozinke *',
                             'help'=>'Lozinke se moraju podudarati'
-                            ],
-                        'invalid_message' => 'The password fields must match.',
+                        ],
+                        'invalid_message' => 'Lozinke se moraju podudarati.',
                         'constraints' => [
                             new NotBlank([
-                                'message' => 'Please enter a password',
+                                'message' => 'Unesite lozinku',
                             ]),
                             new Length([
-                                'min' => 6,
-                                'minMessage' => 'Your password should be at least {{ limit }} characters',
+                                'min' => 8,
+                                'minMessage' => 'Lozinka mora sadržavati min. 8 znakova',
                                 // max length allowed by Symfony for security reasons
                                 'max' => 4096,
                             ]),
