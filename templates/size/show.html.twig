@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Size{% endblock %}
+{% block title %}Veličina {{ size.value }}{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Veličina {{ size.value }}</h2>
-
+        <a href="{{ path('size_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista veličina
+        </a>
         <table class="table">
             <tbody>
                 <tr>
@@ -13,24 +16,25 @@
                     <td>{{ size.id }}</td>
                 </tr>
                 <tr>
-                    <th>Value</th>
+                    <th>Veličina</th>
                     <td>{{ size.value }}</td>
                 </tr>
                 <tr>
-                    <th>Type</th>
+                    <th>Vrsta artikla</th>
                     <td>{{ size.type }}</td>
+                </tr>
+                <tr>
+                    <th>Vrijeme stvaranja</th>
+                    <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                </tr>
+                <tr>
+                    <th>Vrijeme zadnje izmjene</th>
+                    <td>{{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                 </tr>
             </tbody>
         </table>
-
-        <a href="{{ path('size_index') }}">
-            <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu veličina
-        </a>
-
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('size_edit', {'id': size.id}) }}">Uredi podatke</a>
-
             {{ include('size/_delete_form.html.twig') }}
         </div>
     </div>

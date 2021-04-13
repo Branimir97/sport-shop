@@ -8,15 +8,14 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o veličini</h2>
-
-        {{ include('size/_create_form.html.twig', {'button_label': 'Spremi promjene'}) }}
-
+        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o veličini {{ size.value }}</h2>
         <a href="{{ path('size_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu veličina
+            Lista veličina
         </a>
-
-        {{ include('size/_delete_form.html.twig') }}
+        {{ include('size/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        <div class="text-center">
+            {{ include('size/_delete_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}

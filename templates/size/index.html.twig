@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Size index{% endblock %}
+{% block title %}Upravljanje veličinama{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -19,6 +19,8 @@
                     <th>Id</th>
                     <th>Veličina</th>
                     <th>Tip artikla</th>
+                    <th>Vrijeme stvaranja</th>
+                    <th>Vrijeme zadnje izmjene</th>
                     <th>Mogućnosti</th>
                 </tr>
             </thead>
@@ -28,6 +30,8 @@
                     <td>{{ size.id }}</td>
                     <td>{{ size.value }}</td>
                     <td>{{ size.type }}</td>
+                    <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                    <td>{{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                     <td>
                         <a class="btn" href="{{ path('size_show', {'id': size.id}) }}" title="Prikaži pojedinosti">
                             <i class="fas fa-info-circle"></i>

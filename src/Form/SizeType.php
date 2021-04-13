@@ -21,7 +21,6 @@ class SizeType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices'=>[
-                    'Odaberi...'=>null,
                     'Odjeća'=>'Odjeća',
                     'Obuća'=>'Obuća'
                 ],

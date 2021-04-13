@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Size;
 use App\Form\SizeType;
 use App\Repository\SizeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/size")
+ * @IsGranted("ROLE_ADMIN")
  */
 class SizeController extends AbstractController
 {
@@ -21,7 +23,7 @@ class SizeController extends AbstractController
     public function index(SizeRepository $sizeRepository): Response
     {
         return $this->render('size/index.html.twig', [
-            'sizes' => $sizeRepository->findAll(),
+            'sizes' => $sizeRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -39,6 +41,7 @@ class SizeController extends AbstractController
             $entityManager->persist($size);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Veličina uspješno dodana.');
             return $this->redirectToRoute('size_index');
         }
 
@@ -69,6 +72,7 @@ class SizeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Veličina "'.$size->getValue().'" uspješno ažurirana.');
             return $this->redirectToRoute('size_index');
         }
 
@@ -86,6 +90,8 @@ class SizeController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$size->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($size);
+
+            $this->addFlash('danger', 'Veličina "'.$size->getValue().'" uspješno obrisana.');
             $entityManager->flush();
         }
 

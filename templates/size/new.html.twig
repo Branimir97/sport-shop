@@ -9,12 +9,10 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove veličine</h2>
-
         <a href="{{ path('size_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu veličina
+            Lista veličina
         </a>
-
-        {{ include('size/_create_form.html.twig') }}
+        {{ include('size/_form.html.twig') }}
     </div>
 {% endblock %}
