@@ -21,7 +21,7 @@ class DeliveryAddressController extends AbstractController
     public function index(DeliveryAddressRepository $deliveryAddressRepository): Response
     {
         return $this->render('delivery_address/index.html.twig', [
-            'delivery_addresses' => $deliveryAddressRepository->findAll(),
+            'delivery_addresses' => $deliveryAddressRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -47,9 +47,7 @@ class DeliveryAddressController extends AbstractController
 
             $this->addFlash('success', 'Adresa isporuke uspješno dodana.');
             return $this->redirectToRoute('account_settings');
-
         }
-
         return $this->render('delivery_address/new.html.twig', [
             'delivery_address' => $deliveryAddress,
             'form' => $form->createView(),
@@ -80,14 +78,12 @@ class DeliveryAddressController extends AbstractController
             $this->addFlash('success',
                 'Adresa isporuke "'.$deliveryAddress->getStreet().' '.
                             $deliveryAddress->getPostalCode().' '.$deliveryAddress->getCity().'" uspješno ažurirana.');
-
             if($this->isGranted("ROLE_ADMIN")){
                 return $this->redirectToRoute('delivery_address_index');
             } else {
                 return $this->redirectToRoute('account_settings');
             }
         }
-
         return $this->render('delivery_address/edit.html.twig', [
             'delivery_address' => $deliveryAddress,
             'form' => $form->createView(),
@@ -110,7 +106,6 @@ class DeliveryAddressController extends AbstractController
                 .$deliveryAddress->getPostalCode().' '
                 .$deliveryAddress->getCity().'" uspješno obrisana.'
             );
-
             $entityManager->flush();
         }
         if($this->isGranted("ROLE_ADMIN")){

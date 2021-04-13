@@ -5,7 +5,17 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Adresa "{{ delivery_address.street }}"</h2>
-
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('delivery_address_index') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                Lista adresa isporuka
+            </a>
+        {% else %}
+            <a href="{{ path('account_settings') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                Postavke računa
+            </a>
+        {% endif %}
         <table class="table">
             <tbody>
                 <tr>
@@ -37,7 +47,7 @@
                     <td>{{ delivery_address.createdAt ? delivery_address.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme posljednje izmjene</th>
+                    <th>Vrijeme zadnje izmjene</th>
                     <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                 </tr>
                 <tr>
@@ -51,19 +61,6 @@
                 </tr>
             </tbody>
         </table>
-
-        {% if is_granted("ROLE_ADMIN") %}
-            <a href="{{ path('delivery_address_index') }}">
-                <i class="fas fa-arrow-alt-circle-left"></i>
-                Lista adresa isporuka
-            </a>
-        {% else %}
-            <a href="{{ path('account_settings') }}">
-                <i class="fas fa-arrow-alt-circle-left"></i>
-                Postavke računa
-            </a>
-        {% endif %}
-
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}">Uredi podatke</a>
 
