@@ -19,7 +19,7 @@
                     <th>Id</th>
                     <th>Boja</th>
                     <th>Vrijeme stvaranja</th>
-                    <th>Vrijeme posljednje izmjene</th>
+                    <th>Vrijeme zadnje izmjene</th>
                     <th>Mogućnosti</th>
                 </tr>
             </thead>
@@ -28,13 +28,13 @@
                 <tr>
                     <td>{{ color.id }}</td>
                     <td>{{ color.value }}</td>
-                    <td>{{ user.createdAt ? user.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
-                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ color.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                    <td>{{ color.updatedAt ? color.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                     <td>
-                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}" title="Prikaži pojedinosti">
+                        <a class="btn" href="{{ path('color_show', {'id': color.id}) }}" title="Prikaži pojedinosti">
                             <i class="fas fa-info-circle"></i>
                         </a>
-                        <a href="{{ path('user_edit', {'id': user.id}) }}" title="Uredi">
+                        <a href="{{ path('color_edit', {'id': color.id}) }}" title="Uredi">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>

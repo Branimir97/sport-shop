@@ -2,15 +2,17 @@
 
 {% block title %}Nova boja{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container.css") }}">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove boje</h2>
-
         <a href="{{ path('color_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu boja
+            Lista boja
         </a>
-
-        {{ include('color/_create_form.html.twig') }}
+        {{ include('color/_form.html.twig') }}
     </div>
 {% endblock %}

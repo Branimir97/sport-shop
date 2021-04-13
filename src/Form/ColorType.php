@@ -12,7 +12,12 @@ class ColorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('value')
+            ->add('value', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. Plava'
+                ],
+                'label'=>'Boja'
+            ])
         ;
     }
 

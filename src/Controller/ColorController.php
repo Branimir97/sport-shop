@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Color;
 use App\Form\ColorType;
 use App\Repository\ColorRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/color")
+ * @IsGranted("ROLE_ADMIN")
  */
 class ColorController extends AbstractController
 {
@@ -21,7 +23,7 @@ class ColorController extends AbstractController
     public function index(ColorRepository $colorRepository): Response
     {
         return $this->render('color/index.html.twig', [
-            'colors' => $colorRepository->findAll(),
+            'colors' => $colorRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -33,12 +35,12 @@ class ColorController extends AbstractController
         $color = new Color();
         $form = $this->createForm(ColorType::class, $color);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($color);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Boja uspješno dodana.');
             return $this->redirectToRoute('color_index');
         }
 
@@ -69,6 +71,7 @@ class ColorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', '"'.$color->getValue().'" boja uspješno ažurirana.');
             return $this->redirectToRoute('color_index');
         }
 
@@ -86,6 +89,8 @@ class ColorController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$color->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($color);
+
+            $this->addFlash('danger', '"'.$color->getValue().'" boja uspješno obrisana.');
             $entityManager->flush();
         }
 
