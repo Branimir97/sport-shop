@@ -2,15 +2,17 @@
 
 {% block title %}Nova kategorija{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container.css") }}">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove kategorije</h2>
-
         <a href="{{ path('category_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu kategorija
+            Lista kategorija
         </a>
-
-        {{ include('category/_create_form.html.twig') }}
+        {{ include('category/_form.html.twig') }}
     </div>
 {% endblock %}

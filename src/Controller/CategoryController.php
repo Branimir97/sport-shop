@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/category")
+ * @IsGranted("ROLE_ADMIN")
  */
 class CategoryController extends AbstractController
 {
@@ -21,7 +23,7 @@ class CategoryController extends AbstractController
     public function index(CategoryRepository $categoryRepository): Response
     {
         return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $categoryRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -39,9 +41,9 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Kategorija uspješno dodana.');
             return $this->redirectToRoute('category_index');
         }
-
         return $this->render('category/new.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
@@ -69,9 +71,9 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Kategorija "'.$category->getName().'" uspješno ažurirana.');
             return $this->redirectToRoute('category_index');
         }
-
         return $this->render('category/edit.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
@@ -86,9 +88,10 @@ class CategoryController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
+
+            $this->addFlash('danger', 'Kategorija "'.$category->getName().'" uspješno obrisana.');
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('category_index');
     }
 }

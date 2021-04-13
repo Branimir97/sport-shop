@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Kategorija {{ category.name }}{% endblock %}
+{% block title %}Kategorija "{{ category.name }}"{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container.css") }}">
@@ -8,15 +8,14 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o kategoriji</h2>
-
-        {{ include('category/_create_form.html.twig', {'button_label': 'Spremi promjene'}) }}
-
+        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o kategoriji "{{ category.name }}"</h2>
         <a href="{{ path('category_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Nazad na listu kategorija
+            Lista kategorija
         </a>
-
-        {{ include('category/_delete_form.html.twig') }}
+        {{ include('category/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        <div class="text-center">
+            {{ include('category/_delete_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}
