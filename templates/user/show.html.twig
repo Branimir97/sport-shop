@@ -5,7 +5,10 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">Korisnik {{ user.name }} {{ user.surname }}</h2>
-
+        <a href="{{ path('user_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista korisnika
+        </a>
         <table class="table">
             <tbody>
                 <tr>
@@ -67,28 +70,12 @@
                             -
                         {% endif %}
                     </td>
-
-
-{#                            {% for deliveryAddress in user.deliveryAddresses %}#}
-{#                                {{ deliveryAddress.street }}<br>#}
-{#                                <a href="{{ path('delivery_address_edit', {id:deliveryAddress.id}) }}">#}
-{#                                    Uredi podatke o adresi isporuke#}
-{#                                    <i class="fas fa-edit"></i>#}
-{#                                </a><br>#}
-{#                            {% endfor %}#}
                 </tr>
             </tbody>
         </table>
-
-        <a href="{{ path('user_index') }}">
-            <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista korisnika
-        </a>
-
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('user_edit', {'id': user.id}) }}">Uredi podatke</a>
-
-        {{ include('user/_delete_form.html.twig') }}
+            {{ include('user/_delete_form.html.twig') }}
         </div>
     </div>
 {% endblock %}
