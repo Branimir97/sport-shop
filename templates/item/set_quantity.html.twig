@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postavljanje količine{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/container.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Postavljanje količine artikala</h2>
+
+        <p class="bg-danger text-white p-2 text-center">
+            <i class="fas fa-exclamation-circle"></i>
+            Prije dodavanja artikla, potrebno je unijeti količinu za odabrane veličine/boje.
+        </p>
+
+        {{ include('item/_quantity_form.html.twig') }}
+    </div>
+{% endblock %}

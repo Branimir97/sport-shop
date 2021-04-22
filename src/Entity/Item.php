@@ -57,28 +57,10 @@ class Item
      */
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Size::class, mappedBy="item")
-     */
-    private $sizes;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Color::class, mappedBy="item")
-     */
-    private $colors;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="item")
-     */
-    private $quantities;
-
     public function __construct()
     {
         $this->category = new ArrayCollection();
         $this->tag = new ArrayCollection();
-        $this->sizes = new ArrayCollection();
-        $this->colors = new ArrayCollection();
-        $this->quantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,90 +172,6 @@ class Item
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Size[]
-     */
-    public function getSizes(): Collection
-    {
-        return $this->sizes;
-    }
-
-    public function addSize(Size $size): self
-    {
-        if (!$this->sizes->contains($size)) {
-            $this->sizes[] = $size;
-            $size->addItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSize(Size $size): self
-    {
-        if ($this->sizes->removeElement($size)) {
-            $size->removeItem($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Color[]
-     */
-    public function getColors(): Collection
-    {
-        return $this->colors;
-    }
-
-    public function addColor(Color $color): self
-    {
-        if (!$this->colors->contains($color)) {
-            $this->colors[] = $color;
-            $color->addItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeColor(Color $color): self
-    {
-        if ($this->colors->removeElement($color)) {
-            $color->removeItem($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Quantity[]
-     */
-    public function getQuantities(): Collection
-    {
-        return $this->quantities;
-    }
-
-    public function addQuantity(Quantity $quantity): self
-    {
-        if (!$this->quantities->contains($quantity)) {
-            $this->quantities[] = $quantity;
-            $quantity->setItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuantity(Quantity $quantity): self
-    {
-        if ($this->quantities->removeElement($quantity)) {
-            // set the owning side to null (unless already changed)
-            if ($quantity->getItem() === $this) {
-                $quantity->setItem(null);
-            }
-        }
 
         return $this;
     }

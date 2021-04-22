@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use App\Entity\Quantity;
 use App\Entity\Tag;
-use App\Form\AmountType;
+use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\CategoryRepository;
 use App\Repository\ItemRepository;
@@ -41,22 +42,42 @@ class ItemController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $item->setCipher(uniqid());
             $sizes = $form->get('size')->getData();
             $colors = $form->get('color')->getData();
 
             if(!is_null($sizes) || !is_null($colors)) {
-                $formAmounts = $this->createForm(AmountType::class, null, [
+                $formQuantity = $this->createForm(QuantityType::class, null, [
                     'sizes'=>$sizes, 'colors'=>$colors
                 ]);
-                $formAmounts->handleRequest($request);
-                return $this->render('item/set_amount.html.twig',[
+                $formQuantity->handleRequest($request);
+
+                if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
+                    $data = $form->getData();
+                    $keys = array_keys($data);
+                    foreach ($keys as $quantity_item) {
+                        $explodedData = explode($quantity_item, '_');
+                        if($explodedData[0] == "size") {
+
+                        }
+                        if($explodedData[0] == "color") {
+
+                        }
+
+                    }
+
+                    $this->addFlash('success', 'Artikl uspješno dodan.');
+                    return $this->redirectToRoute('item_index');
+                }
+
+                return $this->render('item/set_quantity.html.twig',[
                         'item' => $item,
-                        'form' => $formAmounts->createView(),
+                        'form' => $formQuantity->createView(),
                     ]);
 
             }
-//            $item->setCipher(uniqid());
-//
+
+
 //            $categories = $form->get('category')->getData();
 //            foreach($categories as $category) {
 //                $item->addCategory($category);
@@ -69,22 +90,6 @@ class ItemController extends AbstractController
 //                $entityManager->persist($tagObject);
 //                $item->addTag($tagObject);
 //            }
-//            $entityManager->flush();
-//
-//            $sizes = $form->get('size')->getData();
-//            foreach($sizes as $size) {
-//                $item->addSize($size);
-//            }
-//            $colors = $form->get('color')->getData();
-//            foreach($colors as $color) {
-//                $item->addColor($color);
-//            }
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($item);
-//            $entityManager->flush();
-//
-//            $this->addFlash('success', 'Artikl uspješno dodan.');
-//            return $this->redirectToRoute('item_index');
         }
 
         $categories = $categoryRepository->findBy([], ['id'=>'DESC']);

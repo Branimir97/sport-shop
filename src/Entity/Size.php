@@ -42,22 +42,6 @@ class Size
      */
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Item::class, inversedBy="sizes")
-     */
-    private $item;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="size")
-     */
-    private $quantities;
-
-    public function __construct()
-    {
-        $this->item = new ArrayCollection();
-        $this->quantities = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -107,60 +91,6 @@ class Size
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Item[]
-     */
-    public function getItem(): Collection
-    {
-        return $this->item;
-    }
-
-    public function addItem(Item $item): self
-    {
-        if (!$this->item->contains($item)) {
-            $this->item[] = $item;
-        }
-
-        return $this;
-    }
-
-    public function removeItem(Item $item): self
-    {
-        $this->item->removeElement($item);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Quantity[]
-     */
-    public function getQuantities(): Collection
-    {
-        return $this->quantities;
-    }
-
-    public function addQuantity(Quantity $quantity): self
-    {
-        if (!$this->quantities->contains($quantity)) {
-            $this->quantities[] = $quantity;
-            $quantity->setSize($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuantity(Quantity $quantity): self
-    {
-        if ($this->quantities->removeElement($quantity)) {
-            // set the owning side to null (unless already changed)
-            if ($quantity->getSize() === $this) {
-                $quantity->setSize(null);
-            }
-        }
 
         return $this;
     }
