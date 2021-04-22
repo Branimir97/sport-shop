@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item title{% endblock %}
+{% block title %}{{ item.title }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/item_details.css") }}">

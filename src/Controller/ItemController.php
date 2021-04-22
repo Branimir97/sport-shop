@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Item;
 use App\Entity\Tag;
+use App\Form\AmountType;
 use App\Form\ItemType;
 use App\Repository\CategoryRepository;
 use App\Repository\ItemRepository;
@@ -40,36 +41,50 @@ class ItemController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $item->setCipher(uniqid());
-
-            $categories = $form->get('category')->getData();
-            foreach($categories as $category) {
-                $item->addCategory($category);
-            }
-            $tags = $form->get('tag')->getData();
-            $explodedTags = explode(PHP_EOL, $tags);
-            foreach($explodedTags as $tag) {
-                $tagObject = new Tag();
-                $tagObject->setName("#".$tag);
-                $entityManager->persist($tagObject);
-                $item->addTag($tagObject);
-            }
-            $entityManager->flush();
-
             $sizes = $form->get('size')->getData();
-            foreach($sizes as $size) {
-                $item->addSize($size);
-            }
             $colors = $form->get('color')->getData();
-            foreach($colors as $color) {
-                $item->addColor($color);
-            }
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($item);
-            $entityManager->flush();
 
-            $this->addFlash('success', 'Artikl uspješno dodan.');
-            return $this->redirectToRoute('item_index');
+            if(!is_null($sizes) || !is_null($colors)) {
+                $formAmounts = $this->createForm(AmountType::class, null, [
+                    'sizes'=>$sizes, 'colors'=>$colors
+                ]);
+                $formAmounts->handleRequest($request);
+                return $this->render('item/set_amount.html.twig',[
+                        'item' => $item,
+                        'form' => $formAmounts->createView(),
+                    ]);
+
+            }
+//            $item->setCipher(uniqid());
+//
+//            $categories = $form->get('category')->getData();
+//            foreach($categories as $category) {
+//                $item->addCategory($category);
+//            }
+//            $tags = $form->get('tag')->getData();
+//            $explodedTags = explode(PHP_EOL, $tags);
+//            foreach($explodedTags as $tag) {
+//                $tagObject = new Tag();
+//                $tagObject->setName("#".$tag);
+//                $entityManager->persist($tagObject);
+//                $item->addTag($tagObject);
+//            }
+//            $entityManager->flush();
+//
+//            $sizes = $form->get('size')->getData();
+//            foreach($sizes as $size) {
+//                $item->addSize($size);
+//            }
+//            $colors = $form->get('color')->getData();
+//            foreach($colors as $color) {
+//                $item->addColor($color);
+//            }
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($item);
+//            $entityManager->flush();
+//
+//            $this->addFlash('success', 'Artikl uspješno dodan.');
+//            return $this->redirectToRoute('item_index');
         }
 
         $categories = $categoryRepository->findBy([], ['id'=>'DESC']);

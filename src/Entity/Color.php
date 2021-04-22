@@ -42,9 +42,15 @@ class Color
      */
     private $item;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="color")
+     */
+    private $quantities;
+
     public function __construct()
     {
         $this->item = new ArrayCollection();
+        $this->quantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,6 +114,36 @@ class Color
     public function removeItem(Item $item): self
     {
         $this->item->removeElement($item);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quantity[]
+     */
+    public function getQuantities(): Collection
+    {
+        return $this->quantities;
+    }
+
+    public function addQuantity(Quantity $quantity): self
+    {
+        if (!$this->quantities->contains($quantity)) {
+            $this->quantities[] = $quantity;
+            $quantity->setColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuantity(Quantity $quantity): self
+    {
+        if ($this->quantities->removeElement($quantity)) {
+            // set the owning side to null (unless already changed)
+            if ($quantity->getColor() === $this) {
+                $quantity->setColor(null);
+            }
+        }
 
         return $this;
     }

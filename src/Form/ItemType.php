@@ -41,6 +41,7 @@ class ItemType extends AbstractType
                 'label'=>'Kategorije'
             ])
             ->add('tag', TextareaType::class, [
+                'required'=>false,
                 'mapped'=>false,
                 'help'=>"Unesite svaki #tag u novi red",
                 'attr'=>[
@@ -49,6 +50,7 @@ class ItemType extends AbstractType
                 'label'=>'Tagovi',
             ])
             ->add('size', EntityType::class, [
+                'required'=>false,
                 'mapped'=>false,
                 'class'=>Size::class,
                 'multiple'=>true,
@@ -59,10 +61,8 @@ class ItemType extends AbstractType
                 'help'=>"Odaberite jednu ili više veličina",
                 'label'=>'Dostupne veličine',
             ])
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-
-            })
             ->add('color', EntityType::class, [
+                'required'=>false,
                 'mapped'=>false,
                 'class'=>Color::class,
                 'multiple'=>true,
