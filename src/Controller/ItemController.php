@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Item;
-use App\Entity\Quantity;
-use App\Entity\Tag;
+use App\Entity\ItemColor;
+use App\Entity\ItemSize;
 use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\CategoryRepository;
@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,7 +35,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/new", name="item_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    public function new(Request $request): Response
     {
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
@@ -43,63 +44,74 @@ class ItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $item->setCipher(uniqid());
+            $categories = $form->get('category')->getData();
+            foreach($categories as $category) {
+                $item->addCategory($category);
+            }
             $sizes = $form->get('size')->getData();
             $colors = $form->get('color')->getData();
-
-            if(!is_null($sizes) || !is_null($colors)) {
-                $formQuantity = $this->createForm(QuantityType::class, null, [
-                    'sizes'=>$sizes, 'colors'=>$colors
-                ]);
-                $formQuantity->handleRequest($request);
-
-                if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
-                    $data = $form->getData();
-                    $keys = array_keys($data);
-                    foreach ($keys as $quantity_item) {
-                        $explodedData = explode($quantity_item, '_');
-                        if($explodedData[0] == "size") {
-
-                        }
-                        if($explodedData[0] == "color") {
-
-                        }
-
-                    }
-
-                    $this->addFlash('success', 'Artikl uspješno dodan.');
-                    return $this->redirectToRoute('item_index');
-                }
-
-                return $this->render('item/set_quantity.html.twig',[
-                        'item' => $item,
-                        'form' => $formQuantity->createView(),
-                    ]);
-
+            if(count($sizes)!=0 || count($colors)!=0) {
+                $session = new Session();
+                $session->set('item', $item);
+                $session->set('sizes', $sizes);
+                $session->set('colors', $colors);
+                return $this->redirectToRoute('item_quantity_set');
+            } else {
+                $entityManager->persist($item);
+                $entityManager->flush();
+                $this->addFlash('success', 'Artikl uspješno dodan.');
+                return $this->redirectToRoute('item_index');
             }
 
-
-//            $categories = $form->get('category')->getData();
-//            foreach($categories as $category) {
-//                $item->addCategory($category);
-//            }
-//            $tags = $form->get('tag')->getData();
-//            $explodedTags = explode(PHP_EOL, $tags);
-//            foreach($explodedTags as $tag) {
-//                $tagObject = new Tag();
-//                $tagObject->setName("#".$tag);
-//                $entityManager->persist($tagObject);
-//                $item->addTag($tagObject);
-//            }
         }
-
-        $categories = $categoryRepository->findBy([], ['id'=>'DESC']);
-
         return $this->render('item/new.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
-            'categories' => $categories
         ]);
     }
+
+    /**
+     * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
+     */
+    public function quantitySet(Request $request): Response
+    {
+        $item = $this->get('session')->get('item');
+        $sizes = $this->get('session')->get('sizes');
+        $colors = $this->get('session')->get('colors');
+        $entityManager = $this->getDoctrine()->getManager();
+        $formQuantity = $this->createForm(QuantityType::class, null, [
+            'sizes'=>$sizes, 'colors'=>$colors
+        ]);
+        $formQuantity->handleRequest($request);
+
+        if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
+            foreach($sizes as $size) {
+                $itemSize = new ItemSize();
+                $itemSize->setItem($item);
+                $itemSize->setSize($size);
+                $itemSize->setQuantity(5);
+                $entityManager->persist($itemSize);
+                $entityManager->flush();
+            }
+            foreach($colors as $color) {
+                $itemColor = new ItemColor();
+                $itemColor->setItem($item);
+                $itemColor->setColor($color);
+                $itemColor->setQuantity(5);
+                $entityManager->persist($itemColor);
+                $entityManager->flush();
+
+            }
+            $entityManager->persist($item);
+            $entityManager->flush();
+            $this->addFlash('success', 'Artikl uspješno dodan.');
+            return $this->redirectToRoute('item_index');
+        }
+        return $this->render('item/set_quantity.html.twig',[
+            'form' => $formQuantity->createView(),
+        ]);
+    }
+
 
     /**
      * @Route("/{id}", name="item_show", methods={"GET"})

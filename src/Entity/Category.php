@@ -38,13 +38,13 @@ class Category
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Item::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="category")
      */
-    private $items;
+    private $itemCategories;
 
     public function __construct()
     {
-        $this->items = new ArrayCollection();
+        $this->itemCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,27 +89,30 @@ class Category
     }
 
     /**
-     * @return Collection|Item[]
+     * @return Collection|ItemCategory[]
      */
-    public function getItems(): Collection
+    public function getItemCategories(): Collection
     {
-        return $this->items;
+        return $this->itemCategories;
     }
 
-    public function addItem(Item $item): self
+    public function addItemCategory(ItemCategory $itemCategory): self
     {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $item->addCategory($this);
+        if (!$this->itemCategories->contains($itemCategory)) {
+            $this->itemCategories[] = $itemCategory;
+            $itemCategory->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeItem(Item $item): self
+    public function removeItemCategory(ItemCategory $itemCategory): self
     {
-        if ($this->items->removeElement($item)) {
-            $item->removeCategory($this);
+        if ($this->itemCategories->removeElement($itemCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($itemCategory->getCategory() === $this) {
+                $itemCategory->setCategory(null);
+            }
         }
 
         return $this;

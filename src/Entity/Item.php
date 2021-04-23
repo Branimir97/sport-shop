@@ -36,11 +36,6 @@ class Item
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="items")
-     */
-    private $category;
-
-    /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -67,12 +62,17 @@ class Item
      */
     private $itemColors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="item")
+     */
+    private $itemCategories;
+
     public function __construct()
     {
-        $this->category = new ArrayCollection();
         $this->itemTags = new ArrayCollection();
         $this->itemSizes = new ArrayCollection();
         $this->itemColors = new ArrayCollection();
+        $this->itemCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,30 +112,6 @@ class Item
     public function setPrice(string $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        $this->category->removeElement($category);
 
         return $this;
     }
@@ -248,6 +224,36 @@ class Item
             // set the owning side to null (unless already changed)
             if ($itemColor->getItem() === $this) {
                 $itemColor->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemCategory[]
+     */
+    public function getItemCategories(): Collection
+    {
+        return $this->itemCategories;
+    }
+
+    public function addItemCategory(ItemCategory $itemCategory): self
+    {
+        if (!$this->itemCategories->contains($itemCategory)) {
+            $this->itemCategories[] = $itemCategory;
+            $itemCategory->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemCategory(ItemCategory $itemCategory): self
+    {
+        if ($this->itemCategories->removeElement($itemCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($itemCategory->getItem() === $this) {
+                $itemCategory->setItem(null);
             }
         }
 

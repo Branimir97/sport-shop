@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ItemSizeRepository;
+use App\Repository\ItemCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=ItemSizeRepository::class)
+ * @ORM\Entity(repositoryClass=ItemCategoryRepository::class)
  */
-class ItemSize
+class ItemCategory
 {
     /**
      * @ORM\Id
@@ -19,29 +18,22 @@ class ItemSize
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemSizes", cascade="persist")
+     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemCategories")
      */
     private $item;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="itemSizes", cascade="persist")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="itemCategories")
      */
-    private $size;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
+    private $category;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -62,26 +54,14 @@ class ItemSize
         return $this;
     }
 
-    public function getSize(): ?Size
+    public function getCategory(): ?Category
     {
-        return $this->size;
+        return $this->category;
     }
 
-    public function setSize(?Size $size): self
+    public function setCategory(?Category $category): self
     {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
+        $this->category = $category;
 
         return $this;
     }
