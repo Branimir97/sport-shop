@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use App\Entity\ItemCategory;
 use App\Entity\ItemColor;
 use App\Entity\ItemSize;
 use App\Form\QuantityType;
@@ -45,9 +46,6 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $item->setCipher(uniqid());
             $categories = $form->get('category')->getData();
-            foreach($categories as $category) {
-                $item->addCategory($category);
-            }
             $sizes = $form->get('size')->getData();
             $colors = $form->get('color')->getData();
             if(count($sizes)!=0 || count($colors)!=0) {
@@ -55,8 +53,15 @@ class ItemController extends AbstractController
                 $session->set('item', $item);
                 $session->set('sizes', $sizes);
                 $session->set('colors', $colors);
+                $session->set('categories', $categories);
                 return $this->redirectToRoute('item_quantity_set');
             } else {
+                foreach($categories as $category) {
+                    $itemCategory = new ItemCategory();
+                    $itemCategory->setItem($item);
+                    $itemCategory->setCategory($category);
+                    $entityManager->persist($itemCategory);
+                }
                 $entityManager->persist($item);
                 $entityManager->flush();
                 $this->addFlash('success', 'Artikl uspješno dodan.');
@@ -76,6 +81,7 @@ class ItemController extends AbstractController
     public function quantitySet(Request $request): Response
     {
         $item = $this->get('session')->get('item');
+        $categories = $this->get('session')->get('categories');
         $sizes = $this->get('session')->get('sizes');
         $colors = $this->get('session')->get('colors');
         $entityManager = $this->getDoctrine()->getManager();
@@ -90,7 +96,9 @@ class ItemController extends AbstractController
                 $itemSize->setItem($item);
                 $itemSize->setSize($size);
                 $itemSize->setQuantity(5);
-                $entityManager->persist($itemSize);
+                //$entityManager->persist($itemSize);
+                $item->addItemSize($itemSize);
+                $entityManager->persist($item);
                 $entityManager->flush();
             }
             foreach($colors as $color) {
@@ -100,7 +108,11 @@ class ItemController extends AbstractController
                 $itemColor->setQuantity(5);
                 $entityManager->persist($itemColor);
                 $entityManager->flush();
-
+            }
+            foreach($categories as $category) {
+                $itemCategory = new ItemCategory();
+                $itemCategory->setCategory($category);
+                $entityManager->persist($itemCategory);
             }
             $entityManager->persist($item);
             $entityManager->flush();

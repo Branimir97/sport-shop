@@ -19,12 +19,12 @@ class ItemSize
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemSizes", cascade="persist")
+     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemSizes")
      */
     private $item;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="itemSizes", cascade="persist")
+     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="itemSizes")
      */
     private $size;
 
