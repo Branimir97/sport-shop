@@ -38,13 +38,13 @@ class Tag
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Item::class, mappedBy="tag")
+     * @ORM\OneToMany(targetEntity=ItemTag::class, mappedBy="tag")
      */
-    private $items;
+    private $itemTags;
 
     public function __construct()
     {
-        $this->items = new ArrayCollection();
+        $this->itemTags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,27 +89,30 @@ class Tag
     }
 
     /**
-     * @return Collection|Item[]
+     * @return Collection|ItemTag[]
      */
-    public function getItems(): Collection
+    public function getItemTags(): Collection
     {
-        return $this->items;
+        return $this->itemTags;
     }
 
-    public function addItem(Item $item): self
+    public function addItemTag(ItemTag $itemTag): self
     {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $item->addTag($this);
+        if (!$this->itemTags->contains($itemTag)) {
+            $this->itemTags[] = $itemTag;
+            $itemTag->setTag($this);
         }
 
         return $this;
     }
 
-    public function removeItem(Item $item): self
+    public function removeItemTag(ItemTag $itemTag): self
     {
-        if ($this->items->removeElement($item)) {
-            $item->removeTag($this);
+        if ($this->itemTags->removeElement($itemTag)) {
+            // set the owning side to null (unless already changed)
+            if ($itemTag->getTag() === $this) {
+                $itemTag->setTag(null);
+            }
         }
 
         return $this;

@@ -41,11 +41,6 @@ class Item
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="items")
-     */
-    private $tag;
-
-    /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -57,10 +52,15 @@ class Item
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemTag::class, mappedBy="item")
+     */
+    private $itemTags;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
-        $this->tag = new ArrayCollection();
+        $this->itemTags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,30 +128,6 @@ class Item
         return $this;
     }
 
-    /**
-     * @return Collection|Tag[]
-     */
-    public function getTag(): Collection
-    {
-        return $this->tag;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tag->contains($tag)) {
-            $this->tag[] = $tag;
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        $this->tag->removeElement($tag);
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -172,6 +148,36 @@ class Item
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemTag[]
+     */
+    public function getItemTags(): Collection
+    {
+        return $this->itemTags;
+    }
+
+    public function addItemTag(ItemTag $itemTag): self
+    {
+        if (!$this->itemTags->contains($itemTag)) {
+            $this->itemTags[] = $itemTag;
+            $itemTag->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemTag(ItemTag $itemTag): self
+    {
+        if ($this->itemTags->removeElement($itemTag)) {
+            // set the owning side to null (unless already changed)
+            if ($itemTag->getItem() === $this) {
+                $itemTag->setItem(null);
+            }
+        }
 
         return $this;
     }
