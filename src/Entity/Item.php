@@ -62,11 +62,17 @@ class Item
      */
     private $itemSizes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemColor::class, mappedBy="item")
+     */
+    private $itemColors;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
         $this->itemTags = new ArrayCollection();
         $this->itemSizes = new ArrayCollection();
+        $this->itemColors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,6 +218,36 @@ class Item
             // set the owning side to null (unless already changed)
             if ($itemSize->getItem() === $this) {
                 $itemSize->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemColor[]
+     */
+    public function getItemColors(): Collection
+    {
+        return $this->itemColors;
+    }
+
+    public function addItemColor(ItemColor $itemColor): self
+    {
+        if (!$this->itemColors->contains($itemColor)) {
+            $this->itemColors[] = $itemColor;
+            $itemColor->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemColor(ItemColor $itemColor): self
+    {
+        if ($this->itemColors->removeElement($itemColor)) {
+            // set the owning side to null (unless already changed)
+            if ($itemColor->getItem() === $this) {
+                $itemColor->setItem(null);
             }
         }
 

@@ -37,6 +37,16 @@ class Color
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemColor::class, mappedBy="color")
+     */
+    private $itemColors;
+
+    public function __construct()
+    {
+        $this->itemColors = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +84,36 @@ class Color
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemColor[]
+     */
+    public function getItemColors(): Collection
+    {
+        return $this->itemColors;
+    }
+
+    public function addItemColor(ItemColor $itemColor): self
+    {
+        if (!$this->itemColors->contains($itemColor)) {
+            $this->itemColors[] = $itemColor;
+            $itemColor->setColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemColor(ItemColor $itemColor): self
+    {
+        if ($this->itemColors->removeElement($itemColor)) {
+            // set the owning side to null (unless already changed)
+            if ($itemColor->getColor() === $this) {
+                $itemColor->setColor(null);
+            }
+        }
 
         return $this;
     }
