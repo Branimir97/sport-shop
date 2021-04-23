@@ -42,6 +42,16 @@ class Size
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemSize::class, mappedBy="size")
+     */
+    private $itemSizes;
+
+    public function __construct()
+    {
+        $this->itemSizes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +101,36 @@ class Size
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemSize[]
+     */
+    public function getItemSizes(): Collection
+    {
+        return $this->itemSizes;
+    }
+
+    public function addItemSize(ItemSize $itemSize): self
+    {
+        if (!$this->itemSizes->contains($itemSize)) {
+            $this->itemSizes[] = $itemSize;
+            $itemSize->setSize($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemSize(ItemSize $itemSize): self
+    {
+        if ($this->itemSizes->removeElement($itemSize)) {
+            // set the owning side to null (unless already changed)
+            if ($itemSize->getSize() === $this) {
+                $itemSize->setSize(null);
+            }
+        }
 
         return $this;
     }
