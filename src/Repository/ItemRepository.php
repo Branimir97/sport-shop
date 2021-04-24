@@ -18,4 +18,13 @@ class ItemRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Item::class);
     }
+
+
+    public function findByCategoryName($categoryName): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('i')
+            ->join('i.category', 'c')
+            ->where('c.name = :category_name')
+            ->setParameter('category_name', ucfirst($categoryName));
+    }
 }

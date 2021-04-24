@@ -88,7 +88,6 @@ class ItemController extends AbstractController
                 $this->addFlash('success', 'Artikl uspješno dodan.');
                 return $this->redirectToRoute('item_index');
             }
-
         }
         return $this->render('item/new.html.twig', [
             'item' => $item,
@@ -159,7 +158,7 @@ class ItemController extends AbstractController
                 $itemCategory = new ItemCategory();
                 $itemCategory->setItem($item);
                 $itemCategory->setCategory($category);
-                $entityManager->merge($itemCategory);
+                $entityManager->merge($itemCategory); //Ne radi s persistom, razlog nepoznat
             }
             if(!is_null($tags)) {
                 $explodedTags = explode(PHP_EOL, $tags);
@@ -231,15 +230,5 @@ class ItemController extends AbstractController
         }
 
         return $this->redirectToRoute('item_index');
-    }
-
-    /**
-     * @Route("/{id}/details", name="item_details", methods={"GET"})
-     */
-    public function details(Request $request, ItemRepository $itemRepository): Response
-    {
-        return $this->render('item/details.html.twig', [
-            'item' => $itemRepository->findOneBy(['id'=>$request->get('id')]),
-        ]);
     }
 }
