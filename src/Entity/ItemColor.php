@@ -20,13 +20,13 @@ class ItemColor
 
     /**
      * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemColors")
-     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
+//     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
      */
     private $item;
 
     /**
      * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="itemColors")
-     * @ORM\JoinColumn(name="color_id", referencedColumnName="id", nullable=false)
+//     * @ORM\JoinColumn(name="color_id", referencedColumnName="id", nullable=false)
      */
     private $color;
 

@@ -48,22 +48,22 @@ class Item
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemTag::class, mappedBy="item")
+     * @ORM\OneToMany(targetEntity=ItemTag::class, mappedBy="item", orphanRemoval=true)
      */
     private $itemTags;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemSize::class, mappedBy="item")
+     * @ORM\OneToMany(targetEntity=ItemSize::class, mappedBy="item", orphanRemoval=true)
      */
     private $itemSizes;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemColor::class, mappedBy="item")
+     * @ORM\OneToMany(targetEntity=ItemColor::class, mappedBy="item", orphanRemoval=true)
      */
     private $itemColors;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="item")
+     * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="item", orphanRemoval=true)
      */
     private $itemCategories;
 

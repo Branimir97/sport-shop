@@ -10,8 +10,10 @@ use App\Entity\ItemTag;
 use App\Entity\Tag;
 use App\Form\QuantityType;
 use App\Form\ItemType;
-use App\Repository\CategoryRepository;
+use App\Repository\ColorRepository;
 use App\Repository\ItemRepository;
+use App\Repository\SizeRepository;
+use App\Repository\TagRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +40,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/new", name="item_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TagRepository $tagRepository): Response
     {
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
@@ -68,9 +70,12 @@ class ItemController extends AbstractController
                 }
                 if(!is_null($tags)) {
                     $explodedTags = explode(PHP_EOL, $tags);
-                    foreach ($explodedTags as $tag) {
-                        $tagObject = new Tag();
-                        $tagObject->setName($tag);
+                    foreach ($explodedTags as $tagName) {
+                        $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
+                        if(is_null($tagObject)) {
+                            $tagObject = new Tag();
+                            $tagObject->setName($tagName);
+                        }
                         $entityManager->persist($tagObject);
                         $itemTag = new ItemTag();
                         $itemTag->setItem($item);
@@ -94,11 +99,16 @@ class ItemController extends AbstractController
     /**
      * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
      */
-    public function quantitySet(Request $request): Response
+    public function quantitySet(Request $request, SizeRepository $sizeRepository, ColorRepository $colorRepository): Response
     {
+        $markedSizes = [];
+        $markedColors = [];
+        $sizeQuantities = [];
+        $colorQuantities = [];
+
         $item = $this->get('session')->get('item');
         $categories = $this->get('session')->get('categories');
-        $tags = $this->get('session')->get('tags');
+//        $tags = $this->get('session')->get('tags');
         $sizes = $this->get('session')->get('sizes');
         $colors = $this->get('session')->get('colors');
         $entityManager = $this->getDoctrine()->getManager();
@@ -109,35 +119,47 @@ class ItemController extends AbstractController
 
         if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
             foreach($sizes as $size) {
-                $itemSize = new ItemSize();
-                $itemSize->setItem($item);
-                $itemSize->setSize($size);
-                $itemSize->setQuantity(5);
-                $entityManager->persist($itemSize);
+                array_push($markedSizes, $size->getId());
             }
             foreach($colors as $color) {
+                array_push($markedColors, $color->getId());
+            }
+            $formData = $formQuantity->getData();
+            $formKeys = array_keys($formData);
+
+            foreach($formKeys as $key) {
+                if(str_contains($key, "size")) {
+                    array_push($sizeQuantities, $formData[$key]);
+                }
+                if(str_contains($key, "color")) {
+                    array_push($colorQuantities, $formData[$key]);
+                }
+            }
+            $sizesDone = array_combine($markedSizes, $sizeQuantities);
+            $colorsDone = array_combine($markedColors, $colorQuantities);
+
+            foreach($sizesDone as $key=>$value) {
+                $sizeObj = $sizeRepository->findOneBy(['id'=>$key]);
+                $itemSize = new ItemSize();
+                $itemSize->setItem($item);
+                $itemSize->setSize($sizeObj);
+                $itemSize->setQuantity($value);
+                $entityManager->persist($itemSize);
+            }
+
+            foreach($colorsDone as $key=>$value) {
+                $colorObj = $colorRepository->findOneBy(['id'=>$key]);
                 $itemColor = new ItemColor();
                 $itemColor->setItem($item);
-                $itemColor->setColor($color);
-                $itemColor->setQuantity(5);
+                $itemColor->setColor($colorObj);
+                $itemColor->setQuantity($value);
                 $entityManager->persist($itemColor);
             }
             foreach($categories as $category) {
                 $itemCategory = new ItemCategory();
+                $itemCategory->setItem($item);
                 $itemCategory->setCategory($category);
-                $entityManager->persist($itemCategory);
-            }
-            if(!is_null($tags)) {
-                $explodedTags = explode(PHP_EOL, $tags);
-                foreach ($explodedTags as $tag) {
-                    $tagObject = new Tag();
-                    $tagObject->setName($tag);
-                    $entityManager->persist($tagObject);
-                    $itemTag = new ItemTag();
-                    $itemTag->setItem($item);
-                    $itemTag->setTag($tagObject);
-                    $entityManager->persist($itemTag);
-                }
+                $entityManager->merge($itemCategory);
             }
             $entityManager->persist($item);
             $entityManager->flush();
@@ -183,7 +205,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}", name="item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Item $item): Response
+    public function delete(Request $request, Item $item, ItemRepository $itemRepository, TagRepository $tagRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

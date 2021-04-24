@@ -12,12 +12,13 @@ class QuantityType extends AbstractType
     {
         $sizes = $options['sizes'];
         $colors = $options['colors'];
-
+        $counter = 0;
 
         if(!is_null($sizes)) {
             foreach($sizes as $size) {
+                $counter++;
                 $builder
-                    ->add('size_'.$size->getValue(), null, [
+                    ->add('size_'.$counter, null, [
                         'label'=>'Veličina ['.$size->getValue().'] - unesite količinu',
                         'attr'=>[
                             'placeholder'=>'npr. 15'
@@ -26,11 +27,12 @@ class QuantityType extends AbstractType
                 ;
             }
         }
-
+        $counter = 0;
         if(!is_null($colors)) {
             foreach($colors as $color) {
+                $counter++;
                 $builder
-                    ->add('color_'.$color->getValue(), null, [
+                    ->add('color_'.$counter, null, [
                         'label'=>'['.$color->getValue().'] boja - unesite količinu',
                         'attr'=>[
                             'placeholder'=>'npr. 15'

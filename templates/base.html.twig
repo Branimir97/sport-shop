@@ -314,7 +314,11 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <button class="btn btn-primary" id="menu-toggle">Admin panel - Izbornik</button>
-
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_panel') }}">Pregled značajki</a>
+                        </li>
+                    </ul>
                     {#                    <button class="navbar-toggler" type="button" data-toggle="collapse"#}
                     {#                            data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent"#}
                     {#                            aria-expanded="false" aria-label="Toggle navigation">#}
@@ -344,9 +348,8 @@
                     {#                    </div>#}
                 </nav>
 
-                <div class="container-fluid">
                     {{ block('body') }}
-                </div>
+
             </div>
             <!-- /#page-content-wrapper -->
 
