@@ -99,7 +99,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
      */
-    public function quantitySet(Request $request, SizeRepository $sizeRepository, ColorRepository $colorRepository): Response
+    public function quantitySet(Request $request, SizeRepository $sizeRepository, ColorRepository $colorRepository, TagRepository $tagRepository): Response
     {
         $markedSizes = [];
         $markedColors = [];
@@ -108,7 +108,7 @@ class ItemController extends AbstractController
 
         $item = $this->get('session')->get('item');
         $categories = $this->get('session')->get('categories');
-//        $tags = $this->get('session')->get('tags');
+        $tags = $this->get('session')->get('tags');
         $sizes = $this->get('session')->get('sizes');
         $colors = $this->get('session')->get('colors');
         $entityManager = $this->getDoctrine()->getManager();
@@ -160,6 +160,21 @@ class ItemController extends AbstractController
                 $itemCategory->setItem($item);
                 $itemCategory->setCategory($category);
                 $entityManager->merge($itemCategory);
+            }
+            if(!is_null($tags)) {
+                $explodedTags = explode(PHP_EOL, $tags);
+                foreach ($explodedTags as $tagName) {
+                    $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
+                    if(is_null($tagObject)) {
+                        $tagObject = new Tag();
+                        $tagObject->setName($tagName);
+                    }
+                    $entityManager->persist($tagObject);
+                    $itemTag = new ItemTag();
+                    $itemTag->setItem($item);
+                    $itemTag->setTag($tagObject);
+                    $entityManager->persist($itemTag);
+                }
             }
             $entityManager->persist($item);
             $entityManager->flush();
