@@ -6,6 +6,8 @@ use App\Entity\Item;
 use App\Entity\ItemCategory;
 use App\Entity\ItemColor;
 use App\Entity\ItemSize;
+use App\Entity\ItemTag;
+use App\Entity\Tag;
 use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\CategoryRepository;
@@ -46,14 +48,16 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $item->setCipher(uniqid());
             $categories = $form->get('category')->getData();
+            $tags = $form->get('tag')->getData();
             $sizes = $form->get('size')->getData();
             $colors = $form->get('color')->getData();
             if(count($sizes)!=0 || count($colors)!=0) {
                 $session = new Session();
                 $session->set('item', $item);
+                $session->set('categories', $categories);
+                $session->set('tags', $tags);
                 $session->set('sizes', $sizes);
                 $session->set('colors', $colors);
-                $session->set('categories', $categories);
                 return $this->redirectToRoute('item_quantity_set');
             } else {
                 foreach($categories as $category) {
@@ -61,6 +65,18 @@ class ItemController extends AbstractController
                     $itemCategory->setItem($item);
                     $itemCategory->setCategory($category);
                     $entityManager->persist($itemCategory);
+                }
+                if(!is_null($tags)) {
+                    $explodedTags = explode(PHP_EOL, $tags);
+                    foreach ($explodedTags as $tag) {
+                        $tagObject = new Tag();
+                        $tagObject->setName($tag);
+                        $entityManager->persist($tagObject);
+                        $itemTag = new ItemTag();
+                        $itemTag->setItem($item);
+                        $itemTag->setTag($tagObject);
+                        $entityManager->persist($itemTag);
+                    }
                 }
                 $entityManager->persist($item);
                 $entityManager->flush();
@@ -82,6 +98,7 @@ class ItemController extends AbstractController
     {
         $item = $this->get('session')->get('item');
         $categories = $this->get('session')->get('categories');
+        $tags = $this->get('session')->get('tags');
         $sizes = $this->get('session')->get('sizes');
         $colors = $this->get('session')->get('colors');
         $entityManager = $this->getDoctrine()->getManager();
@@ -96,10 +113,7 @@ class ItemController extends AbstractController
                 $itemSize->setItem($item);
                 $itemSize->setSize($size);
                 $itemSize->setQuantity(5);
-                //$entityManager->persist($itemSize);
-                $item->addItemSize($itemSize);
-                $entityManager->persist($item);
-                $entityManager->flush();
+                $entityManager->persist($itemSize);
             }
             foreach($colors as $color) {
                 $itemColor = new ItemColor();
@@ -107,12 +121,23 @@ class ItemController extends AbstractController
                 $itemColor->setColor($color);
                 $itemColor->setQuantity(5);
                 $entityManager->persist($itemColor);
-                $entityManager->flush();
             }
             foreach($categories as $category) {
                 $itemCategory = new ItemCategory();
                 $itemCategory->setCategory($category);
                 $entityManager->persist($itemCategory);
+            }
+            if(!is_null($tags)) {
+                $explodedTags = explode(PHP_EOL, $tags);
+                foreach ($explodedTags as $tag) {
+                    $tagObject = new Tag();
+                    $tagObject->setName($tag);
+                    $entityManager->persist($tagObject);
+                    $itemTag = new ItemTag();
+                    $itemTag->setItem($item);
+                    $itemTag->setTag($tagObject);
+                    $entityManager->persist($itemTag);
+                }
             }
             $entityManager->persist($item);
             $entityManager->flush();
@@ -123,7 +148,6 @@ class ItemController extends AbstractController
             'form' => $formQuantity->createView(),
         ]);
     }
-
 
     /**
      * @Route("/{id}", name="item_show", methods={"GET"})

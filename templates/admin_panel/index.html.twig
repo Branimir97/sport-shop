@@ -1,17 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Admin panel{% endblock %}
+ {% block javascripts %}
+     <script src="{{ asset("scripts/sidebarHandler.js") }}"></script>
+ {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/sidebar.css") }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <h2 class="text-center mt-2 bg-light p-2">Admin panel</h2>
-        <a class="btn btn-light" href="{{ path('user_index') }}">Upravljanje korisnicima</a><br>
-        <a class="btn btn-light" href="">Generiranje koda za popust</a><br>
-        <a class="btn btn-light" href="">Upravljanje akcijama</a><br>
-        <a class="btn btn-light" href="{{ path('category_index') }}">Upravljanje kategorijama</a><br>
-        <a class="btn btn-light" href="{{ path('item_index') }}">Upravljanje artiklima</a><br>
-        <a class="btn btn-light" href="{{ path('color_index') }}">Upravljanje bojama</a><br>
-        <a class="btn btn-light" href="{{ path('size_index') }}">Upravljanje veličinama</a><br>
-        <a class="btn btn-light" href="{{ path('delivery_address_index') }}">Upravljanje adresama isporuka</a><br>
-    </div>
+
 {% endblock %}
