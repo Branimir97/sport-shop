@@ -42,14 +42,14 @@
             <div class="col-md-6 mt-3">
                 <h3 class="text-center">{{ item.title }}</h3>
                 <div class="category text-center">
-                    {% if item.category|length == 1 %}
+                    {% if item.itemCategories|length == 1 %}
                         <p>Kategorija artikla:
                             <a href="#">{{ category.name }}</a>
                         </p>
                     {% else %}
                         <p>Kategorije artikla:
-                            {% for category in item.category %}
-                                <a href="#">{{ category.name }}</a>
+                            {% for itemCategory in item.itemCategories %}
+                                <a href="#">{{ itemCategory.category.name }}</a>
                             {% endfor %}
                         </p>
                     {% endif %}
@@ -63,8 +63,8 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Odabir veličine</label>
                             <select class="form-control" id="exampleFormControlSelect1">
-                                {% for size in item.sizes %}
-                                    <option>{{ size.value }}</option>
+                                {% for itemSize in item.itemSizes %}
+                                    <option>{{ itemSize.size.value }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -73,8 +73,8 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Odabir boje</label>
                             <select class="form-control" id="exampleFormControlSelect1">
-                                {% for color in item.colors %}
-                                    <option>{{ color.value }}</option>
+                                {% for itemColor in item.itemColors %}
+                                    <option>{{ itemColor.id }}</option>
                                 {% endfor %}
                             </select>
                         </div>
