@@ -20,6 +20,10 @@ class NewItemCategoryType extends AbstractType
                 'class'=>Category::class,
                 'multiple'=>true,
                 'query_builder'=> function(EntityRepository $entityRepository) use ($categoryNames) {
+                    if(count($categoryNames) == 0) {
+                        return $entityRepository->createQueryBuilder('c');
+
+                    }
                     return $entityRepository->createQueryBuilder('c')
                         ->where('c.name NOT IN (:array)')
                         ->setParameter('array', $categoryNames);

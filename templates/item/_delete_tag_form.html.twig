@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('item_tag_delete', {'id': itemTag.id}) }}"
+      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj tag?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemTag.id) }}">
+    <button><i id="delete" class="far fa-trash-alt" title="Obriši tag"></i></button>
+</form>
