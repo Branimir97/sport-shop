@@ -29,7 +29,7 @@ function bootnavbar(el = 'main_navbar', options){
 
     this.init = function(){
         var dropdowns = document.getElementById(el).getElementsByClassName("dropdown");
-        console.log(dropdowns);
+        //console.log(dropdowns);
         for (var i = 0; i < dropdowns.length; i++) {
             var dropdown = dropdowns.item(i);
             dropdown.addEventListener("mouseover", function(){

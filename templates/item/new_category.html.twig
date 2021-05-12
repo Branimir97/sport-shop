@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Postavljanje nove kategorije{% endblock %}
+{% block title %}Postavljanje novih kategorija{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/new_category.css') }}">
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Postavljanje nove kategorije</h2>
+        <h2 class="text-center mt-2 bg-light p-2">Postavljanje novih kategorija</h2>
         <a href="{{ path('item_edit', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Uređivanje artikla

@@ -9,12 +9,27 @@
     height: 100%;
 }
 
-.image-wrapper .delete_icon button{
+.image-wrapper .delete_image_icon button{
     position: absolute;
     right: 0;
 }
 
-.image-wrapper .delete_icon:hover button{
+.image-wrapper .delete_image_icon button:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.icon_wrapper {
+    position: relative;
+}
+
+.icon_wrapper .delete_icon button{
+    position: absolute;
+    right: 20%;
+    border: none;
+}
+
+.icon_wrapper .delete_icon button:hover {
     opacity: 80%;
     cursor: pointer;
 }

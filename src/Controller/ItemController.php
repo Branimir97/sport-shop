@@ -11,12 +11,14 @@ use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Tag;
 use App\Form\NewItemCategoryType;
+use App\Form\NewItemTagType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\ColorRepository;
 use App\Repository\ImageRepository;
 use App\Repository\ItemCategoryRepository;
 use App\Repository\ItemRepository;
+use App\Repository\ItemTagRepository;
 use App\Repository\SizeRepository;
 use App\Repository\TagRepository;
 use App\Service\ImageUploadHelper;
@@ -329,9 +331,59 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/add/tag", name="item_add_tag", methods={"GET","POST"})
      */
-    public function addTag(Request $request)
+    public function addTag(Request $request, ItemRepository $itemRepository, TagRepository $tagRepository, ItemTagRepository $itemTagRepository): Response
     {
+        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $form = $this->createForm(NewItemTagType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $tags = $form->get('tag')->getData();
+            $explodedTags = explode(PHP_EOL, $tags);
+            foreach ($explodedTags as $tagName) {
+                $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
+                if(is_null($tagObject)) {
+                    $tagObject = new Tag();
+                    $tagObject->setName($tagName);
+                    $entityManager->persist($tagObject);
+                    $entityManager->flush();
+                }
+                $itemTagObj = $itemTagRepository->findOneBy(['tag'=>$tagObject->getId()]);
+                if(is_null($itemTagObj)) {
+                    $itemTag = new ItemTag();
+                    $itemTag->setItem($item);
+                    $itemTag->setTag($tagObject);
+                    $entityManager->persist($itemTag);
+                } else {
+                    $this->addFlash('danger', 'Tag/ovi koje ste pokušali unijeti već su povezani s ovim artiklom.');
+                    return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+                }
+            }
+            $entityManager->flush();
+            $this->addFlash('success', 'Tag/ovi uspješno dodan/i.');
+            return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+        }
 
+        return $this->render('item/new_tag.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/delete/tag", name="item_tag_delete", methods={"DELETE"})
+     */
+    public function deleteTag(Request $request, ItemTag $itemTag, ItemTagRepository $itemTagRepository): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('delete'.$itemTag->getId(), $request->request->get('_token'))) {
+            $itemTag = $itemTagRepository->findOneBy(['id'=>$itemTag->getId()]);
+            $itemId = $itemTag->getItem()->getId();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($itemTag);
+            $this->addFlash('success', 'Tag "'.$itemTag->getTag()->getName().'" uspješno obrisan.');
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
     }
 
     /**

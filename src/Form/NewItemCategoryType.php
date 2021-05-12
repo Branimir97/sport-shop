@@ -13,7 +13,6 @@ class NewItemCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $categoryNames = $options['category_names'];
         $builder
             ->add('category', EntityType::class, [
