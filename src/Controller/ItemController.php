@@ -20,6 +20,7 @@ use App\Repository\TagRepository;
 use App\Service\ImageUploadHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -253,6 +254,29 @@ class ItemController extends AbstractController
             'item' => $item,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/image/delete", name="item_image_delete", methods={"DELETE"})
+     */
+    public function deleteImage(Request $request, Image $image, ImageRepository $imageRepository): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
+            $image = $imageRepository->findOneBy(['id'=>$image->getId()]);
+            $itemId = $image->getItem()->getId();
+            $itemImages = $image->getItem()->getImages();
+            if(count($itemImages) == 1) {
+                $this->addFlash('danger', 'Nije moguće izbrisati sve fotografije. Artikl mora imati barem jednu fotografiju.');
+                return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
+            }
+            unlink('../public/uploads/'.$image->getPath());
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($image);
+            $this->addFlash('success', 'Fotografija uspješno obrisana.');
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
     }
 
     /**
