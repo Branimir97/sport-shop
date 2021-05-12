@@ -13,6 +13,7 @@ use App\Form\NewItemCategoryType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\ColorRepository;
+use App\Repository\ImageRepository;
 use App\Repository\ItemRepository;
 use App\Repository\SizeRepository;
 use App\Repository\TagRepository;
@@ -263,7 +264,6 @@ class ItemController extends AbstractController
                 $entityManager->persist($itemCategory);
             }
             $entityManager->flush();
-
             $this->addFlash('success', 'Kategorija/e uspješno dodana/e.');
             return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
         }
@@ -301,9 +301,15 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}", name="item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Item $item): Response
+    public function delete(Request $request, Item $item, ImageRepository $imageRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
+            $images = $imageRepository->findBy(['item'=>$item]);
+            if($images !== null) {
+                foreach($images as $image) {
+                    unlink('../public/uploads/'.$image->getPath());
+                }
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($item);
 
