@@ -66,7 +66,16 @@ class ItemController extends AbstractController
                 $session->set('tags', $tags);
                 $session->set('sizes', $sizes);
                 $session->set('colors', $colors);
-                $session->set('images', $images);
+                foreach ($images as $image) {
+                    $newFileName = $uploadHelper->uploadImageTemporary($image);
+                    if(is_null($newFileName)) {
+                        $this->addFlash('danger',
+                            'Pogreška prilikom prijenosa fotografija.
+                                    Dopušteni formati fotografija: jpg, jpeg i png.'
+                        );
+                        return $this->redirectToRoute('item_new');
+                    }
+                }
                 return $this->redirectToRoute('item_quantity_set');
             } else {
                 foreach($categories as $category) {
@@ -93,11 +102,11 @@ class ItemController extends AbstractController
                 foreach ($images as $image) {
                     $newFileName = $uploadHelper->uploadItemImage($image);
                     if(is_null($newFileName)) {
-                        $this->addFlash('warning',
-                            'Pogreška prilikom prijenosa otografija. 
+                        $this->addFlash('danger',
+                            'Pogreška prilikom prijenosa fotografija. 
                                     Dopušteni formati fotografija: jpg, jpeg i png.'
                         );
-                        return $this->redirectToRoute('item_index');
+                        return $this->redirectToRoute('item_new');
                     }
                     $image = new Image();
                     $image->setPath($newFileName);
@@ -119,7 +128,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
      */
-    public function quantitySet(Request $request,
+    public function setQuantity(Request $request, ImageUploadHelper $uploadHelper,
                                 SizeRepository $sizeRepository,
                                 ColorRepository $colorRepository,
                                 TagRepository $tagRepository): Response
@@ -134,12 +143,12 @@ class ItemController extends AbstractController
         $tags = $this->get('session')->get('tags');
         $sizes = $this->get('session')->get('sizes');
         $colors = $this->get('session')->get('colors');
+        $images = $this->get('session')->get('images');
         $entityManager = $this->getDoctrine()->getManager();
         $formQuantity = $this->createForm(QuantityType::class, null, [
             'sizes'=>$sizes, 'colors'=>$colors
         ]);
         $formQuantity->handleRequest($request);
-
         if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
             foreach($sizes as $size) {
                 array_push($markedSizes, $size->getId());
@@ -169,7 +178,6 @@ class ItemController extends AbstractController
                 $itemSize->setQuantity($value);
                 $entityManager->persist($itemSize);
             }
-
             foreach($colorsDone as $key=>$value) {
                 $colorObj = $colorRepository->findOneBy(['id'=>$key]);
                 $itemColor = new ItemColor();
@@ -198,6 +206,13 @@ class ItemController extends AbstractController
                     $itemTag->setTag($tagObject);
                     $entityManager->persist($itemTag);
                 }
+            }
+            $imageFileNames = $uploadHelper->uploadImageFromTemporaryFolderAndGetImagesList();
+            foreach ($imageFileNames as $imageFileName) {
+                $image = new Image();
+                $image->setPath($imageFileName);
+                $image->setItem($item);
+                $entityManager->persist($image);
             }
             $entityManager->persist($item);
             $entityManager->flush();
@@ -312,7 +327,6 @@ class ItemController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($item);
-
             $this->addFlash('danger', 'Artikl "'.$item->getTitle().'" uspješno obrisan.');
             $entityManager->flush();
         }
