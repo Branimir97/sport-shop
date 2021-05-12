@@ -1,7 +1,15 @@
-.row .col-sm-3 h6 {
+.image-wrapper {
+    border: 1px solid gray;
+    border-radius: 5%;
+}
+.image-wrapper img{
+    width: 100%;
+}
+
+.row .col-md-15 h6 {
     text-decoration: underline;
 }
-.row .col-sm-3 p#empty {
+.row .col-md-15 p#empty {
     color: red;
 }
 

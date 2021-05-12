@@ -13,9 +13,9 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista boja
         </a>
-        {{ include('color/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('color/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         <div class="text-center">
-            {{ include('color/_delete_form.html.twig') }}
+            {{ include('color/_delete_item_form.html.twig') }}
         </div>
     </div>
 {% endblock %}

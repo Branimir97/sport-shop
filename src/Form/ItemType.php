@@ -22,7 +22,6 @@ class ItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $isEditForm = $options['isEdit'];
         $builder
             ->add('title', TextType::class, [
@@ -33,60 +32,59 @@ class ItemType extends AbstractType
             ]);
         if(!$isEditForm) {
             $builder
-
-            ->add('category', EntityType::class, [
-                'mapped'=>false,
-                'class'=>Category::class,
-                'multiple'=>true,
-                'query_builder'=>function(EntityRepository $entityRepository) {
-                    return $entityRepository->createQueryBuilder('c');
-                },
-                'choice_label'=>'name',
-                'help'=>"Odaberite jednu ili više kategorija",
-                'label'=>'Kategorije'
-            ])
-            ->add('tag', TextareaType::class, [
-                'required'=>false,
-                'mapped'=>false,
-                'help'=>"Unesite svaki #tag u novi red",
-                'attr'=>[
-                    'placeholder'=>'npr. nogomet'
-                ],
-                'label'=>'Tagovi',
-            ])
-            ->add('size', EntityType::class, [
-                'required'=>false,
-                'mapped'=>false,
-                'class'=>Size::class,
-                'multiple'=>true,
-                'query_builder'=>function(EntityRepository $entityRepository) {
-                    return $entityRepository->createQueryBuilder('s');
-                },
-                'choice_label'=>'value',
-                'help'=>"Odaberite jednu ili više veličina",
-                'label'=>'Dostupne veličine',
-            ])
-            ->add('color', EntityType::class, [
-                'required'=>false,
-                'mapped'=>false,
-                'class'=>Color::class,
-                'multiple'=>true,
-                'query_builder'=>function(EntityRepository $entityRepository) {
-                    return $entityRepository->createQueryBuilder('c');
-                },
-                'choice_label'=>'value',
-                'help'=>"Odaberite jednu ili više boja",
-                'label'=>'Dostupne boje',
-            ])
-            ->add('image', FileType::class, [
-                'required'=>false,
-                'mapped'=>false,
-//                'multiple'=>true,
-                'help'=>'Dopušteni formati slika su: jpg, jpeg i png; Maksimalna dopuštena veličina pojedine slike je 2MB',
-                'label'=>'Slike'
-            ])
+                ->add('category', EntityType::class, [
+                    'mapped' => false,
+                    'class' => Category::class,
+                    'multiple' => true,
+                    'query_builder' => function (EntityRepository $entityRepository) {
+                        return $entityRepository->createQueryBuilder('c');
+                    },
+                    'choice_label' => 'name',
+                    'help' => "Odaberite jednu ili više kategorija",
+                    'label' => 'Kategorije'
+                ])
+                ->add('tag', TextareaType::class, [
+                    'required' => false,
+                    'mapped' => false,
+                    'help' => "Unesite svaki #tag u novi red",
+                    'attr' => [
+                        'placeholder' => 'npr. nogomet'
+                    ],
+                    'label' => 'Tagovi',
+                ])
+                ->add('size', EntityType::class, [
+                    'required' => false,
+                    'mapped' => false,
+                    'class' => Size::class,
+                    'multiple' => true,
+                    'query_builder' => function (EntityRepository $entityRepository) {
+                        return $entityRepository->createQueryBuilder('s');
+                    },
+                    'choice_label' => 'value',
+                    'help' => "Odaberite jednu ili više veličina",
+                    'label' => 'Dostupne veličine',
+                ])
+                ->add('color', EntityType::class, [
+                    'required' => false,
+                    'mapped' => false,
+                    'class' => Color::class,
+                    'multiple' => true,
+                    'query_builder' => function (EntityRepository $entityRepository) {
+                        return $entityRepository->createQueryBuilder('c');
+                    },
+                    'choice_label' => 'value',
+                    'help' => "Odaberite jednu ili više boja",
+                    'label' => 'Dostupne boje',
+                ])
+                ->add('image', FileType::class, [
+                    'required' => false,
+                    'mapped' => false,
+                    'multiple' => true,
+                    'help' => 'Dopušteni formati slika su: jpg, jpeg i png; Maksimalna dopuštena veličina pojedine slike je 2MB',
+                    'label' => 'Slike'
+                ])
             ;
-                }
+        }
         $builder
             ->add('price', null, [
                 'attr'=>[

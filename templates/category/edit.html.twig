@@ -13,9 +13,9 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista kategorija
         </a>
-        {{ include('category/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('category/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         <div class="text-center">
-            {{ include('category/_delete_form.html.twig') }}
+            {{ include('category/_delete_item_form.html.twig') }}
         </div>
     </div>
 {% endblock %}

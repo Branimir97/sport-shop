@@ -1,0 +1,7 @@
+.container p#title{
+    color: green;
+}
+
+.container p#category{
+    color: red;
+}

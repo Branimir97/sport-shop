@@ -18,9 +18,9 @@
         {% endif %}
 
         <div class="text-center">
-            {{ include('user/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+            {{ include('user/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
 
-            {{ include('user/_delete_form.html.twig') }}
+            {{ include('user/_delete_item_form.html.twig') }}
 
             {% if not user.facebookId and not user.googleId %}
                 <a href="{{ path('reset_password', {id:user.id}) }}" class="btn btn-outline-info mb-3">Resetiraj lozinku</a>

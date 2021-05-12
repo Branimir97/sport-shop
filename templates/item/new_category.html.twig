@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postavljanje nove kategorije{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new_category.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Postavljanje nove kategorije</h2>
+        <a href="{{ path('item_edit', {'id':item.id}) }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Uređivanje artikla
+        </a>
+        <h6 class="text-center bg-light p-1">Artikl:</h6>
+        <p class="text-center" id="title">{{ item.title }}</p>
+        <h6 class="text-center bg-light p-1">Trenutno postavljena/e kategorija/e:</h6>
+        {% for itemCategory in item.itemCategories %}
+            <p class="text-center m-0" id="category">- {{ itemCategory.category.name }}</p>
+        {% endfor %}
+        {{ include('item/new_category_form.html.twig') }}
+    </div>
+{% endblock %}

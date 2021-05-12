@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Item;
 use App\Entity\ItemCategory;
 use App\Entity\ItemColor;
 use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Tag;
+use App\Form\NewItemCategoryType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\ColorRepository;
 use App\Repository\ItemRepository;
 use App\Repository\SizeRepository;
 use App\Repository\TagRepository;
+use App\Service\ImageUploadHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +43,8 @@ class ItemController extends AbstractController
     /**
      * @Route("/new", name="item_new", methods={"GET","POST"})
      */
-    public function new(Request $request, TagRepository $tagRepository): Response
+    public function new(Request $request, TagRepository $tagRepository,
+                        ImageUploadHelper $uploadHelper): Response
     {
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
@@ -53,6 +57,7 @@ class ItemController extends AbstractController
             $tags = $form->get('tag')->getData();
             $sizes = $form->get('size')->getData();
             $colors = $form->get('color')->getData();
+            $images = $form->get('image')->getData();
             if(count($sizes)!=0 || count($colors)!=0) {
                 $session = new Session();
                 $session->set('item', $item);
@@ -60,6 +65,7 @@ class ItemController extends AbstractController
                 $session->set('tags', $tags);
                 $session->set('sizes', $sizes);
                 $session->set('colors', $colors);
+                $session->set('images', $images);
                 return $this->redirectToRoute('item_quantity_set');
             } else {
                 foreach($categories as $category) {
@@ -83,6 +89,20 @@ class ItemController extends AbstractController
                         $entityManager->persist($itemTag);
                     }
                 }
+                foreach ($images as $image) {
+                    $newFileName = $uploadHelper->uploadItemImage($image);
+                    if(is_null($newFileName)) {
+                        $this->addFlash('warning',
+                            'Pogreška prilikom prijenosa otografija. 
+                                    Dopušteni formati fotografija: jpg, jpeg i png.'
+                        );
+                        return $this->redirectToRoute('item_index');
+                    }
+                    $image = new Image();
+                    $image->setPath($newFileName);
+                    $image->setItem($item);
+                    $entityManager->persist($image);
+                }
                 $entityManager->persist($item);
                 $entityManager->flush();
                 $this->addFlash('success', 'Artikl uspješno dodan.');
@@ -98,7 +118,10 @@ class ItemController extends AbstractController
     /**
      * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
      */
-    public function quantitySet(Request $request, SizeRepository $sizeRepository, ColorRepository $colorRepository, TagRepository $tagRepository): Response
+    public function quantitySet(Request $request,
+                                SizeRepository $sizeRepository,
+                                ColorRepository $colorRepository,
+                                TagRepository $tagRepository): Response
     {
         $markedSizes = [];
         $markedColors = [];
@@ -217,9 +240,68 @@ class ItemController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/add/category", name="item_add_category", methods={"GET","POST"})
+     */
+    public function addCategory(Request $request, ItemRepository $itemRepository): Response
+    {
+        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $categories = $item->getItemCategories();
+        $categoryNames = [];
+        foreach($categories as $category) {
+            array_push($categoryNames, $category->getCategory()->getName());
+        }
+        $form = $this->createForm(NewItemCategoryType::class, [], ['category_names'=>$categoryNames]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $categories = $form->get('category')->getData();
+            foreach($categories as $category) {
+                $itemCategory = new ItemCategory();
+                $itemCategory->setItem($item);
+                $itemCategory->setCategory($category);
+                $entityManager->persist($itemCategory);
+            }
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Kategorija/e uspješno dodana/e.');
+            return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+        }
+
+        return $this->render('item/new_category.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/add/tag", name="item_add_tag", methods={"GET","POST"})
+     */
+    public function addTag(Request $request)
+    {
+
+    }
+
+    /**
+     * @Route("/{id}/add/color", name="item_add_color", methods={"GET","POST"})
+     */
+    public function addColor(Request $request)
+    {
+
+    }
+
+    /**
+     * @Route("/{id}/add/size", name="item_add_size", methods={"GET","POST"})
+     */
+    public function addSize(Request $request)
+    {
+
+    }
+
+    /**
      * @Route("/{id}", name="item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Item $item, ItemRepository $itemRepository, TagRepository $tagRepository): Response
+    public function delete(Request $request, Item $item): Response
     {
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

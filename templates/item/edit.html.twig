@@ -2,7 +2,7 @@
 
 {% block title %}Uređivanje - {{ item.title }}{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/itemEdit.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edit_item.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -13,23 +13,28 @@
             Lista artikala
         </a>
         <h3 class="bg-light text-center p-1">Osnovne informacije</h3>
-        {{ include('item/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('item/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         <h3 class="bg-light text-center p-1">Fotografije</h3>
-{#        {% foreach item. %}#}
+        <div class="row">
+            {% for image in item.images %}
+                <div class="col-sm-3 image-wrapper">
+                    <img src="{{ asset('uploads/')~image.path }}" alt="">
+                </div>
+            {% endfor %}
+        </div>
         <h3 class="bg-light text-center p-1 mb-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
         <div class="row">
             <div class="col-md-15">
                 <h6>Kategorije artikla:</h6>
-                {% if item.itemCategories|length == 0 %}
-                    <p id="empty">Nema</p>
-                {% else %}
-                    {% for itemCategory in item.itemCategories %}
-                        <p>- {{ itemCategory.category.name }}
-                            <i id="delete" class="far fa-trash-alt"></i>
-                        </p>
-                    {% endfor %}
-                {% endif %}
-                <button class="btn btn-success p-1" title="Dodaj kategoriju">Dodaj kategoriju</button>
+                {% for itemCategory in item.itemCategories %}
+                    <p>- {{ itemCategory.category.name }}
+                        <i id="delete" class="far fa-trash-alt"></i>
+                    </p>
+                {% endfor %}
+                <a href="{{ path('item_add_category', {'id':item.id}) }}"
+                   class="btn btn-success p-1" title="Dodaj kategoriju">
+                    Dodaj kategoriju
+                </a>
             </div>
             <div class="col-md-15">
                 <h6>Tagovi artikla:</h6>
@@ -84,8 +89,8 @@
                 <button class="btn btn-success p-1" title="Dodaj proizvođača">Dodaj proizvođača</button>
             </div>
         </div>
-        <div class="text-center">
-            {{ include('item/_delete_form.html.twig') }}
+        <div class="text-center mt-3">
+            {{ include('item/_delete_item_form.html.twig') }}
         </div>
     </div>
 {% endblock %}
