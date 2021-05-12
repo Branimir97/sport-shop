@@ -22,13 +22,18 @@ class ItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $isEditForm = $options['isEdit'];
         $builder
             ->add('title', TextType::class, [
                 'attr'=>[
                     'placeholder'=>'npr. Nike Air Max tenisice'
                 ],
                 'label'=>'Naziv',
-            ])
+            ]);
+        if(!$isEditForm) {
+            $builder
+
             ->add('category', EntityType::class, [
                 'mapped'=>false,
                 'class'=>Category::class,
@@ -73,18 +78,21 @@ class ItemType extends AbstractType
                 'help'=>"Odaberite jednu ili više boja",
                 'label'=>'Dostupne boje',
             ])
-            ->add('price', null, [
-                'attr'=>[
-                    'placeholder'=>'npr. 349,50'
-                ],
-                'label'=>'Cijena [kn]',
-            ])
             ->add('image', FileType::class, [
                 'required'=>false,
                 'mapped'=>false,
 //                'multiple'=>true,
                 'help'=>'Dopušteni formati slika su: jpg, jpeg i png; Maksimalna dopuštena veličina pojedine slike je 2MB',
                 'label'=>'Slike'
+            ])
+            ;
+                }
+        $builder
+            ->add('price', null, [
+                'attr'=>[
+                    'placeholder'=>'npr. 349,50'
+                ],
+                'label'=>'Cijena [kn]',
             ])
         ;
     }
@@ -93,6 +101,7 @@ class ItemType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Item::class,
+            'isEdit' => false
         ]);
     }
 }

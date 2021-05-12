@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Uređivanje - {{ item.title }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/itemEdit.css') }}">
+{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -9,7 +12,78 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista artikala
         </a>
+        <h3 class="bg-light text-center p-1">Osnovne informacije</h3>
         {{ include('item/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        <h3 class="bg-light text-center p-1">Fotografije</h3>
+{#        {% foreach item. %}#}
+        <h3 class="bg-light text-center p-1 mb-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
+        <div class="row">
+            <div class="col-md-15">
+                <h6>Kategorije artikla:</h6>
+                {% if item.itemCategories|length == 0 %}
+                    <p id="empty">Nema</p>
+                {% else %}
+                    {% for itemCategory in item.itemCategories %}
+                        <p>- {{ itemCategory.category.name }}
+                            <i id="delete" class="far fa-trash-alt"></i>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-success p-1" title="Dodaj kategoriju">Dodaj kategoriju</button>
+            </div>
+            <div class="col-md-15">
+                <h6>Tagovi artikla:</h6>
+                {% if item.itemTags|length == 0 %}
+                    <p id="empty">Nema</p>
+                {% else %}
+                    {% for itemTag in item.itemTags %}
+                        <p>- {{ itemTag.tag.name }}
+                            <i id="delete" class="far fa-trash-alt"></i>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-success p-1" title="Dodaj tag">Dodaj tag</button>
+            </div>
+            <div class="col-md-15">
+                <h6>Boje artikla:</h6>
+                {% if item.itemColors|length == 0 %}
+                    <p id="empty">Nema</p>
+                {% else %}
+                    {% for itemColor in item.itemColors %}
+                        <p>- {{ itemColor.color.value }}
+                            <i id="delete" class="far fa-trash-alt"></i>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-success p-1" title="Dodaj boju">Dodaj boju</button>
+            </div>
+            <div class="col-md-15">
+                <h6>Veličine artikla:</h6>
+                {% if item.itemSizes|length == 0 %}
+                    <p id="empty">Nema</p>
+                {% else %}
+                    {% for itemSize in item.itemSizes %}
+                        <p>- {{ itemSize.size.value }}
+                            <i id="delete" class="far fa-trash-alt"></i>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-success p-1" title="Dodaj veličinu">Dodaj veličinu</button>
+            </div>
+            <div class="col-md-15">
+                <h6>Proizvođači artikla:</h6>
+                {% if item.itemSizes|length == 0 %}
+                    <p id="empty">Nema</p>
+                {% else %}
+                    {% for itemSize in item.itemSizes %}
+                        <p>- {{ itemSize.size.value }}
+                            <i id="delete" class="far fa-trash-alt"></i>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-success p-1" title="Dodaj proizvođača">Dodaj proizvođača</button>
+            </div>
+        </div>
         <div class="text-center">
             {{ include('item/_delete_form.html.twig') }}
         </div>

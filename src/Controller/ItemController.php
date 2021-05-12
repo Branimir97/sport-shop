@@ -200,7 +200,7 @@ class ItemController extends AbstractController
      */
     public function edit(Request $request, Item $item): Response
     {
-        $form = $this->createForm(ItemType::class, $item);
+        $form = $this->createForm(ItemType::class, $item, ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -230,5 +230,15 @@ class ItemController extends AbstractController
         }
 
         return $this->redirectToRoute('item_index');
+    }
+
+    /**
+     * @Route("/{id}/details", name="item_details", methods={"GET"})
+     */
+    public function details(Request $request, ItemRepository $itemRepository): Response
+    {
+        return $this->render('item/details.html.twig', [
+            'item' => $itemRepository->findOneBy(['id'=>$request->get('id')]),
+        ]);
     }
 }
