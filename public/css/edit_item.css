@@ -1,9 +1,25 @@
 .image-wrapper {
-    border: 1px solid gray;
-    border-radius: 5%;
+    position: relative;
+    display: block;
+    height: 100%;
 }
 .image-wrapper img{
     width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.image-wrapper .delete_icon{
+    position: absolute;
+    right: 0;
+    background-color: red;
+    color: white;
+}
+
+.image-wrapper .delete_icon:hover{
+    background-color: red;
+    opacity: 80%;
+    cursor: pointer;
 }
 
 .row .col-md-15 h6 {

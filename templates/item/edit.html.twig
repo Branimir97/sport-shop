@@ -17,12 +17,17 @@
         <h3 class="bg-light text-center p-1">Fotografije</h3>
         <div class="row">
             {% for image in item.images %}
-                <div class="col-sm-3 image-wrapper">
-                    <img src="{{ asset('uploads/')~image.path }}" alt="">
+                <div class="col-sm-3">
+                    <div class="image-wrapper">
+                        <div class="delete_icon">
+                            <i class="far fa-trash-alt p-1" title="Obriši fotografiju"></i>
+                        </div>
+                        <img src="{{ asset('uploads/')~image.path }}" alt="image_{{ image.id }}">
+                    </div>
                 </div>
             {% endfor %}
         </div>
-        <h3 class="bg-light text-center p-1 mb-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
+        <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
         <div class="row">
             <div class="col-md-15">
                 <h6>Kategorije artikla:</h6>
