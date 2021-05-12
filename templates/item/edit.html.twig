@@ -15,26 +15,32 @@
         <h3 class="bg-light text-center p-1">Naziv, cijena</h3>
         {{ include('item/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         <h3 class="bg-light text-center p-1">Fotografije</h3>
-        <div class="row">
+        {% if item.images|length == 0 %}
+                <p class="text-center">Artikl trenutno nema niti jednu fotografiju.</p>
+        {% else %}
             {% for image in item.images %}
-                <div class="col-sm-3">
-                    <div class="image-wrapper">
-                        <div class="delete_icon">
-                            <form method="post" action="{{ path('item_image_delete', {'id': image.id}) }}"
-                                  onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu fotografiju?');">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
-                                <button><i class="far fa-trash-alt p-1" title="Obriši fotografiju"></i></button>
-                            </form>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="image-wrapper">
+                            <div class="delete_icon">
+                                <form method="post" action="{{ path('item_image_delete', {'id': image.id}) }}"
+                                      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu fotografiju?');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                                    <button><i class="far fa-trash-alt p-1" title="Obriši fotografiju"></i></button>
+                                </form>
+                            </div>
+                            <img src="{{ asset('uploads/')~image.path }}" alt="image_{{ image.id }}">
                         </div>
-                        <img src="{{ asset('uploads/')~image.path }}" alt="image_{{ image.id }}">
                     </div>
                 </div>
             {% endfor %}
+        {% endif %}
+        <div class="text-center">
+            <button class="btn btn-warning p-1 mt-3">Dodaj fotografije
+                <i class="fas fa-images"></i>
+            </button>
         </div>
-        <button class="btn btn-warning p-1 mt-3">Dodaj fotografije
-            <i class="fas fa-images"></i>
-        </button>
         <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
         <div class="row">
             <div class="col-md-15">

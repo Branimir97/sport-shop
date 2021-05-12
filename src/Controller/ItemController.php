@@ -266,11 +266,6 @@ class ItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
             $image = $imageRepository->findOneBy(['id'=>$image->getId()]);
             $itemId = $image->getItem()->getId();
-            $itemImages = $image->getItem()->getImages();
-            if(count($itemImages) == 1) {
-                $this->addFlash('danger', 'Nije moguće izbrisati sve fotografije. Artikl mora imati barem jednu fotografiju.');
-                return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
-            }
             unlink('../public/uploads/'.$image->getPath());
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -328,7 +323,6 @@ class ItemController extends AbstractController
             $this->addFlash('success', 'Kategorija "'.$itemCategory->getCategory()->getName().'" uspješno obrisana.');
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
     }
 
