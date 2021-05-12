@@ -32,17 +32,25 @@
                 </div>
             {% endfor %}
         </div>
+        <button class="btn btn-warning p-1 mt-3">Dodaj fotografije
+            <i class="fas fa-images"></i>
+        </button>
         <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
         <div class="row">
             <div class="col-md-15">
                 <h6>Kategorije artikla:</h6>
                 {% for itemCategory in item.itemCategories %}
                     <p>- {{ itemCategory.category.name }}
-                        <i id="delete" class="far fa-trash-alt"></i>
+                        <form method="post" action="{{ path('item_category_delete', {'id': itemCategory.id}) }}"
+                              onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu kategoriju?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemCategory.id) }}">
+                            <button><i id="delete" class="far fa-trash-alt" title="Obriši kategoriju"></i></button>
+                        </form>
                     </p>
                 {% endfor %}
                 <a href="{{ path('item_add_category', {'id':item.id}) }}"
-                   class="btn btn-success p-1" title="Dodaj kategoriju">
+                   class="btn btn-success p-1">
                     Dodaj kategoriju
                 </a>
             </div>
@@ -57,7 +65,7 @@
                         </p>
                     {% endfor %}
                 {% endif %}
-                <button class="btn btn-success p-1" title="Dodaj tag">Dodaj tag</button>
+                <button class="btn btn-success p-1">Dodaj tag</button>
             </div>
             <div class="col-md-15">
                 <h6>Boje artikla:</h6>
@@ -70,7 +78,7 @@
                         </p>
                     {% endfor %}
                 {% endif %}
-                <button class="btn btn-success p-1" title="Dodaj boju">Dodaj boju</button>
+                <button class="btn btn-success p-1">Dodaj boju</button>
             </div>
             <div class="col-md-15">
                 <h6>Veličine artikla:</h6>
@@ -83,7 +91,7 @@
                         </p>
                     {% endfor %}
                 {% endif %}
-                <button class="btn btn-success p-1" title="Dodaj veličinu">Dodaj veličinu</button>
+                <button class="btn btn-success p-1">Dodaj veličinu</button>
             </div>
             <div class="col-md-15">
                 <h6>Proizvođači artikla:</h6>
@@ -96,7 +104,7 @@
                         </p>
                     {% endfor %}
                 {% endif %}
-                <button class="btn btn-success p-1" title="Dodaj proizvođača">Dodaj proizvođača</button>
+                <button class="btn btn-success p-1">Dodaj proizvođača</button>
             </div>
         </div>
         <div class="text-center mt-3">

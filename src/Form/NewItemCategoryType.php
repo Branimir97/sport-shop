@@ -27,7 +27,7 @@ class NewItemCategoryType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'help' => "Odaberite jednu ili više kategorija",
-                'label' => 'Kategorije'
+                'label' => 'Ostale kategorije'
             ])
         ;
     }

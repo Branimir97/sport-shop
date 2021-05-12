@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\Item;
 use App\Entity\ItemCategory;
@@ -14,6 +15,7 @@ use App\Form\QuantityType;
 use App\Form\ItemType;
 use App\Repository\ColorRepository;
 use App\Repository\ImageRepository;
+use App\Repository\ItemCategoryRepository;
 use App\Repository\ItemRepository;
 use App\Repository\SizeRepository;
 use App\Repository\TagRepository;
@@ -311,6 +313,23 @@ class ItemController extends AbstractController
             'item' => $item,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/delete/category", name="item_category_delete", methods={"DELETE"})
+     */
+    public function deleteCategory(Request $request, ItemCategory $itemCategory, ItemCategoryRepository $itemCategoryRepository): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('delete'.$itemCategory->getId(), $request->request->get('_token'))) {
+            $itemCategory = $itemCategoryRepository->findOneBy(['id'=>$itemCategory->getId()]);
+            $itemId = $itemCategory->getItem()->getId();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($itemCategory);
+            $this->addFlash('success', 'Kategorija "'.$itemCategory->getCategory()->getName().'" uspješno obrisana.');
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
     }
 
     /**
