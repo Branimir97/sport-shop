@@ -21,7 +21,7 @@ class ManufacturerController extends AbstractController
     public function index(ManufacturerRepository $manufacturerRepository): Response
     {
         return $this->render('manufacturer/index.html.twig', [
-            'manufacturers' => $manufacturerRepository->findAll(),
+            'manufacturers' => $manufacturerRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -92,7 +92,6 @@ class ManufacturerController extends AbstractController
             $this->addFlash('danger', '"'.$manufacturer->getName().'" proizvođač uspješno obrisan.');
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('manufacturer_index');
     }
 }

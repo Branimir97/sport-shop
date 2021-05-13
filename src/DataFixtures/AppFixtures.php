@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Color;
+use App\Entity\Manufacturer;
 use App\Entity\Size;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,6 +23,8 @@ class AppFixtures extends Fixture
         $user->setBirthDate(new \DateTime("1997-10-27"));
         $user->setGender("Muški");
         $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$avj5HbJl56Te5US1YZiQAQ$T9qpVqy9QHEokQZya9zJLjpHsS0pqh8aqFRHZkKcMOI');
+
+        $manager->persist($user);
 
         $categories = [
             "Muškarci",
@@ -105,7 +108,26 @@ class AppFixtures extends Fixture
             "Tirkizna"
         ];
 
-        $manager->persist($user);
+        $manufacturers = [
+          "Nike",
+          "Adidas",
+          "Umbro",
+          "Vty",
+          "Puma",
+          "Rebook",
+          "Fila",
+          "Converse",
+          "Levi's",
+          "Lotto",
+          "Crocs",
+          "Carrera",
+          "Diadora",
+          "Hummel",
+          "Lacoste",
+          "Timberland",
+          "Salomon",
+          "Skechers"
+        ];
 
         foreach($categories as $categoryName) {
             $category = new Category();
@@ -131,6 +153,12 @@ class AppFixtures extends Fixture
             $colorObj = new Color();
             $colorObj->setValue($color);
             $manager->persist($colorObj);
+        }
+
+        foreach($manufacturers as $manufacturer) {
+            $manufacturerObj = new Manufacturer();
+            $manufacturerObj->setName($manufacturer);
+            $manager->persist($manufacturerObj);
         }
 
         $manager->flush();
