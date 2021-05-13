@@ -12,6 +12,7 @@ use App\Entity\ItemTag;
 use App\Entity\Tag;
 use App\Form\ColorQuantityType;
 use App\Form\EditColorQuantityType;
+use App\Form\EditSizeQuantityType;
 use App\Form\NewItemCategoryType;
 use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
@@ -605,9 +606,20 @@ class ItemController extends AbstractController
     /**
      * @Route("/edit/size/{id}/quantity", name="item_size_quantity_edit", methods={"GET", "POST"})
      */
-    public function editSizeQuantity(Request $request)
+    public function editSizeQuantity(Request $request, ItemSizeRepository $itemSizeRepository)
     {
-
+        $itemSize = $itemSizeRepository->findOneBy(['id'=>$request->get('id')]);
+        $form = $this->createForm(EditSizeQuantityType::class, $itemSize);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', $itemSize->getSize()->getValue().' veličina - količina uspješno ažurirana.');
+            return $this->redirectToRoute('item_edit', ['id'=>$itemSize->getItem()->getId()]);
+        }
+        return $this->render('item/edit_size_quantity.html.twig', [
+            'form'=>$form->createView(),
+            'itemSize'=>$itemSize
+        ]);
     }
 
     /**
