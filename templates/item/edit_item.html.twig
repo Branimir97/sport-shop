@@ -81,24 +81,34 @@
                 {% if item.itemColors|length == 0 %}
                     <p id="empty">Nema</p>
                 {% else %}
-                    {% for itemColor in item.itemColors %}
-                        <p>- {{ itemColor.color.value }}
-                            <i id="delete" class="far fa-trash-alt"></i>
-                        </p>
-                    {% endfor %}
+                    <div class="icon_wrapper">
+                        {% for itemColor in item.itemColors %}
+                            <div class="delete_icon">
+                                {{ include('item/_delete_color_form.html.twig') }}
+                            </div>
+                            <p>- {{ itemColor.color.value }} | {{ itemColor.quantity }}kom
+                                <i id="edit" class="far fa-edit"></i></p>
+                        {% endfor %}
+                    </div>
                 {% endif %}
-                <button class="btn btn-success p-1">Dodaj boju</button>
+                <a href="{{ path('item_add_color', {'id':item.id})  }}"
+                    class="btn btn-success p-1">Dodaj boju
+                </a>
             </div>
             <div class="col-md-4 mb-3">
                 <h6>Veličine artikla:</h6>
                 {% if item.itemSizes|length == 0 %}
                     <p id="empty">Nema</p>
                 {% else %}
-                    {% for itemSize in item.itemSizes %}
-                        <p>- {{ itemSize.size.value }}
-                            <i id="delete" class="far fa-trash-alt"></i>
-                        </p>
-                    {% endfor %}
+                    <div class="icon_wrapper">
+                        {% for itemSize in item.itemSizes %}
+                            <div class="delete_icon">
+                                {{ include('item/_delete_size_form.html.twig') }}
+                            </div>
+                            <p>- {{ itemSize.size.value }} | {{ itemSize.quantity }}kom
+                                <i id="edit" class="far fa-edit"></i></p>
+                        {% endfor %}
+                    </div>
                 {% endif %}
                 <button class="btn btn-success p-1">Dodaj veličinu</button>
             </div>

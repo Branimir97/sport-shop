@@ -11,6 +11,7 @@ use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Tag;
 use App\Form\NewItemCategoryType;
+use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
 use App\Form\NewItemTagType;
 use App\Form\QuantityType;
@@ -125,7 +126,7 @@ class ItemController extends AbstractController
                 return $this->redirectToRoute('item_index');
             }
         }
-        return $this->render('item/new.html.twig', [
+        return $this->render('new_item.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
         ]);
@@ -149,7 +150,6 @@ class ItemController extends AbstractController
         $tags = $this->get('session')->get('tags');
         $sizes = $this->get('session')->get('sizes');
         $colors = $this->get('session')->get('colors');
-        $images = $this->get('session')->get('images');
         $entityManager = $this->getDoctrine()->getManager();
         $formQuantity = $this->createForm(QuantityType::class, null, [
             'sizes'=>$sizes, 'colors'=>$colors
@@ -235,7 +235,7 @@ class ItemController extends AbstractController
      */
     public function show(Item $item): Response
     {
-        return $this->render('item/show.html.twig', [
+        return $this->render('show_item.html.twig', [
             'item' => $item,
         ]);
     }
@@ -255,7 +255,7 @@ class ItemController extends AbstractController
             return $this->redirectToRoute('item_index');
         }
 
-        return $this->render('item/edit.html.twig', [
+        return $this->render('item/edit_item.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
         ]);
@@ -399,7 +399,6 @@ class ItemController extends AbstractController
             $this->addFlash('success', 'Tag/ovi uspješno dodan/i.');
             return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
         }
-
         return $this->render('item/new_tag.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
@@ -425,10 +424,34 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/add/color", name="item_add_color", methods={"GET","POST"})
      */
-    public function addColor(Request $request)
+    public function addColor(Request $request, ItemRepository $itemRepository): Response
+    {
+        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $colors = $item->getItemColors();
+        $colorValues = [];
+        foreach($colors as $color) {
+            array_push($colorValues, $color->getColor()->getValue());
+        }
+        $form = $this->createForm(NewItemColorType::class, null, ['color_values'=>$colorValues]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+        }
+        return $this->render('item/new_color.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/delete/color", name="item_color_delete", methods={"DELETE"})
+     */
+    public function deleteColor(Request $request)
     {
 
     }
+
 
     /**
      * @Route("/{id}/add/size", name="item_add_size", methods={"GET","POST"})
@@ -439,9 +462,17 @@ class ItemController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/delete/size", name="item_size_delete", methods={"DELETE"})
+     */
+    public function deleteSize(Request $request)
+    {
+
+    }
+
+    /**
      * @Route("/{id}", name="item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Item $item, ImageRepository $imageRepository): Response
+    public function deleteItem(Request $request, Item $item, ImageRepository $imageRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
             $images = $imageRepository->findBy(['item'=>$item]);
@@ -455,16 +486,15 @@ class ItemController extends AbstractController
             $this->addFlash('danger', 'Artikl "'.$item->getTitle().'" uspješno obrisan.');
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('item_index');
     }
 
     /**
      * @Route("/{id}/details", name="item_details", methods={"GET"})
      */
-    public function details(Request $request, ItemRepository $itemRepository): Response
+    public function getItemdetails(Request $request, ItemRepository $itemRepository): Response
     {
-        return $this->render('item/details.html.twig', [
+        return $this->render('item/item_details.html.twig', [
             'item' => $itemRepository->findOneBy(['id'=>$request->get('id')]),
         ]);
     }

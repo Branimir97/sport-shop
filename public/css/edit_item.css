@@ -43,6 +43,10 @@
     color: red;
 }
 
+i#edit {
+    color: #3b5998;
+}
+
 i#delete {
     color: red;
 }

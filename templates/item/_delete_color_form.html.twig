@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('item_color_delete', {'id': itemColor.id}) }}"
+      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu boju?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemColor.id) }}">
+    <button><i id="delete" class="far fa-trash-alt" title="Obriši boju"></i></button>
+</form>

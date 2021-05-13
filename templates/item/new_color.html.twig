@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postavljanje novih boja{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edit_item.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Postavljanje novih boja</h2>
+        <a href="{{ path('item_edit', {'id':item.id}) }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Uređivanje artikla
+        </a>
+        <h6 class="text-center bg-light p-1">Artikl:</h6>
+        <p class="text-center" id="title">{{ item.title }}</p>
+        <h6 class="text-center bg-light p-1">Trenutno postavljena/e boja/e:</h6>
+        {% if item.itemColors|length == 0 %}
+            <p class="text-center">Artikl trenutno nema niti jednu boju.</p>
+        {% else %}
+            {% for itemColor in item.itemColors %}
+                <p class="text-center m-0" id="category">- {{ itemColor.color.value }}</p>
+            {% endfor %}
+        {% endif %}
+        {{ include('item/new_color_form.html.twig') }}
+    </div>
+{% endblock %}
