@@ -72,6 +72,11 @@ class Item
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemManufacturer::class, mappedBy="item")
+     */
+    private $itemManufacturers;
+
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -79,6 +84,7 @@ class Item
         $this->itemColors = new ArrayCollection();
         $this->itemCategories = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->itemManufacturers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,6 +296,36 @@ class Item
             // set the owning side to null (unless already changed)
             if ($image->getItem() === $this) {
                 $image->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemManufacturer[]
+     */
+    public function getItemManufacturers(): Collection
+    {
+        return $this->itemManufacturers;
+    }
+
+    public function addItemManufacturer(ItemManufacturer $itemManufacturer): self
+    {
+        if (!$this->itemManufacturers->contains($itemManufacturer)) {
+            $this->itemManufacturers[] = $itemManufacturer;
+            $itemManufacturer->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemManufacturer(ItemManufacturer $itemManufacturer): self
+    {
+        if ($this->itemManufacturers->removeElement($itemManufacturer)) {
+            // set the owning side to null (unless already changed)
+            if ($itemManufacturer->getItem() === $this) {
+                $itemManufacturer->setItem(null);
             }
         }
 
