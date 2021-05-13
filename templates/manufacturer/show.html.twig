@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proizvođač {{ manufacturer.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Proizvođač {{ manufacturer.name }}</h2>
+        <a href="{{ path('manufacturer_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista proizvođača
+        </a>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ manufacturer.id }}</td>
+            </tr>
+            <tr>
+                <th>Proizvođač</th>
+                <td>{{ manufacturer.name }}</td>
+            </tr>
+            <tr>
+                <th>Vrijeme stvaranja</th>
+                <td>{{ manufacturer.createdAt|date('H:i:s | d.m.Y.') }}</td>
+            </tr>
+            <tr>
+                <th>Vrijeme zadnje izmjene</th>
+                <td>{{ manufacturer.updatedAt ? manufacturer.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="btn btn-outline-success" href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}">Uredi podatke</a>
+            {{ include('manufacturer/_delete_form.html.twig')}}
+        </div>
+    </div>
+{% endblock %}

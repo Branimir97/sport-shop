@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('manufacturer_delete', {'id': manufacturer.id}) }}"
+      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovog proizvođača?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ manufacturer.id) }}">
+    <button class="btn btn-outline-danger mb-3 mt-2">Obriši proizvođača</button>
+</form>

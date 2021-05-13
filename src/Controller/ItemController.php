@@ -203,7 +203,7 @@ class ItemController extends AbstractController
                 $itemCategory = new ItemCategory();
                 $itemCategory->setItem($item);
                 $itemCategory->setCategory($category);
-                $entityManager->merge($itemCategory); //Ne radi s persistom, razlog nepoznat
+                $entityManager->merge($itemCategory);
             }
             if(!is_null($tags)) {
                 $explodedTags = explode(PHP_EOL, $tags);
