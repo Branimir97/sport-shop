@@ -37,7 +37,7 @@
                 <i class="fas fa-images"></i>
             </a>
         </div>
-        <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
+        <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, boje, veličine, proizvođači</h3>
         <div class="row text-center">
             <div class="col-md-4 mb-3">
                 <h6>Kategorije artikla:</h6>
@@ -106,7 +106,7 @@
                                 {{ include('item/_delete_size_form.html.twig') }}
                             </div>
                             <p>- {{ itemSize.size.value }} | {{ itemSize.quantity }}kom
-                                <i id="edit" class="far fa-edit"></i></p>
+                                <i id="edit" class="far fa-edit ml-1"></i></p>
                         {% endfor %}
                     </div>
                 {% endif %}

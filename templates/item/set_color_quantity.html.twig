@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postavljanje količine boja{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Postavljanje količine boja</h2>
+        <a href="{{ path('item_add_color', {'id':item.id}) }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Postavljanje novih boja
+        </a>
+        <p class="bg-danger text-white p-2 text-center">
+            <i class="fas fa-exclamation-circle"></i>
+            Prije dodavanja boje, potrebno je unijeti količinu za odabrane boje.
+        </p>
+        {{ include('item/set_color_quantity_form.html.twig') }}
+    </div>
+{% endblock %}

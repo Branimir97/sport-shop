@@ -10,6 +10,7 @@ use App\Entity\ItemColor;
 use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Tag;
+use App\Form\ColorQuantityType;
 use App\Form\NewItemCategoryType;
 use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
@@ -17,6 +18,7 @@ use App\Form\NewItemSizeType;
 use App\Form\NewItemTagType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
+use App\Form\SizeQuantityType;
 use App\Repository\ColorRepository;
 use App\Repository\ImageRepository;
 use App\Repository\ItemCategoryRepository;
@@ -236,7 +238,7 @@ class ItemController extends AbstractController
      */
     public function show(Item $item): Response
     {
-        return $this->render('show_item.html.twig', [
+        return $this->render('item/show_item.html.twig', [
             'item' => $item,
         ]);
     }
@@ -437,9 +439,57 @@ class ItemController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-
+            $selectedColors = $form->get('color')->getData();
+            $session = new Session();
+            $session->set('colors', $selectedColors);
+            $session->set('item', $item);
+            return $this->redirectToRoute('item_color_set_quantity');
         }
         return $this->render('item/new_color.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     *@Route("/set/new/color/quantity", name="item_color_set_quantity", methods={"GET", "POST"})
+     */
+    public function setNewColorQuantity(Request $request, ColorRepository $colorRepository): Response
+    {
+        $markedColors = [];
+        $colorQuantities = [];
+        $colors = $this->get('session')->get('colors');
+        $item = $this->get('session')->get('item');
+        $form = $this->createForm(ColorQuantityType::class, null, ['colors'=>$colors]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach ($colors as $color) {
+                array_push($markedColors, $color->getId());
+            }
+            $formData = $form->getData();
+            $formKeys = array_keys($formData);
+
+            foreach ($formKeys as $key) {
+                if (str_contains($key, "color")) {
+                    array_push($colorQuantities, $formData[$key]);
+                }
+            }
+            $colorsDone = array_combine($markedColors, $colorQuantities);
+
+            foreach ($colorsDone as $key => $value) {
+                $colorObj = $colorRepository->findOneBy(['id' => $key]);
+                $itemColor = new ItemColor();
+                $itemColor->setItem($item);
+                $itemColor->setColor($colorObj);
+                $itemColor->setQuantity($value);
+                $entityManager->merge($itemColor);
+            }
+            $entityManager->flush();
+            $this->addFlash('success', 'Boja/e uspješno dodana/e.');
+            return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+        }
+        return $this->render('item/set_color_quantity.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
         ]);
@@ -477,9 +527,57 @@ class ItemController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-
+            $selectedSizes = $form->get('size')->getData();
+            $session = new Session();
+            $session->set('sizes', $selectedSizes);
+            $session->set('item', $item);
+            return $this->redirectToRoute('item_size_set_quantity');
         }
         return $this->render('item/new_size.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     *@Route("/set/new/size/quantity", name="item_size_set_quantity", methods={"GET", "POST"})
+     */
+    public function setNewSizeQuantity(Request $request, SizeRepository $sizeRepository): Response
+    {
+        $markedSizes = [];
+        $sizeQuantities = [];
+        $sizes = $this->get('session')->get('sizes');
+        $item = $this->get('session')->get('item');
+        $form = $this->createForm(SizeQuantityType::class, null, ['sizes'=>$sizes]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach ($sizes as $size) {
+                array_push($markedSizes, $size->getId());
+            }
+            $formData = $form->getData();
+            $formKeys = array_keys($formData);
+
+            foreach ($formKeys as $key) {
+                if (str_contains($key, "size")) {
+                    array_push($sizeQuantities, $formData[$key]);
+                }
+            }
+            $colorsDone = array_combine($markedSizes, $sizeQuantities);
+
+            foreach ($colorsDone as $key => $value) {
+                $sizeObj = $sizeRepository->findOneBy(['id' => $key]);
+                $itemSize = new ItemSize();
+                $itemSize->setItem($item);
+                $itemSize->setSize($sizeObj);
+                $itemSize->setQuantity($value);
+                $entityManager->merge($itemSize);
+            }
+            $entityManager->flush();
+            $this->addFlash('success', 'Veličina/e uspješno dodana/e.');
+            return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+        }
+        return $this->render('item/set_size_quantity.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
         ]);
