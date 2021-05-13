@@ -87,7 +87,10 @@
                                 {{ include('item/_delete_color_form.html.twig') }}
                             </div>
                             <p>- {{ itemColor.color.value }} | {{ itemColor.quantity }}kom
-                                <i id="edit" class="far fa-edit"></i></p>
+                                <a href="{{ path('item_color_quantity_edit', {'id':itemColor.id}) }}" title="Uredi količinu">
+                                    <i id="edit" class="far fa-edit"></i>
+                                </a>
+                            </p>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -106,7 +109,10 @@
                                 {{ include('item/_delete_size_form.html.twig') }}
                             </div>
                             <p>- {{ itemSize.size.value }} | {{ itemSize.quantity }}kom
-                                <i id="edit" class="far fa-edit ml-1"></i></p>
+                                <a href="{{ path('item_size_quantity_edit', {'id':itemSize.id}) }}" title="Uredi količinu">
+                                    <i id="edit" class="far fa-edit ml-1"></i>
+                                </a>
+                            </p>
                         {% endfor %}
                     </div>
                 {% endif %}

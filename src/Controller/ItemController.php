@@ -11,6 +11,7 @@ use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Tag;
 use App\Form\ColorQuantityType;
+use App\Form\EditColorQuantityType;
 use App\Form\NewItemCategoryType;
 use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
@@ -496,11 +497,22 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit/color", name="item_color_edit", methods={""})
+     * @Route("/edit/color/{id}/quantity", name="item_color_quantity_edit", methods={"GET", "POST"})
      */
-    public function editColor(Request $request)
+    public function editColorQuantity(Request $request, ItemColorRepository $itemColorRepository): Response
     {
-
+        $itemColor = $itemColorRepository->findOneBy(['id'=>$request->get('id')]);
+        $form = $this->createForm(EditColorQuantityType::class, $itemColor);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', $itemColor->getColor()->getValue().' boja - količina uspješno ažurirana.');
+            return $this->redirectToRoute('item_edit', ['id'=>$itemColor->getItem()->getId()]);
+        }
+        return $this->render('item/edit_color_quantity.html.twig', [
+            'form'=>$form->createView(),
+            'itemColor'=>$itemColor
+        ]);
     }
 
     /**
@@ -591,9 +603,9 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit/size", name="item_size_edit", methods={""})
+     * @Route("/edit/size/{id}/quantity", name="item_size_quantity_edit", methods={"GET", "POST"})
      */
-    public function editSize(Request $request)
+    public function editSizeQuantity(Request $request)
     {
 
     }

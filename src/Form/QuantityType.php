@@ -21,7 +21,8 @@ class QuantityType extends AbstractType
                     ->add('size_'.$counter, null, [
                         'label'=>'Veličina ['.$size->getValue().'] - unesite količinu',
                         'attr'=>[
-                            'placeholder'=>'npr. 15'
+                            'placeholder'=>'npr. 15',
+                            'min'=>0
                         ]
                     ])
                 ;
@@ -35,7 +36,8 @@ class QuantityType extends AbstractType
                     ->add('color_'.$counter, null, [
                         'label'=>'['.$color->getValue().'] boja - unesite količinu',
                         'attr'=>[
-                            'placeholder'=>'npr. 15'
+                            'placeholder'=>'npr. 15',
+                            'min'=>0
                         ]
                     ])
                 ;
