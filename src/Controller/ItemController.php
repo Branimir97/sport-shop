@@ -11,6 +11,7 @@ use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Tag;
 use App\Form\NewItemCategoryType;
+use App\Form\NewItemImageType;
 use App\Form\NewItemTagType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
@@ -255,6 +256,41 @@ class ItemController extends AbstractController
         }
 
         return $this->render('item/edit.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/image/add", name="item_image_add", methods={"GET", "POST"})
+     */
+    public function addImage(Request $request, ImageUploadHelper $uploadHelper, ItemRepository $itemRepository): Response
+    {
+        $form = $this->createForm(NewItemImageType::class);
+        $form->handleRequest($request);
+        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $images = $form->get('image')->getData();
+            foreach ($images as $image) {
+                $newFileName = $uploadHelper->uploadItemImage($image);
+                if(is_null($newFileName)) {
+                    $this->addFlash('danger',
+                        'Pogreška prilikom prijenosa fotografija. 
+                                    Dopušteni formati fotografija: jpg, jpeg i png.'
+                    );
+                    return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+                }
+                $image = new Image();
+                $image->setPath($newFileName);
+                $image->setItem($item);
+                $entityManager->persist($image);
+            }
+            $entityManager->flush();
+            $this->addFlash('success', "Fotografija/e uspješno dodana/e.");
+            return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+        }
+        return $this->render('item/new_image.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
         ]);

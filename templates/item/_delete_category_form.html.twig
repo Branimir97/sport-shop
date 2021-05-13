@@ -1,6 +1,6 @@
 <form method="post" action="{{ path('item_category_delete', {'id': itemCategory.id}) }}"
-      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu fotografiju?');">
+      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu kategoriju?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemCategory.id) }}">
-    <button><i class="far fa-trash-alt p-1" title="Obriši fotografiju"></i></button>
+    <button><i id="delete" class="far fa-trash-alt p-1" title="Obriši kategoriju"></i></button>
 </form>

@@ -18,9 +18,9 @@
         {% if item.images|length == 0 %}
                 <p class="text-center">Artikl trenutno nema niti jednu fotografiju.</p>
         {% else %}
+            <div class="row">
             {% for image in item.images %}
-                <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 mb-3">
                         <div class="image-wrapper">
                             <div class="delete_icon">
                                 {{ include('item/_delete_image_form.html.twig') }}
@@ -28,17 +28,18 @@
                             <img src="{{ asset('uploads/')~image.path }}" alt="image_{{ image.id }}">
                         </div>
                     </div>
-                </div>
             {% endfor %}
+            </div>
         {% endif %}
         <div class="text-center">
-            <button class="btn btn-warning p-1 mt-3">Dodaj fotografije
+            <a href="{{ path('item_image_add', {'id':item.id}) }}"
+                class="btn btn-warning p-1 mt-3">Dodaj fotografiju/e
                 <i class="fas fa-images"></i>
-            </button>
+            </a>
         </div>
         <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, veličine, boje, proizvođači</h3>
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row text-center">
+            <div class="col-md-4 mb-3">
                 <h6>Kategorije artikla:</h6>
                 {% if item.itemCategories|length == 0 %}
                     <p id="empty">Nema</p>
@@ -57,7 +58,7 @@
                     Dodaj kategoriju
                 </a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <h6>Tagovi artikla:</h6>
                 {% if item.itemTags|length == 0 %}
                     <p id="empty">Nema</p>
@@ -75,7 +76,7 @@
                    class="btn btn-success p-1 mt-2">Dodaj tag
                 </a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <h6>Boje artikla:</h6>
                 {% if item.itemColors|length == 0 %}
                     <p id="empty">Nema</p>
@@ -88,7 +89,7 @@
                 {% endif %}
                 <button class="btn btn-success p-1">Dodaj boju</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <h6>Veličine artikla:</h6>
                 {% if item.itemSizes|length == 0 %}
                     <p id="empty">Nema</p>
@@ -101,7 +102,7 @@
                 {% endif %}
                 <button class="btn btn-success p-1">Dodaj veličinu</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <h6>Proizvođači artikla:</h6>
                 {% if item.itemSizes|length == 0 %}
                     <p id="empty">Nema</p>
