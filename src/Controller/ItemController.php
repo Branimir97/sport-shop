@@ -22,7 +22,9 @@ use App\Form\SizeQuantityType;
 use App\Repository\ColorRepository;
 use App\Repository\ImageRepository;
 use App\Repository\ItemCategoryRepository;
+use App\Repository\ItemColorRepository;
 use App\Repository\ItemRepository;
+use App\Repository\ItemSizeRepository;
 use App\Repository\ItemTagRepository;
 use App\Repository\SizeRepository;
 use App\Repository\TagRepository;
@@ -357,7 +359,6 @@ class ItemController extends AbstractController
     public function deleteCategory(Request $request, ItemCategory $itemCategory, ItemCategoryRepository $itemCategoryRepository): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$itemCategory->getId(), $request->request->get('_token'))) {
-            $itemCategory = $itemCategoryRepository->findOneBy(['id'=>$itemCategory->getId()]);
             $itemId = $itemCategory->getItem()->getId();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($itemCategory);
@@ -414,7 +415,6 @@ class ItemController extends AbstractController
     public function deleteTag(Request $request, ItemTag $itemTag, ItemTagRepository $itemTagRepository): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$itemTag->getId(), $request->request->get('_token'))) {
-            $itemTag = $itemTagRepository->findOneBy(['id'=>$itemTag->getId()]);
             $itemId = $itemTag->getItem()->getId();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($itemTag);
@@ -506,9 +506,16 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/delete/color", name="item_color_delete", methods={"DELETE"})
      */
-    public function deleteColor(Request $request)
+    public function deleteColor(Request $request, ItemColor $itemColor, ItemColorRepository $itemColorRepository): RedirectResponse
     {
-
+        if ($this->isCsrfTokenValid('delete'.$itemColor->getId(), $request->request->get('_token'))) {
+            $itemId = $itemColor->getItem()->getId();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($itemColor);
+            $this->addFlash('success', 'Boja uspješno izbrisana.');
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
     }
 
 
@@ -594,9 +601,16 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/delete/size", name="item_size_delete", methods={"DELETE"})
      */
-    public function deleteSize(Request $request)
+    public function deleteSize(Request $request, ItemSize $itemSize, ItemSizeRepository $itemSizeRepository): RedirectResponse
     {
-
+        if ($this->isCsrfTokenValid('delete'.$itemSize->getId(), $request->request->get('_token'))) {
+            $itemId = $itemSize->getItem()->getId();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($itemSize);
+            $this->addFlash('success', 'Veličina uspješno izbrisana.');
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('item_edit', ['id'=>$itemId]);
     }
 
     /**
