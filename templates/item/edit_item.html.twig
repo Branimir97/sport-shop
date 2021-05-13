@@ -91,7 +91,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                <a href="{{ path('item_add_color', {'id':item.id})  }}"
+                <a href="{{ path('item_add_color', {'id':item.id}) }}"
                     class="btn btn-success p-1">Dodaj boju
                 </a>
             </div>
@@ -110,7 +110,9 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                <button class="btn btn-success p-1">Dodaj veličinu</button>
+                <a href="{{ path('item_add_size', {'id':item.id}) }}"
+                    class="btn btn-success p-1">Dodaj veličinu
+                </a>
             </div>
             <div class="col-md-4 mb-3">
                 <h6>Proizvođači artikla:</h6>

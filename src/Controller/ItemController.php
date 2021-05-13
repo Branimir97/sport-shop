@@ -13,6 +13,7 @@ use App\Entity\Tag;
 use App\Form\NewItemCategoryType;
 use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
+use App\Form\NewItemSizeType;
 use App\Form\NewItemTagType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
@@ -445,6 +446,14 @@ class ItemController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/edit/color", name="item_color_edit", methods={""})
+     */
+    public function editColor(Request $request)
+    {
+
+    }
+
+    /**
      * @Route("/{id}/delete/color", name="item_color_delete", methods={"DELETE"})
      */
     public function deleteColor(Request $request)
@@ -456,7 +465,30 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/add/size", name="item_add_size", methods={"GET","POST"})
      */
-    public function addSize(Request $request)
+    public function addSize(Request $request, ItemRepository $itemRepository): Response
+    {
+        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $sizes = $item->getItemSizes();
+        $sizeValues = [];
+        foreach($sizes as $size) {
+            array_push($sizeValues, $size->getSize()->getValue());
+        }
+        $form = $this->createForm(NewItemSizeType::class, null, ['size_values'=>$sizeValues]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+        }
+        return $this->render('item/new_size.html.twig', [
+            'item' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit/size", name="item_size_edit", methods={""})
+     */
+    public function editSize(Request $request)
     {
 
     }
