@@ -92,20 +92,17 @@ class AppFixtures extends Fixture
         ];
 
         $colors = [
-            "Crna",
-            "Bijela",
-            "Crvena",
-            "Svijetlo crvena",
-            "Zelena",
-            "Svijetlo zelena",
-            "Plava",
-            "Svijetlo plava",
-            "Siva",
-            "Narančasta",
-            "Žuta",
-            "Svijetlo žuta",
-            "Ljubičasta",
-            "Tirkizna"
+            "#7E4539",
+            "#397E55",
+            "#C4E4D1",
+            "#DEC4E4",
+            "#FF0000",
+            "#0101DF",
+            "#FFBF00",
+            "#F781F3",
+            "#084B8A",
+            "#CEF6EC",
+            "#1B0A2A"
         ];
 
         $manufacturers = [
