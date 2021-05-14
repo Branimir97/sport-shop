@@ -37,6 +37,7 @@
                         <a href="{{ path('category_edit', {'id': category.id}) }}" title="Uredi">
                             <i class="fas fa-edit"></i>
                         </a>
+                        {{ include('category/_delete_form.html.twig') }}
                     </td>
                 </tr>
             {% endfor %}
