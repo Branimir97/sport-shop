@@ -60,10 +60,12 @@
                             {% for review in item.reviews|reverse %}
                                 <div class="col-sm-11 one-review mb-2">
                                     <div id="edit_icon">
-                                        <a href="{{ path('review_edit', {id: review.id}) }}"
-                                           title="Uredi recenziju">
-                                            <i class="far fa-edit"></i>
-                                        </a>
+                                        {% if app.user == review.user or is_granted("ROLE_ADMIN") %}
+                                            <a href="{{ path('review_edit', {id: review.id}) }}"
+                                               title="Uredi recenziju">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                        {% endif %}
                                     </div>
                                     <h6 class="p-1 border-bottom">
                                         <span class="mr-1">Autor:</span> {{ review.user.name }} {{ review.user.surname }}

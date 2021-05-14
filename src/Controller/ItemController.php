@@ -42,7 +42,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/item")
- * @IsGranted("ROLE_ADMIN")
  */
 class ItemController extends AbstractController
 {

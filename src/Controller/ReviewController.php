@@ -37,10 +37,10 @@ class ReviewController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             if($this->isGranted("ROLE_ADMIN")) {
-                $this->addFlash('success', 'Recenzija uspješno obrisana.');
+                $this->addFlash('success', 'Recenzija uspješno ažurirana.');
                 return $this->redirectToRoute('review_index');
             } else {
-                $this->addFlash('success', 'Recenzija uspješno obrisana.');
+                $this->addFlash('success', 'Recenzija uspješno ažurirana.');
                 return $this->redirectToRoute('item_details', ['id'=>$review->getItem()->getId()]);
             }
         }
@@ -61,6 +61,12 @@ class ReviewController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('review_index');
+        if($this->isGranted("ROLE_ADMIN")) {
+            $this->addFlash('success', 'Recenzija uspješno obrisana.');
+            return $this->redirectToRoute('review_index');
+        } else {
+            $this->addFlash('success', 'Recenzija uspješno obrisana.');
+            return $this->redirectToRoute('item_details', ['id'=>$review->getItem()->getId()]);
+        }
     }
 }

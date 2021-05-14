@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('review_delete', {'id': review.id}) }}"
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu recenziju?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
-    <button class="btn btn-danger mt-3">Obriši recenziju</button>
+    <button class="btn btn-danger mb-3 mt-2">Obriši recenziju</button>
 </form>
