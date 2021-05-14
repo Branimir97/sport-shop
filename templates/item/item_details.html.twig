@@ -132,9 +132,9 @@
                 {% if item.reviews|length == 0 %}
                     <p class="text-center">Trenutno nitko nije napisao niti jednu recenziju za ovaj artikl.</p>
                 {% else %}
-                    <div class="row one-review ml-0 mr-0">
+                    <div class="row">
                         {% for review in item.reviews %}
-                            <div class="col">
+                            <div class="col-sm-12">
                                 <h6 class="p-1 border-bottom">{{ review.user.name }} {{ review.user.surname }}</h6>
                                 <p><span>Ocjena</span> {{ review.rating }}</p>
                                 <p><span>Komentar</span> {{ review.comment }}</p>

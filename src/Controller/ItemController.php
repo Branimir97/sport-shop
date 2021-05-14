@@ -679,6 +679,7 @@ class ItemController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Recenzija uspješno dodana.');
+            $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
         }
 
         return $this->render('item/item_details.html.twig', [
