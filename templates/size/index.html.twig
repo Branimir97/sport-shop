@@ -39,6 +39,7 @@
                         <a href="{{ path('size_edit', {'id': size.id}) }}" title="Uredi">
                             <i class="fas fa-edit"></i>
                         </a>
+                        {{ include('size/_delete_form.html.twig') }}
                     </td>
                 </tr>
             {% endfor %}
