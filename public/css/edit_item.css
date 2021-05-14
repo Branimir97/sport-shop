@@ -58,3 +58,7 @@ i#delete {
 .container p#category{
     color: red;
 }
+
+.container p#empty{
+    color: red;
+}

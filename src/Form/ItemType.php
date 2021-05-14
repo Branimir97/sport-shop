@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Color;
 use App\Entity\Item;
+use App\Entity\Manufacturer;
 use App\Entity\Size;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,7 +30,18 @@ class ItemType extends AbstractType
                     'placeholder'=>'npr. Nike Air Max tenisice'
                 ],
                 'label'=>'Naziv',
-            ]);
+            ])
+            ->add('manufacturer', EntityType::class, [
+                'required' => false,
+                'class' => Manufacturer::class,
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('m');
+                },
+                'choice_label' => 'name',
+                'help' => "Odaberite proizvođača",
+                'label' => 'Proizvođač'
+            ])
+        ;
         if(!$isEditForm) {
             $builder
                 ->add('category', EntityType::class, [

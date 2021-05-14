@@ -68,6 +68,8 @@ class ItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $item->setCipher(uniqid());
+            $manufacturer = $form->get('manufacturer')->getData();
+            $item->setManufacturer($manufacturer);
             $categories = $form->get('category')->getData();
             $tags = $form->get('tag')->getData();
             $sizes = $form->get('size')->getData();
@@ -76,6 +78,7 @@ class ItemController extends AbstractController
             if(count($sizes)!=0 || count($colors)!=0) {
                 $session = new Session();
                 $session->set('item', $item);
+                $session->set('manufacturer', $manufacturer);
                 $session->set('categories', $categories);
                 $session->set('tags', $tags);
                 $session->set('sizes', $sizes);
@@ -92,6 +95,7 @@ class ItemController extends AbstractController
                 }
                 return $this->redirectToRoute('item_quantity_set');
             } else {
+                $item->setManufacturer($manufacturer);
                 foreach($categories as $category) {
                     $itemCategory = new ItemCategory();
                     $itemCategory->setItem($item);
@@ -133,7 +137,7 @@ class ItemController extends AbstractController
                 return $this->redirectToRoute('item_index');
             }
         }
-        return $this->render('new_item.html.twig', [
+        return $this->render('item/new_item.html.twig', [
             'item' => $item,
             'form' => $form->createView(),
         ]);
@@ -253,10 +257,12 @@ class ItemController extends AbstractController
     public function edit(Request $request, Item $item): Response
     {
         $form = $this->createForm(ItemType::class, $item, ['isEdit'=>true]);
+        $form->get('manufacturer')->setData($item->getManufacturer());
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item);
+            $entityManager->flush();
 
             $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno ažuriran.');
             return $this->redirectToRoute('item_index');

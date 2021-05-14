@@ -73,9 +73,9 @@ class Item
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemManufacturer::class, mappedBy="item")
+     * @ORM\ManyToOne(targetEntity=Manufacturer::class, inversedBy="items")
      */
-    private $itemManufacturers;
+    private $manufacturer;
 
     public function __construct()
     {
@@ -84,7 +84,6 @@ class Item
         $this->itemColors = new ArrayCollection();
         $this->itemCategories = new ArrayCollection();
         $this->images = new ArrayCollection();
-        $this->itemManufacturers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,32 +301,14 @@ class Item
         return $this;
     }
 
-    /**
-     * @return Collection|ItemManufacturer[]
-     */
-    public function getItemManufacturers(): Collection
+    public function getManufacturer(): ?Manufacturer
     {
-        return $this->itemManufacturers;
+        return $this->manufacturer;
     }
 
-    public function addItemManufacturer(ItemManufacturer $itemManufacturer): self
+    public function setManufacturer(?Manufacturer $manufacturer): self
     {
-        if (!$this->itemManufacturers->contains($itemManufacturer)) {
-            $this->itemManufacturers[] = $itemManufacturer;
-            $itemManufacturer->setItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeItemManufacturer(ItemManufacturer $itemManufacturer): self
-    {
-        if ($this->itemManufacturers->removeElement($itemManufacturer)) {
-            // set the owning side to null (unless already changed)
-            if ($itemManufacturer->getItem() === $this) {
-                $itemManufacturer->setItem(null);
-            }
-        }
+        $this->manufacturer = $manufacturer;
 
         return $this;
     }

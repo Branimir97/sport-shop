@@ -38,13 +38,13 @@ class Manufacturer
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemManufacturer::class, mappedBy="manufacturer")
+     * @ORM\OneToMany(targetEntity=Item::class, mappedBy="manufacturer")
      */
-    private $itemManufacturers;
+    private $items;
 
     public function __construct()
     {
-        $this->itemManufacturers = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,29 +89,29 @@ class Manufacturer
     }
 
     /**
-     * @return Collection|ItemManufacturer[]
+     * @return Collection|Item[]
      */
-    public function getItemManufacturers(): Collection
+    public function getItems(): Collection
     {
-        return $this->itemManufacturers;
+        return $this->items;
     }
 
-    public function addItemManufacturer(ItemManufacturer $itemManufacturer): self
+    public function addItem(Item $item): self
     {
-        if (!$this->itemManufacturers->contains($itemManufacturer)) {
-            $this->itemManufacturers[] = $itemManufacturer;
-            $itemManufacturer->setManufacturer($this);
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setManufacturer($this);
         }
 
         return $this;
     }
 
-    public function removeItemManufacturer(ItemManufacturer $itemManufacturer): self
+    public function removeItem(Item $item): self
     {
-        if ($this->itemManufacturers->removeElement($itemManufacturer)) {
+        if ($this->items->removeElement($item)) {
             // set the owning side to null (unless already changed)
-            if ($itemManufacturer->getManufacturer() === $this) {
-                $itemManufacturer->setManufacturer(null);
+            if ($item->getManufacturer() === $this) {
+                $item->setManufacturer(null);
             }
         }
 
