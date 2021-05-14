@@ -18,10 +18,39 @@
     object-fit: contain;
 }
 
+.reviews{
+    height: 500px;
+    overflow: auto;
+}
 
 .one-review{
-    border: 1px solid gray;
+    word-wrap: break-word;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: relative;
+}
+
+.one-review #edit_icon{
+    position: absolute;
+    right: 0;
+    color: #007bb6;
+}
+
+.one-review #edit_icon:hover{
+    opacity: 80%;
+    cursor: pointer;
+ }
+
+.one-review span{
     font-style: italic;
+    color: green;
+}
+
+.one-review span.checked {
+    color: orange;
+}
+
+.one-review span#unchecked{
+    color: black;
 }
 
 
