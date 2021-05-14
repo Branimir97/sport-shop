@@ -28,14 +28,18 @@ class ManufacturerController extends AbstractController
     /**
      * @Route("/new", name="manufacturer_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ManufacturerRepository $manufacturerRepository): Response
     {
         $manufacturer = new Manufacturer();
         $form = $this->createForm(ManufacturerType::class, $manufacturer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryName = $form->get('name')->getData();
+            $manufacturerName = $form->get('name')->getData();
+            if(!is_null($manufacturerRepository->findOneBy(['name'=>$manufacturerName]))) {
+                $this->addFlash('danger', 'Proizvođač "'.$manufacturerName.'" već postoji.');
+                return $this->redirectToRoute('manufacturer_index');
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
             $entityManager->flush();

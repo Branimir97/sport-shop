@@ -37,7 +37,7 @@ class ColorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryName = $form->get('name')->getData();
+            $colorValue = $form->get('value')->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($color);
