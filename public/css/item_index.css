@@ -1,0 +1,9 @@
+.delete_icon button{
+    right: 10%;
+    border: none;
+}
+
+.delete_icon button:hover {
+    opacity: 80%;
+    cursor: pointer;
+}

@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Upravljanje artiklima{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/item_index.css') }}">
+{% endblock %}
 
 {% block body %}
 
@@ -36,15 +39,16 @@
                         <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
                         <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                         <td>
-                            <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Prikaži pojedinosti">
+                            <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Osnovne informacije">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{{ path('item_details', {'id': item.id}) }}" title="Prikaži iz pogleda korisnika">
+                            <a href="{{ path('item_details', {'id': item.id}) }}" title="Prikaži artikl">
                                 <i class="fas fa-chalkboard-teacher"></i>
                             </a>
+                            {{ include('item/_delete_item_form.html.twig') }}
                         </td>
                     </tr>
                 {% endfor %}
