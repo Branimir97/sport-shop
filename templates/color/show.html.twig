@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ color.value }} boja{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/color_circle75.css") }}">
+{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">{{ color.value }} boja</h2>
+        <h2 class="text-center mt-2 bg-light p-2">Kod boje: {{ color.value }}</h2>
+        <div class="circle_wrapper">
+            <div class="circle" style="background-color: {{ color.value }}"></div>
+        </div>
         <a href="{{ path('color_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista boja
@@ -31,7 +37,7 @@
         </table>
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('color_edit', {'id': color.id}) }}">Uredi podatke</a>
-            {{ include('color/_delete_item_form.html.twig') }}
+            {{ include('color/_delete_form.html.twig') }}
         </div>
     </div>
 {% endblock %}

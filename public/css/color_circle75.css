@@ -1,0 +1,11 @@
+.circle_wrapper {
+    display: table;
+    margin: 10px auto;
+    height: 100px;
+    width: 100px;
+}
+.circle {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}

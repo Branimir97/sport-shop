@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Color;
-use App\Form\ColorType;
+use App\Form\ItemColorType;
 use App\Repository\ColorRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,7 @@ class ColorController extends AbstractController
     public function new(Request $request): Response
     {
         $color = new Color();
-        $form = $this->createForm(ColorType::class, $color);
+        $form = $this->createForm(ItemColorType::class, $color);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -65,7 +65,7 @@ class ColorController extends AbstractController
      */
     public function edit(Request $request, Color $color): Response
     {
-        $form = $this->createForm(ColorType::class, $color);
+        $form = $this->createForm(ItemColorType::class, $color);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

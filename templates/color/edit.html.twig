@@ -1,21 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Uređivanje - {{ color.value }} boja{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/color_circle75.css") }}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Uređivanje podataka - {{ color.value }} boja</h2>
+        <h2 class="text-center mt-2 bg-light p-2">Trenutna boja</h2>
+        <div class="circle_wrapper">
+            <div class="circle" style="background-color: {{ color.value }}"></div>
+        </div>
         <a href="{{ path('color_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista boja
         </a>
-        {{ include('color/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('color/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         <div class="text-center">
-            {{ include('color/_delete_item_form.html.twig') }}
+            {{ include('color/_delete_form.html.twig') }}
         </div>
     </div>
 {% endblock %}

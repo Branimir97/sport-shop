@@ -41,6 +41,7 @@
                             <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}" title="Uredi">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            {{ include('manufacturer/_delete_form.html.twig') }}
                         </td>
                     </tr>
                 {% endfor %}
