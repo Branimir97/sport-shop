@@ -30,13 +30,18 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $categoryName = $form->get('name')->getData();
+            if(!is_null($categoryRepository->findOneBy(['name'=>$categoryName]))) {
+                $this->addFlash('danger', 'Kategorija "'.$categoryName.'" već postoji.');
+                return $this->redirectToRoute('category_index');
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
