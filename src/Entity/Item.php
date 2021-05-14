@@ -82,6 +82,11 @@ class Item
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="item")
+     */
+    private $reviews;
+
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -89,6 +94,7 @@ class Item
         $this->itemColors = new ArrayCollection();
         $this->itemCategories = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -326,6 +332,36 @@ class Item
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getItem() === $this) {
+                $review->setItem(null);
+            }
+        }
 
         return $this;
     }
