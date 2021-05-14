@@ -30,7 +30,7 @@ class ColorController extends AbstractController
     /**
      * @Route("/new", name="color_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ColorRepository $colorRepository): Response
     {
         $color = new Color();
         $form = $this->createForm(ItemColorType::class, $color);
@@ -38,7 +38,10 @@ class ColorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $colorValue = $form->get('value')->getData();
-
+            if(!is_null($colorRepository->findOneBy(['value'=>$colorValue]))) {
+                $this->addFlash('danger', 'Boja s kodom "'.$colorValue.'" već postoji.');
+                return $this->redirectToRoute('color_index');
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($color);
             $entityManager->flush();
