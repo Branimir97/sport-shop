@@ -43,11 +43,8 @@
                         <a href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}" title="Uredi">
                             <i class="fas fa-edit"></i>
                         </a>
+                        {{ include('delivery_address/_delete_form.html.twig') }}
                     </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="9">no records found</td>
                 </tr>
             {% endfor %}
             </tbody>
