@@ -99,14 +99,50 @@
             </div>
             <div class="col-md-6 mt-3 mb-2">
                 <h3 class="text-center">Recenzije</h3>
-{#                <p class="text-center">Trenutno nitko nije napisao niti jednu recenziju za ovaj artikl.</p>#}
-                <div class="row one-review ml-0 mr-0">
-                    <div class="col">
-                        <h6 class="p-1 border-bottom">Ivan Ivić</h6>
-                        <p>Sadržaj</p>
-                        <p class="text-right">Objavljeno: 27.17.2020.</p>
+                {% if app.user %}
+                    <div class="text-center">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModalCenter">
+                            Dodaj novu recenziju
+                        </button>
                     </div>
-                </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Dodavanje nove recenzije</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form_start(form) }}
+                                        {{ form_row(form.rating, {label: 'Ocjena'}) }}
+                                        {{ form_row(form.comment, {label: 'Komentar'}) }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+                                    <button type="submit" class="btn btn-primary">Dodaj recenziju</button>
+                                </div>{{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.reviews|length == 0 %}
+                    <p class="text-center">Trenutno nitko nije napisao niti jednu recenziju za ovaj artikl.</p>
+                {% else %}
+                    <div class="row one-review ml-0 mr-0">
+                        {% for review in item.reviews %}
+                            <div class="col">
+                                <h6 class="p-1 border-bottom">{{ review.user.name }} {{ review.user.surname }}</h6>
+                                <p><span>Ocjena</span> {{ review.rating }}</p>
+                                <p><span>Komentar</span> {{ review.comment }}</p>
+                                <p class="text-right">Objavljeno: {{ review.createdAt|date('H:i:s | d.m.Y.') }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@ use App\Entity\ItemCategory;
 use App\Entity\ItemColor;
 use App\Entity\ItemSize;
 use App\Entity\ItemTag;
+use App\Entity\Review;
 use App\Entity\Tag;
 use App\Form\ColorQuantityType;
 use App\Form\EditColorQuantityType;
@@ -16,6 +17,7 @@ use App\Form\EditSizeQuantityType;
 use App\Form\NewItemCategoryType;
 use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
+use App\Form\NewItemReviewType;
 use App\Form\NewItemSizeType;
 use App\Form\NewItemTagType;
 use App\Form\QuantityType;
@@ -660,12 +662,28 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/details", name="item_details", methods={"GET"})
+     * @Route("/{id}/details", name="item_details", methods={"GET", "POST"})
      */
-    public function getItemdetails(Request $request, ItemRepository $itemRepository): Response
+    public function showItemdetails(Request $request, ItemRepository $itemRepository): Response
     {
+        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $review = new Review();
+        $form = $this->createForm(NewItemReviewType::class, $review);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $review->setUser($this->getUser());
+            $review->setItem($item);
+            $entityManager->persist($review);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Recenzija uspješno dodana.');
+        }
+
         return $this->render('item/item_details.html.twig', [
-            'item' => $itemRepository->findOneBy(['id'=>$request->get('id')]),
+            'item' => $item,
+            'form'=>$form->createView()
         ]);
     }
 }

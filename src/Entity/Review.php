@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
@@ -28,7 +30,7 @@ class Review
     private $item;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", length=255)
      */
     private $rating;
 
@@ -39,11 +41,13 @@ class Review
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -76,12 +80,12 @@ class Review
         return $this;
     }
 
-    public function getRating(): ?string
+    public function getRating(): ?int
     {
         return $this->rating;
     }
 
-    public function setRating(string $rate): self
+    public function setRating(int $rate): self
     {
         $this->rating = $rate;
 
