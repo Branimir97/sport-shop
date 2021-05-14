@@ -99,11 +99,21 @@ class ItemType extends AbstractType
             ;
         }
         $builder
+            ->add('description', TextareaType::class, [
+                'required'=>false,
+                'label'=>'Opis artikla',
+                'attr'=>[
+                    'rows'=>10,
+                    'placeholder'=>'npr. sastav, savjeti oko uporabe, namjena, itd.'
+                ],
+                'help' => 'Omogućeno je korištenje HTML elemenata',
+            ])
             ->add('price', null, [
                 'attr'=>[
                     'placeholder'=>'npr. 349,50'
                 ],
-                'label'=>'Cijena [kn]',
+                'label'=>'Cijena',
+                'help' => 'Unos u kunama',
             ])
         ;
     }
