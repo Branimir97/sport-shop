@@ -35,6 +35,7 @@ class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $categoryName = $form->get('name')->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
             $entityManager->flush();

@@ -35,7 +35,10 @@ class ColorController extends AbstractController
         $color = new Color();
         $form = $this->createForm(ItemColorType::class, $color);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $categoryName = $form->get('name')->getData();
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($color);
             $entityManager->flush();

@@ -30,13 +30,18 @@ class SizeController extends AbstractController
     /**
      * @Route("/new", name="size_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SizeRepository $sizeRepository): Response
     {
         $size = new Size();
         $form = $this->createForm(SizeType::class, $size);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $sizeValue = $form->get('value')->getData();
+            if(!is_null($sizeRepository->findOneBy(['value'=>$sizeValue]))) {
+                $this->addFlash('danger', 'Veličina "'.$sizeValue.'" već postoji.');
+                return $this->redirectToRoute('size_index');
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($size);
             $entityManager->flush();
