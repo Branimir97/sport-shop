@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ item.title }}{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/item_details.css") }}">
 {% endblock %}
@@ -56,32 +55,35 @@
                 {% if item.reviews|length == 0 %}
                     <p class="text-center">Trenutno nitko nije napisao niti jednu recenziju za ovaj artikl.</p>
                 {% else %}
-                    <div class="row justify-content-md-center ml-1 mr-1 reviews">
-                        {% for review in item.reviews|reverse %}
-                            <div class="col-sm-11 one-review mb-2">
-                                <div id="edit_icon">
-                                    <a href="#" title="Uredi recenziju">
-                                        <i class="far fa-edit"></i>
-                                    </a>
-                                </div>
-                                <h6 class="p-1 border-bottom">
-                                    <span class="mr-1">Autor:</span> {{ review.user.name }} {{ review.user.surname }}
-                                </h6>
-                                <h6 class="p-1 border-bottom">
-                                    <span>Ocjena</span>
-                                    {% for i in 1..review.rating %}
-                                        <span class="fa fa-star checked"></span>
-                                    {% endfor %}
-                                    {% if review.rating < 5 %}
-                                        {% for i in review.rating .. 4%}
-                                            <span id="unchecked" class="fa fa-star"></span>
+                    <div class="reviews">
+                        <div class="row justify-content-md-center ml-1 mr-1 mt-3">
+                            {% for review in item.reviews|reverse %}
+                                <div class="col-sm-11 one-review mb-2">
+                                    <div id="edit_icon">
+                                        <a href="{{ path('review_edit', {id: review.id}) }}"
+                                           title="Uredi recenziju">
+                                            <i class="far fa-edit"></i>
+                                        </a>
+                                    </div>
+                                    <h6 class="p-1 border-bottom">
+                                        <span class="mr-1">Autor:</span> {{ review.user.name }} {{ review.user.surname }}
+                                    </h6>
+                                    <h6 class="p-1 border-bottom">
+                                        <span>Ocjena</span>
+                                        {% for i in 1..review.rating %}
+                                            <span class="fa fa-star checked"></span>
                                         {% endfor %}
-                                    {% endif %}
-                                </h6>
-                                <p><span>Komentar:</span> <br>{{ review.comment }}</p>
-                                <p class="text-right">Objavljeno: {{ review.createdAt|date('H:i:s | d.m.Y.') }}</p>
-                            </div>
-                        {% endfor %}
+                                        {% if review.rating < 5 %}
+                                            {% for i in review.rating .. 4%}
+                                                <span id="unchecked" class="fa fa-star"></span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </h6>
+                                    <p><span>Komentar:</span> <br>{{ review.comment }}</p>
+                                    <p class="text-right">Objavljeno: {{ review.createdAt|date('H:i:s | d.m.Y.') }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endif %}
             </div>

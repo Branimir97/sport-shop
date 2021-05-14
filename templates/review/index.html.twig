@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upravljanje recenzijama{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/review_index.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje recenzijama</h2>
+        {% if not reviews %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedna kategorija u bazi podataka.</p>
+                <a href="{{ path('category_new') }}" class="btn btn-outline-info mb-3">Dodaj novu kategoriju</a>
+            </div>
+        {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ocjena</th>
+                        <th>Artikl</th>
+                        <th>Autor</th>
+                        <th>Vrijeme stvaranja</th>
+                        <th>Vrijeme zadnje izmjene</th>
+                        <th>Mogućnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.id }}</td>
+                        <td>
+                            {% for i in 1..review.rating %}
+                                <span class="fa fa-star checked"></span>
+                            {% endfor %}
+                            {% if review.rating < 5 %}
+                                {% for i in review.rating .. 4%}
+                                    <span id="unchecked" class="fa fa-star"></span>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                        <td>{{ review.item.title }}</td>
+                        <td>{{ review.user.name }} {{ review.user.surname }}</td>
+                        <td>{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ review.updatedAt ? review.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('review_edit', {'id': review.id}) }}" title="Uredi">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {{ include('review/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

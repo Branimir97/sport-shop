@@ -1,0 +1,7 @@
+span.checked {
+    color: orange;
+}
+
+span#unchecked{
+    color: black;
+}

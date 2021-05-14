@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\Item;
 use App\Entity\ItemCategory;
@@ -17,11 +16,11 @@ use App\Form\EditSizeQuantityType;
 use App\Form\NewItemCategoryType;
 use App\Form\NewItemColorType;
 use App\Form\NewItemImageType;
-use App\Form\NewItemReviewType;
 use App\Form\NewItemSizeType;
 use App\Form\NewItemTagType;
 use App\Form\QuantityType;
 use App\Form\ItemType;
+use App\Form\ReviewType;
 use App\Form\SizeQuantityType;
 use App\Repository\ColorRepository;
 use App\Repository\ImageRepository;
@@ -668,7 +667,7 @@ class ItemController extends AbstractController
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
         $review = new Review();
-        $form = $this->createForm(NewItemReviewType::class, $review);
+        $form = $this->createForm(ReviewType::class, $review);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
