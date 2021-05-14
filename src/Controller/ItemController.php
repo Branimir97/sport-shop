@@ -68,8 +68,6 @@ class ItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $item->setCipher(uniqid());
-            $manufacturer = $form->get('manufacturer')->getData();
-            $item->setManufacturer($manufacturer);
             $categories = $form->get('category')->getData();
             $tags = $form->get('tag')->getData();
             $sizes = $form->get('size')->getData();
@@ -78,7 +76,6 @@ class ItemController extends AbstractController
             if(count($sizes)!=0 || count($colors)!=0) {
                 $session = new Session();
                 $session->set('item', $item);
-                $session->set('manufacturer', $manufacturer);
                 $session->set('categories', $categories);
                 $session->set('tags', $tags);
                 $session->set('sizes', $sizes);
@@ -95,7 +92,6 @@ class ItemController extends AbstractController
                 }
                 return $this->redirectToRoute('item_quantity_set');
             } else {
-                $item->setManufacturer($manufacturer);
                 foreach($categories as $category) {
                     $itemCategory = new ItemCategory();
                     $itemCategory->setItem($item);
@@ -207,7 +203,7 @@ class ItemController extends AbstractController
                 $itemCategory = new ItemCategory();
                 $itemCategory->setItem($item);
                 $itemCategory->setCategory($category);
-                $entityManager->merge($itemCategory);
+                $entityManager->persist($itemCategory);
             }
             if(!is_null($tags)) {
                 $explodedTags = explode(PHP_EOL, $tags);
@@ -216,8 +212,8 @@ class ItemController extends AbstractController
                     if(is_null($tagObject)) {
                         $tagObject = new Tag();
                         $tagObject->setName($tagName);
+                        $entityManager->persist($tagObject);
                     }
-                    $entityManager->persist($tagObject);
                     $itemTag = new ItemTag();
                     $itemTag->setItem($item);
                     $itemTag->setTag($tagObject);
