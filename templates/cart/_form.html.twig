@@ -1,0 +1,14 @@
+{{ form_start(formCart) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(formCart.size) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(formCart.color) }}
+        </div>
+    </div>
+    {{ form_rest(formCart) }}
+    <div class="text-center">
+        <button class="btn btn-success">Dodaj u košaricu</button>
+    </div>
+{{ form_end(formCart) }}

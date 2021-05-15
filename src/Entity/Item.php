@@ -87,6 +87,11 @@ class Item
      */
     private $reviews;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="item")
+     */
+    private $carts;
+
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -95,6 +100,7 @@ class Item
         $this->itemCategories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -361,6 +367,33 @@ class Item
             if ($review->getItem() === $this) {
                 $review->setItem(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            $cart->removeItem($this);
         }
 
         return $this;

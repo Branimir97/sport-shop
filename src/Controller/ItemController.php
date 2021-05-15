@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\Image;
 use App\Entity\Item;
 use App\Entity\ItemCategory;
@@ -10,6 +11,7 @@ use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Review;
 use App\Entity\Tag;
+use App\Form\CartType;
 use App\Form\ColorQuantityType;
 use App\Form\EditColorQuantityType;
 use App\Form\EditSizeQuantityType;
@@ -662,14 +664,44 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/details", name="item_details", methods={"GET", "POST"})
      */
-    public function showItemdetails(Request $request, ItemRepository $itemRepository): Response
+    public function showItemdetails(Request $request, ItemRepository $itemRepository, SizeRepository $sizeRepository, ColorRepository $colorRepository): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
-        $review = new Review();
-        $form = $this->createForm(ReviewType::class, $review);
-        $form->handleRequest($request);
+        $cart = new Cart();
+        $sizeChoices = [];
+        $colorChoices = [];
+        foreach($item->getItemSizes() as $itemSize) {
+            $size = $itemSize->getSize()->getValue();
+            $sizeChoices[$size]=$size;
+        }
+        foreach($item->getItemColors() as $itemColor) {
+            $color = $itemColor->getColor()->getValue();
+            $colorChoices[$color]=$color;
+        }
 
-        if($form->isSubmitted() && $form->isValid()) {
+        $formCart = $this->createForm(CartType::class, $cart, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
+        $formCart->handleRequest($request);
+        if ($formCart->isSubmitted() && $formCart->isValid()) {
+            $formSize = $formCart->get('size')->getData();
+            $sizeObj = $sizeRepository->findOneBy(['value'=>$formSize]);
+            $cart->addSize($sizeObj);
+            $formColor = $formCart->get('color')->getData();
+            $colorObj = $colorRepository->findOneBy(['value'=>$formColor]);
+            $cart->addColor($colorObj);
+            $cart->setUser($this->getUser());
+            $cart->addItem($item);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cart);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('cart_index');
+        }
+
+        $review = new Review();
+        $formReview = $this->createForm(ReviewType::class, $review);
+        $formReview->handleRequest($request);
+
+        if($formReview->isSubmitted() && $formReview->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $review->setUser($this->getUser());
             $review->setItem($item);
@@ -682,7 +714,8 @@ class ItemController extends AbstractController
 
         return $this->render('item/item_details.html.twig', [
             'item' => $item,
-            'form'=>$form->createView()
+            'formReview'=>$formReview->createView(),
+            'formCart'=>$formCart->createView()
         ]);
     }
 }

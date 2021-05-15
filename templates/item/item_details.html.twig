@@ -3,6 +3,7 @@
 {% block title %}{{ item.title }}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/item_details.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
 {% endblock %}
 
 {% block body %}
@@ -35,6 +36,16 @@
                 </div>
             </div>
             <div class="col-md-6 mt-3">
+                <h3 class="text-center bg-light p-2">{{ item.title }}</h3>
+                <div class="category text-center">
+                    <p>Kategorije artikla:
+                        {% for itemCategory in item.itemCategories %}
+                            <a href="#">{{ itemCategory.category.name }}</a>
+                        {% endfor %}
+                    </p>
+                </div>
+                <p>Šifra artikla: {{ item.cipher }}</p>
+                {{ include('cart/_form.html.twig') }}
             </div>
         </div>
 

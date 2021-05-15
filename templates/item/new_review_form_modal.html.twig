@@ -15,14 +15,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{ form_start(form) }}
-                {{ form_row(form.rating, {label: 'Ocjena'}) }}
-                {{ form_row(form.comment, {label: 'Komentar'}) }}
+                {{ form_start(formReview) }}
+                {{ form_row(formReview.rating) }}
+                {{ form_row(formReview.comment) }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
                 <button type="submit" class="btn btn-primary">Dodaj recenziju</button>
-            </div>{{ form_end(form) }}
+            </div>{{ form_end(formReview) }}
         </div>
     </div>
 </div>

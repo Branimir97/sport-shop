@@ -42,6 +42,20 @@
         <script src="{{ asset("scripts/navigation-submenuHandler.js") }}"></script>
         <script src="{{ asset("scripts/bootnavbar.js") }}"></script>
         <link rel="stylesheet" href="{{ asset("css/sidebar.css") }}">
+        <style>
+            #cart_icon{
+                position: relative;
+            }
+            .badge{
+                border: 1px solid white;
+                border-radius: 50%;
+                position: absolute;
+                bottom: 50%;
+                left: 80%;
+                color: white;
+            }
+
+        </style>
     </head>
     <body>
 
@@ -273,7 +287,9 @@
                     </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Košarica <i class="fas fa-shopping-cart"></i></a>
+                    <a class="nav-link" href="#">Košarica <i id="cart_icon" class="fas fa-shopping-cart">
+                            <span class="badge">1</span>
+                        </i></a>
                 </li>
             </ul>
         </div>
