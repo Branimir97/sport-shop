@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upravljanje kodovima za popust{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Upravljanje kodovima za popust</h2>
+        {% if not promo_codes %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedan promo kod u bazi podataka.</p>
+                <a href="{{ path('promo_code_new') }}" class="btn btn-outline-info mb-3">Generiraj novi kod</a>
+            </div>
+        {% else %}
+            <a href="{{ path('promo_code_new') }}" class="btn btn-outline-info mb-3">Generiraj novi kod</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Promo kod</th>
+                        <th>Popust [%]</th>
+                        <th>Vrijeme isteka koda</th>
+                        <th>Vrijeme stvaranja</th>
+                        <th>Vrijeme zadnje izmjene</th>
+                        <th>Mogućnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for promo_code in promo_codes %}
+                    <tr>
+                        <td>{{ promo_code.id }}</td>
+                        <td>{{ promo_code.code }}</td>
+                        <td>{{ promo_code.discountPercentage }}</td>
+                        <td>{{ promo_code.endDate ? promo_code.endDate|date('H:i:s | d.m.Y.') : '' }}</td>
+                        <td>{{ promo_code.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                        <td>{{ promo_code.updatedAt ? promo_code.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                        <td>
+                            <a href="{{ path('promo_code_show', {'id': promo_code.id}) }}" title="Prikaži pojedinosti">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="{{ path('promo_code_edit', {'id': promo_code.id}) }}" title="Uredi">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {{ include('promo_code/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

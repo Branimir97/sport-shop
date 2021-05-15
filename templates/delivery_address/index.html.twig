@@ -34,7 +34,7 @@
                     <td>{{ delivery_address.county }}</td>
                     <td>{{ delivery_address.postalCode }}</td>
                     <td>{{ delivery_address.country }}</td>
-                    <td>{{ delivery_address.createdAt ? delivery_address.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ delivery_address.createdAt|date('H:i:s | d.m.Y.')}}</td>
                     <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                     <td>
                         <a class="btn" href="{{ path('delivery_address_show', {'id': delivery_address.id}) }}" title="Prikaži pojedinosti">

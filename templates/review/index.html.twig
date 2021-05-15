@@ -43,8 +43,8 @@
                         </td>
                         <td>{{ review.item.title }}</td>
                         <td>{{ review.user.name }} {{ review.user.surname }}</td>
-                        <td>{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ review.updatedAt ? review.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                        <td>{{ review.updatedAt ? review.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                         <td>
                             <a href="{{ path('review_edit', {'id': review.id}) }}" title="Uredi">
                                 <i class="fas fa-edit"></i>

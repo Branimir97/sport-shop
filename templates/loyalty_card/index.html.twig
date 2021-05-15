@@ -32,8 +32,8 @@
                         <td>{{ loyalty_card.number }}</td>
                         <td>{{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}</td>
                         <td>{{ loyalty_card.credits }}</td>
-                        <td>{{ loyalty_card.createdAt ? loyalty_card.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ loyalty_card.updatedAt ? loyalty_card.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ loyalty_card.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                        <td>{{ loyalty_card.updatedAt ? loyalty_card.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                         <td>
                             <a href="{{ path('loyalty_card_show', {'id': loyalty_card.id}) }}" title="Prikaži pojedinosti">
                                 <i class="fas fa-info-circle"></i>

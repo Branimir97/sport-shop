@@ -21,11 +21,11 @@
                 </tr>
                 <tr>
                     <th>Vrijeme stvaranja</th>
-                    <td>{{ category.createdAt|date('m.d.Y. H:i:s') }}</td>
+                    <td>{{ category.createdAt|date('H:i:s | d.m.Y.')}}</td>
                 </tr>
                 <tr>
                     <th>Vrijeme zadnje izmjene</th>
-                    <td>{{ category.updatedAt ? category.updatedAt|date('m.d.Y. H:i:s') : '' }}</td>
+                    <td>{{ category.updatedAt ? category.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                 </tr>
             </tbody>
         </table>
