@@ -7,7 +7,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +36,7 @@ class LoyaltyCardType extends AbstractType
                     ]);
                 }
             $builder
-            ->add('credits', NumberType::class, [
+            ->add('credits', IntegerType::class, [
                 'required'=>false,
                 'attr'=>[
                     'min'=>0

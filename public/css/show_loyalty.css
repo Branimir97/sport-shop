@@ -1,0 +1,18 @@
+.loyalty_card{
+    width: 100%;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+p#loyalty_card_info{
+    color: green;
+}
+
+@media (min-width: 992px) {
+    .loyalty_card{
+        margin: auto;
+        text-align: unset;
+        width: 400px;
+        height: 200px;
+    }
+}
+

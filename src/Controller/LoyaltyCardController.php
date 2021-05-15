@@ -118,7 +118,12 @@ class LoyaltyCardController extends AbstractController
             $entityManager->remove($loyaltyCard);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('loyalty_card_index');
+        if($this->isGranted("ROLE_ADMIN")) {
+            $this->addFlash('danger', 'Loyalty kartica uspješno obrisana.');
+            return $this->redirectToRoute('loyalty_card_index');
+        } else {
+            $this->addFlash('danger', 'Loyalty kartica uspješno obrisana.');
+            return $this->redirectToRoute('account_settings');
+        }
     }
 }

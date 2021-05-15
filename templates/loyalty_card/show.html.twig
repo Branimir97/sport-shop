@@ -1,38 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}LoyaltyCard{% endblock %}
+{% block title %}Loyalty kartica br. {{ loyalty_card.number }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/show_loyalty.css") }}">
+{% endblock %}
 
 {% block body %}
-    <h1>LoyaltyCard</h1>
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Loyalty kartica br. {{ loyalty_card.number }}</h2>
+        <a href="{{ path('loyalty_card_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista loyalty kartica
+        </a>
+        <div class="loyalty_card mb-3">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="{{ asset('images/logo.png') }}" alt="sport_shop_logo">
+                </div>
+                <div class="col-sm-6">
+                    <h6 class="mt-1 bg-light">Broj kartice</h6>
+                    <p id="loyalty_info" class="m-0">{{ loyalty_card.number }}</p>
+                    <h6 class="mt-2 bg-light">Korisnik</h6>
+                    <p id="loyalty_info" class="m-0">{{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}</p>
+                    <h6 class="mt-2 bg-light">Bodovi</h6>
+                    <p id="loyalty_info" class="m-0">{{ loyalty_card.credits }}</p>
+                </div>
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ loyalty_card.id }}</td>
-            </tr>
-            <tr>
-                <th>Number</th>
-                <td>{{ loyalty_card.number }}</td>
-            </tr>
-            <tr>
-                <th>Credits</th>
-                <td>{{ loyalty_card.credits }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ loyalty_card.createdAt ? loyalty_card.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ loyalty_card.updatedAt ? loyalty_card.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('loyalty_card_index') }}">back to list</a>
-
-    <a href="{{ path('loyalty_card_edit', {'id': loyalty_card.id}) }}">edit</a>
-
-    {{ include('loyalty_card/_delete_form.html.twig') }}
+        <div class="text-center">
+            <a class="btn btn-outline-success" href="{{ path('loyalty_card_edit', {'id': loyalty_card.id}) }}">Uredi podatke</a>
+            {{ include('loyalty_card/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

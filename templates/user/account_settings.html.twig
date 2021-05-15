@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Postavke računa{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/account_settings.css") }}">
 {% endblock %}
@@ -87,13 +86,16 @@
                         </div>
                         <div class="col-sm-6">
                             <h6 class="mt-1 bg-light">Broj kartice</h6>
-                            <p id="loyalty_info" class="m-0">{{ loyalty_card.number }}</p>
+                            <p id="loyalty_card_info" class="m-0">{{ loyalty_card.number }}</p>
                             <h6 class="mt-2 bg-light">Korisnik</h6>
-                            <p id="loyalty_info" class="m-0">{{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}</p>
+                            <p id="loyalty_card_info" class="m-0">{{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}</p>
                             <h6 class="mt-2 bg-light">Bodovi</h6>
-                            <p id="loyalty_info" class="m-0">{{ loyalty_card.credits }}</p>
+                            <p id="loyalty_card_info" class="m-0">{{ loyalty_card.credits }}</p>
                         </div>
                     </div>
+                </div>
+                <div class="text-center">
+                    {{ include('loyalty_card/_delete_form.html.twig') }}
                 </div>
         {% endif %}
     </div>
