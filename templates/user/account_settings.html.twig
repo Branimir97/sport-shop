@@ -16,6 +16,12 @@
                 <a href="{{ path('user_edit', {id: app.user.id}) }}">Dovrši</a>
             </p>
         {% endif %}
+        {% if not loyalty_card %}
+            <p class="bg-warning text-white p-2 text-center">
+                <i class="fas fa-exclamation-circle"></i>
+                <a href="{{ path('loyalty_card_new')}}">Kreiraj SportShop loyalty karticu vjernosti</a>
+            </p>
+        {% endif %}
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="mt-2 mb-3 bg-light text-center p-2">Podaci o korisniku</h2>

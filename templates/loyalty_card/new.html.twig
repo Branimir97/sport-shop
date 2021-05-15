@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nova loyalty kartica{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove loyalty kartice</h2>
+        <a href="{{ path('loyalty_card_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista loyalty kartica
+        </a>
+        {{ include('loyalty_card/_form.html.twig') }}
+    </div>
+{% endblock %}

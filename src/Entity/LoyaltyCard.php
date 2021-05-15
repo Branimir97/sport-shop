@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\LoyaltyCardEntityRepository;
+use App\Repository\LoyaltyCardRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=LoyaltyCardEntityRepository::class)
+ * @ORM\Entity(repositoryClass=LoyaltyCardRepository::class)
  */
-class LoyaltyCardEntity
+class LoyaltyCard
 {
     /**
      * @ORM\Id
@@ -23,7 +24,7 @@ class LoyaltyCardEntity
     private $number;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="loyaltyCardEntity", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="loyaltyCard", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -31,15 +32,17 @@ class LoyaltyCardEntity
     /**
      * @ORM\Column(type="integer")
      */
-    private $credits;
+    private $credits = 0;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 

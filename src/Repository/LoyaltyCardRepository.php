@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\LoyaltyCardEntity;
+use App\Entity\LoyaltyCard;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method LoyaltyCardEntity|null find($id, $lockMode = null, $lockVersion = null)
- * @method LoyaltyCardEntity|null findOneBy(array $criteria, array $orderBy = null)
- * @method LoyaltyCardEntity[]    findAll()
- * @method LoyaltyCardEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method LoyaltyCard|null find($id, $lockMode = null, $lockVersion = null)
+ * @method LoyaltyCard|null findOneBy(array $criteria, array $orderBy = null)
+ * @method LoyaltyCard[]    findAll()
+ * @method LoyaltyCard[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LoyaltyCardEntityRepository extends ServiceEntityRepository
+class LoyaltyCardRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, LoyaltyCardEntity::class);
+        parent::__construct($registry, LoyaltyCard::class);
     }
 
     // /**
-    //  * @return LoyaltyCardEntity[] Returns an array of LoyaltyCardEntity objects
+    //  * @return LoyaltyCard[] Returns an array of LoyaltyCard objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class LoyaltyCardEntityRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?LoyaltyCardEntity
+    public function findOneBySomeField($value): ?LoyaltyCard
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

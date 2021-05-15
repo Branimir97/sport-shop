@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Repository\DeliveryAddressRepository;
+use App\Repository\LoyaltyCardRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -89,11 +90,13 @@ class UserController extends AbstractController
      * @param DeliveryAddressRepository $deliveryAddressRepository
      * @return Response
      */
-    public function settings(DeliveryAddressRepository $deliveryAddressRepository): Response
+    public function settings(DeliveryAddressRepository $deliveryAddressRepository, LoyaltyCardRepository $loyaltyCardRepository): Response
     {
         $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
+        $loyaltyCard = $loyaltyCardRepository->findOneBy(['user'=>$this->getUser()]);
         return $this->render('user/account_settings.html.twig', [
-            'deliveryAddresses'=>$deliveryAddresses
+            'deliveryAddresses'=>$deliveryAddresses,
+            'loyalty_card'=>$loyaltyCard
         ]);
     }
 
