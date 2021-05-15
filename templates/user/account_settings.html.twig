@@ -13,13 +13,7 @@
                 <i class="fas fa-exclamation-circle"></i>
                 Vaš korisnički račun nije u potpunosti dovršen.
                 Ispunite preostale podatke s ciljem poboljšanja korisničkog iskustva.
-                <a href="{{ path('user_edit', {id: app.user.id}) }}">Dovrši</a>
-            </p>
-        {% endif %}
-        {% if not loyalty_card %}
-            <p class="bg-warning text-white p-2 text-center">
-                <i class="fas fa-exclamation-circle"></i>
-                <a href="{{ path('loyalty_card_new')}}">Kreiraj SportShop loyalty karticu vjernosti</a>
+                <a id="done_profile" href="{{ path('user_edit', {id: app.user.id}) }}">Dovrši</a>
             </p>
         {% endif %}
         <div class="row">
@@ -47,7 +41,7 @@
             <div class="col-sm-6">
                 <h3 class="mt-2 mb-3 bg-light text-center p-2">Adrese isporuke</h3>
                 {% if not deliveryAddresses %}
-                    <p class="bg-danger p-2 text-white">
+                    <p class="bg-danger p-2 text-white text-center">
                         Za uspješnu narudžbu, potrebno je imati unesenu adresu isporuke.
                     </p>
                 {% else %}
@@ -75,5 +69,32 @@
                 </a>
             </div>
         </div>
+        {% if not loyalty_card %}
+            <p class="bg-success text-white p-2 text-center">
+                <i class="fas fa-address-card"></i>
+                Kreiraj SportShop loyalty karticu vjernosti, skupljaj bodove, i ostvari dodatne pogodnosti!
+                <a id="loyalty_info" class="ml-2" href="">Više informacija</a>
+                <a class="btn btn-warning ml-2" href="{{ path('loyalty_card_new')}}">
+                    Kreiraj karticu
+                </a>
+            </p>
+            {% else %}
+                <h3 class="mt-2 mb-3 bg-light text-center p-2">Loyalty kartica vjernosti</h3>
+                <div class="loyalty_card mb-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="{{ asset('images/logo.png') }}" alt="sport_shop_logo">
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="mt-1 bg-light">Broj kartice</h6>
+                            <p id="loyalty_info" class="m-0">{{ loyalty_card.number }}</p>
+                            <h6 class="mt-2 bg-light">Korisnik</h6>
+                            <p id="loyalty_info" class="m-0">{{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}</p>
+                            <h6 class="mt-2 bg-light">Bodovi</h6>
+                            <p id="loyalty_info" class="m-0">{{ loyalty_card.credits }}</p>
+                        </div>
+                    </div>
+                </div>
+        {% endif %}
     </div>
 {% endblock %}
