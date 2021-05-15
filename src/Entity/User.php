@@ -92,6 +92,11 @@ class User implements UserInterface
      */
     private $reviews;
 
+    /**
+     * @ORM\OneToOne(targetEntity=LoyaltyCardEntity::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $loyaltyCardEntity;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
@@ -331,6 +336,23 @@ class User implements UserInterface
                 $review->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLoyaltyCardEntity(): ?LoyaltyCardEntity
+    {
+        return $this->loyaltyCardEntity;
+    }
+
+    public function setLoyaltyCardEntity(LoyaltyCardEntity $loyaltyCardEntity): self
+    {
+        // set the owning side of the relation if necessary
+        if ($loyaltyCardEntity->getUser() !== $this) {
+            $loyaltyCardEntity->setUser($this);
+        }
+
+        $this->loyaltyCardEntity = $loyaltyCardEntity;
 
         return $this;
     }
