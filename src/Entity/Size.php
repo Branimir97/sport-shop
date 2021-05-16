@@ -47,15 +47,9 @@ class Size
      */
     private $itemSizes;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="size")
-     */
-    private $carts;
-
     public function __construct()
     {
         $this->itemSizes = new ArrayCollection();
-        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,33 +130,6 @@ class Size
             if ($itemSize->getSize() === $this) {
                 $itemSize->setSize(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Cart[]
-     */
-    public function getCarts(): Collection
-    {
-        return $this->carts;
-    }
-
-    public function addCart(Cart $cart): self
-    {
-        if (!$this->carts->contains($cart)) {
-            $this->carts[] = $cart;
-            $cart->addSize($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): self
-    {
-        if ($this->carts->removeElement($cart)) {
-            $cart->removeSize($this);
         }
 
         return $this;

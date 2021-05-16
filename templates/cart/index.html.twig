@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Moja košarica{% endblock %}
+{% block title %}Košarica{% endblock %}
 
 {% block body %}
-    <h1>Moja košarica</h1>
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">Košarica</h2>
+    </div>
 
+    <div class="one_cart_item">
+        {{ cart.quantity }}
+    </div>
 {% endblock %}

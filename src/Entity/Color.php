@@ -42,15 +42,9 @@ class Color
      */
     private $itemColors;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="color")
-     */
-    private $carts;
-
     public function __construct()
     {
         $this->itemColors = new ArrayCollection();
-        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,33 +113,6 @@ class Color
             if ($itemColor->getColor() === $this) {
                 $itemColor->setColor(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Cart[]
-     */
-    public function getCarts(): Collection
-    {
-        return $this->carts;
-    }
-
-    public function addCart(Cart $cart): self
-    {
-        if (!$this->carts->contains($cart)) {
-            $this->carts[] = $cart;
-            $cart->addColor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): self
-    {
-        if ($this->carts->removeElement($cart)) {
-            $cart->removeColor($this);
         }
 
         return $this;

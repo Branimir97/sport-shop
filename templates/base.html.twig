@@ -287,9 +287,11 @@
                     </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Košarica <i id="cart_icon" class="fas fa-shopping-cart">
+                    <a class="nav-link" href="{{ path('cart_index') }}">Košarica
+                        <i id="cart_icon" class="fas fa-shopping-cart">
                             <span class="badge">1</span>
-                        </i></a>
+                        </i>
+                    </a>
                 </li>
             </ul>
         </div>

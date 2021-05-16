@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\CartItem;
 use App\Entity\Image;
 use App\Entity\Item;
 use App\Entity\ItemCategory;
@@ -33,6 +34,7 @@ use App\Repository\ItemSizeRepository;
 use App\Repository\ItemTagRepository;
 use App\Repository\SizeRepository;
 use App\Repository\TagRepository;
+use App\Repository\UserRepository;
 use App\Service\ImageUploadHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -664,10 +666,11 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/details", name="item_details", methods={"GET", "POST"})
      */
-    public function showItemdetails(Request $request, ItemRepository $itemRepository, SizeRepository $sizeRepository, ColorRepository $colorRepository): Response
+    public function showItemdetails(Request $request, ItemRepository $itemRepository,
+                                    SizeRepository $sizeRepository, ColorRepository $colorRepository, UserRepository $userRepository): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
-        $cart = new Cart();
+
         $sizeChoices = [];
         $colorChoices = [];
         foreach($item->getItemSizes() as $itemSize) {
@@ -678,8 +681,14 @@ class ItemController extends AbstractController
             $color = $itemColor->getColor()->getValue();
             $colorChoices[$color]=$color;
         }
+        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        if(is_null($user->getCart())) {
+            $cart = new Cart();
+        } else {
+            $cart = $user->getCart();
+        }
 
-        $formCart = $this->createForm(CartType::class, $cart, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
+        $formCart = $this->createForm(CartType::class, null, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
         $formCart->handleRequest($request);
         if ($formCart->isSubmitted() && $formCart->isValid()) {
             $formSize = $formCart->get('size')->getData();
@@ -688,8 +697,9 @@ class ItemController extends AbstractController
             $formColor = $formCart->get('color')->getData();
             $colorObj = $colorRepository->findOneBy(['value'=>$formColor]);
             $cart->addColor($colorObj);
-            $cart->setUser($this->getUser());
-            $cart->addItem($item);
+            $cartItem = new CartItem();
+            $cartItem->setItem($item);
+            $cartItem->setQuantity($formCart->get('quantity')->getData());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($cart);
             $entityManager->flush();
