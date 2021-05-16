@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
             "47",
         ];
 
-        $colors = [
+        $colorCodes = [
             "#7E4539",
             "#397E55",
             "#C4E4D1",
@@ -101,8 +101,22 @@ class AppFixtures extends Fixture
             "#FFBF00",
             "#F781F3",
             "#084B8A",
-            "#CEF6EC",
-            "#1B0A2A"
+            "#26A837",
+            "#A5C423"
+        ];
+
+        $colorNames = [
+            "Smeđa",
+            "Tamno zelena",
+            "Svijetlo plava",
+            "Ljubičasta",
+            "Crvena",
+            "Plava",
+            "Žuta",
+            "Roza",
+            "Tamno plava",
+            "Zelena",
+            "Maslinasta"
         ];
 
         $manufacturers = [
@@ -146,10 +160,13 @@ class AppFixtures extends Fixture
             $manager->persist($sizeObj);
         }
 
-        foreach($colors as $color) {
+        $i = 0;
+        foreach($colorCodes as $color) {
             $colorObj = new Color();
             $colorObj->setValue($color);
+            $colorObj->setName($colorNames[$i]);
             $manager->persist($colorObj);
+            $i++;
         }
 
         foreach($manufacturers as $manufacturer) {

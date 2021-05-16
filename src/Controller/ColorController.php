@@ -77,7 +77,7 @@ class ColorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', '"'.$color->getValue().'" boja uspješno ažurirana.');
+            $this->addFlash('success', '"'.$color->getName().'" boja uspješno ažurirana.');
             return $this->redirectToRoute('color_index');
         }
 
@@ -96,7 +96,7 @@ class ColorController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($color);
 
-            $this->addFlash('danger', '"'.$color->getValue().'" boja uspješno obrisana.');
+            $this->addFlash('danger', '"'.$color->getName().'" boja uspješno obrisana.');
             $entityManager->flush();
         }
 

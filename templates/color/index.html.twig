@@ -22,6 +22,7 @@
                     <th>Id</th>
                     <th>Boja</th>
                     <th>Kod boje</th>
+                    <th>Naziv boje</th>
                     <th>Vrijeme stvaranja</th>
                     <th>Vrijeme zadnje izmjene</th>
                     <th>Mogućnosti</th>
@@ -37,6 +38,7 @@
                         </div>
                     </td>
                     <td>{{ color.value }}</td>
+                    <td>{{ color.name }}</td>
                     <td>{{ color.createdAt|date('H:i:s | d.m.Y.') }}</td>
                     <td>{{ color.updatedAt ? color.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                     <td>

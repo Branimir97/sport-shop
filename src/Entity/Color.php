@@ -47,6 +47,11 @@ class Color
      */
     private $cartItems;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function __construct()
     {
         $this->itemColors = new ArrayCollection();
@@ -150,6 +155,18 @@ class Color
                 $cartItem->setColor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ color.value }} boja{% endblock %}
+{% block title %}{{ color.name }} boja{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/color_circle75.css") }}">
 {% endblock %}
@@ -22,8 +22,12 @@
                     <td>{{ color.id }}</td>
                 </tr>
                 <tr>
-                    <th>Boja</th>
+                    <th>Kod boje</th>
                     <td>{{ color.value }}</td>
+                </tr>
+                <tr>
+                    <th>Naziv boje</th>
+                    <td>{{ color.name }}</td>
                 </tr>
                 <tr>
                     <th>Vrijeme stvaranja</th>
