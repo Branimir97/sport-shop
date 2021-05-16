@@ -52,7 +52,7 @@
     color: black;
 }
 
-span#cipher, span#price{
+span#cipher, span#price, span#manufacturer{
     font-weight: bold;
     color: green;
 }

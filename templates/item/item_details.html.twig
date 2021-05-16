@@ -45,6 +45,7 @@
                     </p>
                 </div>
                 <p>Šifra artikla: <span id="cipher">{{ item.cipher }}</span></p>
+                <p>Proizvođač: <span id="manufacturer">{{ item.manufacturer.name }}</span></p>
                 {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}
                     <p class="bg-warning text-center p-1">
                         <i class="fas fa-exclamation-circle"></i>
