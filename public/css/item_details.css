@@ -52,6 +52,15 @@
     color: black;
 }
 
+span#cipher, span#price{
+    font-weight: bold;
+    color: green;
+}
+
+span#tag{
+    color: #007bb6;
+}
+
 @media (min-width: 992px){
     #carousel-item-info .carousel-item{
         height: 400px;
