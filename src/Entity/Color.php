@@ -42,9 +42,15 @@ class Color
      */
     private $itemColors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartItem::class, mappedBy="color")
+     */
+    private $cartItems;
+
     public function __construct()
     {
         $this->itemColors = new ArrayCollection();
+        $this->cartItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,6 +118,36 @@ class Color
             // set the owning side to null (unless already changed)
             if ($itemColor->getColor() === $this) {
                 $itemColor->setColor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartItem[]
+     */
+    public function getCartItems(): Collection
+    {
+        return $this->cartItems;
+    }
+
+    public function addCartItem(CartItem $cartItem): self
+    {
+        if (!$this->cartItems->contains($cartItem)) {
+            $this->cartItems[] = $cartItem;
+            $cartItem->setColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartItem(CartItem $cartItem): self
+    {
+        if ($this->cartItems->removeElement($cartItem)) {
+            // set the owning side to null (unless already changed)
+            if ($cartItem->getColor() === $this) {
+                $cartItem->setColor(null);
             }
         }
 

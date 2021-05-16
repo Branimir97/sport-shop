@@ -47,9 +47,15 @@ class Size
      */
     private $itemSizes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartItem::class, mappedBy="size")
+     */
+    private $cartItems;
+
     public function __construct()
     {
         $this->itemSizes = new ArrayCollection();
+        $this->cartItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +135,36 @@ class Size
             // set the owning side to null (unless already changed)
             if ($itemSize->getSize() === $this) {
                 $itemSize->setSize(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartItem[]
+     */
+    public function getCartItems(): Collection
+    {
+        return $this->cartItems;
+    }
+
+    public function addCartItem(CartItem $cartItem): self
+    {
+        if (!$this->cartItems->contains($cartItem)) {
+            $this->cartItems[] = $cartItem;
+            $cartItem->setSize($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartItem(CartItem $cartItem): self
+    {
+        if ($this->cartItems->removeElement($cartItem)) {
+            // set the owning side to null (unless already changed)
+            if ($cartItem->getSize() === $this) {
+                $cartItem->setSize(null);
             }
         }
 

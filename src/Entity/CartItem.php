@@ -47,6 +47,18 @@ class CartItem
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="cartItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $size;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="cartItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $color;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +120,30 @@ class CartItem
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getSize(): ?Size
+    {
+        return $this->size;
+    }
+
+    public function setSize(?Size $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getColor(): ?Color
+    {
+        return $this->color;
+    }
+
+    public function setColor(?Color $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
