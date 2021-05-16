@@ -6,6 +6,7 @@ use App\Entity\CartItem;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -52,6 +53,18 @@ class CartItemType extends AbstractType
                 'attr'=>[
                     'min'=>1
                 ],
+            ])
+            ->add('add_cart', SubmitType::class, [
+                'label'=>'Dodaj u košaricu',
+                'attr'=>[
+                    'class'=>'btn btn-success '
+                ]
+            ])
+            ->add('add_wish_list', SubmitType::class, [
+                'label'=>'Dodaj na popis želja',
+                'attr'=>[
+                    'class'=>'btn btn-primary ml-2'
+                ]
             ])
         ;
 
