@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Košarica{% endblock %}
+{% block title %}Moja košarica{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/cart.css") }}">
     <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h2 class="text-center mt-2 bg-light p-2">Košarica</h2>
+        <h2 class="text-center mt-2 bg-light p-2">Moja košarica <i id="cart" class="fas fa-shopping-cart"></i></h2>
         {% if cart.cartItems|length == 0 %}
             <h6 class="text-center bg-danger p-2 text-white">Ne postoji niti jedan artikl u Vašoj košarici.</h6>
             <p class="text-center">ps. Kreni u shopping!</p>
@@ -23,6 +23,7 @@
                     <th>Količina</th>
                     <th>Cijena [kn]</th>
                     <th>Ukupna cijena [kn]</th>
+                    <th>Obriši artikl</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,9 @@
                         </td>
                         <td>
                             {{ cartItem.item.price * cartItem.quantity }}
+                        </td>
+                        <td>
+                            {{ include('cart/_delete_form.html.twig') }}
                         </td>
                     </tr>
                 {% endfor %}

@@ -669,7 +669,6 @@ class ItemController extends AbstractController
      * @Route("/{id}/details", name="item_details", methods={"GET", "POST"})
      */
     public function showItemdetails(Request $request, ItemRepository $itemRepository,
-                                    SizeRepository $sizeRepository, ColorRepository $colorRepository,
                                     UserRepository $userRepository, CartItemRepository $cartItemRepository): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
@@ -689,7 +688,6 @@ class ItemController extends AbstractController
         $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
 
         $cartItem = new CartItem();
-
         $formCart = $this->createForm(CartItemType::class, $cartItem, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
         $formCart->handleRequest($request);
         if ($formCart->isSubmitted() && $formCart->isValid()) {
@@ -703,8 +701,8 @@ class ItemController extends AbstractController
             }
             $cartItemDb = $cartItemRepository->findOneBy(['cart'=>$cart,
                 'item'=>$item,
-                'size'=>$formCart->get('size')->getData()->getValue(),
-                'color'=>$formCart->get('color')->getData()->getValue()
+                'size'=>$formCart->get('size')->getData(),
+                'color'=>$formCart->get('color')->getData()
                 ]);
             if(is_null($cartItemDb)) {
                 $cartItem->setItem($item);
@@ -713,13 +711,13 @@ class ItemController extends AbstractController
                 $entityManager->persist($cart);
                 $entityManager->flush();
             } else {
-                $lastQuantity = $cartItemDb->getQuantity();
-                $cartItemDb->setQuantity($lastQuantity + $formCart->get('quantity')->getData());
+                $previousQuantity = $cartItemDb->getQuantity();
+                $cartItemDb->setQuantity($previousQuantity + $formCart->get('quantity')->getData());
                 $entityManager->persist($cartItemDb);
                 $entityManager->flush();
             }
 
-
+            $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno dodan u košaricu.');
             return $this->redirectToRoute('cart_index');
         }
 
