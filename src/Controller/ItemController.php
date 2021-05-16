@@ -701,19 +701,24 @@ class ItemController extends AbstractController
             } else {
                 $cart = $user->getCart();
             }
-//            $formSize = $formCart->get('size')->getData();
-//            $sizeObj = $sizeRepository->findOneBy(['value'=>$formSize]);
-//            $cart->addSize($sizeObj);
-//            $formColor = $formCart->get('color')->getData();
-//            $colorObj = $colorRepository->findOneBy(['value'=>$formColor]);
-//            $cart->addColor($colorObj);
-//            $cartItem->setItem($item);
-//            $cartItem->setQuantity($formCart->get('quantity')->getData());
-            $cartItem->setItem($item);
-            $entityManager->persist($cartItem);
-            $cart->addCartItem($cartItem);
-            $entityManager->persist($cart);
-            $entityManager->flush();
+            $cartItemDb = $cartItemRepository->findOneBy(['cart'=>$cart,
+                'item'=>$item,
+                'size'=>$formCart->get('size')->getData()->getValue(),
+                'color'=>$formCart->get('color')->getData()->getValue()
+                ]);
+            if(is_null($cartItemDb)) {
+                $cartItem->setItem($item);
+                $entityManager->persist($cartItem);
+                $cart->addCartItem($cartItem);
+                $entityManager->persist($cart);
+                $entityManager->flush();
+            } else {
+                $lastQuantity = $cartItemDb->getQuantity();
+                $cartItemDb->setQuantity($lastQuantity + $formCart->get('quantity')->getData());
+                $entityManager->persist($cartItemDb);
+                $entityManager->flush();
+            }
+
 
             return $this->redirectToRoute('cart_index');
         }

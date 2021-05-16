@@ -15,15 +15,38 @@ class CartItemType extends AbstractType
     {
         $sizeChoices = $options['sizeChoices'];
         $colorChoices = $options['colorChoices'];
+
+        if(count($sizeChoices) == 0) {
+            $builder
+                ->add('size', ChoiceType::class, [
+                    'choices'=>[
+                        ''=>''
+                    ],
+                    'label'=>'Odabir veličine'
+                ]);
+        } else {
+            $builder
+                ->add('size', ChoiceType::class, [
+                    'choices' => $sizeChoices,
+                    'label' => 'Odabir veličine'
+                ]);
+            }
+        if(count($colorChoices) ==0) {
+            $builder
+                ->add('color', ChoiceType::class, [
+                    'choices'=>[
+                        ''=>''
+                    ],
+                    'label'=>'Odabir boje'
+                ]);
+        } else {
+            $builder
+                ->add('color', ChoiceType::class, [
+                    'choices'=>$colorChoices,
+                    'label'=>'Odabir boje'
+                ]);
+        }
         $builder
-            ->add('size', ChoiceType::class, [
-                'choices'=>$sizeChoices,
-                'label'=>'Odabir veličine'
-            ])
-            ->add('color', ChoiceType::class, [
-                'choices'=>$colorChoices,
-                'label'=>'Odabir boje'
-            ])
             ->add('quantity', IntegerType::class, [
                 'label'=>'Količina',
                 'attr'=>[
@@ -31,6 +54,7 @@ class CartItemType extends AbstractType
                 ],
             ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

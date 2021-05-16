@@ -1,37 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cart index{% endblock %}
+{% block title %}Košarica{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/cart.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Cart index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for cart in carts %}
-            <tr>
-                <td>{{ cart.id }}</td>
-                <td>{{ cart.createdAt ? cart.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ cart.updatedAt ? cart.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('cart_show', {'id': cart.id}) }}">show</a>
-                    <a href="{{ path('cart_edit', {'id': cart.id}) }}">edit</a>
-                </td>
-            </tr>
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">Košarica</h2>
+        {% if cart.cartItems|length == 0 %}
+            <h6 class="text-center bg-danger p-2 text-white">Ne postoji niti jedan artikl u Vašoj košarici.</h6>
+            <p class="text-center">ps. Kreni u shopping!</p>
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('cart_new') }}">Create new</a>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Slika artikla</th>
+                    <th>Naziv artikla</th>
+                    <th>Veličina</th>
+                    <th>Boja</th>
+                    <th>Količina</th>
+                    <th>Cijena [kn]</th>
+                    <th>Ukupna cijena [kn]</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cartItem in cart.cartItems %}
+                    <tr>
+                        <td>
+                            <img class="cart_item_img" src="{{ asset('uploads/')~cartItem.item.images[0].path }}" alt="image_{{ cartItem.item.images[0].id }}">
+                        </td>
+                        <td>
+                            {{ cartItem.item.title }}
+                        </td>
+                        <td>
+                            {{ cartItem.size.value }}
+                        </td>
+                        <td>
+                            <div class="circle_wrapper">
+                                <div class="circle" style="background-color: {{ cartItem.color.value }}"></div>
+                            </div>
+                        </td>
+                        <td>
+                            {{ cartItem.quantity }}
+                        </td>
+                        <td>
+                            {{ cartItem.item.price }}
+                        </td>
+                        <td>
+                            {{ cartItem.item.price * cartItem.quantity }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}

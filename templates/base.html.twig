@@ -281,18 +281,18 @@
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Odjava</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('cart_index') }}">Košarica
+                            <i id="cart_icon" class="fas fa-shopping-cart">
+                                <span class="badge">1</span>
+                            </i>
+                        </a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Prijava <i class="fas fa-sign-in-alt"></i></a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('cart_index') }}">Košarica
-                        <i id="cart_icon" class="fas fa-shopping-cart">
-                            <span class="badge">1</span>
-                        </i>
-                    </a>
-                </li>
             </ul>
         </div>
     </nav>
