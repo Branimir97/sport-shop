@@ -27,7 +27,7 @@ class NewItemColorType extends AbstractType
                         ->where('c.value NOT IN (:array)')
                         ->setParameter('array', $colorValues);
                 },
-                'choice_label' => 'value',
+                'choice_label' => 'name',
                 'help' => "Odaberite jednu ili više boja",
                 'label' => 'Ostale boje'
             ])

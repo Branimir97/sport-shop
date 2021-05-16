@@ -9,7 +9,7 @@
 {% block body %}
     <div class="container-fluid">
         <h2 class="text-center mt-2 bg-light p-2">Moja košarica <i id="cart" class="fas fa-shopping-cart"></i></h2>
-        {% if cart.cartItems|length == 0 %}
+        {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
             <h6 class="text-center bg-danger p-2 text-white">Ne postoji niti jedan artikl u Vašoj košarici.</h6>
             <p class="text-center">ps. Kreni u shopping!</p>
         {% else %}

@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -84,7 +85,7 @@ class ItemType extends AbstractType
                     'query_builder' => function (EntityRepository $entityRepository) {
                         return $entityRepository->createQueryBuilder('c');
                     },
-                    'choice_label' => 'value',
+                    'choice_label' => 'name',
                     'help' => "Odaberite jednu ili više boja",
                     'label' => 'Dostupne boje',
                 ])
@@ -106,7 +107,7 @@ class ItemType extends AbstractType
                 ],
                 'help' => 'Omogućeno je korištenje HTML elemenata',
             ])
-            ->add('price', null, [
+            ->add('price', NumberType::class, [
                 'attr'=>[
                     'placeholder'=>'npr. 349,50'
                 ],

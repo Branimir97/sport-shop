@@ -16,7 +16,7 @@ class ColorQuantityType extends AbstractType
             $counter++;
             $builder
                 ->add('color_'.$counter, null, [
-                    'label'=>'['.$color->getValue().'] boja - unesite količinu',
+                    'label'=>'['.$color->getName().'] boja - unesite količinu',
                     'attr'=>[
                         'placeholder'=>'npr. 15'
                     ]

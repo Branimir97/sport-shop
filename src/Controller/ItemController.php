@@ -515,7 +515,7 @@ class ItemController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', $itemColor->getColor()->getValue().' boja - količina uspješno ažurirana.');
+            $this->addFlash('success', $itemColor->getColor()->getName().' boja - količina uspješno ažurirana.');
             return $this->redirectToRoute('item_edit', ['id'=>$itemColor->getItem()->getId()]);
         }
         return $this->render('item/edit_color_quantity.html.twig', [

@@ -20,7 +20,7 @@
             <p class="text-center">Artikl trenutno nema niti jednu boju.</p>
         {% else %}
             {% for itemColor in item.itemColors %}
-                <p class="text-center m-0" id="category">- {{ itemColor.color.value }}</p>
+                <p class="text-center m-0" style="color: {{ itemColor.color.value }}">- {{ itemColor.color.value }} | {{ itemColor.color.name }}</p>
             {% endfor %}
         {% endif %}
         {{ include('item/new_color_form.html.twig') }}

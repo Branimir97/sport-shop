@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Uređivanje količine boje - [{{ itemColor.color.value }}] {% endblock %}
+{% block title %}Uređivanje količine boje - [{{ itemColor.color.name }}] {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Uređivanje količine boje - [{{ itemColor.color.value }}]</h2>
+        <h2 class="text-center mt-2 bg-light p-2">Uređivanje količine boje - [{{ itemColor.color.name }}]</h2>
         <a href="{{ path('item_edit', {'id':itemColor.item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Uređivanje artikla

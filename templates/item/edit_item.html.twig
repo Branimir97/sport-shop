@@ -87,7 +87,7 @@
                             <div class="delete_icon">
                                 {{ include('item/_delete_color_form.html.twig') }}
                             </div>
-                            <p>- {{ itemColor.color.value }}| {{ itemColor.quantity }}kom
+                            <p>- {{ itemColor.color.name }}| {{ itemColor.quantity }}kom
                                 <a href="{{ path('item_color_quantity_edit', {'id':itemColor.id}) }}" title="Uredi količinu">
                                     <i id="edit" class="far fa-edit"></i>
                                 </a>
