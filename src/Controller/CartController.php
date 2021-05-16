@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Cart;
 use App\Entity\CartItem;
-use App\Repository\CartItemRepository;
-use App\Repository\CartRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,27 +17,13 @@ class CartController extends AbstractController
     /**
      * @Route("/", name="cart_index", methods={"GET"})
      */
-    public function index(CartRepository $cartRepository, UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository): Response
     {
         $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
         $cart = $user->getCart();
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
         ]);
-    }
-
-    /**
-     * @Route("/{id}", name="cart_delete", methods={"POST"})
-     */
-    public function deleteCart(Request $request, Cart $cart): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$cart->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($cart);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('cart_index');
     }
 
     /**

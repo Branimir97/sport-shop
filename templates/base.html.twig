@@ -284,7 +284,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('cart_index') }}">Košarica
                             <i id="cart_icon" class="fas fa-shopping-cart">
-                                <span class="badge">1</span>
+                                <span class="badge">
+                                    {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
+                                        0
+                                    {% else %}
+                                        {{ cart.cartItems|length }}
+                                    {% endif %}
+                                </span>
                             </i>
                         </a>
                     </li>
