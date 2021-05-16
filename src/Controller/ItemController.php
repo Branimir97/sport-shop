@@ -686,7 +686,6 @@ class ItemController extends AbstractController
             $colorValue = $itemColor->getColor()->getValue();
             $colorChoices[$colorValue]=$colorObject;
         }
-        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
         $cartItem = new CartItem();
         $formCart = $this->createForm(CartItemType::class, $cartItem, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
         $formCart->handleRequest($request);
@@ -703,6 +702,7 @@ class ItemController extends AbstractController
                     'Max. količina "'.$cartItemColorObj->getColor()->getValue().'" boje za ovaj artikl je '.$cartItemColorObj->getQuantity().".");
                 $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
             } else {
+                $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
                 if(is_null($user->getCart())) {
                     $cart = new Cart();
                     $cart->setUser($this->getUser());
