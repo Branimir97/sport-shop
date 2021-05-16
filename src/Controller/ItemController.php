@@ -12,6 +12,7 @@ use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Review;
 use App\Entity\Tag;
+use App\Form\CartItemType;
 use App\Form\CartType;
 use App\Form\ColorQuantityType;
 use App\Form\EditColorQuantityType;
@@ -670,7 +671,7 @@ class ItemController extends AbstractController
                                     SizeRepository $sizeRepository, ColorRepository $colorRepository, UserRepository $userRepository): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
-
+        $entityManager = $this->getDoctrine()->getManager();
         $sizeChoices = [];
         $colorChoices = [];
         foreach($item->getItemSizes() as $itemSize) {
@@ -682,25 +683,30 @@ class ItemController extends AbstractController
             $colorChoices[$color]=$color;
         }
         $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
-        if(is_null($user->getCart())) {
-            $cart = new Cart();
-        } else {
-            $cart = $user->getCart();
-        }
 
-        $formCart = $this->createForm(CartType::class, null, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
+
+        $formCart = $this->createForm(CartItemType::class, null, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
         $formCart->handleRequest($request);
         if ($formCart->isSubmitted() && $formCart->isValid()) {
-            $formSize = $formCart->get('size')->getData();
-            $sizeObj = $sizeRepository->findOneBy(['value'=>$formSize]);
-            $cart->addSize($sizeObj);
-            $formColor = $formCart->get('color')->getData();
-            $colorObj = $colorRepository->findOneBy(['value'=>$formColor]);
-            $cart->addColor($colorObj);
+            if(is_null($user->getCart())) {
+                $cart = new Cart();
+                $cart->setUser($this->getUser());
+                $entityManager->persist($cart);
+                $entityManager->flush();
+            } else {
+                $cart = $user->getCart();
+            }
+//            $formSize = $formCart->get('size')->getData();
+//            $sizeObj = $sizeRepository->findOneBy(['value'=>$formSize]);
+//            $cart->addSize($sizeObj);
+//            $formColor = $formCart->get('color')->getData();
+//            $colorObj = $colorRepository->findOneBy(['value'=>$formColor]);
+//            $cart->addColor($colorObj);
             $cartItem = new CartItem();
             $cartItem->setItem($item);
             $cartItem->setQuantity($formCart->get('quantity')->getData());
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cartItem);
+            $cart->addCartItem($cartItem);
             $entityManager->persist($cart);
             $entityManager->flush();
 

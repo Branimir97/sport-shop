@@ -87,6 +87,11 @@ class Item
      */
     private $reviews;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartItem::class, mappedBy="item", orphanRemoval=true)
+     */
+    private $cartItems;
+
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -95,6 +100,7 @@ class Item
         $this->itemCategories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->cartItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -360,6 +366,36 @@ class Item
             // set the owning side to null (unless already changed)
             if ($review->getItem() === $this) {
                 $review->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartItem[]
+     */
+    public function getCartItems(): Collection
+    {
+        return $this->cartItems;
+    }
+
+    public function addCartItem(CartItem $cartItem): self
+    {
+        if (!$this->cartItems->contains($cartItem)) {
+            $this->cartItems[] = $cartItem;
+            $cartItem->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartItem(CartItem $cartItem): self
+    {
+        if ($this->cartItems->removeElement($cartItem)) {
+            // set the owning side to null (unless already changed)
+            if ($cartItem->getItem() === $this) {
+                $cartItem->setItem(null);
             }
         }
 
