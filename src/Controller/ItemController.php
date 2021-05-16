@@ -668,7 +668,8 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/details", name="item_details", methods={"GET", "POST"})
      */
-    public function showItemdetails(Request $request, ItemRepository $itemRepository,
+    public function showItemdetails(Request $request, ItemRepository $itemRepository, ItemSizeRepository $itemSizeRepository,
+                                    ItemColorRepository $itemColorRepository,
                                     UserRepository $userRepository, CartItemRepository $cartItemRepository): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
@@ -686,39 +687,51 @@ class ItemController extends AbstractController
             $colorChoices[$colorValue]=$colorObject;
         }
         $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
-
         $cartItem = new CartItem();
         $formCart = $this->createForm(CartItemType::class, $cartItem, ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
         $formCart->handleRequest($request);
         if ($formCart->isSubmitted() && $formCart->isValid()) {
-            if(is_null($user->getCart())) {
-                $cart = new Cart();
-                $cart->setUser($this->getUser());
-                $entityManager->persist($cart);
-                $entityManager->flush();
+            $formCartQuantity = $formCart->get('quantity')->getData();
+            $cartItemSizeObj = $itemSizeRepository->findOneBy(['size'=>$formCart->get('size')->getData()]);
+            $cartItemColorObj = $itemColorRepository->findOneBy(['color'=>$formCart->get('color')->getData()]);
+            if($formCartQuantity > $cartItemSizeObj->getQuantity()) {
+                $this->addFlash('danger',
+                    'Max. količina veličine "'.$cartItemSizeObj->getSize()->getValue().'" za ovaj artikl je '.$cartItemSizeObj->getQuantity().".");
+                $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
+            } else if($formCartQuantity > $cartItemColorObj->getQuantity()) {
+                $this->addFlash('danger',
+                    'Max. količina "'.$cartItemColorObj->getColor()->getValue().'" boje za ovaj artikl je '.$cartItemColorObj->getQuantity().".");
+                $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
             } else {
-                $cart = $user->getCart();
-            }
-            $cartItemDb = $cartItemRepository->findOneBy(['cart'=>$cart,
-                'item'=>$item,
-                'size'=>$formCart->get('size')->getData(),
-                'color'=>$formCart->get('color')->getData()
+                if(is_null($user->getCart())) {
+                    $cart = new Cart();
+                    $cart->setUser($this->getUser());
+                    $entityManager->persist($cart);
+                    $entityManager->flush();
+                } else {
+                    $cart = $user->getCart();
+                }
+                $cartItemDb = $cartItemRepository->findOneBy(['cart'=>$cart,
+                    'item'=>$item,
+                    'size'=>$formCart->get('size')->getData(),
+                    'color'=>$formCart->get('color')->getData()
                 ]);
-            if(is_null($cartItemDb)) {
-                $cartItem->setItem($item);
-                $entityManager->persist($cartItem);
-                $cart->addCartItem($cartItem);
-                $entityManager->persist($cart);
-                $entityManager->flush();
-            } else {
-                $previousQuantity = $cartItemDb->getQuantity();
-                $cartItemDb->setQuantity($previousQuantity + $formCart->get('quantity')->getData());
-                $entityManager->persist($cartItemDb);
-                $entityManager->flush();
-            }
+                if(is_null($cartItemDb)) {
+                    $cartItem->setItem($item);
+                    $entityManager->persist($cartItem);
+                    $cart->addCartItem($cartItem);
+                    $entityManager->persist($cart);
+                    $entityManager->flush();
+                } else {
+                    $previousQuantity = $cartItemDb->getQuantity();
+                    $cartItemDb->setQuantity($previousQuantity + $formCartQuantity);
+                    $entityManager->persist($cartItemDb);
+                    $entityManager->flush();
+                }
 
-            $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno dodan u košaricu.');
-            return $this->redirectToRoute('cart_index');
+                $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno dodan u košaricu.');
+                return $this->redirectToRoute('cart_index');
+            }
         }
 
         $review = new Review();
