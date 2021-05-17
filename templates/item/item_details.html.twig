@@ -66,7 +66,7 @@
                         <a class="text-center" href="{{ path('app_login') }}">Prijava/registracija</a>
                     </div>
                 {% endif %}
-                <h6 class="text-center">Cijena: <span id="price">{{ item.price }} kn</span> </h6>
+                <h6 class="text-center">Cijena: <span id="price">{{ item.price|number_format(2, '.', ',') }} kn</span> </h6>
                 <p>Tagovi:
                     <span id="tag">
                         {% for itemTag in item.itemTags%}

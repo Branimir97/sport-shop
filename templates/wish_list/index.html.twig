@@ -34,7 +34,7 @@
                         <td>{{ wishListItem.item.title }}</td>
                         <td>{{ wishListItem.item.cipher }}</td>
                         <td>{{ wishListItem.item.manufacturer.name }}</td>
-                        <td>{{ wishListItem.item.price }}</td>
+                        <td>{{ wishListItem.item.price|number_format(2, '.', ',') }}</td>
                         <td>{{ wishListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
                         <td>
                             {{ include('wish_list/_delete_form.html.twig') }}

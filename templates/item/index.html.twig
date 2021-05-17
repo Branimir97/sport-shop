@@ -35,7 +35,7 @@
                         <td>{{ item.id }}</td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.cipher }}</td>
-                        <td>{{ item.price }}</td>
+                        <td>{{ item.price|number_format(2, '.', ',') }}</td>
                         <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
                         <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                         <td>

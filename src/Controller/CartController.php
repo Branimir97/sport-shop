@@ -23,8 +23,13 @@ class CartController extends AbstractController
     {
         $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
         $cart = $user->getCart();
+        $totalPrice = 0;
+        foreach($cart->getCartItems() as $cartItem) {
+            $totalPrice+=$cartItem->getItem()->getPrice()*$cartItem->getQuantity();
+        }
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
+            'totalPrice'=>$totalPrice
         ]);
     }
 

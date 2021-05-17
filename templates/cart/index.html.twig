@@ -47,10 +47,10 @@
                             {{ cartItem.quantity }}
                         </td>
                         <td>
-                            {{ cartItem.item.price }}
+                            {{ cartItem.item.price|number_format(2, '.', ',') }}
                         </td>
                         <td>
-                            {{ cartItem.item.price * cartItem.quantity }}
+                            {{ (cartItem.item.price * cartItem.quantity)|number_format(2, '.', ',') }}
                         </td>
                         <td>
                             {{ include('cart/_delete_form.html.twig') }}
@@ -59,6 +59,12 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="text-right">
+                <h5>Ukupna cijena artikala u košarici: <span id="price">{{ totalPrice|number_format(2, '.', ',') }}</span> kn</h5>
+                <a class="btn btn-info text-white" href="{{ path('checkout') }}">
+                    Plaćanje <i class="fab fa-paypal"></i>
+                </a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
