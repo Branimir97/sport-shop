@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('wish_list_item_delete', {'id': wishListItem.id}) }}"
+      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj artikl iz Vašeg popisa želja?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ wishListItem.id) }}">
+    <button class="btn btn-danger" title="Obriši artikl iz popisa želja">
+        <i class="far fa-trash-alt"></i>
+    </button>
+</form>

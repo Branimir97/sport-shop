@@ -67,6 +67,10 @@ span#tag{
     color: #007bb6;
 }
 
+a#wish_list{
+    float: right;
+}
+
 @media (min-width: 992px){
     #carousel-item-info .carousel-item{
         height: 400px;

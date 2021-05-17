@@ -29,7 +29,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/item/{id}", name="cart_item_delete", methods={"POST", "DELETE"})
+     * @Route("/item/{id}", name="cart_item_delete", methods={"DELETE"})
      */
     public function deleteItem(Request $request, CartItem $cartItem, CartRepository $cartRepository, CartItemRepository $cartItemRepository): Response
     {

@@ -2,7 +2,7 @@
 
 {% block title %}Moja košarica{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset("css/cart.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/cart_wish_list.css") }}">
     <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
 {% endblock %}
 
@@ -30,7 +30,7 @@
                 {% for cartItem in cart.cartItems %}
                     <tr>
                         <td>
-                            <img class="cart_item_img" src="{{ asset('uploads/')~cartItem.item.images[0].path }}" alt="image_{{ cartItem.item.images[0].id }}">
+                            <img class="item_img" src="{{ asset('uploads/')~cartItem.item.images[0].path }}" alt="image_{{ cartItem.item.images[0].id }}">
                         </td>
                         <td>
                             {{ cartItem.item.title }}

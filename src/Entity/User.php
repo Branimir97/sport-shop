@@ -102,6 +102,11 @@ class User implements UserInterface
      */
     private $cart;
 
+    /**
+     * @ORM\OneToOne(targetEntity=WishList::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $wishList;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
@@ -380,6 +385,23 @@ class User implements UserInterface
         }
 
         $this->cart = $cart;
+
+        return $this;
+    }
+
+    public function getWishList(): ?WishList
+    {
+        return $this->wishList;
+    }
+
+    public function setWishList(WishList $wishList): self
+    {
+        // set the owning side of the relation if necessary
+        if ($wishList->getUser() !== $this) {
+            $wishList->setUser($this);
+        }
+
+        $this->wishList = $wishList;
 
         return $this;
     }

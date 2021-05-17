@@ -44,7 +44,11 @@
                         {% endfor %}
                     </p>
                 </div>
-                <p>Šifra artikla: <span id="cipher">{{ item.cipher }}</span></p>
+                <p>Šifra artikla: <span id="cipher">{{ item.cipher }}</span>
+                    <a id="wish_list" class="btn btn-primary text-white" href="{{ path('wish_list_item_new', {'id':item.id}) }}">
+                        Dodaj na popis želja <i class="fas fa-list-ul"></i>
+                    </a>
+                </p>
                 <p>Proizvođač: <span id="manufacturer">{{ item.manufacturer.name }}</span></p>
                 {% if is_granted("ROLE_USER") %}
                     {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}

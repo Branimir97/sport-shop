@@ -54,20 +54,7 @@ class CartItemType extends AbstractType
                     'min'=>1
                 ],
             ])
-            ->add('add_cart', SubmitType::class, [
-                'label'=>'Dodaj u košaricu',
-                'attr'=>[
-                    'class'=>'btn btn-success '
-                ]
-            ])
-            ->add('add_wish_list', SubmitType::class, [
-                'label'=>'Dodaj na popis želja',
-                'attr'=>[
-                    'class'=>'btn btn-primary ml-2'
-                ]
-            ])
         ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
