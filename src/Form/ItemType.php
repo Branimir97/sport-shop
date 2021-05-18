@@ -90,6 +90,7 @@ class ItemType extends AbstractType
                     'label' => 'Dostupne boje',
                 ])
                 ->add('image', FileType::class, [
+                    'required'=>false,
                     'mapped' => false,
                     'multiple' => true,
                     'help' => 'Dopušteni formati slika su: jpg, jpeg i png; Maksimalna dopuštena veličina pojedine slike je 2MB',

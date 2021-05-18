@@ -64,182 +64,36 @@ class ItemController extends AbstractController
     /**
      * @Route("/new", name="item_new", methods={"GET","POST"})
      */
-    public function new(Request $request, TagRepository $tagRepository,
-                        ImageUploadHelper $uploadHelper): Response
+    public function new(Request $request): Response
     {
         $item = new Item();
-        $form = $this->createForm(ItemType::class, $item);
-        $form->handleRequest($request);
-        $entityManager = $this->getDoctrine()->getManager();
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $formNewItem = $this->createForm(ItemType::class, $item);
+        $formNewItem->handleRequest($request);
+        if ($formNewItem->isSubmitted() && $formNewItem->isValid()) {
             $item->setCipher(uniqid());
-            $categories = $form->get('category')->getData();
-            $tags = $form->get('tag')->getData();
-            $sizes = $form->get('size')->getData();
-            $colors = $form->get('color')->getData();
-            $images = $form->get('image')->getData();
-            if(count($sizes)!=0 || count($colors)!=0) {
-                $session = new Session();
-                $session->set('item', $item);
-                $session->set('categories', $categories);
-                $session->set('tags', $tags);
-                $session->set('sizes', $sizes);
-                $session->set('colors', $colors);
-                foreach ($images as $image) {
-                    $newFileName = $uploadHelper->uploadImageTemporary($image);
-                    if(is_null($newFileName)) {
-                        $this->addFlash('danger',
-                            'Pogreška prilikom prijenosa fotografija.
-                                    Dopušteni formati fotografija: jpg, jpeg i png.'
-                        );
-                        return $this->redirectToRoute('item_new');
-                    }
+            $sizes = $formNewItem->get('size')->getData();
+            $colors = $formNewItem->get('color')->getData();
+
+            if (count($sizes) != 0 || count($colors) != 0) {
+                $formSetQuantity = $this->createForm(QuantityType::class, null, [
+                    'sizes' => $sizes, 'colors' => $colors
+                ]);
+                $formSetQuantity->handleRequest($request);
+                if ($formSetQuantity->isSubmitted() && $formSetQuantity->isValid()) {
+                    $this->addFlash('success', 'Artikl uspješno dodan.');
+                    return $this->redirectToRoute('item_index');
                 }
-                return $this->redirectToRoute('item_quantity_set');
+                return $this->render('item/set_quantity.html.twig', [
+                    'formSetQuantity' => $formSetQuantity->createView()
+                ]);
             } else {
-                foreach($categories as $category) {
-                    $itemCategory = new ItemCategory();
-                    $itemCategory->setItem($item);
-                    $itemCategory->setCategory($category);
-                    $entityManager->persist($itemCategory);
-                }
-                if(!is_null($tags)) {
-                    $explodedTags = explode(PHP_EOL, $tags);
-                    foreach ($explodedTags as $tagName) {
-                        $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
-                        if(is_null($tagObject)) {
-                            $tagObject = new Tag();
-                            $tagObject->setName($tagName);
-                        }
-                        $entityManager->persist($tagObject);
-                        $itemTag = new ItemTag();
-                        $itemTag->setItem($item);
-                        $itemTag->setTag($tagObject);
-                        $entityManager->persist($itemTag);
-                    }
-                }
-                foreach ($images as $image) {
-                    $newFileName = $uploadHelper->uploadItemImage($image);
-                    if(is_null($newFileName)) {
-                        $this->addFlash('danger',
-                            'Pogreška prilikom prijenosa fotografija. 
-                                    Dopušteni formati fotografija: jpg, jpeg i png.'
-                        );
-                        return $this->redirectToRoute('item_new');
-                    }
-                    $image = new Image();
-                    $image->setPath($newFileName);
-                    $image->setItem($item);
-                    $entityManager->persist($image);
-                }
-                $entityManager->persist($item);
-                $entityManager->flush();
                 $this->addFlash('success', 'Artikl uspješno dodan.');
                 return $this->redirectToRoute('item_index');
             }
         }
         return $this->render('item/new_item.html.twig', [
             'item' => $item,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
-     */
-    public function setQuantity(Request $request, ImageUploadHelper $uploadHelper,
-                                SizeRepository $sizeRepository,
-                                ColorRepository $colorRepository,
-                                TagRepository $tagRepository): Response
-    {
-        $markedSizes = [];
-        $markedColors = [];
-        $sizeQuantities = [];
-        $colorQuantities = [];
-
-        $item = $this->get('session')->get('item');
-        $categories = $this->get('session')->get('categories');
-        $tags = $this->get('session')->get('tags');
-        $sizes = $this->get('session')->get('sizes');
-        $colors = $this->get('session')->get('colors');
-        $entityManager = $this->getDoctrine()->getManager();
-        $formQuantity = $this->createForm(QuantityType::class, null, [
-            'sizes'=>$sizes, 'colors'=>$colors
-        ]);
-        $formQuantity->handleRequest($request);
-        if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
-            foreach($sizes as $size) {
-                array_push($markedSizes, $size->getId());
-            }
-            foreach($colors as $color) {
-                array_push($markedColors, $color->getId());
-            }
-            $formData = $formQuantity->getData();
-            $formKeys = array_keys($formData);
-
-            foreach($formKeys as $key) {
-                if(str_contains($key, "size")) {
-                    array_push($sizeQuantities, $formData[$key]);
-                }
-                if(str_contains($key, "color")) {
-                    array_push($colorQuantities, $formData[$key]);
-                }
-            }
-            $sizesDone = array_combine($markedSizes, $sizeQuantities);
-            $colorsDone = array_combine($markedColors, $colorQuantities);
-
-            foreach($sizesDone as $key=>$value) {
-                $sizeObj = $sizeRepository->findOneBy(['id'=>$key]);
-                $itemSize = new ItemSize();
-                $itemSize->setItem($item);
-                $itemSize->setSize($sizeObj);
-                $itemSize->setQuantity($value);
-                $entityManager->persist($itemSize);
-            }
-            foreach($colorsDone as $key=>$value) {
-                $colorObj = $colorRepository->findOneBy(['id'=>$key]);
-                $itemColor = new ItemColor();
-                $itemColor->setItem($item);
-                $itemColor->setColor($colorObj);
-                $itemColor->setQuantity($value);
-                $entityManager->persist($itemColor);
-            }
-            foreach($categories as $category) {
-                $itemCategory = new ItemCategory();
-                $itemCategory->setItem($item);
-                $itemCategory->setCategory($category);
-                $entityManager->persist($itemCategory);
-            }
-            if(!is_null($tags)) {
-                $explodedTags = explode(PHP_EOL, $tags);
-                foreach ($explodedTags as $tagName) {
-                    $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
-                    if(is_null($tagObject)) {
-                        $tagObject = new Tag();
-                        $tagObject->setName($tagName);
-                        $entityManager->persist($tagObject);
-                    }
-                    $itemTag = new ItemTag();
-                    $itemTag->setItem($item);
-                    $itemTag->setTag($tagObject);
-                    $entityManager->persist($itemTag);
-                }
-            }
-            $imageFileNames = $uploadHelper->uploadImageFromTemporaryFolderAndGetImagesList();
-            foreach ($imageFileNames as $imageFileName) {
-                $image = new Image();
-                $image->setPath($imageFileName);
-                $image->setItem($item);
-                $entityManager->persist($image);
-            }
-            $entityManager->persist($item);
-            $entityManager->flush();
-            $this->addFlash('success', 'Artikl uspješno dodan.');
-            return $this->redirectToRoute('item_index');
-        }
-        return $this->render('item/set_quantity.html.twig',[
-            'form' => $formQuantity->createView(),
+            'formNewItem' => $formNewItem->createView(),
         ]);
     }
 
