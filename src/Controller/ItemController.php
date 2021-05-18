@@ -64,16 +64,19 @@ class ItemController extends AbstractController
     /**
      * @Route("/new", name="item_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TagRepository $tagRepository, ImageUploadHelper $uploadHelper): Response
     {
         $item = new Item();
         $formNewItem = $this->createForm(ItemType::class, $item);
         $formNewItem->handleRequest($request);
         if ($formNewItem->isSubmitted() && $formNewItem->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
             $item->setCipher(uniqid());
+            $categories = $formNewItem->get('category')->getData();
+            $tags = $formNewItem->get('tag')->getData();
             $sizes = $formNewItem->get('size')->getData();
             $colors = $formNewItem->get('color')->getData();
-
+            $images = $formNewItem->get('image')->getData();
             if (count($sizes) != 0 || count($colors) != 0) {
                 $formSetQuantity = $this->createForm(QuantityType::class, null, [
                     'sizes' => $sizes, 'colors' => $colors
@@ -87,6 +90,43 @@ class ItemController extends AbstractController
                     'formSetQuantity' => $formSetQuantity->createView()
                 ]);
             } else {
+                foreach($categories as $category) {
+                    $itemCategory = new ItemCategory();
+                    $itemCategory->setItem($item);
+                    $itemCategory->setCategory($category);
+                    $entityManager->persist($itemCategory);
+                }
+                if(!is_null($tags)) {
+                    $explodedTags = explode(PHP_EOL, $tags);
+                    foreach ($explodedTags as $tagName) {
+                        $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
+                        if(is_null($tagObject)) {
+                            $tagObject = new Tag();
+                            $tagObject->setName($tagName);
+                        }
+                        $entityManager->persist($tagObject);
+                        $itemTag = new ItemTag();
+                        $itemTag->setItem($item);
+                        $itemTag->setTag($tagObject);
+                        $entityManager->persist($itemTag);
+                    }
+                }
+                foreach ($images as $image) {
+                    $newFileName = $uploadHelper->uploadItemImage($image);
+                    if(is_null($newFileName)) {
+                        $this->addFlash('danger',
+                            'Pogreška prilikom prijenosa fotografija. 
+                                    Dopušteni formati fotografija: jpg, jpeg i png.'
+                        );
+                        return $this->redirectToRoute('item_new');
+                    }
+                    $image = new Image();
+                    $image->setPath($newFileName);
+                    $image->setItem($item);
+                    $entityManager->persist($image);
+                }
+                $entityManager->persist($item);
+                $entityManager->flush();
                 $this->addFlash('success', 'Artikl uspješno dodan.');
                 return $this->redirectToRoute('item_index');
             }

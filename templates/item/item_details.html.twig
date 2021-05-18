@@ -56,7 +56,7 @@
                     {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}
                         <p class="bg-warning text-center p-1">
                             <i class="fas fa-exclamation-circle"></i>
-                            Podaci o artiklu se ažuriraju, stoga ga nije moguće dodati u košaricu ili na popis želja!
+                            Podaci o artiklu se ažuriraju, stoga ga nije moguće dodati u košaricu!
                         </p>
                     {% endif %}
                     {{ include('cart/_form.html.twig') }}

@@ -17,36 +17,38 @@
             <a href="{{ path('manufacturer_new') }}" class="btn btn-outline-info mb-3">
                 Dodaj novog proizvođača
             </a>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Proizvođač</th>
-                    <th>Vrijeme stvaranja</th>
-                    <th>Vrijeme zadnje izmjene</th>
-                    <th>Mogućnosti</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for manufacturer in manufacturers %}
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
                     <tr>
-                        <td>{{ manufacturer.id }}</td>
-                        <td>{{ manufacturer.name }}</td>
-                        <td>{{ manufacturer.createdAt|date('H:i:s | d.m.Y.') }}</td>
-                        <td>{{ manufacturer.updatedAt ? manufacturer.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
-                        <td>
-                            <a class="btn" href="{{ path('manufacturer_show', {'id': manufacturer.id}) }}" title="Prikaži pojedinosti">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                            <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}" title="Uredi">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            {{ include('manufacturer/_delete_form.html.twig') }}
-                        </td>
+                        <th>Id</th>
+                        <th>Proizvođač</th>
+                        <th>Vrijeme stvaranja</th>
+                        <th>Vrijeme zadnje izmjene</th>
+                        <th>Mogućnosti</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for manufacturer in manufacturers %}
+                        <tr>
+                            <td>{{ manufacturer.id }}</td>
+                            <td>{{ manufacturer.name }}</td>
+                            <td>{{ manufacturer.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                            <td>{{ manufacturer.updatedAt ? manufacturer.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                            <td>
+                                <a class="btn" href="{{ path('manufacturer_show', {'id': manufacturer.id}) }}" title="Prikaži pojedinosti">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}" title="Uredi">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('manufacturer/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

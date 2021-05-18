@@ -12,43 +12,45 @@
             <h6 class="text-center bg-info p-2 text-white">Ne postoji niti jedan artikl na Vašem popisu želja.</h6>
             <p class="text-center">ps. Ukoliko ne možete odmah kupiti željeni artikl, dodajte ga na popis želja!</p>
         {% else %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Slika artikla</th>
-                        <th>Naziv artikla</th>
-                        <th>Šifra artikla</th>
-                        <th>Proizvođač</th>
-                        <th>Cijena [kn]</th>
-                        <th>Vrijeme dodavanja</th>
-                        <th>Obriši artikl</th>
-                        <th>Nastavi kupnju</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for wishListItem in wishList.wishListItems %}
-                    <tr>
-                        <td>
-                            <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}" alt="image_{{ wishListItem.item.images[0].id }}">
-                        </td>
-                        <td>{{ wishListItem.item.title }}</td>
-                        <td>{{ wishListItem.item.cipher }}</td>
-                        <td>{{ wishListItem.item.manufacturer.name }}</td>
-                        <td>{{ wishListItem.item.price|number_format(2, '.', ',') }}</td>
-                        <td>{{ wishListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
-                        <td>
-                            {{ include('wish_list/_delete_form.html.twig') }}
-                        </td>
-                        <td>
-                            <a class="btn btn-success text-white" href="{{ path('item_details', {'id':wishListItem.item.id}) }}"
-                                title="Nastavi do artikla">
-                                <i class="fas fa-shopping-bag"></i>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-warning">
+                    <thead>
+                        <tr>
+                            <th>Slika artikla</th>
+                            <th>Naziv artikla</th>
+                            <th>Šifra artikla</th>
+                            <th>Proizvođač</th>
+                            <th>Cijena [kn]</th>
+                            <th>Vrijeme dodavanja</th>
+                            <th>Obriši artikl</th>
+                            <th>Nastavi kupnju</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for wishListItem in wishList.wishListItems %}
+                        <tr>
+                            <td>
+                                <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}" alt="image_{{ wishListItem.item.images[0].id }}">
+                            </td>
+                            <td>{{ wishListItem.item.title }}</td>
+                            <td>{{ wishListItem.item.cipher }}</td>
+                            <td>{{ wishListItem.item.manufacturer.name }}</td>
+                            <td>{{ wishListItem.item.price|number_format(2, '.', ',') }}</td>
+                            <td>{{ wishListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                            <td>
+                                {{ include('wish_list/_delete_form.html.twig') }}
+                            </td>
+                            <td>
+                                <a class="btn btn-success text-white" href="{{ path('item_details', {'id':wishListItem.item.id}) }}"
+                                    title="Nastavi do artikla">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

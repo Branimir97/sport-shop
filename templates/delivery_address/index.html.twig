@@ -11,44 +11,46 @@
             <p>Ne postoji niti jedna adresa isporuke u bazi podataka.</p>
         </div>
         {% else %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Ulica</th>
-                    <th>Grad</th>
-                    <th>Županija</th>
-                    <th>Poštanski broj</th>
-                    <th>Država</th>
-                    <th>Vrijeme stvaranja</th>
-                    <th>Vrijeme zadnje izmjene</th>
-                    <th>Mogućnosti</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for delivery_address in delivery_addresses %}
-                <tr>
-                    <td>{{ delivery_address.id }}</td>
-                    <td>{{ delivery_address.street }}</td>
-                    <td>{{ delivery_address.city }}</td>
-                    <td>{{ delivery_address.county }}</td>
-                    <td>{{ delivery_address.postalCode }}</td>
-                    <td>{{ delivery_address.country }}</td>
-                    <td>{{ delivery_address.createdAt|date('H:i:s | d.m.Y.')}}</td>
-                    <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
-                    <td>
-                        <a class="btn" href="{{ path('delivery_address_show', {'id': delivery_address.id}) }}" title="Prikaži pojedinosti">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                        <a href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}" title="Uredi">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        {{ include('delivery_address/_delete_form.html.twig') }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Ulica</th>
+                            <th>Grad</th>
+                            <th>Županija</th>
+                            <th>Poštanski broj</th>
+                            <th>Država</th>
+                            <th>Vrijeme stvaranja</th>
+                            <th>Vrijeme zadnje izmjene</th>
+                            <th>Mogućnosti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for delivery_address in delivery_addresses %}
+                        <tr>
+                            <td>{{ delivery_address.id }}</td>
+                            <td>{{ delivery_address.street }}</td>
+                            <td>{{ delivery_address.city }}</td>
+                            <td>{{ delivery_address.county }}</td>
+                            <td>{{ delivery_address.postalCode }}</td>
+                            <td>{{ delivery_address.country }}</td>
+                            <td>{{ delivery_address.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                            <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                            <td>
+                                <a class="btn" href="{{ path('delivery_address_show', {'id': delivery_address.id}) }}" title="Prikaži pojedinosti">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}" title="Uredi">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('delivery_address/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

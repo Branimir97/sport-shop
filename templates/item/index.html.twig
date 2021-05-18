@@ -17,43 +17,45 @@
             </div>
             {% else %}
                 <a href="{{ path('item_new') }}" class="btn btn-outline-info mb-3">Dodaj novi artikl</a>
-                <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Naziv artikla</th>
-                        <th>Šifra artikla</th>
-                        <th>Cijena [kn]</th>
-                        <th>Vrijeme stvaranja</th>
-                        <th>Vrijeme zadnje izmjene</th>
-                        <th>Mogućnosti</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for item in items %}
-                    <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.cipher }}</td>
-                        <td>{{ item.price|number_format(2, '.', ',') }}</td>
-                        <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
-                        <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
-                        <td>
-                            <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Osnovne informacije">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                            <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{{ path('item_details', {'id': item.id}) }}" title="Prikaži artikl">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                            </a>
-                            {{ include('item/_delete_item_form.html.twig') }}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                <div class="table-responsive">
+                    <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Naziv artikla</th>
+                            <th>Šifra artikla</th>
+                            <th>Cijena [kn]</th>
+                            <th>Vrijeme stvaranja</th>
+                            <th>Vrijeme zadnje izmjene</th>
+                            <th>Mogućnosti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.cipher }}</td>
+                            <td>{{ item.price|number_format(2, '.', ',') }}</td>
+                            <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                            <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                            <td>
+                                <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Osnovne informacije">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{ path('item_details', {'id': item.id}) }}" title="Prikaži artikl">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </a>
+                                {{ include('item/_delete_item_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
