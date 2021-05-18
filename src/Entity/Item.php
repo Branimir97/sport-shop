@@ -97,6 +97,11 @@ class Item
      */
     private $wishListItems;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ActionItem::class, mappedBy="item", orphanRemoval=true)
+     */
+    private $actionItems;
+
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -107,6 +112,7 @@ class Item
         $this->reviews = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
         $this->wishListItems = new ArrayCollection();
+        $this->actionItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -432,6 +438,36 @@ class Item
             // set the owning side to null (unless already changed)
             if ($wishListItem->getItem() === $this) {
                 $wishListItem->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ActionItem[]
+     */
+    public function getActionItems(): Collection
+    {
+        return $this->actionItems;
+    }
+
+    public function addActionItem(ActionItem $actionItem): self
+    {
+        if (!$this->actionItems->contains($actionItem)) {
+            $this->actionItems[] = $actionItem;
+            $actionItem->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActionItem(ActionItem $actionItem): self
+    {
+        if ($this->actionItems->removeElement($actionItem)) {
+            // set the owning side to null (unless already changed)
+            if ($actionItem->getItem() === $this) {
+                $actionItem->setItem(null);
             }
         }
 

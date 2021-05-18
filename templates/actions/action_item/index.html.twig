@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artikli na akciji{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Artikli na akciji</h2>
+        {% if not action_items %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedan artkl na akciji.</p>
+                <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">Postavi novi artikl na akciju</a>
+            </div>
+        {% else %}
+            <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">Postavi novi artikl na akciju</a>
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Artikl</th>
+                            <th>Popust [%]</th>
+                            <th>Vrijeme stvaranja</th>
+                            <th>Vrijeme zadnje izmjene</th>
+                            <th>Mogućnosti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for action_item in action_items %}
+                            <tr>
+                                <td>{{ action_item.id }}</td>
+                                <td>{{ action_item.item.title }}
+                                    <a href="{{ path('item_details', {'id':action_item.item.id}) }}" title="Informacije o artiklu">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                </td>
+                                <td>{{ action_item.discountPercentage }}</td>
+                                <td>{{ action_item.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                                <td>{{ action_item.updatedAt ? action_item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                <td>
+                                    <a href="{{ path('action_item_show', {'id': action_item.id}) }}" title="Prikaži pojedinosti">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a href="{{ path('action_item_edit', {'id': action_item.id}) }}" title="Uredi">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('actions/action_item/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

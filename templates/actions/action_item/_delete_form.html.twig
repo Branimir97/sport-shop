@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('action_item_delete', {'id': action_item.id}) }}"
+      onsubmit="return confirm('Jeste li sigurni da želite ukloniti akciju za ovaj artikl?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ action_item.id) }}">
+    <button class="btn btn-outline-danger mb-3 mt-2">Ukloni akciju</button>
+</form>
