@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}SportShop{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}"
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid mt-1 pl-0 pr-0">
@@ -9,13 +12,24 @@
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="7000">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Poruka#1</h4>
+                        <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
+                            Dobrodošli na SportShop Webshop!
+                        </h5>
                     </div>
                     <div class="carousel-item">
-                        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Poruka#2</h4>
+                        <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
+                            Registrirajte se i započnite s dodavanjem omiljenih artikala u košaricu!
+                        </h5>
                     </div>
                     <div class="carousel-item">
-                        <h4 class="bg-secondary text-center mt-1 pt-1 text-white recommended-categories-title">Poruka#3</h4>
+                        <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
+                            Besplatna dostava za narudžbe iznad 300kn!
+                        </h5>
+                    </div>
+                    <div class="carousel-item">
+                        <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
+                            Napravite SportShop loyalty karticu vjernosti, skupljajte bodove i ostvarite pogodnosti!
+                        </h5>
                     </div>
                 </div>
             </div>

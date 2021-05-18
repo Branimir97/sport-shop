@@ -1,0 +1,30 @@
+nav, .dropdown-menu{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 19px!important;
+}
+
+nav form input, nav form button{
+    font-size: 19px!important;
+}
+
+nav .navbar-brand img{
+    width: 50px;
+    height: 50px;
+}
+
+#cart_icon{
+    position: relative;
+}
+.badge{
+    border: 1px solid white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 50%;
+    left: 80%;
+    color: white;
+}
+
+.nav_icon{
+    width: 20px;
+    height: 20px;
+}

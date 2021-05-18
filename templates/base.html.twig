@@ -9,7 +9,8 @@
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="{{ asset("css/footer.css") }}">
-        <link rel="stylesheet" href="{{ asset("css/homepage.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/font.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/navigation.css") }}">
         <link rel="stylesheet" href="{{ asset("css/bootnavbar.css") }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/bootstrap-slider.min.js"></script>
@@ -38,24 +39,8 @@
         {% block stylesheets %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
-
-        <script src="{{ asset("scripts/navigation-submenuHandler.js") }}"></script>
-        <script src="{{ asset("scripts/bootnavbar.js") }}"></script>
+        <script src="{{ asset('navigation-submenuHandler.js') }}"></script>
         <link rel="stylesheet" href="{{ asset("css/sidebar.css") }}">
-        <style>
-            #cart_icon{
-                position: relative;
-            }
-            .badge{
-                border: 1px solid white;
-                border-radius: 50%;
-                position: absolute;
-                bottom: 50%;
-                left: 80%;
-                color: white;
-            }
-
-        </style>
     </head>
     <body>
 
@@ -238,23 +223,68 @@
                         <i class="fas fa-futbol"></i> Sportska oprema
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <li><a class="dropdown-item" href="#">Nogomet</a></li>
-                        <li><a class="dropdown-item" href="#">Rukomet</a></li>
-                        <li><a class="dropdown-item" href="#">Košarka</a></li>
-                        <li><a class="dropdown-item" href="#">Odbojka</a></li>
-                        <li><a class="dropdown-item" href="#">Stolni tenis</a></li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Nogomet
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Rukomet
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Košarka
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Odbojka
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Stolni tenis
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-exclamation-triangle"></i> Ostalo
+                        <i class="fas fa-angle-double-right"></i> Ostalo
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <li><a class="dropdown-item" href="#">Steznici</a></li>
-                        <li><a class="dropdown-item" href="#">Znojnici</a></li>
-                        <li><a class="dropdown-item" href="#">Ruksaci</a></li>
-                        <li><a class="dropdown-item" href="#">Čarape</a></li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Steznici
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Znojnici
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Ruksaci
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <img class="nav_icon mr-1" src="{{ asset('icons/football-player-attempting-to-kick-ball.png') }}" alt="icon">
+                                Čarape
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -318,7 +348,7 @@
         {% block body %}
         {% endblock %}
     {% else %}
-        <div class="d-flex toggled" id="wrapper">
+        <div class="d-flex .d-none" id="wrapper">
 
             <!-- Sidebar -->
             <div class="bg-light border-right" id="sidebar-wrapper">
@@ -502,21 +532,13 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-info p-2 text-center"> Copyright 2021 | All Rights Reserved by SportShop d.o.o.</div>
+            <div class="bg-info p-2 text-center"> Autorska prava 2021 | Sva prava pridržana od strane SportShop d.o.o.</div>
         </div>
     </footer>
 </body>
+    <script src="{{ asset("scripts/multi-menuHandler.js") }}"></script>
+    <script src="{{ asset("scripts/subMenuToggle.js") }}"></script>
     <script>
-        new bootnavbar();
-        // (function () {
-        // });
-
-        <!-- Menu Toggle Script -->
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
         $(document).ready(function () {
             bsCustomFileInput.init()
         })
