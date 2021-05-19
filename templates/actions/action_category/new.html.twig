@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nova akcija{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Postavljanje kategorija na akciju</h2>
+        <a href="{{ path('action_category_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista kategorija na akciji
+        </a>
+        {{ include('actions/action_category/_form.html.twig') }}
+    </div>
+{% endblock %}

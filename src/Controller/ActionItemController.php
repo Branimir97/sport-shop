@@ -34,8 +34,11 @@ class ActionItemController extends AbstractController
         $items = $itemRepository->findAll();
         $noActionItems = [];
         foreach ($items as $item) {
-            if(!is_null($item->getActionItem())){
-                array_push($noActionItems, $item);
+            $itemCategories = $item->getItemCategories();
+            foreach($itemCategories as $itemCategory) {
+                if(!is_null($itemCategory->getCategory()->getActionCategory())) {
+                    array_push($noActionItems, $item);
+                }
             }
         }
 
@@ -59,7 +62,6 @@ class ActionItemController extends AbstractController
         }
 
         return $this->render('actions/action_item/new.html.twig', [
-//            'action_item' => $actionItem,
             'form' => $form->createView(),
         ]);
     }

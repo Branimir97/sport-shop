@@ -152,10 +152,10 @@ class ItemController extends AbstractController
      */
     public function edit(Request $request, Item $item): Response
     {
-        $form = $this->createForm(ItemType::class, $item, ['isEdit'=>true]);
-        $form->get('manufacturer')->setData($item->getManufacturer());
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $formNewItem = $this->createForm(ItemType::class, $item, ['isEdit'=>true]);
+        $formNewItem->get('manufacturer')->setData($item->getManufacturer());
+        $formNewItem->handleRequest($request);
+        if ($formNewItem->isSubmitted() && $formNewItem->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($item);
             $entityManager->flush();
@@ -166,7 +166,7 @@ class ItemController extends AbstractController
 
         return $this->render('item/edit_item.html.twig', [
             'item' => $item,
-            'form' => $form->createView(),
+            'formNewItem' => $formNewItem->createView(),
         ]);
     }
 

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kategorije na akciji{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Kategorije na akciji</h2>
+        {% if not action_categories %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>Ne postoji niti jedna kategorija na akciji.</p>
+                <a href="{{ path('action_category_new') }}" class="btn btn-outline-info mb-3">Postavi novu kategoriju na akciju</a>
+            </div>
+        {% else %}
+            <a href="{{ path('action_category_new') }}" class="btn btn-outline-info mb-3">Postavi novu kategoriju na akciju</a>
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Kategorija</th>
+                        <th>Popust [%]</th>
+                        <th>Vrijeme stvaranja</th>
+                        <th>Vrijeme zadnje izmjene</th>
+                        <th>Mogućnosti</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for action_category in action_categories %}
+                        <tr>
+                            <td>{{ action_category.id }}</td>
+                            <td>{{ action_category.category.name }}
+                                <a href="{{ path('category_show', {'id':action_category.category.id}) }}" title="Informacije o kategoriji">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </td>
+                            <td>{{ action_category.discountPercentage }}</td>
+                            <td>{{ action_category.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                            <td>{{ action_category.updatedAt ? action_category.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                            <td>
+                                <a href="{{ path('action_category_show', {'id': action_category.id}) }}" title="Prikaži pojedinosti">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('action_category_edit', {'id': action_category.id}) }}" title="Uredi">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('actions/action_category/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Item;
+use App\Entity\ActionCategory;
+use App\Entity\Category;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -10,29 +11,29 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActionItemType extends AbstractType
+class ActionCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $isEdit = $options['isEdit'];
         if(!$isEdit) {
-            $noActionItems = $options['noActionItems'];
+            $noActionCategories = $options['noActionCategories'];
             $builder
-                ->add('item', EntityType::class, [
+                ->add('category', EntityType::class, [
                     'mapped'=> false,
-                    'class'=>Item::class,
+                    'class'=>Category::class,
                     'multiple'=>true,
-                    'query_builder'=> function(EntityRepository $entityRepository) use ($noActionItems) {
-                        if(count($noActionItems) == 0) {
-                            return $entityRepository->createQueryBuilder('i');
+                    'query_builder'=> function(EntityRepository $entityRepository) use ($noActionCategories) {
+                        if(count($noActionCategories) == 0) {
+                            return $entityRepository->createQueryBuilder('c');
                         }
-                        return $entityRepository->createQueryBuilder('i')
-                            ->where('i NOT IN (:array)')
-                            ->setParameter('array', $noActionItems);
+                        return $entityRepository->createQueryBuilder('c')
+                            ->where('c NOT IN (:array)')
+                            ->setParameter('array', $noActionCategories);
                     },
-                    'choice_label' => 'title',
-                    'help' => "Odaberite jedan ili više artikala",
-                    'label' => 'Dostupni artikli'
+                    'choice_label' => 'name',
+                    'help' => "Odaberite jednu ili više kategorija",
+                    'label' => 'Dostupne kategorije'
                 ])
             ;
         }
@@ -52,7 +53,7 @@ class ActionItemType extends AbstractType
     {
         $resolver->setDefaults([
             'isEdit'=>false,
-            'noActionItems'=>[]
+            'noActionCategories'=>[]
         ]);
     }
 }

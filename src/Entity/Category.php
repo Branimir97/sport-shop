@@ -42,6 +42,11 @@ class Category
      */
     private $itemCategories;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ActionCategory::class, mappedBy="category", cascade={"persist", "remove"})
+     */
+    private $actionCategory;
+
     public function __construct()
     {
         $this->itemCategories = new ArrayCollection();
@@ -114,6 +119,23 @@ class Category
                 $itemCategory->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActionCategory(): ?ActionCategory
+    {
+        return $this->actionCategory;
+    }
+
+    public function setActionCategory(ActionCategory $actionCategory): self
+    {
+        // set the owning side of the relation if necessary
+        if ($actionCategory->getCategory() !== $this) {
+            $actionCategory->setCategory($this);
+        }
+
+        $this->actionCategory = $actionCategory;
 
         return $this;
     }
