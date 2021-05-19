@@ -22,7 +22,7 @@ class ActionItemController extends AbstractController
     public function index(ActionItemRepository $actionItemRepository): Response
     {
         return $this->render('actions/action_item/index.html.twig', [
-            'action_items' => $actionItemRepository->findAll(),
+            'action_items' => $actionItemRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
@@ -34,19 +34,22 @@ class ActionItemController extends AbstractController
         $items = $itemRepository->findAll();
         $noActionItems = [];
         foreach ($items as $item) {
-            if(is_null($item->getActionItems())){
+            if(!is_null($item->getActionItem())){
                 array_push($noActionItems, $item);
             }
         }
-        $actionItem = new ActionItem();
-        $form = $this->createForm(ActionItemType::class, $actionItem, ['noActionItems'=>$noActionItems]);
+
+        $form = $this->createForm(ActionItemType::class, null, ['noActionItems'=>$noActionItems]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $formItems = $form->get('item')->getData();
+            $formDiscountPercentage = $form->get('discountPercentage')->getData();
             foreach($formItems as $formItem) {
+                $actionItem = new ActionItem();
                 $actionItem->setItem($formItem);
+                $actionItem->setDiscountPercentage($formDiscountPercentage);
                 $entityManager->persist($actionItem);
             }
             $entityManager->flush();
@@ -56,7 +59,7 @@ class ActionItemController extends AbstractController
         }
 
         return $this->render('actions/action_item/new.html.twig', [
-            'action_item' => $actionItem,
+//            'action_item' => $actionItem,
             'form' => $form->createView(),
         ]);
     }

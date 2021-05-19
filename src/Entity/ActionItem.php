@@ -19,12 +19,6 @@ class ActionItem
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="actionItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $item;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $discountPercentage;
@@ -41,21 +35,15 @@ class ActionItem
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Item::class, inversedBy="actionItem", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $item;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getItem(): ?Item
-    {
-        return $this->item;
-    }
-
-    public function setItem(?Item $item): self
-    {
-        $this->item = $item;
-
-        return $this;
     }
 
     public function getDiscountPercentage(): ?int
@@ -90,6 +78,18 @@ class ActionItem
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getItem(): ?Item
+    {
+        return $this->item;
+    }
+
+    public function setItem(Item $item): self
+    {
+        $this->item = $item;
 
         return $this;
     }

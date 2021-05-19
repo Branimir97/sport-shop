@@ -33,6 +33,7 @@ class ActionItemType extends AbstractType
                     },
                     'choice_label' => 'title',
                     'help' => "Odaberite jedan ili više artikala",
+                    'label' => 'Dostupni artikli'
                 ])
             ;
         }
@@ -51,7 +52,6 @@ class ActionItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ActionItem::class,
             'isEdit'=>false,
             'noActionItems'=>[]
         ]);
