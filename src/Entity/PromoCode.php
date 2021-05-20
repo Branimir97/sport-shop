@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PromoCodeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -44,6 +46,16 @@ class PromoCode
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PromoCodeUser::class, mappedBy="promoCode")
+     */
+    private $promoCodeUsers;
+
+    public function __construct()
+    {
+        $this->promoCodeUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -106,6 +118,36 @@ class PromoCode
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PromoCodeUser[]
+     */
+    public function getPromoCodeUsers(): Collection
+    {
+        return $this->promoCodeUsers;
+    }
+
+    public function addPromoCodeUser(PromoCodeUser $promoCodeUser): self
+    {
+        if (!$this->promoCodeUsers->contains($promoCodeUser)) {
+            $this->promoCodeUsers[] = $promoCodeUser;
+            $promoCodeUser->setPromoCode($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromoCodeUser(PromoCodeUser $promoCodeUser): self
+    {
+        if ($this->promoCodeUsers->removeElement($promoCodeUser)) {
+            // set the owning side to null (unless already changed)
+            if ($promoCodeUser->getPromoCode() === $this) {
+                $promoCodeUser->setPromoCode(null);
+            }
+        }
 
         return $this;
     }

@@ -54,18 +54,21 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Promo code">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">Redeem</button>
+                            <button type="submit" class="btn btn-outline-secondary">Redeem</button>
                         </div>
                     </div>
                 </form>
-                <form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">Iskoristi bodove</button>
+                {% if loyaltyCardCredits|length != 0 %}
+                    <form class="card p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary">Iskoristi bodove</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                {% endif %}
+                <p id="credits" class="text-center">Broj ostvarenih bodova na kartici vjernosti ukoliko izvršite plaćanje: <span><b>{{ creditsEarned }}</b></span></p>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Odabir adrese isporuke</h4>

@@ -47,10 +47,12 @@ class ActionItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $formTitle = $form->get('title')->getData();
             $formItems = $form->get('item')->getData();
             $formDiscountPercentage = $form->get('discountPercentage')->getData();
             foreach($formItems as $formItem) {
                 $actionItem = new ActionItem();
+                $actionItem->setTitle($formTitle);
                 $actionItem->setItem($formItem);
                 $actionItem->setDiscountPercentage($formDiscountPercentage);
                 $entityManager->persist($actionItem);

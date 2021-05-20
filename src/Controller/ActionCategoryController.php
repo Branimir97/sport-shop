@@ -43,10 +43,12 @@ class ActionCategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $formTitle = $form->get('title')->getData();
             $formCategories = $form->get('category')->getData();
             $formDiscountPercentage = $form->get('discountPercentage')->getData();
             foreach($formCategories as $formCategory) {
                 $actionCategory = new ActionCategory();
+                $actionCategory->setTitle($formTitle);
                 $actionCategory->setCategory($formCategory);
                 $actionCategory->setDiscountPercentage($formDiscountPercentage);
                 $entityManager->persist($actionCategory);

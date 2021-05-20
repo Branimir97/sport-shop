@@ -107,10 +107,16 @@ class User implements UserInterface
      */
     private $wishList;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PromoCodeUser::class, mappedBy="user")
+     */
+    private $promoCodeUsers;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->promoCodeUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -402,6 +408,36 @@ class User implements UserInterface
         }
 
         $this->wishList = $wishList;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PromoCodeUser[]
+     */
+    public function getPromoCodeUsers(): Collection
+    {
+        return $this->promoCodeUsers;
+    }
+
+    public function addPromoCodeUser(PromoCodeUser $promoCodeUser): self
+    {
+        if (!$this->promoCodeUsers->contains($promoCodeUser)) {
+            $this->promoCodeUsers[] = $promoCodeUser;
+            $promoCodeUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromoCodeUser(PromoCodeUser $promoCodeUser): self
+    {
+        if ($this->promoCodeUsers->removeElement($promoCodeUser)) {
+            // set the owning side to null (unless already changed)
+            if ($promoCodeUser->getUser() === $this) {
+                $promoCodeUser->setUser(null);
+            }
+        }
 
         return $this;
     }

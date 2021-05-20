@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('promo_code_user_delete', {'id': promo_code_user.id}) }}"
+      onsubmit="return confirm('Jeste li sigurni da želite obrisati evidenciju o iskorištenosti ovog promo koda?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo_code_user.id) }}">
+    <button class="btn btn-outline-danger mb-3 mt-2">Obriši evidenciju</button>
+</form>

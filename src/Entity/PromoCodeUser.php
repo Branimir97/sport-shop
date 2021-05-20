@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ActionCategoryRepository;
+use App\Repository\PromoCodeUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=ActionCategoryRepository::class)
+ * @ORM\Entity(repositoryClass=PromoCodeUserRepository::class)
  */
-class ActionCategory
+class PromoCodeUser
 {
     /**
      * @ORM\Id
@@ -19,15 +19,16 @@ class ActionCategory
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Category::class, inversedBy="actionCategory", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=PromoCode::class, inversedBy="promoCodeUsers")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private $promoCode;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="promoCodeUsers")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $discountPercentage;
+    private $user;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,36 +42,31 @@ class ActionCategory
      */
     private $updatedAt;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCategory(): ?Category
+    public function getPromoCode(): ?PromoCode
     {
-        return $this->category;
+        return $this->promoCode;
     }
 
-    public function setCategory(Category $category): self
+    public function setPromoCode(?PromoCode $promoCode): self
     {
-        $this->category = $category;
+        $this->promoCode = $promoCode;
 
         return $this;
     }
 
-    public function getDiscountPercentage(): ?int
+    public function getUser(): ?User
     {
-        return $this->discountPercentage;
+        return $this->user;
     }
 
-    public function setDiscountPercentage(int $discountPercentage): self
+    public function setUser(?User $user): self
     {
-        $this->discountPercentage = $discountPercentage;
+        $this->user = $user;
 
         return $this;
     }
@@ -95,18 +91,6 @@ class ActionCategory
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
 
         return $this;
     }
