@@ -460,31 +460,53 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-user"></i> {{ app.user.name }} {{ app.user.surname }}
+                            <img class="nav_icon mr-1" src="{{ asset('icons/user.png') }}" alt="icon">
+                            {{ app.user.name }} {{ app.user.surname }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <li><a class="dropdown-item" href="#">Moje narudžbe</a></li>
-                            <li><a class="dropdown-item" href="{{ path('wish_list_index') }}">Moj popis želja</a></li>
-                            <li><a class="dropdown-item" href="{{ path('account_settings') }}">Postavke računa</a></li>
-                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Odjava</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Moje narudžbe
+                                    <img class="nav_icon mr-1" src="{{ asset('icons/orders.png') }}" alt="icon">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('wish_list_index') }}">
+                                    Moj popis želja
+                                    <img class="nav_icon mr-1" src="{{ asset('icons/wish_list.png') }}" alt="icon">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('account_settings') }}">
+                                    Postavke računa
+                                    <img class="nav_icon mr-1" src="{{ asset('icons/settings.png') }}" alt="icon">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                    Odjava
+                                    <img class="nav_icon mr-1" src="{{ asset('icons/logout.png') }}" alt="icon">
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('cart_index') }}">Košarica
-                            <i id="cart_icon" class="fas fa-shopping-cart">
-                                <span class="badge">
-                                    {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
-                                        0
-                                    {% else %}
-                                        {{ cart.cartItems|length }}
-                                    {% endif %}
-                                </span>
-                            </i>
+                            <img id="cart_icon" class="nav_icon mr-1" src="{{ asset('icons/cart.png') }}" alt="icon">
+{#                            <span class="badge">#}
+{#                                {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}#}
+{#                                    0#}
+{#                                {% else %}#}
+{#                                    {{ cart.cartItems|length }}#}
+{#                                {% endif %}#}
+{#                            </span>#}
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Prijava <i class="fas fa-sign-in-alt"></i></a>
+                        <a class="nav-link" href="{{ path('app_login') }}">
+                            Prijava
+                            <img class="nav_icon mr-1" src="{{ asset('icons/sign_in.png') }}" alt="icon">
+                        </a>
                     </li>
                 {% endif %}
             </ul>
@@ -508,52 +530,77 @@
     {% else %}
         <div class="d-flex .d-none" id="wrapper">
             <div class="bg-light border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading">ADMIN PANEL - IZBORNIK</div>
+                <div class="sidebar-heading">
+                    <img class="nav_icon mr-1" src="{{ asset('icons/menu.png') }}" alt="icon">
+                    ADMIN PANEL - IZBORNIK
+                </div>
                 <div class="list-group list-group-flush">
                     <a href="{{ path('user_index') }}" class="list-group-item list-group-item-action bg-light">
+                        Upravljanje narudžbama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/orders.png') }}" alt="icon">
+                    </a>
+                    <a href="{{ path('user_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje korisnicima
+                        <img class="nav_icon mr-1" src="{{ asset('icons/users.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('promo_code_index') }}" class="list-group-item list-group-item-action bg-light">
                         Generiranje koda za popust
+                        <img class="nav_icon mr-1" src="{{ asset('icons/promo_code.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('actions') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje akcijama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/action.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('item_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje artiklima
+                        <img class="nav_icon mr-1" src="{{ asset('icons/items.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('category_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje kategorijama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/categories.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('color_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje bojama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/colors.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('size_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje veličinama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/sizes.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('manufacturer_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje proizvođačima
+                        <img class="nav_icon mr-1" src="{{ asset('icons/manufacturers.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('delivery_address_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje adresama isporuka
+                        <img class="nav_icon mr-1" src="{{ asset('icons/delivery_address.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('review_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje recenzijama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/review.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('loyalty_card_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje loyalty karticama
+                        <img class="nav_icon mr-1" src="{{ asset('icons/loyalty_card.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('promo_code_user_index') }}" class="list-group-item list-group-item-action bg-light">
                         Upravljanje iskorištenim promo kodovima
+                        <img class="nav_icon mr-1" src="{{ asset('icons/used_promo_codes.png') }}" alt="icon">
                     </a>
                 </div>
             </div>
             <div id="page-content-wrapper">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <button class="btn btn-primary" id="menu2-toggle">Admin panel - Izbornik</button>
+                    <button class="btn btn-primary" id="menu2-toggle">
+                        <img class="nav_icon mr-1" src="{{ asset('icons/menu.png') }}" alt="icon">
+                        Admin panel - Izbornik
+                    </button>
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('admin_panel') }}">Pregled značajki</a>
+                            <a class="nav-link" href="{{ path('admin_panel') }}">
+                                Pregled značajki
+                                <img class="nav_icon mb-2 ml-1" src="{{ asset('icons/features.png') }}" alt="icon">
+                            </a>
                         </li>
                     </ul>
                 </nav>
