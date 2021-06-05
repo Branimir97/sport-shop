@@ -1,76 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Uvjeti korištenja{% endblock %}
+{% block title %}Uvjeti i odredbe{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/terms_and_conditions.css') }}">
+{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h2 class="text-center mt-2 bg-light p-2">Uvjeti korištenja</h2>
-    Poštovani korisnici, molimo Vas da prije korištenja naših usluga, pažljivo pročitate sljedeće uvjete. Svaka posjeta našoj stranici, kao i kupnja, znači da ste ove uvjete pročitali i da se slažete sa njima u cijelosti. Ukoliko su oni za Vas neprihvatljivi, molimo Vas da ne koristite ovu web stranicu.
+    <h2 class="text-center mt-2 bg-light p-2">
+        Uvjeti i odredbe
+        <img id="icon_terms-conditions" class="ml-1"
+             src="{{ asset('icons/terms-and-conditions.png') }}" alt="">
+    </h2>
 
-    Dobrodošli na stranicu sportvision.hr.
-
-    Sport Vision vam omogućava korištenje usluga i sadržaja svoje stranice koja je podložna niže navedenim Uvjetima korištenja. Uvjeti korištenja se primjenjuju na sve sadržaje i usluge stranice www.sportvision.hr. Korištenjem bilo kojeg dijela stranice, smatra se da su korisnici upoznati sa ovim uvjetima, kao i da prihvaćaju korištenje sadržaja ove stranice isključivo za osobnu upotrebu i na vlastitu odgovornost.
-    Sportvision.hr ima autorska prava na sve sadržaje (tekstualne, vizualne i audio materijale, baze podataka, programerski kod). Neovlašteno korištenje bilo kojeg dijela stranice, bez dozvole vlasnika autorskih prava, smatra se kršenjem autorskih prava i podložno je tužbi.
-
-    Sport Vision administrira ovu web stranicu iz svojih ureda u Zagrebu, Hrvatska. Ni na koji način ne izjavljuje da su materijali ili usluge na ovoj lokaciji prikladni ili dostupni za korištenje izvan Hrvatske, a pristupanje iz područja gdje je njihov sadržaj nezakonit je zabranjeno. Nije dopušteno korištenje ili izvoz, odnosno uvoz, radi izvoza materijala ili usluga na ovoj lokaciji niti bilo koje kopiranje ili prilagođavanje u suprotnosti sa važećim zakonima ili propisima uključujući, bez ograničenja, izvozne zakone i propise Hrvatske. Ako odlučite pristupiti ovoj lokaciji izvan Hrvatske, to radite na vlastitu inicijativu i smatrate se odgovornim za poštivanje važećih lokalnih zakona. Ovi Uvjeti se tumače u skladu sa zakonima Republike Hrvatske i neće se primjenjivati načela o rješavanju nesuglasnosti zakona.
-
-    Sport Vision može revidirati ove Uvjete bilo kada, ažuriranjem ovog dokumenta. Povremeno posjećujte ovu stranicu da biste pregledali Uvjete koji trenutno važe, zato što su oni za Vas obvezujući. Određene odredbe ovih Uvjeta mogu se zamijeniti izričito navedenim pravnim obavijestima i uvjetima dostupnim na određenim stranicama ove lokacije.
-
-    SADRŽAJ KOŠARICE
-
-
-    U svakom trenutku omogućen Vam je pregled svih proizvoda koje želite kupiti. Jednostavnim klikom na ikonicu košarice u gornjem desnom kutu stranice otvarate stranicu na kojoj su prikazani svi proizvodi spremni za kupnju. Veoma lako možete obrisati proizvode iz košarice ili povećati broj željenih proizvoda.
-
-    NARUČIVANJE PROIZVODA IZ KOŠARICE
-
-    Kada ste spremni izvršiti kupnju, potrebno je kliknuti na košaricu i gumb "MOJA KOŠARICA" prilikom čega će vam se prikazati sadržaj sa svim artiklima koje ste unijeli u košaricu. Ukoliko plaćate karticom, bit ćete zatraženi da se ulogirate na svoj profil ili da se registrirate. Formular koji popunjavate prilikom registracije potrebno je popuniti samo jednom, a svaki naredni put dovoljno je samo ulogirati se na svoj korisnički račun. Nakon toga otvorit će se stranica za zaključenje kupovine, u 5 koraka. Ukoliko ste se predomislili u vezi kupovine i želite nešto promijeniti - jednostavno se možete vratiti iz košarice u pregled ponude na stranici klikom na gumb "KUPITE JOŠ NEŠTO". Povratak u košaricu na dio za plaćanje se radi na isti način - klikom na gumb "MOJA KOŠARICA" (u dijelu gdje je košarica) ili jednostavnim klikom na ikonu košarice u gornjem desnom uglu stranice.
-
-    Kao registrirani web kupac u košarici ćete vidjeti i polje za unos Broj/ime promo koda u koje, ukoliko imate kod, unosite ili kod za popust Dobrodošlice (za sve novo registrirane kupce) ili promo kod za neku akciju koja je aktivna kada kupujete. Ukoliko nemate promo kod isti zanemarite.
-
-    Promo kod Dobrodošlice moguće je iskoristiti na artikle po punim cijenama te snižene artikle, ali ne na artikle koje se nalaze na nekoj od posebnih web prodajnih akcija u trenutku kada kupujete. Promo kod akcije je moguće iskoristiti na listu artikala kako je najčešće specificirano u članku o akciji.
-
-    ODABIR NAČINA PLAĆANJA
-
-    Sportvision.hr Vam omogućuje različite načine plaćanja: plaćanje debitnim i kreditnim karticama, CorvusPay by IBAN plaćanje, plaćanje pouzećem (kod preuzimanja) i PayPal plaćanje.
-
-    ZAVRŠETAK NARUČIVANJA
-
-    DOSTAVA
-    Nakon potvrđene narudžbe, ukoliko postoji potreba za dodatnom provjere Vaših podataka kontaktirat će Vas prodavač radi potvrde i provjere svih podataka, najčešće u roku od 48h. Od tog trenutka rok isporuke je u pravilu 3 do 5 radnih dana. Za pojedina slabije povezana područja i otoke ovaj rok može biti duži.
-
-    Kada je riječ i narudžbama za koje je izabran način plaćanja na račun u banci, ne radi se o isporuci od 3 do 5 dana već isporuka traje par dana duže. Razlog ovoga je što se kupcima koji su odabrali ovu vrstu plaćanja prije same uplate pozivom ili emailom potvrđuje dostupnost naručenih artikala. Nakon te službene potvrde, kupac uplaćuje iznos. Kupac ima 3 dana za uplatiti iznos. Iz tog razloga isporuka ove vrste paketa je duža.
-
-    Molimo vas za razumijevanje za moguća kašnjenja u periodima velikih sniženja i sezonskih akcija, obzirom ovisimo i o vanjskim službama. Rok isporuke se tada može produžiti na 7 radnih dana.
-
-    Ako su svi artikli dostupni, idu na isporuku.
-
-    ZAŠTITA PODATAKA I IZJAVA O PRIVATNOSTI
-
-    Vaša privatnost i sigurnost Vaših podataka nam je važna. U skladu s zakonskim propisima o zaštiti osobnih podataka, posebno novom europskom Općom uredbom o zaštiti podataka (GDPR) koja je stupila na snagu 25. svibnja 2018. te Zakonom o provedbi Opće uredbe o zaštiti podataka, u nastavku Vas informiramo o tome na koji način obrađujemo Vaše osobne podatke. Naši informatički sustavi su tehničkim i organizacijskim mjerama zaštićeni od neovlaštenog pristupa, izmjene ili širenja Vaših podataka, kao i od gubljenja ili brisanja.
-
-    REGISTRACIJA I OTVARANJE PROFILA
-
-    Sport Vision Vam omogućuje da se registrirate na njegovoj web stranici i otvorite svoj profil. Putem svog profila možete vršiti online kupnju kao i ostvarivati druge pogodnosti.
-
-    Za registraciju i otvaranje profila su potrebni sljedeći osobni podaci: Ime i prezime, e-mail adresa, spol, broj telefona, adresa i mjesto prebivališta, datum rođenja i lozinka.
-
-    Vlasnik profila može unijeti često korištene adrese ako to želi, kao i podatke potrebne za korištenje popusta u webshopu. Ovi podaci (osim lozinke) i povijest narudžbi u Vašem profilu, dostupni su djelatnicima Sport Vision webshopa te drugim osobama kada je to nužno za ispunjenje svrha obrade. Ako Vas zanima tko sve može imati pristup Vašim osobnim podacima, molimo Vas pročitajte rubriku „Primatelji osobnih podataka.“
-
-    Ako imate profil na nekoj od društvenih mreža Facebook, Google ili Twitter, možete povezati te profile sa Sport Vision profilom kako biste olakšali i ubrzali postupke prijave. Sport Vision webshop nema pristup Vašim profilima i lozinkama na tim društvenim mrežama, niti s pružateljima tih društvenih mreža dijelimo Vaše osobne podatke pohranjene kod nas.
-
-    ZAŠTITA PODATAKA
-
-    Upotrebljavamo tehničke i organizacijske sigurnosne mjere kako bismo zaštitili Vaše osobne podatke od ilegalnog ili neovlaštenog pristupa ili upotrebe, kao i od slučajnog gubitka ili gubitka dijela podataka
-    Naši ugovorni suradnici koji se bave obradom podataka mogu obrađivati Vaše osobne podatke samo uz pridržavanje navedenih tehničkih i organizacijskih sigurnosnih mjera
-    Vaši osobni podaci zaštićeni su od neovlaštene ili nezakonite obrade i od slučajnog gubitka, uništenja ili oštećenja
-    Dostavna služba koju koristimo ima pristup samo onim informacijama koje su potrebne za dostavu naručenih paketa
-
-
-    DOPUNE I IZMJENE
-
-    Ovi Uvjeti korištenja mogu se povremeno mijenjati kako bi se uskladili s stvarnim stanjem i zakonskim propisima. Stoga Vam preporučujemo redovnu provjeru ovih Uvjeta korištenja kako biste imali najnovije informacije.
-
-    Objavom na web stranici smatra se da su korisnici obaviješteni o novim Uvjetima korištenja te je dužnost korisnika da redovno prate promjene. Smatra se da je korisnik prihvatio nove Uvjete korištenja ako u roku od 8 dana od dana objave nije prigovorio na iste.
-
+    <div class="card">
+        <p>
+            <strong>Dobrodošli na stranicu SportShop web trgovine.</strong><br>
+            Poštovani korisnici, molimo Vas da prije korištenja naših usluga, pažljivo
+            pročitate sljedeće uvjete. Svaka posjeta našoj stranici, kao i kupnja, znači
+            da ste ove uvjete pročitali i da se slažete s njima u cijelosti.
+            Ukoliko su oni za Vas neprihvatljivi, molimo Vas da ne koristite ovu web stranicu.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            SportShop Vam omogućuje korištenje usluga i sadržaja svoje stranice koja je
+            podložna niže navedenim <strong>Uvjetima korištenja</strong>.<br>
+            <strong>Uvjeti korištenja</strong> se primjenjuju na sve sadržaje i usluge stranice www.sportshop.hr.
+            Korištenjem bilo kojeg dijela stranice, smatra se da su korisnici upoznati s ovim uvjetima,
+            kao i da prihvaćaju korištenje sadržaja ove stranice isključivo za osobnu upotrebu i na
+            vlastitu odgovornost. SportShop ima autorska prava na sve sadržaje (tekstualne, vizualne i
+            audio materijale, baze podataka te programerski kod). Neovlašteno korištenje bilo
+            kojeg dijela stranice, bez dozvole vlasnika autorskih prava, smatra se kršenjem autorskih
+            prava i podložno je tužbi.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>ODABIR NAČINA PLAĆANJA</strong><br>
+            SportShop Vam omogućuje različite načine plaćanja: plaćanje debitnim i kreditnim karticama
+            te plaćanje putem Paypal-a.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>DOSTAVA</strong><br>
+            Nakon potvrđene narudžbe, ukoliko postoji potreba za dodatnom provjere Vaših podataka
+            kontaktirat će Vas prodavač radi potvrde i provjere svih podataka, najčešće u roku
+            od 48h. Od tog trenutka rok isporuke je u pravilu 3 do 5 radnih dana. Za pojedina
+            slabije povezana područja i otoke ovaj rok može biti duži. Molimo vas za razumijevanje
+            za moguća kašnjenja u periodima velikih sniženja i sezonskih akcija, s obzirom da ovisimo
+            i o vanjskim službama. Rok isporuke se tada može produžiti na 7 radnih dana.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>ZAŠTITA PODATAKA I IZJAVA O PRIVATNOSTI</strong><br>
+            Vaša privatnost i sigurnost Vaših podataka nam je važna. U skladu s zakonskim
+            propisima o zaštiti osobnih podataka, posebno novom europskom Općom uredbom o
+            zaštiti podataka (GDPR) koja je stupila na snagu 25. svibnja 2018. te Zakonom o
+            provedbi Opće uredbe o zaštiti podataka, u nastavku Vas informiramo o tome na koji
+            način obrađujemo Vaše osobne podatke. Naši informatički sustavi su tehničkim i
+            organizacijskim mjerama zaštićeni od neovlaštenog pristupa, izmjene ili širenja
+            Vaših podataka, kao i od gubljenja ili brisanja.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>REGISTRACIJA I OTVARANJE PROFILA</strong><br>
+            SportShop Vam omogućuje da se registrirate na njegovoj web stranici i otvorite svoj račun.
+            Putem svog korisničkog računa možete vršiti online kupnju kao i ostvarivati druge pogodnosti.
+            Ako imate račun na nekoj od društvenih mreža (Facebook/Google), možete povezati
+            te račune sa SportShop računom kako biste olakšali i ubrzali postupke prijave.
+            SportShop webshop nema pristup Vašim računima i lozinkama na tim društvenim mrežama,
+            niti s pružateljima tih društvenih mreža dijelimo Vaše osobne podatke pohranjene kod nas.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>ZAŠTITA PODATAKA</strong><br>
+            Upotrebljavamo tehničke i organizacijske sigurnosne mjere kako bismo zaštitili Vaše
+            osobne podatke od ilegalnog ili neovlaštenog pristupa ili upotrebe, kao i od slučajnog
+            gubitka ili gubitka dijela podataka. Naši ugovorni suradnici koji se bave obradom podataka
+            mogu obrađivati Vaše osobne podatke samo uz pridržavanje navedenih tehničkih i organizacijskih
+            sigurnosnih mjera. Vaši osobni podaci zaštićeni su od neovlaštene ili nezakonite obrade i od
+            slučajnog gubitka, uništenja ili oštećenja. Dostavna služba koju koristimo ima pristup samo
+            onim informacijama koje su potrebne za dostavu naručenih paketa.
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>DOPUNE I IZMJENE</strong><br>
+            Ovi Uvjeti korištenja mogu se povremeno mijenjati kako bi se uskladili s stvarnim stanjem
+            i zakonskim propisima. Stoga Vam preporučujemo redovnu provjeru ovih Uvjeta korištenja kako
+            biste imali najnovije informacije. Objavom na web stranici smatra se da su korisnici
+            obaviješteni o novim Uvjetima korištenja te je dužnost korisnika da redovno prate promjene.
+            Smatra se da je korisnik prihvatio nove Uvjete korištenja ako u roku od 8 dana od dana
+            objave nije prigovorio na iste.
+        </p>
+    </div>
 </div>
 {% endblock %}

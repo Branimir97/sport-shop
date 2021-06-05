@@ -76,12 +76,14 @@ class UserType extends AbstractType
                         'mapped' => false,
                         'constraints' => [
                             new IsTrue([
-                                'message' => 'Za uspješnu registraciju potrebno je prihvatiti naše uvjete i odredbe našeg web mjesta.',
+                                'message' => 'Za uspješnu registraciju potrebno je prihvatiti 
+                                naše uvjete i odredbe našeg web mjesta.',
                             ]),
                         ],
                         'label'=>'Registracijom prihvaćate <a 
                                         href="/" 
-                                        title="Saznajte više o uvjetima i odredbama našeg webshop-a">uvjete i odredbe</a> našeg web shopa.',
+                                        title="Saznajte više o uvjetima i odredbama našeg webshop-a">
+                                        uvjete i odredbe</a> našeg web shopa.',
                         'label_html'=>true
                     ])
                 ;
