@@ -80,11 +80,8 @@ class UserType extends AbstractType
                                 naše uvjete i odredbe našeg web mjesta.',
                             ]),
                         ],
-                        'label'=>'Registracijom prihvaćate <a 
-                                        href="/" 
-                                        title="Saznajte više o uvjetima i odredbama našeg webshop-a">
-                                        uvjete i odredbe</a> našeg web shopa.',
-                        'label_html'=>true
+                        'label_html'=>true,
+                        'label'=>'Registracijom prihvaćate uvjete i odredbe našeg web shopa.'
                     ])
                 ;
             }

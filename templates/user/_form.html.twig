@@ -1,3 +1,9 @@
+{% set terms_label %}
+    <a title="Saznajte više o uvjetima i odredbama našeg webshop-a"
+            href="{{ path('terms_and_conditions') }}">Uvjeti i odredbe
+    </a>
+{% endset %}
+
 {{ form_start(form) }}
     <div class="row">
         <div class="col-sm-6">
@@ -13,7 +19,8 @@
             {{ form_row(form.birthDate) }}
         </div>
     </div>
-    {{ form_rest(form) }}
+     {{ form_rest(form) }}
+    <label for="{{ form.agreeTerms.vars.id}}">{{ terms_label|raw }}</label>
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">{{ button_label|default('Registracija') }}</button>
     </div>
