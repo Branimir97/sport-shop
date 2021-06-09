@@ -112,6 +112,11 @@ class User implements UserInterface
      */
     private $promoCodeUsers;
 
+    /**
+     * @ORM\OneToOne(targetEntity=OrderList::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $orderList;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
@@ -438,6 +443,23 @@ class User implements UserInterface
                 $promoCodeUser->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrderList(): ?OrderList
+    {
+        return $this->orderList;
+    }
+
+    public function setOrderList(OrderList $orderList): self
+    {
+        // set the owning side of the relation if necessary
+        if ($orderList->getUser() !== $this) {
+            $orderList->setUser($this);
+        }
+
+        $this->orderList = $orderList;
 
         return $this;
     }

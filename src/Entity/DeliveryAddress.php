@@ -62,6 +62,16 @@ class DeliveryAddress
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderListItem::class, mappedBy="deliveryAddress")
+     */
+    private $orderListItems;
+
+    public function __construct()
+    {
+        $this->orderListItems = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -159,6 +169,36 @@ class DeliveryAddress
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderListItem[]
+     */
+    public function getOrderListItems(): Collection
+    {
+        return $this->orderListItems;
+    }
+
+    public function addOrderListItem(OrderListItem $orderListItem): self
+    {
+        if (!$this->orderListItems->contains($orderListItem)) {
+            $this->orderListItems[] = $orderListItem;
+            $orderListItem->setDeliveryAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderListItem(OrderListItem $orderListItem): self
+    {
+        if ($this->orderListItems->removeElement($orderListItem)) {
+            // set the owning side to null (unless already changed)
+            if ($orderListItem->getDeliveryAddress() === $this) {
+                $orderListItem->setDeliveryAddress(null);
+            }
+        }
 
         return $this;
     }
