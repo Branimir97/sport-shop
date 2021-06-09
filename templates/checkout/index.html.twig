@@ -19,56 +19,101 @@
                             <div>
                                 <h6 class="my-0">{{ cartItem.item.title }}</h6>
                                 <small class="text-muted">{{ cartItem.color.name }} boja |</small>
-                                <small class="text-muted">Veličina {{ cartItem.size.value }}</small>
+                                <small class="text-muted">Veličina {{ cartItem.size.value }}</small><br>
+                                <small class="text-muted">Komada: {{ cartItem.quantity }} |</small>
+                                <small class="text-muted">Cijena po kom:
+                                    {{ cartItem.item.price|number_format(2, '.', ',') }} kn
+                                </small>
                             </div>
-                            <span class="text-muted">{{ cartItem.item.price|number_format(2, '.', ',') }} kn</span>
+                            <span class="text-muted">
+                                {{ (cartItem.item.price * cartItem.quantity)|number_format(2, '.', ',') }} kn
+                            </span>
                         </li>
+                        {% if cartItem.item.actionItem != null %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">{{ cartItem.item.actionItem.title }}</h6>
+                                    <small class="text-muted">
+                                        Popust {{ cartItem.item.actionItem.discountPercentage }}%
+                                    </small>
+                                </div>
+                                <span class="text-success">
+                                        -{{ (cartItem.item.price * cartItem.quantity) *
+                                    (cartItem.item.actionItem.discountPercentage)/100 }} kn
+                                    </span>
+                            </li>
+                        {% endif %}
+                        {% for cartItemCategory in cartItem.item.itemCategories %}
+                            {% if cartItemCategory.category.actionCategory != null %}
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <div class="text-success">
+                                        <h6 class="my-0">{{ cartItemCategory.category.actionCategory.title }}</h6>
+                                        <small class="text-muted">
+                                            Popust {{ cartItemCategory.category.actionCategory.discountPercentage }}%
+                                        </small>
+                                    </div>
+                                    <span class="text-success">
+                                        -{{ (cartItem.item.price * cartItem.quantity) *
+                                        (cartItemCategory.category.actionCategory.discountPercentage)/100 }} kn
+                                    </span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Akcija</h6>
-                        </div>
-                        <span class="text-success">-$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
-                        </div>
-                        <span class="text-success">-$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Iskorištavanje bodova s loyalty kartice</h6>
-                            <small>10 bodova</small>
-                        </div>
-                        <span class="text-success">-$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Ukupno (kn)</span>
-                        <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
-                    </li>
-                </ul>
-
-                <form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Promo code">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-outline-secondary">Redeem</button>
-                        </div>
-                    </div>
-                </form>
-                {% if loyaltyCardCredits|length != 0 %}
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary">Iskoristi bodove</button>
+                    {% if app.session.get('discountWithUsedCredits') != null %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">Iskorištavanje bodova s loyalty kartice</h6>
                             </div>
-                        </div>
-                    </form>
+                            <span class="text-success">-{{ app.session.get('discountWithUsedCredits') }} kn</span>
+                        </li>
+                    {% endif %}
+                    {% if app.session.get('discountWithUsedPromoCode') != null %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">Promo kod {{ app.session.get('promoCode') }}</h6>
+                                <small class="text-muted">
+                                    Popust {{ app.session.get('promoCodeDiscount') }}%
+                                </small>
+                            </div>
+                            <span class="text-success">-{{ app.session.get('discountWithUsedPromoCode') }} kn</span>
+                        </li>
+                    {% endif %}
+                    {% if discount == 0 %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Ukupno (kn)</span>
+                            <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item d-flex justify-content-between text-success">
+                            <span>Popust (kn)</span>
+                            <strong>- {{ discount|number_format(2, '.', ',') }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Ukupno bez popusta (kn)</span>
+                            <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between text-danger">
+                            <span>Ukupno s popustom (kn)</span>
+                            <strong>{{ totalPriceWithDiscount|number_format(2, '.', ',') }}</strong>
+                        </li>
+                    {% endif %}
+
+                </ul>
+                <div class="promo_code_credits p-2">
+                    {{ include('promo_code_user/_form.html.twig') }}
+                </div>
+
+                {% if loyaltyCardCredits is not null %}
+                    <p id="credits" class="text-center">
+                        Broj ostvarenih bodova na kartici vjernosti ukoliko izvršite plaćanje:
+                        <span>
+                            <b>
+                                {{ creditsEarned }}
+                            </b>
+                        </span>
+                    </p>
                 {% endif %}
-                <p id="credits" class="text-center">Broj ostvarenih bodova na kartici vjernosti ukoliko izvršite plaćanje: <span><b>{{ creditsEarned }}</b></span></p>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Odabir adrese isporuke</h4>

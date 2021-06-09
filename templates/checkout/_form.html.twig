@@ -4,26 +4,26 @@
     </a>
 {% endset %}
 
-{{ form_start(form)}}
-    {{ form_label(form.deliveryAddress, newDeliveryAddress|raw)}}
-    {{ form_row(form.deliveryAddress) }}
+{{ form_start(formCheckout)}}
+    {{ form_label(formCheckout.deliveryAddress, newDeliveryAddress|raw)}}
+    {{ form_row(formCheckout.deliveryAddress) }}
     <hr class="mb-4">
     <h4 class="mb-3">Način plaćanja</h4>
-    {{ form_row(form.card) }}
+    {{ form_row(formCheckout.card) }}
     <div class="row">
         <div class="col-sm-6">
-            {{ form_row(form.card_name) }}
+            {{ form_row(formCheckout.card_name) }}
         </div>
         <div class="col-sm-6">
-            {{ form_row(form.card_number) }}
+            {{ form_row(formCheckout.card_number) }}
         </div>
         <div class="col-sm-6">
             <div class="row">
                 <div class="col-sm-6">
-                    {{ form_row(form.card_expiration) }}
+                    {{ form_row(formCheckout.card_expiration) }}
                 </div>
                 <div class="col-sm-6">
-                    {{ form_row(form.card_cvv) }}
+                    {{ form_row(formCheckout.card_cvv) }}
                 </div>
             </div>
         </div>
@@ -34,4 +34,4 @@
             <i class="fas fa-hand-holding-usd"></i>
         </button>
     </div>
-{{ form_end(form) }}
+{{ form_end(formCheckout) }}

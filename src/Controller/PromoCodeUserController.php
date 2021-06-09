@@ -28,39 +28,6 @@ class PromoCodeUserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="promo_code_user_new", methods={"GET","POST"})
-     */
-    public function new(Request $request, PromoCodeRepository $promoCodeRepository, PromoCodeUserRepository $promoCodeUserRepository): RedirectResponse
-    {
-        $promoCodeUser = new PromoCodeUser();
-        $form = $this->createForm(PromoCodeUserType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $promoCodeObj = $promoCodeRepository->findOneBy(['code'=>$form->get('code')->getData()]);
-
-            if(is_null($promoCodeObj)) {
-                $this->addFlash('danger', 'Unijeli ste promo kod koji ne postoji.');
-                return $this->redirectToRoute('promo_code_user_index');
-            }
-
-            $promoCodeuserObj = $promoCodeUserRepository->findOneBy(['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
-            if(!is_null($promoCodeuserObj)) {
-                $this->addFlash('danger', 'Unijeli ste promo kod koji ne postoji.');
-                return $this->redirectToRoute('promo_code_user_index');
-            } else {
-                $promoCodeUser->setUser($this->getUser());
-                $promoCodeUser->setPromoCode($promoCodeObj);
-                $entityManager->persist($promoCodeUser);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('promo_code_user_index');
-            }
-        }
-    }
-
-    /**
      * @Route("/{id}", name="promo_code_user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, PromoCodeUser $promoCodeUser): Response

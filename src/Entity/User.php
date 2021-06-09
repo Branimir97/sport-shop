@@ -108,7 +108,7 @@ class User implements UserInterface
     private $wishList;
 
     /**
-     * @ORM\OneToMany(targetEntity=PromoCodeUser::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=PromoCodeUser::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $promoCodeUsers;
 
