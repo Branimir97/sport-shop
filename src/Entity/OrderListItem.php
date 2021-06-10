@@ -40,7 +40,7 @@ class OrderListItem
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $status;
+    private $status = "U OBRADI";
 
     /**
      * @ORM\Column(type="datetime")

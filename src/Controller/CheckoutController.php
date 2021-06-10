@@ -168,8 +168,22 @@ class CheckoutController extends AbstractController
                 } else {
                     $orderListItem->setPrice($totalPriceWithDiscount);
                 }
-                $orderListItem->setStatus('U obradi');
                 $entityManager->persist($orderListItem);
+                $itemColors = $cartItem->getItem()->getItemColors();
+                if(($itemColors[0]->getQuantity()-$cartItem->getQuantity())<0){
+                    $itemColor = $itemColors[0]->setQuantity(0);
+                } else {
+                    $itemColor = $itemColors[0]->setQuantity($cartItem->getQuantity()-$itemColors[0]->getQuantity());
+                }
+                $entityManager->persist($itemColor);
+
+                $itemSizes = $cartItem->getItem()->getItemSizes();
+                if(($itemSizes[0]->getQuantity()-$cartItem->getQuantity())<0){
+                    $itemSize = $itemSizes[0]->setQuantity(0);
+                } else {
+                    $itemSize = $itemSizes[0]->setQuantity($cartItem->getQuantity()-$itemSizes[0]->getQuantity());
+                }
+                $entityManager->persist($itemSize);
             }
             $entityManager->remove($cart);
             if($loyaltyCard!=null) {
@@ -177,9 +191,8 @@ class CheckoutController extends AbstractController
                 $entityManager->persist($loyaltyCard);
             }
             $entityManager->flush();
-
             $session->clear();
-            $this->addFlash('success', 'Uspješno provedeno plaćanje. Artikl/i je/su u procesu obrade za dostavu.');
+            $this->addFlash('success', 'Uspješno provedeno plaćanje. Narudžba je u procesu obrade za dostavu.');
             return $this->redirectToRoute('order_list');
         }
 

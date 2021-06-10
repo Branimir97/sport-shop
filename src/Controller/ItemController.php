@@ -577,7 +577,7 @@ class ItemController extends AbstractController
         }
         foreach($item->getItemColors() as $itemColor) {
             $colorObject = $itemColor->getColor();
-            $colorValue = $itemColor->getColor()->getValue();
+            $colorValue = $itemColor->getColor()->getName();
             $colorChoices[$colorValue]=$colorObject;
         }
         $cartItem = new CartItem();
@@ -593,7 +593,7 @@ class ItemController extends AbstractController
                 $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
             } else if($formCartQuantity > $cartItemColorObj->getQuantity()) {
                 $this->addFlash('danger',
-                    'Max. količina "'.$cartItemColorObj->getColor()->getValue().'" boje za ovaj artikl je '.$cartItemColorObj->getQuantity().".");
+                    'Max. količina "'.$cartItemColorObj->getColor()->getName().'" boje za ovaj artikl je '.$cartItemColorObj->getQuantity().".");
                 $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
             } else {
                 $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
