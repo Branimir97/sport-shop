@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OrderListItem{% endblock %}
+
+{% block body %}
+    <h1>OrderListItem</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ order_list_item.id }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ order_list_item.price }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ order_list_item.status }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ order_list_item.createdAt ? order_list_item.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ order_list_item.updatedAt ? order_list_item.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('order_list_item_index') }}">back to list</a>
+
+    <a href="{{ path('order_list_item_edit', {'id': order_list_item.id}) }}">edit</a>
+
+    {{ include('order_list_item/_delete_form.html.twig') }}
+{% endblock %}

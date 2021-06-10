@@ -38,8 +38,7 @@
                                     </small>
                                 </div>
                                 <span class="text-success">
-                                        -{{ (cartItem.item.price * cartItem.quantity) *
-                                    (cartItem.item.actionItem.discountPercentage)/100 }} kn
+                                        -{{ (cartItem.item.price * cartItem.quantity)*(cartItem.item.actionItem.discountPercentage)/100 }} kn
                                     </span>
                             </li>
                         {% endif %}
@@ -53,8 +52,7 @@
                                         </small>
                                     </div>
                                     <span class="text-success">
-                                        -{{ (cartItem.item.price * cartItem.quantity) *
-                                        (cartItemCategory.category.actionCategory.discountPercentage)/100 }} kn
+                                        -{{ (cartItem.item.price * cartItem.quantity)*(cartItemCategory.category.actionCategory.discountPercentage)/100 }} kn
                                     </span>
                                 </li>
                             {% endif %}

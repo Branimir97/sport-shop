@@ -4,6 +4,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/cart_wish_order_list.css") }}">
     <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
+    <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -11,7 +12,7 @@
             <h2 class="text-center mt-2 bg-light p-2">Moje narudžbe
                 <img class="nav_icon mr-1" src="{{ asset('icons/orders.png') }}" alt="icon">
             </h2>
-            {% if orderList.orderListItems is not defined or orderList.orderListItems|length == 0 %}
+            {% if orderListItems is not defined or orderListItems|length == 0 %}
                 <h6 class="text-center bg-info p-2 text-white">Još niste naručili ni jedan artikl.</h6>
                 <p class="text-center">Nakon uspješne naplate artikala iz košarice, isti se izlistavaju ovdje!</p>
             {% else %}
@@ -19,37 +20,40 @@
                     <table class="table table-hover table-warning">
                         <thead>
                         <tr>
-                            <th>Slika artikla</th>
-                            <th>Naziv artikla</th>
-                            <th>Veličina</th>
-                            <th>Boja</th>
-                            <th>Količina</th>
-                            <th>Cijena [kn]</th>
+                            <th>Broj narudžbe</th>
+                            <th>Iznos [kn]</th>
                             <th>Vrijeme izvršenja narudžbe</th>
                             <th>Adresa isporuke</th>
                             <th>Status</th>
+                            <th>Detalji</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for orderListItem in orderList.orderListItems %}
+                        {% for orderListItem in orderListItems %}
                             <tr>
-                                <td>
-                                    <img class="item_img"
-                                         src="{{ asset('uploads/')~orderListItem.item.images[0].path }}"
-                                         alt="image_{{ orderListItem.item.images[0].id }}">
-                                </td>
-                                <td>{{ orderListItem.item.title }}</td>
-                                <td>{{ orderListItem.size.value }}</td>
-                                <td>
-                                    <div class="circle_wrapper">
-                                        <div class="circle" style="background-color: {{ orderListItem.color.value }}"></div>
-                                    </div>
-                                </td>
-                                <td>{{ orderListItem.quantity }}</td>
-                                <td>{{ (orderListItem.item.price * orderListItem.quantity)|number_format(2, '.', ',') }}</td>
+                                <td>{{ orderListItem.id }}</td>
+                                <td>{{ orderListItem.price|number_format(2, '.', ',') }}</td>
                                 <td>{{ orderListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
-                                <td>{{ orderListItem.deliveryAddress.street }}, {{ orderListItem.deliveryAddress.postalCode }} {{ orderListItem.deliveryAddress.city }}</td>
-                                <td>{{ orderListItem.status }}</td>
+                                <td>{{ orderListItem.deliveryAddress.street }},
+                                    {{ orderListItem.deliveryAddress.postalCode }}
+                                    {{ orderListItem.deliveryAddress.city }}
+                                </td>
+                                <td>
+                                    {% if orderListItem.status == "U OBRADI" %}
+                                        {{ orderListItem.status }}
+                                        <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
+                                    {% elseif orderListItem.status == "NA DOSTAVI" %}
+                                        {{ orderListItem.status }}
+                                        <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                    {% else %}
+                                        {{ orderListItem.status }}
+                                        <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                    {% endif %}
+                                </td>                                <td>
+                                    <a href="{{ path('order_details', {'id':orderListItem.id}) }}">
+                                        Više o narudžbi <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>

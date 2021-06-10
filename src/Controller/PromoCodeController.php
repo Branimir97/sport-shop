@@ -36,6 +36,13 @@ class PromoCodeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $endDate = $form->get('endDate')->getData();
+            $now = new \DateTime("now");
+            if($endDate < $now) {
+                $promoCode->setStatus("ISTEKAO");
+            } else {
+                $promoCode->setStatus("AKTIVAN");
+            }
             $entityManager->persist($promoCode);
             $entityManager->flush();
 
@@ -68,6 +75,13 @@ class PromoCodeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $endDate = $form->get('endDate')->getData();
+            $now = new \DateTime("now");
+            if($endDate < $now) {
+                $promoCode->setStatus("ISTEKAO");
+            } else {
+                $promoCode->setStatus("AKTIVAN");
+            }
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Promo kod uspješno ažuriran.');
@@ -90,7 +104,6 @@ class PromoCodeController extends AbstractController
             $entityManager->remove($promoCode);
             $entityManager->flush();
         }
-
         $this->addFlash('danger', 'Promo kod uspješno obrisan.');
         return $this->redirectToRoute('promo_code_index');
     }

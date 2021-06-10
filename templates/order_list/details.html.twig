@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Narudžba br. {{ orderListItem.id }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">Narudžba br. {{ orderListItem.id }}</h2>
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('order_list_item_index') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                Lista svih narudžbi
+            </a><br>
+        {% endif %}
+        <a href="{{ path('order_list') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Lista mojih narudžbi
+        </a>
+        <div class="table-responsive">
+            <table class="table table-hover table-warning">
+                <caption>Popis artikala za ovu narudžbu</caption>
+                <thead>
+                    <tr>
+                        <th>Naziv artikla</th>
+                        <th>Veličina</th>
+                        <th>Boja</th>
+                        <th>Količina</th>
+                        <th>Cijena s uračunatim popustom (ako postoji) [kn]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orderItem in orderItems %}
+                        <tr>
+                            <td>{{ orderItem.item.title }}</td>
+                            <td>{{ orderItem.size.value }}</td>
+                            <td>{{ orderItem.color.name }}</td>
+                            <td>{{ orderItem.quantity }}</td>
+                            <td>{{ orderItem.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <small class="text-muted">Ukupan iznos narudžbe sadrži uračunat iznos poštarine (30kn) ukoliko iznos s/bez popusta ne prelazi 300kn.<br>
+                Ukoliko su iskorišteni promo kod/bodovi s kartice, ukupan iznos narudžbe je umanjen ovisno o promo kodu i
+                količini iskorištenih bodova s loyalty kartice.
+            </small>
+            <table class="table">
+                <caption>Ostale informacije o narudžbi</caption>
+                <tbody>
+                    <tr>
+                        <th>Broj narudžbe</th>
+                        <td>{{ orderListItem.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Vrijeme izvršenja narudžbe</th>
+                        <td>{{ orderListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresa isporuke</th>
+                        <td>{{ orderListItem.deliveryAddress.street }},
+                            {{ orderListItem.deliveryAddress.postalCode }}
+                            {{ orderListItem.deliveryAddress.city }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            {% if orderListItem.status == "U OBRADI" %}
+                                {{ orderListItem.status }}
+                                <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
+                            {% elseif orderListItem.status == "NA DOSTAVI" %}
+                                {{ orderListItem.status }}
+                                <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
+                            {% else %}
+                                {{ orderListItem.status }}
+                                <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
+                            {% endif %}
+                        </td>                    </tr>
+                    <tr>
+                        <th>Ukupan iznos narudžbe[kn]</th>
+                        <td>{{ orderListItem.price|number_format(2, '.', ',') }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

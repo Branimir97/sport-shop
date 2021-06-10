@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\OrderItem;
 use App\Entity\OrderList;
 use App\Entity\OrderListItem;
 use App\Entity\PromoCodeUser;
@@ -32,7 +33,6 @@ class CheckoutController extends AbstractController
     {
         $totalPrice = 0;
         $discount = 0;
-        $oneItemDiscount = 0;
         $entityManager = $this->getDoctrine()->getManager();
         $session = $this->get('session');
         $cart = $cartRepository->findOneBy(['user'=>$this->getUser()]);
@@ -49,7 +49,7 @@ class CheckoutController extends AbstractController
         foreach($cartItems as $cartItem) {
             $totalPrice+=$cartItem->getItem()->getPrice()*$cartItem->getQuantity();
             if($cartItem->getItem()->getActionItem()) {
-                $discount = ($cartItem->getItem()->getActionItem()->getDiscountPercentage()/100)*
+                $discount+=($cartItem->getItem()->getActionItem()->getDiscountPercentage()/100)*
                     $cartItem->getQuantity()*$cartItem->getItem()->getPrice();
             }
             $cartItemCategories = $cartItem->getItem()->getItemCategories();
@@ -80,7 +80,7 @@ class CheckoutController extends AbstractController
                     $entityManager->persist($loyaltyCard);
                     $entityManager->flush();
                 }
-            } else if(is_null($promoCodeObj )) {
+            } else if(is_null($promoCodeObj) || $promoCodeObj->getStatus() == "ISTEKAO") {
                 $this->addFlash('danger', 'Unijeli ste promo kod koji ne postoji.');
                 return $this->redirectToRoute('checkout');
             }
@@ -96,9 +96,10 @@ class CheckoutController extends AbstractController
                     $this->addFlash('success',
                         'Promo code '.$promoCodeObj->getCode(). ' prihvaćen. 
                     Cijena umanjena za '.$promoCodeObj->getDiscountPercentage(). '%.');
-                    $session->set('promoCode', $promoCodeObj->getCode());
-                    $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
                     $session->set('discountWithUsedPromoCode', $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
+                    $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
+                    $session->set('promoCode', $promoCodeObj->getCode());
+
                 }
                 return $this->redirectToRoute('checkout');
             }
@@ -109,7 +110,6 @@ class CheckoutController extends AbstractController
         if($session->get('discountWithUsedPromoCode') !=null) {
             $discount+=$session->get('discountWithUsedPromoCode');
         }
-
         if($totalPrice<$discount) {
             $totalPriceWithDiscount = 0;
         } else {
@@ -136,14 +136,33 @@ class CheckoutController extends AbstractController
                 $this->addFlash('danger', 'Pogreška prilikom obrade Vaše kartice, provjerite podatke i pokušajte ponovno!');
                 return $this->redirectToRoute('checkout');
             }
+            $orderListItem = null;
             foreach($cartItems as $cartItem) {
-                $orderListItem = new OrderListItem();
+                $oneItemDiscount = 0;
+                if($orderListItem == null) {
+                    $orderListItem = new OrderListItem();
+                }
                 $orderListItem->setOrderList($orderList);
-                $orderListItem->setItem($cartItem->getItem());
-                $orderListItem->setSize($cartItem->getSize());
-                $orderListItem->setColor($cartItem->getColor());
+                $orderItem = new OrderItem();
+                $orderItem->setItem($cartItem->getItem());
+                $orderItem->setSize($cartItem->getSize());
+                $orderItem->setColor($cartItem->getColor());
+                $orderItem->setQuantity($cartItem->getQuantity());
+                if($cartItem->getItem()->getActionItem()){
+                    $oneItemDiscount+=($cartItem->getItem()->getActionItem()->getDiscountPercentage()/100)*
+                        $cartItem->getQuantity()*$cartItem->getItem()->getPrice();
+                }
+                $cartItemCategories = $cartItem->getItem()->getItemCategories();
+                foreach($cartItemCategories as $cartItemCategory) {
+                    if($cartItemCategory->getCategory()->getActionCategory()) {
+                        $oneItemDiscount+=($cartItemCategory->getCategory()->getActionCategory()->getDiscountPercentage()/100)*
+                            $cartItem->getQuantity()*$cartItem->getItem()->getPrice();
+                    }
+                }
+                $orderItem->setPrice($cartItem->getItem()->getPrice() - $oneItemDiscount);
+                $entityManager->persist($orderItem);
+                $orderListItem->addOrderItem($orderItem);
                 $orderListItem->setDeliveryAddress($deliveryAddress);
-                $orderListItem->setQuantity($cartItem->getQuantity());
                 if($totalPriceWithDiscount<300) {
                     $orderListItem->setPrice($totalPriceWithDiscount + 30);
                 } else {
@@ -153,8 +172,10 @@ class CheckoutController extends AbstractController
                 $entityManager->persist($orderListItem);
             }
             $entityManager->remove($cart);
-            $loyaltyCard->setCredits($creditsEarned);
-            $entityManager->persist($loyaltyCard);
+            if($loyaltyCard!=null) {
+                $loyaltyCard->setCredits($creditsEarned);
+                $entityManager->persist($loyaltyCard);
+            }
             $entityManager->flush();
 
             $session->clear();

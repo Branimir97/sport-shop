@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PromoCode{% endblock %}
+{% block title %}Promo kod "{{ promo_code.code }}"{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/promo_code.css') }}">
+{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -34,6 +37,20 @@
                 <tr>
                     <th>Vrijeme zadnje izmjene</th>
                     <td>{{ promo_code.updatedAt ? promo_code.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        {% if promo_code.status == "AKTIVAN" %}
+                            <p class="active_code">
+                                AKTIVAN <i class="fas fa-check"></i>
+                            </p>
+                        {% else %}
+                            <p class="inactive_code">
+                                ISTEKAO <i class="fas fa-times"></i>
+                            </p>
+                        {% endif %}
+                    </td>
                 </tr>
             </tbody>
         </table>
