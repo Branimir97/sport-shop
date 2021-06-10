@@ -159,24 +159,28 @@ class CheckoutController extends AbstractController
                     $orderListItem->setTotalPrice($totalPriceWithDiscount);
                 }
                 $entityManager->persist($orderListItem);
-
-//                $itemColors = $cartItem->getItem()->getItemColors();
-//                $itemColorsQuantity = $itemColors[0]->getQuantity();
-//                if(($itemColorsQuantity-$cartItem->getQuantity())<0){
-//                    $itemColor = $itemColors[0]->setQuantity(0);
-//                } else {
-//                    $itemColor = $itemColors[0]->setQuantity($itemColorsQuantity-$cartItem->getQuantity());
-//                }
-//                $entityManager->persist($itemColor);
-//
-//                $itemSizes = $cartItem->getItem()->getItemSizes();
-//                $itemSizesQuantity = $itemSizes[0]->getQuantity();
-//                if(($itemSizesQuantity-$cartItem->getQuantity())<0){
-//                    $itemSize = $itemSizes[0]->setQuantity(0);
-//                } else {
-//                    $itemSize = $itemSizes[0]->setQuantity($itemSizesQuantity-$cartItem->getQuantity());
-//                }
-//                $entityManager->persist($itemSize);
+                $itemColors = $cartItem->getItem()->getItemColors();
+                foreach($itemColors as $itemColor){
+                    if($cartItem->getColor() === $itemColor->getColor()){
+                        if(($itemColor->getQuantity()-$cartItem->getQuantity())<0) {
+                            $itemColor->setQuantity(0);
+                        } else {
+                            $itemColor->setQuantity($itemColor->getQuantity()-$cartItem->getQuantity());
+                        }
+                        $entityManager->persist($itemColor);
+                    }
+                }
+                $itemSizes = $cartItem->getItem()->getItemSizes();
+                foreach($itemSizes as $itemSize){
+                    if($cartItem->getSize() === $itemSize->getSize()){
+                        if(($itemSize->getQuantity()-$cartItem->getQuantity())<0) {
+                            $itemSize->setQuantity(0);
+                        } else {
+                            $itemSize->setQuantity($itemSize->getQuantity()-$cartItem->getQuantity());
+                        }
+                        $entityManager->persist($itemSize);
+                    }
+                }
             }
             $entityManager->remove($cart);
             if($loyaltyCard!=null) {
