@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrderListItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=OrderListItemRepository::class)
@@ -24,29 +25,6 @@ class OrderListItem
     private $orderList;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="orderListItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $item;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="orderListItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $size;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="orderListItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $color;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $price;
@@ -64,11 +42,13 @@ class OrderListItem
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -85,54 +65,6 @@ class OrderListItem
     public function setOrderList(?OrderList $orderList): self
     {
         $this->orderList = $orderList;
-
-        return $this;
-    }
-
-    public function getItem(): ?Item
-    {
-        return $this->item;
-    }
-
-    public function setItem(?Item $item): self
-    {
-        $this->item = $item;
-
-        return $this;
-    }
-
-    public function getSize(): ?Size
-    {
-        return $this->size;
-    }
-
-    public function setSize(?Size $size): self
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getColor(): ?Color
-    {
-        return $this->color;
-    }
-
-    public function setColor(?Color $color): self
-    {
-        $this->color = $color;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }

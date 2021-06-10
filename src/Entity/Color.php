@@ -52,16 +52,10 @@ class Color
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=OrderListItem::class, mappedBy="color")
-     */
-    private $orderListItems;
-
     public function __construct()
     {
         $this->itemColors = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
-        $this->orderListItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,36 +167,6 @@ class Color
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OrderListItem[]
-     */
-    public function getOrderListItems(): Collection
-    {
-        return $this->orderListItems;
-    }
-
-    public function addOrderListItem(OrderListItem $orderListItem): self
-    {
-        if (!$this->orderListItems->contains($orderListItem)) {
-            $this->orderListItems[] = $orderListItem;
-            $orderListItem->setColor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderListItem(OrderListItem $orderListItem): self
-    {
-        if ($this->orderListItems->removeElement($orderListItem)) {
-            // set the owning side to null (unless already changed)
-            if ($orderListItem->getColor() === $this) {
-                $orderListItem->setColor(null);
-            }
-        }
 
         return $this;
     }

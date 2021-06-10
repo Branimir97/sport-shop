@@ -15,17 +15,22 @@ class PromoCodeUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $loyaltyCardCredits = $options['loyaltyCardCredits'];
-        $builder
-            ->add('code', TextType::class, [
-                'label'=>'Ovdje unesite promo kod'
-            ])
-        ;
         if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0){
             $builder
+                ->add('code', TextType::class, [
+                    'required'=>false,
+                    'label'=>'Ovdje unesite promo kod'
+                ])
                 ->add('use_credits', CheckboxType::class, [
                     'required'=>false,
                     'mapped'=>false,
-                    'label'=>'Želim iskoristiti bodove na kartici ('.$loyaltyCardCredits.')'
+                    'label'=>'Želim iskoristiti bodove na kartici'
+                ])
+            ;
+        } else {
+            $builder
+                ->add('code', TextType::class, [
+                    'label'=>'Ovdje unesite promo kod'
                 ])
             ;
         }

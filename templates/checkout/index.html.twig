@@ -80,23 +80,57 @@
                         </li>
                     {% endif %}
                     {% if discount == 0 %}
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Ukupno (kn)</span>
-                            <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
-                        </li>
+                        {% if totalPrice < 300%}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Poštarina</span>
+                                <strong>30 kn</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Ukupno (kn)</span>
+                                <strong>{{ (totalPrice + 30)|number_format(2, '.', ',') }}</strong>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between text-success">
+                                <span>Poštarina</span>
+                                <strong>Besplatna</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Ukupno (kn)</span>
+                                <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
+                            </li>
+                        {% endif %}
                     {% else %}
                         <li class="list-group-item d-flex justify-content-between text-success">
                             <span>Popust (kn)</span>
                             <strong>- {{ discount|number_format(2, '.', ',') }}</strong>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Ukupno bez popusta (kn)</span>
-                            <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between text-danger">
-                            <span>Ukupno s popustom (kn)</span>
-                            <strong>{{ totalPriceWithDiscount|number_format(2, '.', ',') }}</strong>
-                        </li>
+                        {% if totalPrice < 300 %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Poštarina</span>
+                                <strong>30 kn</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Ukupno bez popusta (kn)</span>
+                                <strong>{{ (totalPrice+30)|number_format(2, '.', ',') }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between text-danger">
+                                <span>Ukupno s popustom (kn)</span>
+                                <strong>{{ (totalPriceWithDiscount+30)|number_format(2, '.', ',') }}</strong>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between text-success">
+                                <span>Poštarina</span>
+                                <strong>Besplatna</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Ukupno bez popusta (kn)</span>
+                                <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between text-danger">
+                                <span>Ukupno s popustom (kn)</span>
+                                <strong>{{ totalPriceWithDiscount|number_format(2, '.', ',') }}</strong>
+                            </li>
+                        {% endif %}
                     {% endif %}
 
                 </ul>

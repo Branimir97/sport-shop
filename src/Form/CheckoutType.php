@@ -46,7 +46,7 @@ class CheckoutType extends AbstractType
                 'multiple'=>false,
                 'label'=>'Odabir kartice'
             ])
-            ->add('card_name', TextType::class, [
+            ->add('card_name_surname', TextType::class, [
                 'label'=>'Ime i prezime na kartici',
                 'attr'=>[
                     'placeholder'=>'Ime Prezime'

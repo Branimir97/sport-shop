@@ -2,7 +2,7 @@
 
 {% block title %}Moj popis želja{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset("css/cart_wish_list.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/cart_wish_order_list.css") }}">
 {% endblock %}
 
 {% block body %}
@@ -30,7 +30,8 @@
                     {% for wishListItem in wishList.wishListItems %}
                         <tr>
                             <td>
-                                <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}" alt="image_{{ wishListItem.item.images[0].id }}">
+                                <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}"
+                                     alt="image_{{ wishListItem.item.images[0].id }}">
                             </td>
                             <td>{{ wishListItem.item.title }}</td>
                             <td>{{ wishListItem.item.cipher }}</td>
@@ -41,7 +42,8 @@
                                 {{ include('wish_list/_delete_form.html.twig') }}
                             </td>
                             <td>
-                                <a class="btn btn-success text-white" href="{{ path('item_details', {'id':wishListItem.item.id}) }}"
+                                <a class="btn btn-success text-white"
+                                   href="{{ path('item_details', {'id':wishListItem.item.id}) }}"
                                     title="Nastavi do artikla">
                                     <i class="fas fa-shopping-bag"></i>
                                 </a>
