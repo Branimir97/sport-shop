@@ -101,6 +101,10 @@ class PromoCodeController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$promoCode->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $promoCodeUsers = $promoCode->getPromoCodeUsers();
+            foreach($promoCodeUsers as $promoCodeUser) {
+                $entityManager->remove($promoCodeUser);
+            }
             $entityManager->remove($promoCode);
             $entityManager->flush();
         }
