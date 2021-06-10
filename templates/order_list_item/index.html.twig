@@ -52,7 +52,7 @@
                                     <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
                                 {% endif %}
                             </td>
-                            <td>{{ order_list_item.price|number_format(2, '.', ',') }}</td>
+                            <td>{{ order_list_item.totalPrice|number_format(2, '.', ',') }}</td>
                             <td>
                                 <a href="{{ path('order_list_item_status_processing', {'id': order_list_item.id}) }}"
                                     title="Postavi status u obradi">

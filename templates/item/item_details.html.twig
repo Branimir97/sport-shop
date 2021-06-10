@@ -59,6 +59,20 @@
                             Podaci o artiklu se ažuriraju, stoga ga nije moguće dodati u košaricu!
                         </p>
                     {% endif %}
+                    {% for itemColor in item.itemColors %}
+                        {% if itemColor.quantity == 0 %}
+                            <small class="text-danger">Nema na zalihi - {{ itemColor.color.name }} boja</small><br>
+                        {% elseif itemColor.quantity < 10 %}
+                            <small class="text-muted">Zalihe pri kraju - {{ itemColor.color.name }} boja ({{ itemColor.quantity }})</small><br>
+                        {% endif %}
+                    {% endfor %}
+                    {% for itemSize in item.itemSizes %}
+                        {% if itemSize.quantity == 0 %}
+                            <small class="text-danger">Nema na zalihi - Veličina {{ itemSize.color.name }}</small><br>
+                        {% elseif itemSize.quantity < 10 %}
+                            <small class="text-muted">Zalihe pri kraju - Veličina {{ itemSize.size.value }} ({{ itemSize.quantity }})</small><br>
+                        {% endif %}
+                    {% endfor %}
                     {{ include('cart/_form.html.twig') }}
                 {% else %}
                     <h6 class="text-center bg-light p-1">Za dodavanje artikla u košaricu/listu želja potrebno je imati korisnički račun.</h6>

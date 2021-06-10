@@ -615,13 +615,12 @@ class ItemController extends AbstractController
                     $entityManager->persist($cartItem);
                     $cart->addCartItem($cartItem);
                     $entityManager->persist($cart);
-                    $entityManager->flush();
                 } else {
                     $previousQuantity = $cartItemDb->getQuantity();
                     $cartItemDb->setQuantity($previousQuantity + $formCartQuantity);
                     $entityManager->persist($cartItemDb);
-                    $entityManager->flush();
                 }
+                $entityManager->flush();
 
                 $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno dodan u košaricu.');
                 return $this->redirectToRoute('cart_index');

@@ -27,11 +27,6 @@ class OrderListItem
     private $orderList;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
      * @ORM\ManyToOne(targetEntity=DeliveryAddress::class, inversedBy="orderListItems")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -59,6 +54,21 @@ class OrderListItem
      */
     private $orderItem;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $discount;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $priceWithoutDiscount;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $totalPrice;
+
     public function __construct()
     {
         $this->orderItem = new ArrayCollection();
@@ -77,18 +87,6 @@ class OrderListItem
     public function setOrderList(?OrderList $orderList): self
     {
         $this->orderList = $orderList;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }
@@ -167,6 +165,42 @@ class OrderListItem
                 $orderItem->setOrderListItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiscount(): ?float
+    {
+        return $this->discount;
+    }
+
+    public function setDiscount(float $discount): self
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function getPriceWithoutDiscount(): ?float
+    {
+        return $this->priceWithoutDiscount;
+    }
+
+    public function setPriceWithoutDiscount(float $priceWithoutDiscount): self
+    {
+        $this->priceWithoutDiscount = $priceWithoutDiscount;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }

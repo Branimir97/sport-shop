@@ -138,7 +138,6 @@ class CheckoutController extends AbstractController
             }
             $orderListItem = null;
             foreach($cartItems as $cartItem) {
-                $oneItemDiscount = 0;
                 if($orderListItem == null) {
                     $orderListItem = new OrderListItem();
                 }
@@ -148,42 +147,36 @@ class CheckoutController extends AbstractController
                 $orderItem->setSize($cartItem->getSize());
                 $orderItem->setColor($cartItem->getColor());
                 $orderItem->setQuantity($cartItem->getQuantity());
-                if($cartItem->getItem()->getActionItem()){
-                    $oneItemDiscount+=($cartItem->getItem()->getActionItem()->getDiscountPercentage()/100)*
-                        $cartItem->getQuantity()*$cartItem->getItem()->getPrice();
-                }
-                $cartItemCategories = $cartItem->getItem()->getItemCategories();
-                foreach($cartItemCategories as $cartItemCategory) {
-                    if($cartItemCategory->getCategory()->getActionCategory()) {
-                        $oneItemDiscount+=($cartItemCategory->getCategory()->getActionCategory()->getDiscountPercentage()/100)*
-                            $cartItem->getQuantity()*$cartItem->getItem()->getPrice();
-                    }
-                }
-                $orderItem->setPrice($cartItem->getItem()->getPrice() - $oneItemDiscount);
+                $orderItem->setPrice($cartItem->getItem()->getPrice());
                 $entityManager->persist($orderItem);
                 $orderListItem->addOrderItem($orderItem);
                 $orderListItem->setDeliveryAddress($deliveryAddress);
+                $orderListItem->setDiscount($discount);
+                $orderListItem->setPriceWithoutDiscount($totalPrice);
                 if($totalPriceWithDiscount<300) {
-                    $orderListItem->setPrice($totalPriceWithDiscount + 30);
+                    $orderListItem->setTotalPrice($totalPriceWithDiscount + 30);
                 } else {
-                    $orderListItem->setPrice($totalPriceWithDiscount);
+                    $orderListItem->setTotalPrice($totalPriceWithDiscount);
                 }
                 $entityManager->persist($orderListItem);
-                $itemColors = $cartItem->getItem()->getItemColors();
-                if(($itemColors[0]->getQuantity()-$cartItem->getQuantity())<0){
-                    $itemColor = $itemColors[0]->setQuantity(0);
-                } else {
-                    $itemColor = $itemColors[0]->setQuantity($cartItem->getQuantity()-$itemColors[0]->getQuantity());
-                }
-                $entityManager->persist($itemColor);
 
-                $itemSizes = $cartItem->getItem()->getItemSizes();
-                if(($itemSizes[0]->getQuantity()-$cartItem->getQuantity())<0){
-                    $itemSize = $itemSizes[0]->setQuantity(0);
-                } else {
-                    $itemSize = $itemSizes[0]->setQuantity($cartItem->getQuantity()-$itemSizes[0]->getQuantity());
-                }
-                $entityManager->persist($itemSize);
+//                $itemColors = $cartItem->getItem()->getItemColors();
+//                $itemColorsQuantity = $itemColors[0]->getQuantity();
+//                if(($itemColorsQuantity-$cartItem->getQuantity())<0){
+//                    $itemColor = $itemColors[0]->setQuantity(0);
+//                } else {
+//                    $itemColor = $itemColors[0]->setQuantity($itemColorsQuantity-$cartItem->getQuantity());
+//                }
+//                $entityManager->persist($itemColor);
+//
+//                $itemSizes = $cartItem->getItem()->getItemSizes();
+//                $itemSizesQuantity = $itemSizes[0]->getQuantity();
+//                if(($itemSizesQuantity-$cartItem->getQuantity())<0){
+//                    $itemSize = $itemSizes[0]->setQuantity(0);
+//                } else {
+//                    $itemSize = $itemSizes[0]->setQuantity($itemSizesQuantity-$cartItem->getQuantity());
+//                }
+//                $entityManager->persist($itemSize);
             }
             $entityManager->remove($cart);
             if($loyaltyCard!=null) {

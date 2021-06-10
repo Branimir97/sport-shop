@@ -27,7 +27,7 @@
                         <th>Veličina</th>
                         <th>Boja</th>
                         <th>Količina</th>
-                        <th>Cijena s uračunatim akcijama (ako postoje) [kn]</th>
+                        <th>Cijena [kn]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,13 +37,13 @@
                             <td>{{ orderItem.size.value }}</td>
                             <td>{{ orderItem.color.name }}</td>
                             <td>{{ orderItem.quantity }}</td>
-                            <td>{{ orderItem.price }}</td>
+                            <td>{{ orderItem.price|number_format(2, '.', ',') }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <small class="text-muted">Ukupan iznos narudžbe sadrži uračunat iznos poštarine (30kn) ukoliko iznos s/bez popusta ne prelazi 300kn.<br>
-                Ukoliko su iskorišteni promo kod/bodovi s kartice, ukupan iznos narudžbe je umanjen ovisno o promo kodu i
+                Ukoliko su iskorišteni promo kod/bodovi s kartice, ukupan iznos narudžbe umanjuje se ovisno o promo kodu i
                 količini iskorištenih bodova s loyalty kartice.
             </small>
             <table class="table">
@@ -77,10 +77,18 @@
                                 {{ orderListItem.status }}
                                 <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
                             {% endif %}
-                        </td>                    </tr>
+                        </td>
+                    </tr>
                     <tr>
-                        <th>Ukupan iznos narudžbe[kn]</th>
-                        <td>{{ orderListItem.price|number_format(2, '.', ',') }}</td>
+                        <th>Cijena [kn]</th>
+                        <td>{{ orderListItem.priceWithoutDiscount|number_format(2, '.', ',') }}</td>
+                    <tr class="text-danger">
+                        <th>Popust [kn]</th>
+                        <td>{{ orderListItem.discount|number_format(2, '.', ',') }}</td>
+                    </tr>
+                    <tr class="text-success">
+                        <th>Ukupna cijena s popustom [kn]</th>
+                        <td>{{ orderListItem.totalPrice|number_format(2, '.', ',') }}</td>
                     </tr>
                 </tbody>
             </table>
