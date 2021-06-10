@@ -38,7 +38,7 @@ class PromoCodeUserController extends AbstractController
 
             $this->addFlash('danger',
                 'Uspješno obrisana evidencija o iskorištenom promo kodu od strane korisnika 
-                    '.$promoCodeUser->getUser()->getName()).' '.$promoCodeUser->getUser()->getSurname().".";
+                    '.$promoCodeUser->getUser()->getName()).' '.$promoCodeUser->getUser()->getSurname().'.';
             $entityManager->flush();
         }
         return $this->redirectToRoute('promo_code_user_index');

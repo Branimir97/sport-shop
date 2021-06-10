@@ -68,7 +68,7 @@
                     {% endfor %}
                     {% for itemSize in item.itemSizes %}
                         {% if itemSize.quantity == 0 %}
-                            <small class="text-danger">Nema na zalihi - Veličina {{ itemSize.color.name }}</small><br>
+                            <small class="text-danger">Nema na zalihi - Veličina {{ itemSize.size.value }}</small><br>
                         {% elseif itemSize.quantity < 10 %}
                             <small class="text-muted">Zalihe pri kraju - Veličina {{ itemSize.size.value }} ({{ itemSize.quantity }})</small><br>
                         {% endif %}

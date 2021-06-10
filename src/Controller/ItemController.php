@@ -585,19 +585,19 @@ class ItemController extends AbstractController
         $formCart->handleRequest($request);
         if ($formCart->isSubmitted() && $formCart->isValid()) {
             $formCartQuantity = $formCart->get('quantity')->getData();
-            $cartItemSizeObj = $itemSizeRepository->findOneBy(['size'=>$formCart->get('size')->getData()]);
-            $cartItemColorObj = $itemColorRepository->findOneBy(['color'=>$formCart->get('color')->getData()]);
-            if($formCartQuantity > $cartItemSizeObj->getQuantity()) {
+            $cartItemSizeObj = $itemSizeRepository->findOneBy(['size' => $formCart->get('size')->getData()]);
+            $cartItemColorObj = $itemColorRepository->findOneBy(['color' => $formCart->get('color')->getData()]);
+            if ($formCartQuantity > $cartItemSizeObj->getQuantity()) {
                 $this->addFlash('danger',
-                    'Max. količina veličine "'.$cartItemSizeObj->getSize()->getValue().'" za ovaj artikl je '.$cartItemSizeObj->getQuantity().".");
-                $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
-            } else if($formCartQuantity > $cartItemColorObj->getQuantity()) {
+                    'Max. količina veličine "' . $cartItemSizeObj->getSize()->getValue() . '" za ovaj artikl je ' . $cartItemSizeObj->getQuantity() . ".");
+                return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
+            } else if ($formCartQuantity > $cartItemColorObj->getQuantity()) {
                 $this->addFlash('danger',
-                    'Max. količina "'.$cartItemColorObj->getColor()->getName().'" boje za ovaj artikl je '.$cartItemColorObj->getQuantity().".");
-                $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
+                    'Max. količina "' . $cartItemColorObj->getColor()->getName() . '" boje za ovaj artikl je ' . $cartItemColorObj->getQuantity() . ".");
+                return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
             } else {
-                $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
-                if(is_null($user->getCart())) {
+                $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
+                if (is_null($user->getCart())) {
                     $cart = new Cart();
                     $cart->setUser($this->getUser());
                     $entityManager->persist($cart);
@@ -605,25 +605,36 @@ class ItemController extends AbstractController
                 } else {
                     $cart = $user->getCart();
                 }
-                $cartItemDb = $cartItemRepository->findOneBy(['cart'=>$cart,
-                    'item'=>$item,
-                    'size'=>$formCart->get('size')->getData(),
-                    'color'=>$formCart->get('color')->getData()
+                $cartItemDb = $cartItemRepository->findOneBy(['cart' => $cart,
+                    'item' => $item,
+                    'size' => $formCart->get('size')->getData(),
+                    'color' => $formCart->get('color')->getData()
                 ]);
-                if(is_null($cartItemDb)) {
+                if (is_null($cartItemDb)) {
                     $cartItem->setItem($item);
                     $entityManager->persist($cartItem);
                     $cart->addCartItem($cartItem);
                     $entityManager->persist($cart);
+                    $entityManager->flush();
                 } else {
                     $previousQuantity = $cartItemDb->getQuantity();
-                    $cartItemDb->setQuantity($previousQuantity + $formCartQuantity);
-                    $entityManager->persist($cartItemDb);
+                    if (($previousQuantity + $formCartQuantity) > $cartItemColorObj->getQuantity()) {
+                        $this->addFlash('danger', 'Količina istog artikla u košarici i 
+                        trenutno odabrana količina prelaze ukupnu količinu artikla za odabranu boju. 
+                        Max = '.($cartItemColorObj->getQuantity()-$previousQuantity));
+                    } else if (($previousQuantity + $formCartQuantity) > $cartItemSizeObj->getQuantity()) {
+                        $this->addFlash('danger', 'Količina istog artikla u košarici i 
+                        trenutno odabrana količina prelaze ukupnu količinu artikla za odabranu veličinu. 
+                        Max = '.($cartItemSizeObj->getQuantity()-$previousQuantity));
+                        return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
+                    } else {
+                        $cartItemDb->setQuantity($previousQuantity + $formCartQuantity);
+                        $entityManager->persist($cartItemDb);
+                        $entityManager->flush();
+                        $this->addFlash('success', 'Artikl "' . $item->getTitle() . '" uspješno dodan u košaricu.');
+                        return $this->redirectToRoute('cart_index');
+                    }
                 }
-                $entityManager->flush();
-
-                $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno dodan u košaricu.');
-                return $this->redirectToRoute('cart_index');
             }
         }
 
@@ -639,7 +650,8 @@ class ItemController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Recenzija uspješno dodana.');
-            $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
+            return $this->redirect($request->getUri());
+//            $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
         }
 
         return $this->render('item/item_details.html.twig', [

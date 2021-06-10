@@ -72,36 +72,54 @@ class CheckoutController extends AbstractController
         $formPromoCode->handleRequest($request);
         if ($formPromoCode->isSubmitted() && $formPromoCode->isValid()) {
             $promoCodeObj = $promoCodeRepository->findOneBy(['code'=>$formPromoCode->get('code')->getData()]);
-            if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0) {
-                $session->set('discountWithUsedCredits', $loyaltyCardCredits);
-                $useCredits = $formPromoCode->get('use_credits')->getData();
-                if($useCredits) {
-                    $loyaltyCard->setCredits(0);
-                    $entityManager->persist($loyaltyCard);
-                    $entityManager->flush();
-                }
-            } else if(is_null($promoCodeObj) || $promoCodeObj->getStatus() == "ISTEKAO") {
-                $this->addFlash('danger', 'Unijeli ste promo kod koji ne postoji.');
-                return $this->redirectToRoute('checkout');
+            $promoCodeUserObj = $promoCodeUserRepository->findOneBy(['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
+            if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0 && !$formPromoCode->get('use_credits')->getData() && is_null($promoCodeUserObj)) {
+                $this->addFlash('danger', 'Pogreška. Potrebno je unijeti ili promo kod ili odabrati korištenje bodova s kartice ili oboje.');
+                return $this->redirect($request->getUri());
             }
-            else {
-                $promoCodeUserObj = $promoCodeUserRepository->findOneBy(['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
+            else if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0 && $formPromoCode->get('use_credits')->getData() && !is_null($promoCodeUserObj)) {
                 if(!is_null($promoCodeUserObj)) {
                     $this->addFlash('danger', 'Već ste iskoristili ovaj promo kod.');
+                    return $this->redirect($request->getUri());
+                }
+                $session->set('discountWithUsedCredits', $loyaltyCardCredits);
+                $loyaltyCard->setCredits(0);
+                $entityManager->persist($loyaltyCard);
+                $entityManager->flush();
+                $this->addFlash('success', 'Cijena uspješno umanjena za količinu bodova na loyalty kartici.');
+                return $this->redirect($request->getUri());
+            } else if((!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0 && $formPromoCode->get('use_credits')->getData())&&is_null($promoCodeObj)) {
+                $session->set('discountWithUsedCredits', $loyaltyCardCredits);
+                $loyaltyCard->setCredits(0);
+                $entityManager->persist($loyaltyCard);
+                $entityManager->flush();
+                $this->addFlash('success', 'Cijena uspješno umanjena za količinu bodova na loyalty kartici.');
+                return $this->redirect($request->getUri());
+            }
+            else {
+                if(!is_null($promoCodeUserObj)) {
+                    $this->addFlash('danger', 'Već ste iskoristili ovaj promo kod.');
+                    return $this->redirect($request->getUri());
                 } else {
+                    if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0 && $formPromoCode->get('use_credits')->getData()) {
+                        $session->set('discountWithUsedCredits', $loyaltyCardCredits);
+                        $loyaltyCard->setCredits(0);
+                        $entityManager->persist($loyaltyCard);
+                        $entityManager->flush();
+                        $this->addFlash('success', 'Cijena uspješno umanjena za količinu bodova na loyalty kartici.');
+                    }
                     $promoCodeUser->setUser($this->getUser());
                     $promoCodeUser->setPromoCode($promoCodeObj);
                     $entityManager->persist($promoCodeUser);
                     $entityManager->flush();
                     $this->addFlash('success',
-                        'Promo code '.$promoCodeObj->getCode(). ' prihvaćen. 
-                    Cijena umanjena za '.$promoCodeObj->getDiscountPercentage(). '%.');
+                        'Promo kod '.$promoCodeObj->getCode(). ' prihvaćen. 
+                    Cijena uspješno umanjena za '.$promoCodeObj->getDiscountPercentage(). '%.');
                     $session->set('discountWithUsedPromoCode', $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
                     $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
                     $session->set('promoCode', $promoCodeObj->getCode());
-
+                    return $this->redirect($request->getUri());
                 }
-                return $this->redirectToRoute('checkout');
             }
         }
         if($session->get('discountWithUsedCredits') !=null) {
@@ -115,8 +133,11 @@ class CheckoutController extends AbstractController
         } else {
             $totalPriceWithDiscount = $totalPrice-$discount;
         }
-        $creditsEarned = floor($totalPriceWithDiscount/10);
-
+        if($totalPriceWithDiscount<300) {
+            $creditsEarned = floor(($totalPriceWithDiscount+30)/10);
+        } else {
+            $creditsEarned = floor($totalPriceWithDiscount/10);
+        }
         $formCheckout = $this->createForm(CheckoutType::class, null, ['activeUserAddresses'=>$userAddressesWithData]);
         $formCheckout->handleRequest($request);
         if($formCheckout->isSubmitted() && $formCheckout->isValid()) {
