@@ -83,15 +83,13 @@ class UserType extends AbstractType
                         'label_html'=>true,
                         'label'=>'Registracijom prihvaćate uvjete i odredbe našeg web shopa.'
                     ])
+                    ->add('subscribeMe', CheckboxType::class, [
+                        'required'=>false,
+                        'mapped' => false,
+                        'label'=>'Želim primati sve novosti o SportShop akcijama, promo kodovima i ostalim važnim događajima.'
+                    ])
                 ;
             }
-        $builder
-            ->add('subscribeMe', CheckboxType::class, [
-                'required'=>false,
-                'mapped' => false,
-                'label'=>'Želim primati sve novosti o SportShop akcijama, promo kodovima i ostalim važnim događajima.'
-            ])
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

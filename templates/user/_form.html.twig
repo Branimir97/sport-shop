@@ -19,11 +19,7 @@
             {{ form_row(form.birthDate) }}
         </div>
     </div>
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.agreeTerms) }}
-    <label for="{{ form.agreeTerms.vars.id}}">{{ terms_label|raw }}</label>
-    {{ form_row(form.subscribeMe) }}
+    {{ form_rest(form) }}
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">{{ button_label|default('Registracija') }}</button>
     </div>
