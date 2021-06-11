@@ -15,6 +15,17 @@
                 <a id="done_profile" href="{{ path('user_edit', {id: app.user.id}) }}">Dovrši</a>
             </p>
         {% endif %}
+        {% if subscribed is not null%}
+            <p class="bg-primary text-white p-2 text-center">
+                Pretplaćeni ste na naš newsletter. U bilo kojem trenutku možete ukloniti pretplatu!
+                <a id="subscribe_delete" href="{{ path('subscriber_delete_registered') }}">Ukloni pretplatu</a>
+            </p>
+        {% else %}
+            <p class="bg-warning p-2 text-center">
+                Preplatite se na naš newsletter i prvi saznajte sve informacije o akcijama, promo kodovima i ostalim događajima!
+                <a id="subscribe" href="{{ path('subscriber_new_registered') }}">Pretplati me</a>
+            </p>
+        {% endif %}
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="mt-2 mb-3 bg-light text-center p-2">Podaci o korisniku</h2>

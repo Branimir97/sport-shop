@@ -40,6 +40,14 @@ a#done_profile, a#loyalty_info{
     color: lightcyan;
 }
 
+#subscribe {
+    color: blue;
+}
+
+#subscribe_delete{
+    color: yellow;
+}
+
 .loyalty_card{
     width: 100%;
     text-align: center;
