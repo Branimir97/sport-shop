@@ -19,7 +19,6 @@
                             <th>Slika artikla</th>
                             <th>Naziv artikla</th>
                             <th>Šifra artikla</th>
-                            <th>Proizvođač</th>
                             <th>Cijena [kn]</th>
                             <th>Vrijeme dodavanja</th>
                             <th>Obriši artikl</th>
@@ -30,12 +29,15 @@
                     {% for wishListItem in wishList.wishListItems %}
                         <tr>
                             <td>
-                                <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}"
-                                     alt="image_{{ wishListItem.item.images[0].id }}">
+                                {% if wishListItem.item.images|length == 0 %}
+                                    <img class="item_img" src="{{ asset('images/logo.png') }}" alt="logo">
+                                {% else %}
+                                    <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}"
+                                         alt="image_{{ wishListItem.item.images[0].id }}">
+                                {% endif %}
                             </td>
                             <td>{{ wishListItem.item.title }}</td>
                             <td>{{ wishListItem.item.cipher }}</td>
-                            <td>{{ wishListItem.item.manufacturer.name }}</td>
                             <td>{{ wishListItem.item.price|number_format(2, '.', ',') }}</td>
                             <td>{{ wishListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
                             <td>

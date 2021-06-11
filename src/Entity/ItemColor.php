@@ -33,7 +33,7 @@ class ItemColor
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private $quantity = 0;
 
     /**
      * @ORM\Column(type="datetime")

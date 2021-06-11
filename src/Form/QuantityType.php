@@ -10,16 +10,16 @@ class QuantityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $sizes = $options['sizes'];
-        $colors = $options['colors'];
+        $itemSizes = $options['itemSizes'];
+        $itemColors = $options['itemColors'];
         $counter = 0;
 
-        if(!is_null($sizes)) {
-            foreach($sizes as $size) {
+        if(!is_null($itemSizes)) {
+            foreach($itemSizes as $itemSize) {
                 $counter++;
                 $builder
-                    ->add('size_'.$counter, null, [
-                        'label'=>'Veličina ['.$size->getValue().'] - unesite količinu',
+                    ->add('itemSize_'.$itemSize->getId(), null, [
+                        'label'=>'Veličina ['.$itemSize->getSize()->getValue().'] - unesite količinu',
                         'attr'=>[
                             'placeholder'=>'npr. 15',
                             'min'=>0
@@ -29,12 +29,12 @@ class QuantityType extends AbstractType
             }
         }
         $counter = 0;
-        if(!is_null($colors)) {
-            foreach($colors as $color) {
+        if(!is_null($itemColors)) {
+            foreach($itemColors as $itemColor) {
                 $counter++;
                 $builder
-                    ->add('color_'.$counter, null, [
-                        'label'=>'['.$color->getValue().'] boja - unesite količinu',
+                    ->add('itemColor_'.$itemColor->getId(), null, [
+                        'label'=>'['.$itemColor->getColor()->getName().'] boja - unesite količinu',
                         'attr'=>[
                             'placeholder'=>'npr. 15',
                             'min'=>0
@@ -48,8 +48,8 @@ class QuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'sizes'=>null,
-            'colors'=>null
+            'itemSizes'=>null,
+            'itemColors'=>null
         ]);
     }
 }

@@ -103,7 +103,7 @@ class Item
     private $actionItem;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="item")
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="item",orphanRemoval=true)
      */
     private $orderItems;
 

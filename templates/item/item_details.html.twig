@@ -58,7 +58,11 @@
                         </a>
                     {% endif %}
                 </p>
-                <p>Proizvođač: <span id="manufacturer">{{ item.manufacturer.name }}</span></p>
+                {% if item.manufacturer is null %}
+                    <p>Proizvođač nije unesen.</p>
+                {% else %}
+                    <p>Proizvođač: <span id="manufacturer">{{ item.manufacturer.name }}</span></p>
+                {% endif %}
                 {% if is_granted("ROLE_USER") %}
                     {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}
                         <p class="bg-warning text-center p-1">
@@ -113,7 +117,7 @@
                     {{ include('item/new_review_form_modal.html.twig') }}
                 {% endif %}
                 {% if item.reviews|length == 0 %}
-                    <p class="text-center">Trenutno nitko nije napisao niti jednu recenziju za ovaj artikl.</p>
+                    <p class="text-center">Trenutno nitko nije napisao recenziju za ovaj artikl.</p>
                 {% else %}
                     <div class="reviews">
                         <div class="row justify-content-md-center ml-1 mr-1 mt-3">
