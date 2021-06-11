@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Subscriber;
 use App\Form\SubscriberType;
 use App\Repository\SubscriberRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,36 +27,49 @@ class SubscriberController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="subscriber_new", methods={"GET","POST"})
+     * @Route("/new", name="subscriber_new", methods={"POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SubscriberRepository $subscriberRepository, UserRepository $userRepository): Response
     {
         $subscriber = new Subscriber();
-        $form = $this->createForm(SubscriberType::class, $subscriber);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $email = $request->request->get('email');
+        $users = $userRepository->findAll();
+        $userEmails = [];
+        foreach($users as $user) {
+            array_push($userEmails, $user->getEmail());
+        }
+        if(!is_null($subscriberRepository->findOneBy(['email'=>$email]))) {
+            $this->addFlash('danger', 'Već postoji pretplaćeni korisnik na navedenoj email adresi.');
+            return $this->redirectToRoute('home');
+        } else if(in_array($email, $userEmails)) {
+            $this->addFlash('danger', 'Već postoji registrirani korisnik na navedenoj email adresi.');
+            return $this->redirectToRoute('home');
+        }
+        else {
+            $subscriber->setEmail($email);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($subscriber);
             $entityManager->flush();
 
-            return $this->redirectToRoute('subscriber_index');
+            $this->addFlash('success', 'Uspješno ste se pretplatili na naš newsletter!');
+            return $this->redirectToRoute('home');
         }
-
-        return $this->render('subscriber/new.html.twig', [
-            'subscriber' => $subscriber,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
      * @Route("/new/registered", name="subscriber_new_registered", methods={"GET","POST"})
      */
-    public function newRegistered(Request $request): Response
+    public function newRegistered(Request $request, SubscriberRepository $subscriberRepository): Response
     {
+        $formEmail = $request->request->get('email');
         $subscriber = new Subscriber();
-        $email = $this->getUser()->getUsername();
-        $subscriber->setEmail($email);
+        $currentEmail = $this->getUser()->getUsername();
+        if(!is_null($subscriberRepository->findOneBy(['email'=>$currentEmail])) || ($formEmail !== $currentEmail)) {
+            $this->addFlash('danger',
+                'Ukoliko niste pretplaćeni, možete se pretplatiti isključivo s Vašom email adresom korištenom za registraciju ovog računa.');
+            return $this->redirectToRoute('account_settings');
+        }
+        $subscriber->setEmail($currentEmail);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($subscriber);
         $entityManager->flush();

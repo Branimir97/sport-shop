@@ -85,6 +85,13 @@ class UserType extends AbstractType
                     ])
                 ;
             }
+        $builder
+            ->add('subscribeMe', CheckboxType::class, [
+                'required'=>false,
+                'mapped' => false,
+                'label'=>'Želim primati sve novosti o SportShop akcijama, promo kodovima i ostalim važnim događajima.'
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

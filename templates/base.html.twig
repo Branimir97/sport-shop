@@ -622,13 +622,18 @@
                 <div class="row ml-0 mr-0">
                     <div class="col-md-4 text-center">
                         <h3>PRVI SAZNAJTE SVE NOVOSTI</h3>
-                        <p>Saznaj sve najnovije informacije o SportShop akcijama, promo kodovima i važnim događajima.
+                        <p>Saznaj sve najnovije informacije o SportShop akcijama, promo kodovima i ostalim važnim događajima.
                             Prijavi se na naš newsletter!
                         </p>
                     </div>
                     <div class="col-md-4">
-                        <form class="newsletter">
-                            <input type="text" placeholder="Email adresa">
+                        <form class="newsletter"
+                              {% if app.user %}
+                                action="{{ path('subscriber_new_registered') }}"
+                                {% else %}
+                                action="{{ path('subscriber_new') }}"
+                              {% endif %}method="POST">
+                            <input type="text" required placeholder="Email adresa" name="email">
                             <button class="newsletter_submit_btn" type="submit" title="Pretplati se">
                                 <i class="fa fa-paper-plane"></i>
                             </button>

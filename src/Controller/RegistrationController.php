@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Subscriber;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use App\Repository\SubscriberRepository;
 use App\Security\AppAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,7 +26,12 @@ class RegistrationController extends AbstractController
      * @param AppAuthenticator $authenticator
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
+    public function register(Request $request,
+                             UserPasswordEncoderInterface $passwordEncoder,
+                             GuardAuthenticatorHandler $guardHandler,
+                             AppAuthenticator $authenticator,
+                                SubscriberRepository $subscriberRepository
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -37,12 +44,16 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-
             $entityManager = $this->getDoctrine()->getManager();
+            $subscribeMe = $form->get('subscribeMe')->getData();
+            if($subscribeMe == true && is_null($subscriberRepository->findOneBy(['email'=>$user->getEmail()]))){
+                $subscriber = new Subscriber();
+                $subscriber->setEmail($user->getEmail());
+                $entityManager->persist($subscriber);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
 
             if($this->isGranted("ROLE_ADMIN")){
                 $this->addFlash('success', 'Novi korisnik uspješno registriran.');
