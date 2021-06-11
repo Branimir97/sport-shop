@@ -1,3 +1,12 @@
+.no-images{
+    height: 400px;
+    background-color: lightblue;
+}
+
+.no-images img{
+    margin-top: 10%;
+}
+
 #carousel-item-info .carousel-item{
     height: 200px;
     width: auto;

@@ -78,17 +78,23 @@ class ItemController extends AbstractController
             $colors = $formNewItem->get('color')->getData();
             $images = $formNewItem->get('image')->getData();
             if (count($sizes) != 0 || count($colors) != 0) {
-                $formSetQuantity = $this->createForm(QuantityType::class, null, [
-                    'sizes' => $sizes, 'colors' => $colors
-                ]);
-                $formSetQuantity->handleRequest($request);
-                if ($formSetQuantity->isSubmitted() && $formSetQuantity->isValid()) {
-                    $this->addFlash('success', 'Artikl uspješno dodan.');
-                    return $this->redirectToRoute('item_index');
+                $session = new Session();
+                $session->set('item', $item);
+                $session->set('categories', $categories);
+                $session->set('tags', $tags);
+                $session->set('sizes', $sizes);
+                $session->set('colors', $colors);
+                foreach ($images as $image) {
+                    $newFileName = $uploadHelper->uploadImageTemporary($image);
+                    if(is_null($newFileName)) {
+                        $this->addFlash('danger',
+                            'Pogreška prilikom prijenosa fotografija.
+                                    Dopušteni formati fotografija: jpg, jpeg i png.'
+                        );
+                        return $this->redirectToRoute('item_new');
+                    }
                 }
-                return $this->render('item/set_quantity.html.twig', [
-                    'formSetQuantity' => $formSetQuantity->createView()
-                ]);
+                return $this->redirectToRoute('item_quantity_set');
             } else {
                 foreach($categories as $category) {
                     $itemCategory = new ItemCategory();
@@ -136,6 +142,109 @@ class ItemController extends AbstractController
             'formNewItem' => $formNewItem->createView(),
         ]);
     }
+
+    /**
+     * @Route("/quantity/set", name="item_quantity_set", methods={"GET","POST"})
+     */
+    public function setQuantity(Request $request, ImageUploadHelper $uploadHelper,
+                                SizeRepository $sizeRepository,
+                                ColorRepository $colorRepository,
+                                TagRepository $tagRepository): Response
+    {
+        $markedSizes = [];
+        $markedColors = [];
+        $sizeQuantities = [];
+        $colorQuantities = [];
+
+        $item = $this->get('session')->get('item');
+        $categories = $this->get('session')->get('categories');
+        $tags = $this->get('session')->get('tags');
+        $sizes = $this->get('session')->get('sizes');
+        $colors = $this->get('session')->get('colors');
+        $entityManager = $this->getDoctrine()->getManager();
+        $formQuantity = $this->createForm(QuantityType::class, null, [
+            'sizes'=>$sizes, 'colors'=>$colors
+        ]);
+        $formQuantity->handleRequest($request);
+        if($formQuantity->isSubmitted() && $formQuantity->isValid()) {
+            foreach($sizes as $size) {
+                array_push($markedSizes, $size->getId());
+            }
+            foreach($colors as $color) {
+                array_push($markedColors, $color->getId());
+            }
+            $formData = $formQuantity->getData();
+            $formKeys = array_keys($formData);
+
+            foreach($formKeys as $key) {
+                if(str_contains($key, "size")) {
+                    array_push($sizeQuantities, $formData[$key]);
+                }
+                if(str_contains($key, "color")) {
+                    array_push($colorQuantities, $formData[$key]);
+                }
+            }
+            $sizesDone = array_combine($markedSizes, $sizeQuantities);
+            $colorsDone = array_combine($markedColors, $colorQuantities);
+
+            foreach($sizesDone as $key=>$value) {
+                $sizeObj = $sizeRepository->findOneBy(['id'=>$key]);
+                $itemSize = new ItemSize();
+                $itemSize->setItem($item);
+                $itemSize->setSize($sizeObj);
+                $itemSize->setQuantity($value);
+                $entityManager->persist($itemSize);
+            }
+            foreach($colorsDone as $key=>$value) {
+                $colorObj = $colorRepository->findOneBy(['id'=>$key]);
+                $itemColor = new ItemColor();
+                $itemColor->setItem($item);
+                $itemColor->setColor($colorObj);
+                $itemColor->setQuantity($value);
+                $entityManager->persist($itemColor);
+            }
+            foreach($categories as $category) {
+                $itemCategory = new ItemCategory();
+                $itemCategory->setItem($item);
+                $itemCategory->setCategory($category);
+                $entityManager->persist($itemCategory);
+            }
+            if(!is_null($tags)) {
+                $explodedTags = explode(PHP_EOL, $tags);
+                foreach ($explodedTags as $tagName) {
+                    $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
+                    if(is_null($tagObject)) {
+                        $tagObject = new Tag();
+                        $tagObject->setName($tagName);
+                        $entityManager->persist($tagObject);
+                    }
+                    $itemTag = new ItemTag();
+                    $itemTag->setItem($item);
+                    $itemTag->setTag($tagObject);
+                    $entityManager->persist($itemTag);
+                }
+            }
+            $imageFileNames = $uploadHelper->uploadImageFromTemporaryFolderAndGetImagesList();
+            foreach ($imageFileNames as $imageFileName) {
+                $image = new Image();
+                $image->setPath($imageFileName);
+                $image->setItem($item);
+                $entityManager->persist($image);
+            }
+            $entityManager->persist($item);
+            $entityManager->flush();
+            $this->addFlash('success', 'Artikl uspješno dodan.');
+            return $this->redirectToRoute('item_index');
+        }
+        return $this->render('item/set_quantity.html.twig',[
+            'formSetQuantity' => $formQuantity->createView(),
+        ]);
+    }
+
+
+
+
+
 
     /**
      * @Route("/{id}", name="item_show", methods={"GET"})
@@ -653,7 +762,6 @@ class ItemController extends AbstractController
 
             $this->addFlash('success', 'Recenzija uspješno dodana.');
             return $this->redirect($request->getUri());
-//            $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
         }
 
         return $this->render('item/item_details.html.twig', [
