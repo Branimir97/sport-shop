@@ -11,9 +11,7 @@ use App\Entity\ItemColor;
 use App\Entity\ItemSize;
 use App\Entity\ItemTag;
 use App\Entity\Review;
-use App\Entity\Tag;
 use App\Form\CartItemType;
-use App\Form\CartType;
 use App\Form\ColorQuantityType;
 use App\Form\EditColorQuantityType;
 use App\Form\EditSizeQuantityType;
@@ -33,12 +31,9 @@ use App\Repository\ItemCategoryRepository;
 use App\Repository\ItemColorRepository;
 use App\Repository\ItemRepository;
 use App\Repository\ItemSizeRepository;
-use App\Repository\ItemTagRepository;
 use App\Repository\SizeRepository;
-use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use App\Service\ImageUploadHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +59,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/new", name="item_new", methods={"GET","POST"})
      */
-    public function new(Request $request, TagRepository $tagRepository, ImageUploadHelper $uploadHelper): Response
+    public function new(Request $request, ImageUploadHelper $uploadHelper): Response
     {
         $item = new Item();
         $formNewItem = $this->createForm(ItemType::class, $item);
@@ -86,15 +81,9 @@ class ItemController extends AbstractController
             if(!is_null($tags)) {
                 $explodedTags = explode(PHP_EOL, $tags);
                 foreach ($explodedTags as $tagName) {
-                    $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
-                    if(is_null($tagObject)) {
-                        $tagObject = new Tag();
-                        $tagObject->setName($tagName);
-                    }
-                    $entityManager->persist($tagObject);
                     $itemTag = new ItemTag();
                     $itemTag->setItem($item);
-                    $itemTag->setTag($tagObject);
+                    $itemTag->setTag($tagName);
                     $entityManager->persist($itemTag);
                 }
             }
@@ -323,37 +312,36 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/add/tag", name="item_add_tag", methods={"GET","POST"})
      */
-    public function addTag(Request $request, ItemRepository $itemRepository, TagRepository $tagRepository, ItemTagRepository $itemTagRepository): Response
+    public function addTag(Request $request, ItemRepository $itemRepository): Response
     {
+
+        $entityManager=$this->getDoctrine()->getManager();
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $itemTags = [];
+        foreach($item->getItemTags() as $itemTag) {
+            array_push($itemTags, rtrim($itemTag->getTag()));
+        }
         $form = $this->createForm(NewItemTagType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $tags = $form->get('tag')->getData();
-            $explodedTags = explode(PHP_EOL, $tags);
-            foreach ($explodedTags as $tagName) {
-                $tagObject = $tagRepository->findOneBy(['name'=>$tagName]);
-                if(is_null($tagObject)) {
-                    $tagObject = new Tag();
-                    $tagObject->setName($tagName);
-                    $entityManager->persist($tagObject);
-                    $entityManager->flush();
-                }
-                $itemTagObj = $itemTagRepository->findOneBy(['tag'=>$tagObject->getId()]);
-                if(is_null($itemTagObj)) {
-                    $itemTag = new ItemTag();
-                    $itemTag->setItem($item);
-                    $itemTag->setTag($tagObject);
-                    $entityManager->persist($itemTag);
-                } else {
-                    $this->addFlash('danger', 'Tag/ovi koje ste pokušali unijeti već su povezani s ovim artiklom.');
-                    return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+            if(!is_null($tags)) {
+                $explodedTags = explode(PHP_EOL, $tags);
+                foreach ($explodedTags as $tagName) {
+                    if(in_array($tagName, $itemTags)) {
+                        $this->addFlash('danger', 'Tag/ovi koji/e pokušavate unijeti već je/su povezan/i s ovim artiklom.');
+                        return $this->redirectToRoute('item_edit', ['id' => $item->getId()]);
+                    } else {
+                        $itemTag = new ItemTag();
+                        $itemTag->setItem($item);
+                        $itemTag->setTag($tagName);
+                        $entityManager->persist($itemTag);
+                    }
                 }
             }
             $entityManager->flush();
             $this->addFlash('success', 'Tag/ovi uspješno dodan/i.');
-            return $this->redirectToRoute('item_edit', ['id'=>$item->getId()]);
+            return $this->redirectToRoute('item_edit', ['id' => $item->getId()]);
         }
         return $this->render('item/new_tag.html.twig', [
             'item' => $item,
@@ -364,13 +352,13 @@ class ItemController extends AbstractController
     /**
      * @Route("/{id}/delete/tag", name="item_tag_delete", methods={"DELETE"})
      */
-    public function deleteTag(Request $request, ItemTag $itemTag, ItemTagRepository $itemTagRepository): RedirectResponse
+    public function deleteTag(Request $request, ItemTag $itemTag): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$itemTag->getId(), $request->request->get('_token'))) {
             $itemId = $itemTag->getItem()->getId();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($itemTag);
-            $this->addFlash('success', 'Tag "'.$itemTag->getTag()->getName().'" uspješno obrisan.');
+            $this->addFlash('success', 'Tag "'.$itemTag->getTag().'" uspješno obrisan.');
             $entityManager->flush();
         }
         return $this->redirectToRoute('item_edit', ['id'=>$itemId]);

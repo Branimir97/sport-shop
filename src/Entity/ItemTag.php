@@ -24,7 +24,7 @@ class ItemTag
     private $item;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="itemTags")
+     * @ORM\Column(type="string", length=255)
      */
     private $tag;
 
@@ -57,12 +57,12 @@ class ItemTag
         return $this;
     }
 
-    public function getTag(): ?Tag
+    public function getTag(): ?string
     {
         return $this->tag;
     }
 
-    public function setTag(?Tag $tag): self
+    public function setTag(?string $tag): self
     {
         $this->tag = $tag;
 
