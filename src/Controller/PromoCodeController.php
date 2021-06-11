@@ -28,13 +28,21 @@ class PromoCodeController extends AbstractController
     /**
      * @Route("/new", name="promo_code_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, PromoCodeRepository $promoCodeRepository): Response
     {
         $promoCode = new PromoCode();
         $form = $this->createForm(PromoCodeType::class, $promoCode);
         $form->handleRequest($request);
-
+        $promoCodesObj = $promoCodeRepository->findAll();
+        $promoCodes = [];
+        foreach($promoCodesObj as $promoCodeObj) {
+            array_push($promoCodes, $promoCodeObj->getCode());
+        }
         if ($form->isSubmitted() && $form->isValid()) {
+            if(in_array($promoCode->getCode(), $promoCodes)) {
+                $this->addFlash('danger', 'Već postoji takav promo kod.');
+                return $this->redirectToRoute('promo_code_index');
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $endDate = $form->get('endDate')->getData();
             $now = new \DateTime("now");
@@ -69,12 +77,20 @@ class PromoCodeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="promo_code_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, PromoCode $promoCode): Response
+    public function edit(Request $request, PromoCode $promoCode, PromoCodeRepository $promoCodeRepository): Response
     {
         $form = $this->createForm(PromoCodeType::class, $promoCode);
         $form->handleRequest($request);
-
+        $promoCodesObj = $promoCodeRepository->findAll();
+        $promoCodes = [];
+        foreach($promoCodesObj as $promoCodeObj) {
+            array_push($promoCodes, $promoCodeObj->getCode());
+        }
         if ($form->isSubmitted() && $form->isValid()) {
+            if(in_array($promoCode->getCode(), $promoCodes)) {
+                $this->addFlash('danger', 'Već postoji takav promo kod.');
+                return $this->redirectToRoute('promo_code_index');
+            }
             $endDate = $form->get('endDate')->getData();
             $now = new \DateTime("now");
             if($endDate < $now) {
