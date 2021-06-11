@@ -41,23 +41,47 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3 mb-3">
             <div class="col-sm-6">
-                <h3>Aktivni promo kodovi</h3>
-                {% if last10orderListItems is null %}
+                <h3 class="text-center">
+                    Aktivni promo kodovi
+                    <img class="ml-2" id="icon" src="{{ asset('icons/promo_code.png') }}" alt="icon">
+                </h3>
+                {% if promoCodes|length == 0 %}
                 <p class="text-center">
-                    Nije evidentirana ni jedna narudžba u sustavu.
+                    Nije evidentiran ni jedan promo kod u sustavu.
                 </p>
                 {% else %}
+                    {% for promoCode in promoCodes %}
+                        <p class="text-center text-success">
+                            {{ promoCode.code }} | {{ promoCode.discountPercentage }}%
+                            <a class="ml-1" href="{{ path('promo_code_edit', {'id':promoCode.id}) }}"
+                                title="Uredi promo kod">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </p>
+                    {% endfor %}
                 {% endif %}
             </div>
             <div class="col-sm-6">
-                <h3>Aktivne akcije na kategorije</h3>
-                {% if last10orderListItems is null %}
+                <h3 class="text-center">
+                    Aktivne akcije na kategorijama
+                    <img class="ml-2" id="icon" src="{{ asset('icons/action.png') }}" alt="icon">
+                </h3>
+                {% if actionCategories|length == 0%}
                     <p class="text-center">
-                        Nije evidentirana ni jedna narudžba u sustavu.
+                        Nije evidentirana ni jedna akcija u sustavu.
                     </p>
                 {% else %}
+                    {% for actionCategory in actionCategories %}
+                        <p class="text-center text-success">
+                            {{ actionCategory.title }} | {{ actionCategory.discountPercentage }}%
+                            <a class="ml-1" href="{{ path('action_category_edit', {'id':actionCategory.id}) }}"
+                               title="Uredi akciju">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </p>
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>
@@ -79,10 +103,8 @@
                             <th>Br. narudžbe</th>
                             <th>Korisnik</th>
                             <th>Vrijeme izvršenja narudžbe</th>
-                            <th>Adresa isporuke</th>
                             <th>Status</th>
                             <th>Ukupan iznos narudžbe[kn]</th>
-                            <th>Mogućnosti</th>
                             <th>Detalji</th>
                         </tr>
                         </thead>
@@ -92,10 +114,6 @@
                                 <td>{{ order_list_item.id }}</td>
                                 <td>{{ order_list_item.orderList.user.name }} {{ order_list_item.orderList.user.surname }}</td>
                                 <td>{{ order_list_item.createdAt ? order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
-                                <td>{{ order_list_item.deliveryAddress.street }},
-                                    {{ order_list_item.deliveryAddress.postalCode }}
-                                    {{ order_list_item.deliveryAddress.city }}
-                                </td>
                                 <td>
                                     {% if order_list_item.status == "U OBRADI" %}
                                         {{ order_list_item.status }}
@@ -110,21 +128,6 @@
                                 </td>
                                 <td>{{ order_list_item.totalPrice|number_format(2, '.', ',') }}</td>
                                 <td>
-                                    <a href="{{ path('order_list_item_status_processing', {'id': order_list_item.id}) }}"
-                                       title="Postavi status u obradi">
-                                        <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
-                                    </a>
-                                    <a href="{{ path('order_list_item_status_delivering', {'id': order_list_item.id}) }}"
-                                       title="Postavi status na dostavi">
-                                        <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
-                                    </a>
-                                    <a href="{{ path('order_list_item_status_delivered', {'id': order_list_item.id}) }}"
-                                       title="Postavi status dostavljeno">
-                                        <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
-                                    </a>
-                                    {{ include('order_list_item/_delete_form.html.twig') }}
-                                </td>
-                                <td>
                                     <a href="{{ path('order_details', {'id':order_list_item.id}) }}">
                                         Više o narudžbi <i class="fas fa-long-arrow-alt-right"></i>
                                     </a>
@@ -138,7 +141,7 @@
             </div>
             <div class="col-sm-6">
                 <h3 class="text-center">
-                    5 nedavno registriranih korisnika
+                    Nedavno registrirani korisnici
                     <img class="ml-2" id="icon" src="{{ asset('icons/users.png') }}" alt="icon">
                 </h3>
                 {% if last5registeredUsers|length == 0 %}
@@ -157,7 +160,7 @@
                                 <th>Spol</th>
                                 <th>Vrijeme registracije</th>
                                 <th>Vrijeme zadnje izmjene</th>
-                                <th>Mogućnosti</th>
+                                <th>Detalji</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -171,22 +174,10 @@
                                     <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
                                     <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
                                     <td>
-                                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}" title="Prikaži pojedinosti">
-                                            <i class="fas fa-info-circle"></i>
+                                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}">
+                                            Više o korisniku <i class="fas fa-long-arrow-alt-right"></i>
                                         </a>
-                                        <a href="{{ path('user_edit', {'id': user.id}) }}" title="Uredi">
-                                            <i class="fas fa-user-edit"></i>
-                                        </a>
-                                        {% if app.user != user %}
-                                            {{ include('user/_delete_form.html.twig') }}
-                                        {% else %}
-                                            <p>Trenutno prijavljen</p>
-                                        {% endif %}
                                     </td>
-                                </tr>
-                            {% else %}
-                                <tr>
-                                    <td colspan="13">no records found</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -194,7 +185,7 @@
                     </div>
                 {% endif %}
                 <h3 class="text-center mt-3">
-                    5 nedavno napisanih recenzija
+                    Nedavno napisane recenzije
                     <img class="ml-2" id="icon" src="{{ asset('icons/review.png') }}" alt="icon">
                 </h3>
                 {% if last5reviews|length == 0 %}
@@ -212,7 +203,7 @@
                                 <th>Autor</th>
                                 <th>Vrijeme stvaranja</th>
                                 <th>Vrijeme zadnje izmjene</th>
-                                <th>Mogućnosti</th>
+                                <th>Detalji</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -234,10 +225,9 @@
                                     <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
                                     <td>{{ review.updatedAt ? review.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                                     <td>
-                                        <a href="{{ path('review_edit', {'id': review.id}) }}" title="Uredi">
-                                            <i class="fas fa-edit"></i>
+                                        <a href="{{ path('review_edit', {'id': review.id}) }}">
+                                            Uredi recenziju <i class="fas fa-long-arrow-alt-right"></i>
                                         </a>
-                                        {{ include('review/_delete_form.html.twig') }}
                                     </td>
                                 </tr>
                             {% endfor %}
