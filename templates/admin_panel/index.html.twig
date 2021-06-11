@@ -1,13 +1,252 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin panel{% endblock %}
- {% block javascripts %}
-     <script src="{{ asset("scripts/sidebarHandler.js") }}"></script>
- {% endblock %}
+{% block title %}Pregled značajki{% endblock %}
+{# {% block javascripts %}#}
+{#     <script src="{{ asset("scripts/sidebarHandler.js") }}"></script>#}
+{# {% endblock %}#}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset("css/sidebar.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/admin_panel.css") }}">
 {% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <div class="row m-2">
+            <div class="col-sm-3">
+                <div id="users" class="card">
+                    <p>BROJ KORISNIKA</p>
+                    <h5>{{ users }}</h5>
+                    <small class="text-dark">Broj administratora: {{ admins }}</small>
+                    <img id="icon" src="{{ asset('icons/users.png') }}" alt="icon">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="sold_items" class="card">
+                    <p>BROJ PRODANIH ARTIKALA</p>
+                    <h5>{{ soldItems }}</h5>
+                    <img id="icon" src="{{ asset('icons/items.png') }}" alt="icon">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="orders" class="card">
+                    <p>BROJ NARUDŽBI</p>
+                    <h5>{{ orders }}</h5>
+                    <img id="icon" src="{{ asset('icons/orders.png') }}" alt="icon">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="earnings" class="card">
+                    <p>ZARADA [KN]</p>
+                    <h5>{{ earnings|number_format(2, '.', ',')}}</h5>
+                    <img id="icon" src="{{ asset('icons/earnings.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-6">
+                <h3>Aktivni promo kodovi</h3>
+                {% if last10orderListItems is null %}
+                <p class="text-center">
+                    Nije evidentirana ni jedna narudžba u sustavu.
+                </p>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h3>Aktivne akcije na kategorije</h3>
+                {% if last10orderListItems is null %}
+                    <p class="text-center">
+                        Nije evidentirana ni jedna narudžba u sustavu.
+                    </p>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-sm-6">
+                <h3 class="text-center">
+                    10 posljednjih narudžbi
+                    <img class="ml-2" id="icon" src="{{ asset('icons/orders.png') }}" alt="icon">
+                </h3>
+                {% if last10orderListItems|length == 0 %}
+                    <p class="text-center">
+                        Nije evidentirana ni jedna narudžba u sustavu.
+                    </p>
+                {% else %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-info">
+                        <thead>
+                        <tr>
+                            <th>Br. narudžbe</th>
+                            <th>Korisnik</th>
+                            <th>Vrijeme izvršenja narudžbe</th>
+                            <th>Adresa isporuke</th>
+                            <th>Status</th>
+                            <th>Ukupan iznos narudžbe[kn]</th>
+                            <th>Mogućnosti</th>
+                            <th>Detalji</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order_list_item in last10orderListItems %}
+                            <tr>
+                                <td>{{ order_list_item.id }}</td>
+                                <td>{{ order_list_item.orderList.user.name }} {{ order_list_item.orderList.user.surname }}</td>
+                                <td>{{ order_list_item.createdAt ? order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                <td>{{ order_list_item.deliveryAddress.street }},
+                                    {{ order_list_item.deliveryAddress.postalCode }}
+                                    {{ order_list_item.deliveryAddress.city }}
+                                </td>
+                                <td>
+                                    {% if order_list_item.status == "U OBRADI" %}
+                                        {{ order_list_item.status }}
+                                        <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
+                                    {% elseif order_list_item.status == "NA DOSTAVI" %}
+                                        {{ order_list_item.status }}
+                                        <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                    {% else %}
+                                        {{ order_list_item.status }}
+                                        <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                    {% endif %}
+                                </td>
+                                <td>{{ order_list_item.totalPrice|number_format(2, '.', ',') }}</td>
+                                <td>
+                                    <a href="{{ path('order_list_item_status_processing', {'id': order_list_item.id}) }}"
+                                       title="Postavi status u obradi">
+                                        <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
+                                    </a>
+                                    <a href="{{ path('order_list_item_status_delivering', {'id': order_list_item.id}) }}"
+                                       title="Postavi status na dostavi">
+                                        <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                    </a>
+                                    <a href="{{ path('order_list_item_status_delivered', {'id': order_list_item.id}) }}"
+                                       title="Postavi status dostavljeno">
+                                        <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                    </a>
+                                    {{ include('order_list_item/_delete_form.html.twig') }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('order_details', {'id':order_list_item.id}) }}">
+                                        Više o narudžbi <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h3 class="text-center">
+                    5 nedavno registriranih korisnika
+                    <img class="ml-2" id="icon" src="{{ asset('icons/users.png') }}" alt="icon">
+                </h3>
+                {% if last5registeredUsers|length == 0 %}
+                    <p class="text-center">
+                        Nije evidentiran ni jedan korisnik u sustavu.
+                    </p>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-info">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Email adresa</th>
+                                <th>Ime</th>
+                                <th>Prezime</th>
+                                <th>Spol</th>
+                                <th>Vrijeme registracije</th>
+                                <th>Vrijeme zadnje izmjene</th>
+                                <th>Mogućnosti</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in last5registeredUsers %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.surname }}</td>
+                                    <td>{{ user.gender ? user.gender : '-' }}</td>
+                                    <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
+                                    <td>
+                                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}" title="Prikaži pojedinosti">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="{{ path('user_edit', {'id': user.id}) }}" title="Uredi">
+                                            <i class="fas fa-user-edit"></i>
+                                        </a>
+                                        {% if app.user != user %}
+                                            {{ include('user/_delete_form.html.twig') }}
+                                        {% else %}
+                                            <p>Trenutno prijavljen</p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="13">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                <h3 class="text-center mt-3">
+                    5 nedavno napisanih recenzija
+                    <img class="ml-2" id="icon" src="{{ asset('icons/review.png') }}" alt="icon">
+                </h3>
+                {% if last5reviews|length == 0 %}
+                    <p class="text-center">
+                        Nije evidentirana ni jedna recenzija u sustavu.
+                    </p>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-info">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Ocjena</th>
+                                <th>Artikl</th>
+                                <th>Autor</th>
+                                <th>Vrijeme stvaranja</th>
+                                <th>Vrijeme zadnje izmjene</th>
+                                <th>Mogućnosti</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for review in last5reviews %}
+                                <tr>
+                                    <td>{{ review.id }}</td>
+                                    <td>
+                                        {% for i in 1..review.rating %}
+                                            <span class="fa fa-star checked"></span>
+                                        {% endfor %}
+                                        {% if review.rating < 5 %}
+                                            {% for i in review.rating .. 4%}
+                                                <span id="unchecked" class="fa fa-star"></span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ review.item.title }}</td>
+                                    <td>{{ review.user.name }} {{ review.user.surname }}</td>
+                                    <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                                    <td>{{ review.updatedAt ? review.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                    <td>
+                                        <a href="{{ path('review_edit', {'id': review.id}) }}" title="Uredi">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('review/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

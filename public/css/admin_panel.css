@@ -1,0 +1,42 @@
+.card{
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    margin: 1%;
+    padding: 2%;
+    text-align: center;
+    position: relative;
+}
+
+.card h5{
+    color: white;
+}
+
+img.icon{
+    width: 25px;
+    height: 25px;
+}
+
+#icon{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+.top10orders{
+    height: 20px!important;
+}
+
+.card#users {
+    background-color: #8862E0;
+}
+
+.card#sold_items {
+    background-color: #19D895;
+}
+
+.card#orders {
+    background-color: #2196F3;
+}
+
+.card#earnings {
+    background-color: #FFAF00;
+}
