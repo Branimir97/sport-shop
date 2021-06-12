@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\ActionCategory;
 use App\Entity\Category;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

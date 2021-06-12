@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Color;
 use App\Entity\Size;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

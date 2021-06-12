@@ -19,7 +19,8 @@ class QuantityType extends AbstractType
                 $counter++;
                 $builder
                     ->add('itemSize_'.$itemSize->getId(), null, [
-                        'label'=>'Veličina ['.$itemSize->getSize()->getValue().'] - unesite količinu',
+                        'label'=>
+                            'Veličina ['.$itemSize->getSize()->getValue().'] - unesite količinu',
                         'attr'=>[
                             'placeholder'=>'npr. 15',
                             'min'=>0
@@ -34,7 +35,8 @@ class QuantityType extends AbstractType
                 $counter++;
                 $builder
                     ->add('itemColor_'.$itemColor->getId(), null, [
-                        'label'=>'['.$itemColor->getColor()->getName().'] boja - unesite količinu',
+                        'label'=>
+                            '['.$itemColor->getColor()->getName().'] boja - unesite količinu',
                         'attr'=>[
                             'placeholder'=>'npr. 15',
                             'min'=>0

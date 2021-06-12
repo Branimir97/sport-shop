@@ -39,12 +39,18 @@
                         <tr>
                             <td>
                                 {% if cartItem.item.images|length == 0%}
-                                    <img class="item_img"
-                                         src="{{ asset('images/logo.png') }}" alt="logo">
+                                    <a href="{{ path('item_details', {'id':cartItem.item.id}) }}"
+                                        title="Detalji o artiklu">
+                                        <img class="item_img"
+                                             src="{{ asset('images/logo.png') }}" alt="logo">
+                                    </a>
                                 {% else %}
-                                    <img class="item_img"
-                                         src="{{ asset('uploads/')~cartItem.item.images[0].path }}"
-                                         alt="image_{{ cartItem.item.images[0].id }}">
+                                    <a href="{{ path('item_details', {'id':cartItem.item.id}) }}"
+                                        title="Detalji o artiklu">
+                                        <img class="item_img"
+                                             src="{{ asset('uploads/')~cartItem.item.images[0].path }}"
+                                             alt="image_{{ cartItem.item.images[0].id }}">
+                                    </a>
                                 {% endif %}
                             </td>
                             <td>
