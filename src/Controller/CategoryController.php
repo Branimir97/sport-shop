@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/category")
+ * @Route("/kategorije")
  * @IsGranted("ROLE_ADMIN")
  */
 class CategoryController extends AbstractController
@@ -28,9 +28,10 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="category_new", methods={"GET","POST"})
+     * @Route("/nova", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    public function new(Request $request,
+                        CategoryRepository $categoryRepository): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -39,7 +40,8 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryName = $form->get('name')->getData();
             if(!is_null($categoryRepository->findOneBy(['name'=>$categoryName]))) {
-                $this->addFlash('danger', 'Kategorija "'.$categoryName.'" već postoji.');
+                $this->addFlash('danger',
+                    'Kategorija "'.$categoryName.'" već postoji.');
                 return $this->redirectToRoute('category_index');
             }
             $entityManager = $this->getDoctrine()->getManager();
@@ -66,7 +68,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -76,7 +78,8 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Kategorija "'.$category->getName().'" uspješno ažurirana.');
+            $this->addFlash('success',
+                'Kategorija "'.$category->getName().'" uspješno ažurirana.');
             return $this->redirectToRoute('category_index');
         }
         return $this->render('category/edit.html.twig', [
@@ -90,11 +93,13 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$category->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
 
-            $this->addFlash('danger', 'Kategorija "'.$category->getName().'" uspješno obrisana.');
+            $this->addFlash('danger',
+                'Kategorija "'.$category->getName().'" uspješno obrisana.');
             $entityManager->flush();
         }
         return $this->redirectToRoute('category_index');

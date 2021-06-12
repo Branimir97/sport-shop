@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/cart")
+ * @Route("/košarica")
  */
 class CartController extends AbstractController
 {
@@ -36,15 +36,19 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/item/{id}", name="cart_item_delete", methods={"DELETE"})
+     * @Route("/artikl/{id}", name="cart_item_delete", methods={"DELETE"})
      */
-    public function deleteItem(Request $request, CartItem $cartItem, CartRepository $cartRepository, CartItemRepository $cartItemRepository): Response
+    public function deleteItem(Request $request, CartItem $cartItem,
+                               CartRepository $cartRepository,
+                               CartItemRepository $cartItemRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cartItem->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$cartItem->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($cartItem);
 
-            $this->addFlash('danger', 'Artikl "'.$cartItem->getItem()->getTitle().'" uspješno obrisan iz košarice.');
+            $this->addFlash('danger',
+                'Artikl "'.$cartItem->getItem()->getTitle().'" uspješno obrisan iz košarice.');
             $entityManager->flush();
         }
 
@@ -55,7 +59,6 @@ class CartController extends AbstractController
             $entityManager->remove($cart);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('cart_index');
     }
 }

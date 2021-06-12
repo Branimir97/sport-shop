@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\OrderListItem;
-use App\Form\OrderListItemType;
 use App\Repository\OrderListItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -12,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/order/list/item")
+ * @Route("/narudžbe/artikli")
  */
 class OrderListItemController extends AbstractController
 {
@@ -27,25 +26,30 @@ class OrderListItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status/processing", name="order_list_item_status_processing", methods={"GET", "PATCH"})
+     * @Route("/{id}/status/obrada", name="order_list_item_status_processing", methods={"GET", "PATCH"})
      */
-    public function setStatusProcessing(Request $request, OrderListItemRepository $orderListItemRepository): RedirectResponse
+    public function setStatusProcessing(Request $request,
+                                        OrderListItemRepository $orderListItemRepository): RedirectResponse
     {
-        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
+        $orderListItem = $orderListItemRepository->findOneBy(
+            ['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('U OBRADI');
         $entityManager->persist($orderListItem);
         $entityManager->flush();
-        $this->addFlash('success', 'Status narudžbe uspješno ažuriran.');
+        $this->addFlash('success',
+            'Status narudžbe uspješno ažuriran.');
         return $this->redirectToRoute('order_list_item_index');
     }
 
     /**
-     * @Route("/{id}/status/delivering", name="order_list_item_status_delivering", methods={"GET", "PATCH"})
+     * @Route("/{id}/status/dostava", name="order_list_item_status_delivering", methods={"GET", "PATCH"})
      */
-    public function setStatusDelivering(Request $request, OrderListItemRepository $orderListItemRepository): RedirectResponse
+    public function setStatusDelivering(Request $request,
+                                        OrderListItemRepository $orderListItemRepository): RedirectResponse
     {
-        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
+        $orderListItem = $orderListItemRepository->findOneBy(
+            ['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('NA DOSTAVI');
         $entityManager->persist($orderListItem);
@@ -55,11 +59,13 @@ class OrderListItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status/delivered", name="order_list_item_status_delivered", methods={"GET", "PATCH"})
+     * @Route("/{id}/status/dostavljeno", name="order_list_item_status_delivered", methods={"GET", "PATCH"})
      */
-    public function setStatusDelivered(Request $request, OrderListItemRepository $orderListItemRepository): RedirectResponse
+    public function setStatusDelivered(Request $request,
+                                       OrderListItemRepository $orderListItemRepository): RedirectResponse
     {
-        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
+        $orderListItem = $orderListItemRepository->findOneBy(
+            ['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('DOSTAVLJENO');
         $entityManager->persist($orderListItem);
@@ -73,7 +79,8 @@ class OrderListItemController extends AbstractController
      */
     public function delete(Request $request, OrderListItem $orderListItem): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$orderListItem->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$orderListItem->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             foreach($orderListItem->getOrderItem() as $item) {
                 $entityManager->remove($item);

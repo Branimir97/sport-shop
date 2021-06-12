@@ -23,7 +23,7 @@ class GoogleController extends AbstractController
         return $clientRegistry
             ->getClient('google')
             ->redirect([
-                'profile', 'email', 'openid' // the scopes you want to access
+                'profile', 'email', 'openid'
             ]);
     }
 

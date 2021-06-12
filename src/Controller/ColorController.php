@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/color")
+ * @Route("/boje")
  * @IsGranted("ROLE_ADMIN")
  */
 class ColorController extends AbstractController
@@ -28,7 +28,7 @@ class ColorController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="color_new", methods={"GET","POST"})
+     * @Route("/nova", name="color_new", methods={"GET","POST"})
      */
     public function new(Request $request, ColorRepository $colorRepository): Response
     {
@@ -39,7 +39,8 @@ class ColorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $colorValue = $form->get('value')->getData();
             if(!is_null($colorRepository->findOneBy(['value'=>$colorValue]))) {
-                $this->addFlash('danger', 'Boja s kodom "'.$colorValue.'" već postoji.');
+                $this->addFlash('danger',
+                    'Boja s kodom "'.$colorValue.'" već postoji.');
                 return $this->redirectToRoute('color_index');
             }
             $entityManager = $this->getDoctrine()->getManager();
@@ -67,7 +68,7 @@ class ColorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="color_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="color_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Color $color): Response
     {
@@ -77,7 +78,8 @@ class ColorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', '"'.$color->getName().'" boja uspješno ažurirana.');
+            $this->addFlash('success',
+                '"'.$color->getName().'" boja uspješno ažurirana.');
             return $this->redirectToRoute('color_index');
         }
 
@@ -92,11 +94,13 @@ class ColorController extends AbstractController
      */
     public function delete(Request $request, Color $color): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$color->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$color->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($color);
 
-            $this->addFlash('danger', '"'.$color->getName().'" boja uspješno obrisana.');
+            $this->addFlash('danger',
+                '"'.$color->getName().'" boja uspješno obrisana.');
             $entityManager->flush();
         }
 

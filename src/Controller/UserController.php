@@ -16,13 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @Route("/user")
- */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/korisnici", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -32,7 +29,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/korisnik/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -42,19 +39,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/korisnik/{id}/uredi", name="user_edit", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @return Response
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user, ['isEditForm'=>true]);
+        $form = $this->createForm(UserType::class, $user,
+            ['isEditForm'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Podaci o korisniku "'.$user->getName().' '. $user->getSurname().'" uspješno ažurirani.');
+            $this->addFlash('success',
+                'Podaci o korisniku "'.$user->getName().' '.
+                $user->getSurname().'" uspješno ažurirani.');
             if($this->isGranted("ROLE_ADMIN")){
                 return $this->redirectToRoute('user_index');
             } else {
@@ -69,25 +69,28 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/korisnik/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         }
         if($this->isGranted("ROLE_ADMIN")) {
-            $this->addFlash('success', 'Korisnički račun uspješno obrisan.');
+            $this->addFlash('success',
+                'Korisnički račun uspješno obrisan.');
             return $this->redirectToRoute('user_index');
         }
-        $this->addFlash('success', 'Korisnički račun uspješno obrisan.');
+        $this->addFlash('success',
+            'Korisnički račun uspješno obrisan.');
         return $this->redirectToRoute('home');
     }
 
     /**
-     * @Route("/account/settings", name="account_settings", methods={"GET"})
+     * @Route("/postavke/računa", name="account_settings", methods={"GET"})
      * @param DeliveryAddressRepository $deliveryAddressRepository
      * @param LoyaltyCardRepository $loyaltyCardRepository
      * @param SubscriberRepository $subscriberRepository
@@ -97,9 +100,12 @@ class UserController extends AbstractController
                              LoyaltyCardRepository $loyaltyCardRepository,
                              SubscriberRepository $subscriberRepository): Response
     {
-        $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
-        $loyaltyCard = $loyaltyCardRepository->findOneBy(['user'=>$this->getUser()]);
-        $subscribed = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $deliveryAddresses = $deliveryAddressRepository->findBy(
+            ['user'=>$this->getUser()]);
+        $loyaltyCard = $loyaltyCardRepository->findOneBy(
+            ['user'=>$this->getUser()]);
+        $subscribed = $subscriberRepository->findOneBy(
+            ['email'=>$this->getUser()->getUsername()]);
         return $this->render('user/account_settings.html.twig', [
             'deliveryAddresses'=>$deliveryAddresses,
             'loyalty_card'=>$loyaltyCard,
@@ -108,9 +114,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/password/reset", name="reset_password", methods={"GET", "POST"})
+     * @Route("/{id}/resetiranje/lozinke", name="reset_password", methods={"GET", "POST"})
      */
-    public function resetPassword(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(Request $request,
+                                  UserRepository $userRepository,
+                                  UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = $userRepository->findOneBy(['id'=>$request->get('id')]);
 
@@ -118,7 +126,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('account_settings');
         }
 
-        $form = $this->createForm(ResetPasswordType::class, null, ['isAdmin'=>$this->isGranted("ROLE_ADMIN")]);
+        $form = $this->createForm(ResetPasswordType::class, null,
+            ['isAdmin'=>$this->isGranted("ROLE_ADMIN")]);
         $form->handleRequest($request);
 
         /** @var User $user */
@@ -144,7 +153,8 @@ class UserController extends AbstractController
                 $userPassword = $passwordEncoder->isPasswordValid($user, $currentPassword);
                 if(!$userPassword)
                 {
-                    $form->get('current_password')->addError(new FormError('Neispravan unos trenutne lozinke.'));
+                    $form->get('current_password')->addError(new FormError(
+                        'Neispravan unos trenutne lozinke.'));
                 }
                 $newPassword =  $form->get('password')->get('first')->getData();
                 $user->setPassword($passwordEncoder->encodePassword(

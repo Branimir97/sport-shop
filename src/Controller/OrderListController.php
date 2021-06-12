@@ -14,20 +14,25 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class OrderListController
  * @package App\Controller
- * @Route("/order")
+ * @Route("/narudžbe")
  */
 
 class OrderListController extends AbstractController
 {
     /**
-     * @Route("/list", name="order_list")
+     * @Route("/", name="order_list")
      */
-    public function index(UserRepository $userRepository, OrderListRepository $orderListRepository, OrderListItemRepository $orderListItemRepository
+    public function index(UserRepository $userRepository,
+                          OrderListRepository $orderListRepository,
+                          OrderListItemRepository $orderListItemRepository
     ): Response
     {
-        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
-        $orderList = $orderListRepository->findOneBy(['user'=>$user]);
-        $orderListItems = $orderListItemRepository->findBy(['orderList'=>$orderList], ['id'=>'DESC']);
+        $user = $userRepository->findOneBy(
+            ['email'=>$this->getUser()->getUsername()]);
+        $orderList = $orderListRepository->findOneBy(
+            ['user'=>$user]);
+        $orderListItems = $orderListItemRepository->findBy(
+            ['orderList'=>$orderList], ['id'=>'DESC']);
         return $this->render('order_list/index.html.twig', [
             'orderListItems' => $orderListItems,
         ]);
@@ -36,7 +41,9 @@ class OrderListController extends AbstractController
     /**
      * @Route("/{id}", name="order_details")
      */
-    public function details(Request $request, OrderListItemRepository $orderListItemRepository, OrderItemRepository $orderItemRepository): Response
+    public function details(Request $request,
+                            OrderListItemRepository $orderListItemRepository,
+                            OrderItemRepository $orderItemRepository): Response
     {
         $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $orderItems = $orderItemRepository->findBy(['orderListItem'=>$orderListItem]);

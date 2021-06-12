@@ -23,7 +23,7 @@ class FacebookController extends AbstractController
         return $clientRegistry
             ->getClient('facebook_main')
             ->redirect([
-                'public_profile', 'email' // the scopes you want to access
+                'public_profile', 'email'
             ]);
     }
 

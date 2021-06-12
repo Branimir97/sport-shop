@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Subscriber;
-use App\Form\SubscriberType;
 use App\Repository\SubscriberRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/subscriber")
+ * @Route("/pretplatnici")
  */
 class SubscriberController extends AbstractController
 {
@@ -27,9 +26,11 @@ class SubscriberController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="subscriber_new", methods={"POST"})
+     * @Route("/novi", name="subscriber_new", methods={"POST"})
      */
-    public function new(Request $request, SubscriberRepository $subscriberRepository, UserRepository $userRepository): Response
+    public function new(Request $request,
+                        SubscriberRepository $subscriberRepository,
+                        UserRepository $userRepository): Response
     {
         $subscriber = new Subscriber();
         $email = $request->request->get('email');
@@ -39,10 +40,12 @@ class SubscriberController extends AbstractController
             array_push($userEmails, $user->getEmail());
         }
         if(!is_null($subscriberRepository->findOneBy(['email'=>$email]))) {
-            $this->addFlash('danger', 'Već postoji pretplaćeni korisnik na navedenoj email adresi.');
+            $this->addFlash('danger',
+                'Već postoji pretplaćeni korisnik na navedenoj email adresi.');
             return $this->redirectToRoute('home');
         } else if(in_array($email, $userEmails)) {
-            $this->addFlash('danger', 'Već postoji registrirani korisnik na navedenoj email adresi.');
+            $this->addFlash('danger',
+                'Već postoji registrirani korisnik na navedenoj email adresi.');
             return $this->redirectToRoute('home');
         }
         else {
@@ -51,22 +54,26 @@ class SubscriberController extends AbstractController
             $entityManager->persist($subscriber);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Uspješno ste se pretplatili na naš newsletter!');
+            $this->addFlash('success',
+                'Uspješno ste se pretplatili na naš newsletter!');
             return $this->redirectToRoute('home');
         }
     }
 
     /**
-     * @Route("/new/registered", name="subscriber_new_registered", methods={"GET","POST"})
+     * @Route("/novi/registrirani", name="subscriber_new_registered", methods={"GET","POST"})
      */
-    public function newRegistered(Request $request, SubscriberRepository $subscriberRepository): Response
+    public function newRegistered(Request $request,
+                                  SubscriberRepository $subscriberRepository): Response
     {
         $formEmail = $request->request->get('email');
         $subscriber = new Subscriber();
         $currentEmail = $this->getUser()->getUsername();
-        if(!is_null($subscriberRepository->findOneBy(['email'=>$currentEmail])) || ($formEmail !== $currentEmail)) {
+        if(!is_null($subscriberRepository->findOneBy(
+            ['email'=>$currentEmail])) || ($formEmail !== $currentEmail)) {
             $this->addFlash('danger',
-                'Ukoliko niste pretplaćeni, možete se pretplatiti isključivo s Vašom email adresom korištenom za registraciju ovog računa.');
+                'Ukoliko niste pretplaćeni, možete se pretplatiti isključivo s 
+                        Vašom email adresom korištenom za registraciju ovog računa.');
             return $this->redirectToRoute('account_settings');
         }
         $subscriber->setEmail($currentEmail);
@@ -74,16 +81,18 @@ class SubscriberController extends AbstractController
         $entityManager->persist($subscriber);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Uspješno ste se pretplatili na naš newsletter.');
+        $this->addFlash('success',
+            'Uspješno ste se pretplatili na naš newsletter.');
         return $this->redirectToRoute('account_settings');
     }
 
     /**
-     * @Route("/delete/registered", name="subscriber_delete_registered", methods={"GET", "POST"})
+     * @Route("/obriši/registrirani", name="subscriber_delete_registered", methods={"GET", "POST"})
      */
     public function deleteRegistered(SubscriberRepository $subscriberRepository): Response
     {
-        $subscriber = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $subscriber = $subscriberRepository->findOneBy(
+            ['email'=>$this->getUser()->getUsername()]);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($subscriber);
         $entityManager->flush();
@@ -98,7 +107,8 @@ class SubscriberController extends AbstractController
      */
     public function delete(Request $request, Subscriber $subscriber): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$subscriber->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$subscriber->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($subscriber);
             $entityManager->flush();

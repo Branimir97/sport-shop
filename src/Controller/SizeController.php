@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/size")
+ * @Route("/veličine")
  * @IsGranted("ROLE_ADMIN")
  */
 class SizeController extends AbstractController
@@ -28,7 +28,7 @@ class SizeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="size_new", methods={"GET","POST"})
+     * @Route("/nova", name="size_new", methods={"GET","POST"})
      */
     public function new(Request $request, SizeRepository $sizeRepository): Response
     {
@@ -39,14 +39,16 @@ class SizeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $sizeValue = $form->get('value')->getData();
             if(!is_null($sizeRepository->findOneBy(['value'=>$sizeValue]))) {
-                $this->addFlash('danger', 'Veličina "'.$sizeValue.'" već postoji.');
+                $this->addFlash('danger',
+                    'Veličina "'.$sizeValue.'" već postoji.');
                 return $this->redirectToRoute('size_index');
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($size);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Veličina uspješno dodana.');
+            $this->addFlash('success',
+                'Veličina uspješno dodana.');
             return $this->redirectToRoute('size_index');
         }
 
@@ -67,7 +69,7 @@ class SizeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="size_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="size_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Size $size): Response
     {
@@ -77,7 +79,8 @@ class SizeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Veličina "'.$size->getValue().'" uspješno ažurirana.');
+            $this->addFlash('success',
+                'Veličina "'.$size->getValue().'" uspješno ažurirana.');
             return $this->redirectToRoute('size_index');
         }
 
@@ -92,11 +95,13 @@ class SizeController extends AbstractController
      */
     public function delete(Request $request, Size $size): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$size->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$size->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($size);
 
-            $this->addFlash('danger', 'Veličina "'.$size->getValue().'" uspješno obrisana.');
+            $this->addFlash('danger',
+                'Veličina "'.$size->getValue().'" uspješno obrisana.');
             $entityManager->flush();
         }
 

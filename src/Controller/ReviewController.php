@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/review")
+ * @Route("/recenzije")
  */
 class ReviewController extends AbstractController
 {
@@ -26,7 +26,7 @@ class ReviewController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="review_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="review_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Review $review): Response
     {
@@ -37,11 +37,14 @@ class ReviewController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             if($this->isGranted("ROLE_ADMIN")) {
-                $this->addFlash('success', 'Recenzija uspješno ažurirana.');
+                $this->addFlash('success',
+                    'Recenzija uspješno ažurirana.');
                 return $this->redirectToRoute('review_index');
             } else {
-                $this->addFlash('success', 'Recenzija uspješno ažurirana.');
-                return $this->redirectToRoute('item_details', ['id'=>$review->getItem()->getId()]);
+                $this->addFlash('success',
+                    'Recenzija uspješno ažurirana.');
+                return $this->redirectToRoute('item_details',
+                    ['id'=>$review->getItem()->getId()]);
             }
         }
         return $this->render('review/edit.html.twig', [
@@ -55,18 +58,22 @@ class ReviewController extends AbstractController
      */
     public function delete(Request $request, Review $review): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$review->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($review);
             $entityManager->flush();
         }
 
         if($this->isGranted("ROLE_ADMIN")) {
-            $this->addFlash('success', 'Recenzija uspješno obrisana.');
+            $this->addFlash('success',
+                'Recenzija uspješno obrisana.');
             return $this->redirectToRoute('review_index');
         } else {
-            $this->addFlash('success', 'Recenzija uspješno obrisana.');
-            return $this->redirectToRoute('item_details', ['id'=>$review->getItem()->getId()]);
+            $this->addFlash('success',
+                'Recenzija uspješno obrisana.');
+            return $this->redirectToRoute('item_details',
+                ['id'=>$review->getItem()->getId()]);
         }
     }
 }

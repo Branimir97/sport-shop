@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/manufacturer")
+ * @Route("/proizvođači")
  */
 class ManufacturerController extends AbstractController
 {
@@ -26,9 +26,10 @@ class ManufacturerController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="manufacturer_new", methods={"GET","POST"})
+     * @Route("/novi", name="manufacturer_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ManufacturerRepository $manufacturerRepository): Response
+    public function new(Request $request,
+                        ManufacturerRepository $manufacturerRepository): Response
     {
         $manufacturer = new Manufacturer();
         $form = $this->createForm(ManufacturerType::class, $manufacturer);
@@ -36,8 +37,10 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manufacturerName = $form->get('name')->getData();
-            if(!is_null($manufacturerRepository->findOneBy(['name'=>$manufacturerName]))) {
-                $this->addFlash('danger', 'Proizvođač "'.$manufacturerName.'" već postoji.');
+            if(!is_null($manufacturerRepository->findOneBy(
+                ['name'=>$manufacturerName]))) {
+                $this->addFlash('danger',
+                    'Proizvođač "'.$manufacturerName.'" već postoji.');
                 return $this->redirectToRoute('manufacturer_index');
             }
             $entityManager = $this->getDoctrine()->getManager();
@@ -65,7 +68,7 @@ class ManufacturerController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="manufacturer_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="manufacturer_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Manufacturer $manufacturer): Response
     {
@@ -75,7 +78,8 @@ class ManufacturerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', '"'.$manufacturer->getName().'" proizvođač uspješno ažuriran.');
+            $this->addFlash('success',
+                '"'.$manufacturer->getName().'" proizvođač uspješno ažuriran.');
             return $this->redirectToRoute('manufacturer_index');
         }
 
@@ -90,11 +94,13 @@ class ManufacturerController extends AbstractController
      */
     public function delete(Request $request, Manufacturer $manufacturer): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$manufacturer->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$manufacturer->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($manufacturer);
 
-            $this->addFlash('danger', '"'.$manufacturer->getName().'" proizvođač uspješno obrisan.');
+            $this->addFlash('danger',
+                '"'.$manufacturer->getName().'" proizvođač uspješno obrisan.');
             $entityManager->flush();
         }
         return $this->redirectToRoute('manufacturer_index');

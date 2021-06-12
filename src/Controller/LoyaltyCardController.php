@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/loyalty/card")
+ * @Route("/kartice/vjernosti")
  */
 class LoyaltyCardController extends AbstractController
 {
@@ -27,7 +27,7 @@ class LoyaltyCardController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="loyalty_card_new", methods={"GET", "POST"})
+     * @Route("/nova", name="loyalty_card_new", methods={"GET", "POST"})
      */
     public function new(): Response
     {
@@ -45,9 +45,10 @@ class LoyaltyCardController extends AbstractController
     }
 
     /**
-     * @Route("/new/admin", name="loyalty_card_new_admin", methods={"GET", "POST"})
+     * @Route("/nova/administrator", name="loyalty_card_new_admin", methods={"GET", "POST"})
      */
-    public function newByAdmin(Request $request, UserRepository $userRepository): Response
+    public function newByAdmin(Request $request,
+                               UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
         $usersWithoutLoyaltyCard = [];
@@ -57,7 +58,8 @@ class LoyaltyCardController extends AbstractController
             }
         }
         $loyaltyCard = new LoyaltyCard();
-        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard, ['users'=>$usersWithoutLoyaltyCard]);
+        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard,
+            ['users'=>$usersWithoutLoyaltyCard]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->get('user')->getData();
@@ -87,11 +89,12 @@ class LoyaltyCardController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="loyalty_card_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="loyalty_card_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, LoyaltyCard $loyaltyCard): Response
     {
-        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard, ['isEdit'=>true]);
+        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard,
+            ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,7 +114,8 @@ class LoyaltyCardController extends AbstractController
      */
     public function delete(Request $request, LoyaltyCard $loyaltyCard): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$loyaltyCard->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$loyaltyCard->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($loyaltyCard->getUser());

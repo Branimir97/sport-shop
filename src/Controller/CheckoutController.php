@@ -22,14 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class CheckoutController extends AbstractController
 {
     /**
-     * @Route("/checkout", name="checkout")
+     * @Route("/plaćanje", name="checkout")
      */
     public function index(Request $request, CartRepository $cartRepository,
                           CartItemRepository $cartItemRepository,
                           DeliveryAddressRepository $deliveryAddressRepository,
                           PromoCodeRepository $promoCodeRepository,
-                            PromoCodeUserRepository $promoCodeUserRepository,
-                            UserRepository $userRepository): Response
+                          PromoCodeUserRepository $promoCodeUserRepository,
+                          UserRepository $userRepository): Response
     {
         $totalPrice = 0;
         $discount = 0;
@@ -55,7 +55,8 @@ class CheckoutController extends AbstractController
             $cartItemCategories = $cartItem->getItem()->getItemCategories();
             foreach($cartItemCategories as $cartItemCategory) {
                 if($cartItemCategory->getCategory()->getActionCategory()) {
-                    $discount+=($cartItemCategory->getCategory()->getActionCategory()->getDiscountPercentage()/100)*
+                    $discount+=
+                        ($cartItemCategory->getCategory()->getActionCategory()->getDiscountPercentage()/100)*
                         $cartItem->getQuantity()*$cartItem->getItem()->getPrice();
                 }
             }
@@ -68,19 +69,25 @@ class CheckoutController extends AbstractController
             $loyaltyCardCredits = null;
         }
         $promoCodeUser = new PromoCodeUser();
-        $formPromoCode = $this->createForm(PromoCodeUserType::class, null, ['loyaltyCardCredits'=>$loyaltyCardCredits]);
+        $formPromoCode = $this->createForm(PromoCodeUserType::class, null,
+            ['loyaltyCardCredits'=>$loyaltyCardCredits]);
         $formPromoCode->handleRequest($request);
         if ($formPromoCode->isSubmitted() && $formPromoCode->isValid()) {
-            $promoCodeObj = $promoCodeRepository->findOneBy(['code'=>$formPromoCode->get('code')->getData()]);
-            $promoCodeUserObj = $promoCodeUserRepository->findOneBy(['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
+            $promoCodeObj = $promoCodeRepository->findOneBy(
+                ['code'=>$formPromoCode->get('code')->getData()]);
+            $promoCodeUserObj = $promoCodeUserRepository->findOneBy(
+                ['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
             if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
-                && !$formPromoCode->get('use_credits')->getData() && is_null($promoCodeUserObj)) {
+                && !$formPromoCode->get('use_credits')->getData() &&
+                is_null($promoCodeUserObj)) {
                 $this->addFlash('danger',
-                    'Pogreška. Potrebno je unijeti ili promo kod ili odabrati korištenje bodova s kartice ili oboje.');
+                    'Pogreška. Potrebno je unijeti ili promo kod ili odabrati 
+                    korištenje bodova s kartice ili oboje.');
                 return $this->redirect($request->getUri());
             }
             else if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
-                && $formPromoCode->get('use_credits')->getData() && !is_null($promoCodeUserObj)) {
+                && $formPromoCode->get('use_credits')->getData() &&
+                !is_null($promoCodeUserObj)) {
                 if(!is_null($promoCodeUserObj)) {
                     $this->addFlash('danger', 'Već ste iskoristili ovaj promo kod.');
                     return $this->redirect($request->getUri());
@@ -123,7 +130,8 @@ class CheckoutController extends AbstractController
                     $this->addFlash('success',
                         'Promo kod '.$promoCodeObj->getCode(). ' prihvaćen. 
                     Cijena uspješno umanjena za '.$promoCodeObj->getDiscountPercentage(). '%.');
-                    $session->set('discountWithUsedPromoCode', $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
+                    $session->set('discountWithUsedPromoCode',
+                        $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
                     $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
                     $session->set('promoCode', $promoCodeObj->getCode());
                     return $this->redirect($request->getUri());
@@ -164,7 +172,8 @@ class CheckoutController extends AbstractController
             $now = new \DateTime('now');
             if(strlen($cardNumber)<16  || strlen($cardCVV)<3 || $cardExpiration<$now) {
                 $this->addFlash('danger',
-                    'Pogreška prilikom obrade Vaše kartice, provjerite podatke i pokušajte ponovno!');
+                    'Pogreška prilikom obrade Vaše kartice, 
+                    provjerite podatke i pokušajte ponovno!');
                 return $this->redirectToRoute('checkout');
             }
             $orderListItem = null;
@@ -196,7 +205,8 @@ class CheckoutController extends AbstractController
                         if(($itemColor->getQuantity()-$cartItem->getQuantity())<0) {
                             $itemColor->setQuantity(0);
                         } else {
-                            $itemColor->setQuantity($itemColor->getQuantity()-$cartItem->getQuantity());
+                            $itemColor->setQuantity(
+                                $itemColor->getQuantity()-$cartItem->getQuantity());
                         }
                         $entityManager->persist($itemColor);
                     }
@@ -207,7 +217,8 @@ class CheckoutController extends AbstractController
                         if(($itemSize->getQuantity()-$cartItem->getQuantity())<0) {
                             $itemSize->setQuantity(0);
                         } else {
-                            $itemSize->setQuantity($itemSize->getQuantity()-$cartItem->getQuantity());
+                            $itemSize->setQuantity(
+                                $itemSize->getQuantity()-$cartItem->getQuantity());
                         }
                         $entityManager->persist($itemSize);
                     }

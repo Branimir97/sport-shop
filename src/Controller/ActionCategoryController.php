@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/action/category")
+ * @Route("/akcije/kategorije")
  */
 class ActionCategoryController extends AbstractController
 {
@@ -27,7 +27,7 @@ class ActionCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="action_category_new", methods={"GET","POST"})
+     * @Route("/nova", name="action_category_new", methods={"GET","POST"})
      */
     public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
@@ -38,7 +38,8 @@ class ActionCategoryController extends AbstractController
                 array_push($noActionCategories, $category);
             }
         }
-        $form = $this->createForm(ActionCategoryType::class, null, ['noActionCategories'=>$noActionCategories]);
+        $form = $this->createForm(ActionCategoryType::class, null,
+            ['noActionCategories'=>$noActionCategories]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,7 +56,8 @@ class ActionCategoryController extends AbstractController
             }
             $entityManager->flush();
 
-            $this->addFlash('success', 'Kategorija/e uspješno postavljena/e na akciju.');
+            $this->addFlash('success',
+                'Kategorija/e uspješno postavljena/e na akciju.');
             return $this->redirectToRoute('action_category_index');
         }
 
@@ -75,11 +77,12 @@ class ActionCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="action_category_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="action_category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ActionCategory $actionCategory): Response
     {
-        $form = $this->createForm(ActionCategoryType::class, $actionCategory, ['isEdit'=>true]);
+        $form = $this->createForm(ActionCategoryType::class, $actionCategory,
+            ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,7 +102,8 @@ class ActionCategoryController extends AbstractController
      */
     public function delete(Request $request, ActionCategory $actionCategory): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$actionCategory->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$actionCategory->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($actionCategory);
             $entityManager->flush();

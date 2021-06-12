@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/wish/list")
+ * @Route("/lista/želja")
  */
 class WishListController extends AbstractController
 {
@@ -31,9 +31,11 @@ class WishListController extends AbstractController
     }
 
     /**
-     * @Route("/new/item/{id}", name="wish_list_item_new", methods={"GET","POST"})
+     * @Route("/novi/artikl/{id}", name="wish_list_item_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserRepository $userRepository, WishListItemRepository $wishListItemRepository, ItemRepository $itemRepository): Response
+    public function new(Request $request, UserRepository $userRepository,
+                        WishListItemRepository $wishListItemRepository,
+                        ItemRepository $itemRepository): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
@@ -46,7 +48,8 @@ class WishListController extends AbstractController
         } else {
             $wishList = $user->getWishList();
         }
-        $wishListItemDb = $wishListItemRepository->findOneBy(['wishList'=>$wishList, 'item'=>$item,]);
+        $wishListItemDb = $wishListItemRepository->findOneBy(
+            ['wishList'=>$wishList, 'item'=>$item,]);
         if(is_null($wishListItemDb)) {
             $wishListItem = new WishListItem();
             $wishListItem->setItem($item);
@@ -55,25 +58,32 @@ class WishListController extends AbstractController
             $entityManager->persist($wishList);
             $entityManager->flush();
         } else {
-            $this->addFlash('danger', 'Artikl je već dodan na Vašu listu želja.');
-            return $this->redirectToRoute('item_details', ['id'=>$item->getId()]);
+            $this->addFlash('danger',
+                'Artikl je već dodan na Vašu listu želja.');
+            return $this->redirectToRoute('item_details',
+                ['id'=>$item->getId()]);
         }
 
-        $this->addFlash('success', 'Artikl "'.$item->getTitle().'" uspješno dodan na Vašu listu želja.');
+        $this->addFlash('success',
+            'Artikl "'.$item->getTitle().'" uspješno dodan na Vašu listu želja.');
         return $this->redirectToRoute('wish_list_index');
     }
 
     /**
-     * @Route("/item/{id}", name="wish_list_item_delete", methods={"DELETE"})
+     * @Route("/artikl/{id}", name="wish_list_item_delete", methods={"DELETE"})
      */
-    public function deleteItem(Request $request, WishListItem $wishListItem, WishListRepository $wishListRepository,
+    public function deleteItem(Request $request, WishListItem $wishListItem,
+                               WishListRepository $wishListRepository,
                                WishListItemRepository $wishListItemRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$wishListItem->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$wishListItem->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($wishListItem);
 
-            $this->addFlash('danger', 'Artikl "'.$wishListItem->getItem()->getTitle().'" uspješno obrisan iz liste želja.');
+            $this->addFlash('danger',
+                'Artikl "'.$wishListItem->getItem()->getTitle().'" 
+                uspješno obrisan iz liste želja.');
             $entityManager->flush();
         }
 

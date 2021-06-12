@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/promo/code")
+ * @Route("/promo/kodovi")
  */
 class PromoCodeController extends AbstractController
 {
@@ -26,9 +26,10 @@ class PromoCodeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="promo_code_new", methods={"GET","POST"})
+     * @Route("/novi", name="promo_code_new", methods={"GET","POST"})
      */
-    public function new(Request $request, PromoCodeRepository $promoCodeRepository): Response
+    public function new(Request $request,
+                        PromoCodeRepository $promoCodeRepository): Response
     {
         $promoCode = new PromoCode();
         $form = $this->createForm(PromoCodeType::class, $promoCode);
@@ -75,9 +76,10 @@ class PromoCodeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="promo_code_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="promo_code_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, PromoCode $promoCode, PromoCodeRepository $promoCodeRepository): Response
+    public function edit(Request $request, PromoCode $promoCode,
+                         PromoCodeRepository $promoCodeRepository): Response
     {
         $form = $this->createForm(PromoCodeType::class, $promoCode);
         $form->handleRequest($request);
@@ -115,7 +117,8 @@ class PromoCodeController extends AbstractController
      */
     public function delete(Request $request, PromoCode $promoCode): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$promoCode->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$promoCode->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $promoCodeUsers = $promoCode->getPromoCodeUsers();
             foreach($promoCodeUsers as $promoCodeUser) {

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/action/item")
+ * @Route("/akcije/artikli")
  */
 class ActionItemController extends AbstractController
 {
@@ -27,7 +27,7 @@ class ActionItemController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="action_item_new", methods={"GET","POST"})
+     * @Route("/nova", name="action_item_new", methods={"GET","POST"})
      */
     public function new(Request $request, ItemRepository $itemRepository): Response
     {
@@ -42,7 +42,8 @@ class ActionItemController extends AbstractController
             }
         }
 
-        $form = $this->createForm(ActionItemType::class, null, ['noActionItems'=>$noActionItems]);
+        $form = $this->createForm(ActionItemType::class, null,
+            ['noActionItems'=>$noActionItems]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -59,7 +60,8 @@ class ActionItemController extends AbstractController
             }
             $entityManager->flush();
 
-            $this->addFlash('success', 'Artikl/i uspješno postavljen/i na akciju.');
+            $this->addFlash('success',
+                'Artikl/i uspješno postavljen/i na akciju.');
             return $this->redirectToRoute('action_item_index');
         }
 
@@ -79,11 +81,12 @@ class ActionItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="action_item_edit", methods={"GET","POST"})
+     * @Route("/{id}/uredi", name="action_item_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ActionItem $actionItem): Response
     {
-        $form = $this->createForm(ActionItemType::class, $actionItem, ['isEdit'=>true]);
+        $form = $this->createForm(ActionItemType::class, $actionItem,
+            ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -104,7 +107,8 @@ class ActionItemController extends AbstractController
      */
     public function delete(Request $request, ActionItem $actionItem): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$actionItem->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$actionItem->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($actionItem);
             $entityManager->flush();
