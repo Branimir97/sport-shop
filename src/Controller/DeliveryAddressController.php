@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/adrese/dostave")
+ * @Route("/adrese/isporuka")
  */
 class DeliveryAddressController extends AbstractController
 {

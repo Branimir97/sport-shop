@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/narudžbe/artikli")
+ * @Route("/sve/narudžbe")
  */
 class OrderListItemController extends AbstractController
 {
@@ -31,8 +31,7 @@ class OrderListItemController extends AbstractController
     public function setStatusProcessing(Request $request,
                                         OrderListItemRepository $orderListItemRepository): RedirectResponse
     {
-        $orderListItem = $orderListItemRepository->findOneBy(
-            ['id'=>$request->get('id')]);
+        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('U OBRADI');
         $entityManager->persist($orderListItem);
@@ -48,8 +47,7 @@ class OrderListItemController extends AbstractController
     public function setStatusDelivering(Request $request,
                                         OrderListItemRepository $orderListItemRepository): RedirectResponse
     {
-        $orderListItem = $orderListItemRepository->findOneBy(
-            ['id'=>$request->get('id')]);
+        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('NA DOSTAVI');
         $entityManager->persist($orderListItem);
@@ -64,8 +62,7 @@ class OrderListItemController extends AbstractController
     public function setStatusDelivered(Request $request,
                                        OrderListItemRepository $orderListItemRepository): RedirectResponse
     {
-        $orderListItem = $orderListItemRepository->findOneBy(
-            ['id'=>$request->get('id')]);
+        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('DOSTAVLJENO');
         $entityManager->persist($orderListItem);

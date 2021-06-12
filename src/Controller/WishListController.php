@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/lista/želja")
+ * @Route("/popis/želja")
  */
 class WishListController extends AbstractController
 {

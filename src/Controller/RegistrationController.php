@@ -17,7 +17,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/registracija", name="app_register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
@@ -37,10 +37,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
+                $passwordEncoder->encodePassword($user, $form->get('password')->getData())
             );
             $entityManager = $this->getDoctrine()->getManager();
             $subscribeMe = $form->get('subscribeMe')->getData();
@@ -52,7 +49,6 @@ class RegistrationController extends AbstractController
             }
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             if($this->isGranted("ROLE_ADMIN")){
                 $this->addFlash('success',
@@ -62,11 +58,8 @@ class RegistrationController extends AbstractController
                 $this->addFlash('success',
                     'Uspješno ste se registrirali. Automatski ste prijavljeni u sustav.');
                 return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main'
-            );}
+                    $user, $request, $authenticator, 'main');
+            }
         }
 
         return $this->render('user/register.html.twig', [

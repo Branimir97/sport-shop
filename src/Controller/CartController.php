@@ -42,8 +42,7 @@ class CartController extends AbstractController
                                CartRepository $cartRepository,
                                CartItemRepository $cartItemRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cartItem->getId(),
-            $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$cartItem->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($cartItem);
 

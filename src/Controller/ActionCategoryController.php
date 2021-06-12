@@ -81,13 +81,11 @@ class ActionCategoryController extends AbstractController
      */
     public function edit(Request $request, ActionCategory $actionCategory): Response
     {
-        $form = $this->createForm(ActionCategoryType::class, $actionCategory,
-            ['isEdit'=>true]);
+        $form = $this->createForm(ActionCategoryType::class, $actionCategory, ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('action_category_index');
         }
 

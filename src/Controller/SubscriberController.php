@@ -91,8 +91,7 @@ class SubscriberController extends AbstractController
      */
     public function deleteRegistered(SubscriberRepository $subscriberRepository): Response
     {
-        $subscriber = $subscriberRepository->findOneBy(
-            ['email'=>$this->getUser()->getUsername()]);
+        $subscriber = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($subscriber);
         $entityManager->flush();

@@ -93,8 +93,7 @@ class LoyaltyCardController extends AbstractController
      */
     public function edit(Request $request, LoyaltyCard $loyaltyCard): Response
     {
-        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard,
-            ['isEdit'=>true]);
+        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard, ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -46,8 +46,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user,
-            ['isEditForm'=>true]);
+        $form = $this->createForm(UserType::class, $user, ['isEditForm'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -100,12 +99,9 @@ class UserController extends AbstractController
                              LoyaltyCardRepository $loyaltyCardRepository,
                              SubscriberRepository $subscriberRepository): Response
     {
-        $deliveryAddresses = $deliveryAddressRepository->findBy(
-            ['user'=>$this->getUser()]);
-        $loyaltyCard = $loyaltyCardRepository->findOneBy(
-            ['user'=>$this->getUser()]);
-        $subscribed = $subscriberRepository->findOneBy(
-            ['email'=>$this->getUser()->getUsername()]);
+        $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
+        $loyaltyCard = $loyaltyCardRepository->findOneBy(['user'=>$this->getUser()]);
+        $subscribed = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
         return $this->render('user/account_settings.html.twig', [
             'deliveryAddresses'=>$deliveryAddresses,
             'loyalty_card'=>$loyaltyCard,
