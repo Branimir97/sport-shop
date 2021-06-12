@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Uređivanje količine - [{{ itemSize.size.value }}]{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Uređivanje količine veličine - [{{ itemSize.size.value }}]</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Uređivanje količine veličine - [{{ itemSize.size.value }}]
+        </h2>
         <a href="{{ path('item_edit', {'id':itemSize.item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Uređivanje artikla

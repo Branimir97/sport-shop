@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Prijava u sustav{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/login.css") }}">
 {% endblock %}
@@ -14,19 +13,25 @@
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
             {% endif %}
-
-            <h2 class="mb-3 mt-2 text-center p-2 bg-light">Prijava u sustav</h2>
+            <h2 class="mb-3 mt-2 text-center p-2 bg-light">
+                Prijava u sustav
+            </h2>
             <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+            <input type="email" value="{{ last_username }}"
+
+                   name="email" id="inputEmail" class="form-control" required autofocus>
             <label for="inputPassword">Lozinka</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+            <input type="password" name="password" id="inputPassword"
+                   class="form-control" required>
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}">
 
             <div class="checkbox mt-2 text-center">
                 <label>
-                    <input type="checkbox" name="_remember_me" checked> Zapamti me
+                    <input type="checkbox" name="_remember_me" checked>
+                    Zapamti me
                 </label>
             </div>
 
@@ -35,17 +40,24 @@
                     Prijava
                 </button>
             </div>
-
-            <p class="text-center">Nemate postojeći račun na našoj platformi?
-                 Kreirajte Vaš račun <a href="{{ path('app_register') }}">ovdje</a>!
+            <p class="text-center">
+                Nemate postojeći račun na našoj platformi?
+                 Kreirajte Vaš račun
+                <a href="{{ path('app_register') }}">
+                    ovdje
+                </a>!
             </p>
         </form>
         <div class="text-center mb-3">
-            <a class="btn btn-outline-info mt-1" href="{{ path('connect_facebook_start') }}">
-                Prijavi me koristeći Facebook <i class="fab fa-facebook"></i>
+            <a class="btn btn-outline-info mt-1"
+               href="{{ path('connect_facebook_start') }}">
+                Prijavi me koristeći Facebook
+                <i class="fab fa-facebook"></i>
             </a>
-            <a class="btn btn-outline-success mt-1" href="{{ path('connect_google_start') }}">
-                Prijavi me koristeći Google <i class="fab fa-google"></i>
+            <a class="btn btn-outline-success mt-1"
+               href="{{ path('connect_google_start') }}">
+                Prijavi me koristeći Google
+                <i class="fab fa-google"></i>
             </a>
         </div>
     </div>

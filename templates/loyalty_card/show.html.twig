@@ -7,7 +7,9 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Loyalty kartica br. {{ loyalty_card.number }}</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Loyalty kartica br. {{ loyalty_card.number }}
+        </h2>
         <a href="{{ path('loyalty_card_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista loyalty kartica
@@ -15,21 +17,35 @@
         <div class="loyalty_card mb-3">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="{{ asset('images/logo.png') }}" alt="sport_shop_logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo">
                 </div>
                 <div class="col-sm-6">
-                    <h6 class="mt-1 bg-light">Broj kartice</h6>
-                    <p id="loyalty_info" class="m-0">{{ loyalty_card.number }}</p>
-                    <h6 class="mt-2 bg-light">Korisnik</h6>
-                    <p id="loyalty_info" class="m-0">{{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}</p>
-                    <h6 class="mt-2 bg-light">Bodovi</h6>
-                    <p id="loyalty_info" class="m-0">{{ loyalty_card.credits }}</p>
+                    <h6 class="mt-1 bg-light">
+                        Broj kartice
+                    </h6>
+                    <p id="loyalty_info" class="m-0">
+                        {{ loyalty_card.number }}
+                    </p>
+                    <h6 class="mt-2 bg-light">
+                        Korisnik
+                    </h6>
+                    <p id="loyalty_info" class="m-0">
+                        {{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}
+                    </p>
+                    <h6 class="mt-2 bg-light">
+                        Bodovi
+                    </h6>
+                    <p id="loyalty_info" class="m-0">
+                        {{ loyalty_card.credits }}
+                    </p>
                 </div>
             </div>
         </div>
-
         <div class="text-center">
-            <a class="btn btn-outline-success" href="{{ path('loyalty_card_edit', {'id': loyalty_card.id}) }}">Uredi podatke</a>
+            <a class="btn btn-outline-success"
+               href="{{ path('loyalty_card_edit', {'id': loyalty_card.id}) }}">
+                Uredi podatke
+            </a>
             {{ include('loyalty_card/_delete_form.html.twig') }}
         </div>
     </div>

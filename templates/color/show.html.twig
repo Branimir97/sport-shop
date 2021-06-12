@@ -7,9 +7,13 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">{{ color.name }} boja</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ color.name }} boja
+        </h2>
         <div class="circle_wrapper">
-            <div class="circle" style="background-color: {{ color.value }}"></div>
+            <div class="circle"
+                 style="background-color: {{ color.value }}">
+            </div>
         </div>
         <a href="{{ path('color_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
@@ -35,12 +39,18 @@
                 </tr>
                 <tr>
                     <th>Vrijeme zadnje izmjene</th>
-                    <td>{{ color.updatedAt ? color.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>
+                        {{ color.updatedAt ?
+                        color.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                    </td>
                 </tr>
             </tbody>
         </table>
         <div class="text-center">
-            <a class="btn btn-outline-success" href="{{ path('color_edit', {'id': color.id}) }}">Uredi podatke</a>
+            <a class="btn btn-outline-success"
+               href="{{ path('color_edit', {'id': color.id}) }}">
+                Uredi podatke
+            </a>
             {{ include('color/_delete_form.html.twig') }}
         </div>
     </div>

@@ -30,7 +30,6 @@
     text-transform: uppercase;
 }
 
-/* The overlay effect (full height and width) - lays on top of the container and over the image */
 .overlay {
     position: absolute;
     top: 0;
@@ -44,12 +43,10 @@
     background-color: lightcyan;
 }
 
-/* When you mouse over the container, fade in the overlay icon*/
 .one_item:hover .overlay {
     opacity: 0.7;
 }
 
-/* The icon inside the overlay is positioned in the middle vertically and horizontally */
 .icon_wish_list {
     opacity: 1;
     color: darkgreen;
@@ -62,7 +59,6 @@
     text-align: center;
 }
 
-/* The icon inside the overlay is positioned in the middle vertically and horizontally */
 .icon_details {
     opacity: 1;
     color: darkgreen;

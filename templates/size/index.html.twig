@@ -4,15 +4,23 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Upravljanje veličinama</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Upravljanje veličinama
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/sizes.png') }}" alt="icon">
+        </h2>
         {% if not sizes %}
         <div class="text-center">
             <img src="{{ asset('images/logo.png') }}" alt="">
             <p>Ne postoji niti jedna veličina u bazi podataka.</p>
-            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">Dodaj novu veličinu</a>
+            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">
+                Dodaj novu veličinu
+            </a>
         </div>
         {% else %}
-            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">Dodaj novu veličinu</a>
+            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">
+                Dodaj novu veličinu
+            </a>
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
@@ -32,12 +40,16 @@
                             <td>{{ size.value }}</td>
                             <td>{{ size.type }}</td>
                             <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
-                            <td>{{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                             <td>
-                                <a class="btn" href="{{ path('size_show', {'id': size.id}) }}" title="Prikaži pojedinosti">
+                                {{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a class="btn" href="{{ path('size_show', {'id': size.id}) }}"
+                                   title="Prikaži pojedinosti">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
-                                <a href="{{ path('size_edit', {'id': size.id}) }}" title="Uredi">
+                                <a href="{{ path('size_edit', {'id': size.id}) }}"
+                                   title="Uredi">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('size/_delete_form.html.twig') }}

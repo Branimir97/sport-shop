@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Korisnik {{ user.name }} {{ user.surname }}</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Korisnik {{ user.name }} {{ user.surname }}
+        </h2>
         <a href="{{ path('user_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista korisnika
@@ -60,8 +62,12 @@
                     <td>
                         {% if user.deliveryAddresses|length > 0 %}
                             {% for deliveryAddress in user.deliveryAddresses %}
-                                    {{ deliveryAddress.street }}, {{ deliveryAddress.postalCode }} {{ deliveryAddress.city }} | {{ deliveryAddress.country }}<br>
-                                    <a href="{{ path('delivery_address_edit', {id:deliveryAddress.id}) }}">
+                                    {{ deliveryAddress.street }},
+                                    {{ deliveryAddress.postalCode }}
+                                    {{ deliveryAddress.city }} |
+                                    {{ deliveryAddress.country }}<br>
+                                    <a href="{{ path('delivery_address_edit',
+                                        {id:deliveryAddress.id}) }}">
                                         Uredi podatke o adresi isporuke
                                         <i class="fas fa-edit"></i>
                                     </a><br>
@@ -74,7 +80,10 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a class="btn btn-outline-success" href="{{ path('user_edit', {'id': user.id}) }}">Uredi podatke</a>
+            <a class="btn btn-outline-success"
+               href="{{ path('user_edit', {'id': user.id}) }}">
+                Uredi podatke
+            </a>
             {{ include('user/_delete_form.html.twig') }}
         </div>
     </div>

@@ -4,7 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Kategorije na akciji</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Kategorije na akciji
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/action.png') }}" alt="icon">
+        </h2>
         {% if not action_categories %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">

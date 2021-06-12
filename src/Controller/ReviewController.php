@@ -51,7 +51,7 @@ class ReviewController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="review_delete", methods={"POST"})
+     * @Route("/{id}", name="review_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Review $review): Response
     {

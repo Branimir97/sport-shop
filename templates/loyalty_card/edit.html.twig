@@ -8,12 +8,15 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o loyalty kartici br. {{ loyalty_card.number }}</h2>
+        <h2 class="text-center p-2 mt-2 bg-light">
+            Uređivanje podataka o loyalty kartici br. {{ loyalty_card.number }}
+        </h2>
         <a href="{{ path('loyalty_card_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista loyalty_kartica
         </a>
-        {{ include('loyalty_card/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('loyalty_card/_form.html.twig',
+            {'button_label': 'Spremi promjene'}) }}
         <div class="text-center">
             {{ include('loyalty_card/_delete_form.html.twig') }}
         </div>

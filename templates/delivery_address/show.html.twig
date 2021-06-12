@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Adresa "{{ delivery_address.street }}"</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Adresa "{{ delivery_address.street }}"
+        </h2>
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('delivery_address_index') }}">
                 <i class="fas fa-arrow-alt-circle-left"></i>
@@ -48,12 +50,17 @@
                 </tr>
                 <tr>
                     <th>Vrijeme zadnje izmjene</th>
-                    <td>{{ delivery_address.updatedAt ? delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>
+                        {{ delivery_address.updatedAt?
+                        delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                    </td>
                 </tr>
                 <tr>
                     <th>Adresa pripada korisniku</th>
-                    <td>{{ delivery_address.user.name }} {{ delivery_address.user.surname }}<br>
-                        <a href="{{ path('user_edit', {id:delivery_address.user.id}) }}">
+                    <td>{{ delivery_address.user.name }}
+                        {{ delivery_address.user.surname }}<br>
+                        <a href="{{ path('user_edit',
+                            {id:delivery_address.user.id}) }}">
                             Uredi podatke o korisniku
                             <i class="fas fa-user-edit"></i>
                         </a>
@@ -62,8 +69,11 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a class="btn btn-outline-success" href="{{ path('delivery_address_edit', {'id': delivery_address.id}) }}">Uredi podatke</a>
-
+            <a class="btn btn-outline-success"
+               href="{{ path('delivery_address_edit',
+                   {'id': delivery_address.id}) }}">
+                Uredi podatke
+            </a>
             {{ include('delivery_address/_delete_form.html.twig') }}
         </div>
     </div>

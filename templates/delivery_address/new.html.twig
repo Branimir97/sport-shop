@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nova adresa isporuke{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Dodavanje nove adrese isporuke</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Dodavanje nove adrese isporuke
+        </h2>
 
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('delivery_address_index') }}">

@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Pregled značajki{% endblock %}
-{# {% block javascripts %}#}
-{#     <script src="{{ asset("scripts/sidebarHandler.js") }}"></script>#}
-{# {% endblock %}#}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/admin_panel.css") }}">
 {% endblock %}
@@ -13,31 +10,53 @@
         <div class="row m-2">
             <div class="col-sm-3">
                 <div id="users" class="card">
-                    <p>BROJ KORISNIKA</p>
-                    <h5>{{ users }}</h5>
-                    <small class="text-dark">Broj administratora: {{ admins }}</small>
-                    <img id="icon" src="{{ asset('icons/users.png') }}" alt="icon">
+                    <p>
+                        BROJ KORISNIKA
+                    </p>
+                    <h5>
+                        {{ users }}
+                    </h5>
+                    <small class="text-dark">
+                        Broj administratora: {{ admins }}
+                    </small>
+                    <img id="icon"
+                         src="{{ asset('icons/users.png') }}" alt="icon">
                 </div>
             </div>
             <div class="col-sm-3">
                 <div id="sold_items" class="card">
-                    <p>BROJ PRODANIH ARTIKALA</p>
-                    <h5>{{ soldItems }}</h5>
-                    <img id="icon" src="{{ asset('icons/items.png') }}" alt="icon">
+                    <p>
+                        BROJ PRODANIH ARTIKALA
+                    </p>
+                    <h5>
+                        {{ soldItems }}
+                    </h5>
+                    <img id="icon"
+                         src="{{ asset('icons/items.png') }}" alt="icon">
                 </div>
             </div>
             <div class="col-sm-3">
                 <div id="orders" class="card">
-                    <p>BROJ NARUDŽBI</p>
-                    <h5>{{ orders }}</h5>
-                    <img id="icon" src="{{ asset('icons/orders.png') }}" alt="icon">
+                    <p>
+                        BROJ NARUDŽBI
+                    </p>
+                    <h5>
+                        {{ orders }}
+                    </h5>
+                    <img id="icon"
+                         src="{{ asset('icons/orders.png') }}" alt="icon">
                 </div>
             </div>
             <div class="col-sm-3">
                 <div id="earnings" class="card">
-                    <p>ZARADA [KN]</p>
-                    <h5>{{ earnings|number_format(2, '.', ',')}}</h5>
-                    <img id="icon" src="{{ asset('icons/earnings.png') }}" alt="icon">
+                    <p>
+                        ZARADA [KN]
+                    </p>
+                    <h5>
+                        {{ earnings|number_format(2, '.', ',')}}
+                    </h5>
+                    <img id="icon"
+                         src="{{ asset('icons/earnings.png') }}" alt="icon">
                 </div>
             </div>
         </div>
@@ -45,7 +64,8 @@
             <div class="col-sm-6">
                 <h3 class="text-center">
                     Aktivni promo kodovi
-                    <img class="ml-2" id="icon" src="{{ asset('icons/promo_code.png') }}" alt="icon">
+                    <img class="ml-2" id="icon"
+                         src="{{ asset('icons/promo_code.png') }}" alt="icon">
                 </h3>
                 {% if promoCodes|length == 0 %}
                 <p class="text-center">
@@ -76,7 +96,8 @@
                     {% for actionCategory in actionCategories %}
                         <p class="text-center text-success">
                             {{ actionCategory.title }} | {{ actionCategory.discountPercentage }}%
-                            <a class="ml-1" href="{{ path('action_category_edit', {'id':actionCategory.id}) }}"
+                            <a class="ml-1"
+                               href="{{ path('action_category_edit', {'id':actionCategory.id}) }}"
                                title="Uredi akciju">
                                 <i class="fas fa-long-arrow-alt-right"></i>
                             </a>
@@ -89,7 +110,8 @@
             <div class="col-sm-6">
                 <h3 class="text-center">
                     10 posljednjih narudžbi
-                    <img class="ml-2" id="icon" src="{{ asset('icons/orders.png') }}" alt="icon">
+                    <img class="ml-2" id="icon"
+                         src="{{ asset('icons/orders.png') }}" alt="icon">
                 </h3>
                 {% if last10orderListItems|length == 0 %}
                     <p class="text-center">
@@ -112,21 +134,32 @@
                         {% for order_list_item in last10orderListItems %}
                             <tr>
                                 <td>{{ order_list_item.id }}</td>
-                                <td>{{ order_list_item.orderList.user.name }} {{ order_list_item.orderList.user.surname }}</td>
-                                <td>{{ order_list_item.createdAt ? order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                <td>
+                                    {{ order_list_item.orderList.user.name }}
+                                    {{ order_list_item.orderList.user.surname }}
+                                </td>
+                                <td>
+                                    {{ order_list_item.createdAt ?
+                                    order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}
+                                </td>
                                 <td>
                                     {% if order_list_item.status == "U OBRADI" %}
                                         {{ order_list_item.status }}
-                                        <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
+                                        <img class="icon"
+                                             src="{{ asset('icons/box.png') }}" alt="icon">
                                     {% elseif order_list_item.status == "NA DOSTAVI" %}
                                         {{ order_list_item.status }}
-                                        <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                        <img class="icon"
+                                             src="{{ asset('icons/delivery.png') }}" alt="icon">
                                     {% else %}
                                         {{ order_list_item.status }}
-                                        <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                        <img class="icon"
+                                             src="{{ asset('icons/delivering.png') }}" alt="icon">
                                     {% endif %}
                                 </td>
-                                <td>{{ order_list_item.totalPrice|number_format(2, '.', ',') }}</td>
+                                <td>
+                                    {{ order_list_item.totalPrice|number_format(2, '.', ',') }}
+                                </td>
                                 <td>
                                     <a href="{{ path('order_details', {'id':order_list_item.id}) }}">
                                         Više o narudžbi <i class="fas fa-long-arrow-alt-right"></i>
@@ -142,7 +175,8 @@
             <div class="col-sm-6">
                 <h3 class="text-center">
                     Nedavno registrirani korisnici
-                    <img class="ml-2" id="icon" src="{{ asset('icons/users.png') }}" alt="icon">
+                    <img class="ml-2" id="icon"
+                         src="{{ asset('icons/users.png') }}" alt="icon">
                 </h3>
                 {% if last5registeredUsers|length == 0 %}
                     <p class="text-center">
@@ -172,7 +206,10 @@
                                     <td>{{ user.surname }}</td>
                                     <td>{{ user.gender ? user.gender : '-' }}</td>
                                     <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
-                                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
+                                    <td>
+                                        {{ user.updatedAt ?
+                                        user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}
+                                    </td>
                                     <td>
                                         <a class="btn" href="{{ path('user_show', {'id': user.id}) }}">
                                             Više o korisniku <i class="fas fa-long-arrow-alt-right"></i>
@@ -223,7 +260,10 @@
                                     <td>{{ review.item.title }}</td>
                                     <td>{{ review.user.name }} {{ review.user.surname }}</td>
                                     <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
-                                    <td>{{ review.updatedAt ? review.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                    <td>
+                                        {{ review.updatedAt ?
+                                        review.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                                    </td>
                                     <td>
                                         <a href="{{ path('review_edit', {'id': review.id}) }}">
                                             Uredi recenziju <i class="fas fa-long-arrow-alt-right"></i>

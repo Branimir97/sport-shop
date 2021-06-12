@@ -23,10 +23,14 @@
     <div class="mb-2">
         <small class="text-muted mb-2">
             Uvjete i odredbe moguće je pročitati
-            <a href="{{ path('terms_and_conditions') }}" target="_blank">ovdje</a>.
+            <a href="{{ path('terms_and_conditions') }}"
+               target="_blank">ovdje
+            </a>.
         </small>
     </div>
     <div class="text-center">
-        <button class="btn btn-outline-secondary mb-3">{{ button_label|default('Registracija') }}</button>
+        <button class="btn btn-outline-secondary mb-3">
+            {{ button_label|default('Registracija') }}
+        </button>
     </div>
 {{ form_end(form) }}

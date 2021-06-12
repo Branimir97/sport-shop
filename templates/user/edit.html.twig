@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Korisnik {{ user.name }} {{ user.surname }}{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/edit_user.css") }}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o korisniku</h2>
-
+        <h2 class="text-center p-2 mt-2 bg-light">
+            Uređivanje podataka o korisniku
+        </h2>
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('user_index') }}">
                 <i class="fas fa-arrow-alt-circle-left"></i>
                 Lista korisnika
             </a>
         {% endif %}
-
         <div class="text-center">
             {{ include('user/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
-
             {{ include('user/_delete_form.html.twig') }}
-
             {% if not user.facebookId and not user.googleId %}
-                <a href="{{ path('reset_password', {id:user.id}) }}" class="btn btn-outline-info mb-3">Resetiraj lozinku</a>
+                <a href="{{ path('reset_password', {id:user.id}) }}"
+                   class="btn btn-outline-info mb-3">
+                    Resetiraj lozinku
+                </a>
             {% endif %}
         </div>
     </div>

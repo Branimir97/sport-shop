@@ -4,11 +4,17 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Upravljanje iskorištenim promo kodovima</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Upravljanje iskorištenim promo kodovima
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/used_promo_codes.png') }}" alt="icon">
+        </h2>
         {% if not promo_code_users %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji niti jedan iskorišteni promo kod u bazi podataka.</p>
+                <p>
+                    Ne postoji niti jedan iskorišteni promo kod u bazi podataka.
+                </p>
             </div>
         {% else %}
             <div class="table-responsive">
@@ -27,7 +33,9 @@
                         <tr>
                             <td>{{ promo_code_user.id }}</td>
                             <td>{{ promo_code_user.promoCode.code }}</td>
-                            <td>{{ promo_code_user.user.name }} {{ promo_code_user.user.surname }} </td>
+                            <td>
+                                {{ promo_code_user.user.name }} {{ promo_code_user.user.surname }}
+                            </td>
                             <td>{{ promo_code_user.createdAt|date('H:i:s | d.m.Y.')}}</td>
                             <td>
                                 {{ include('promo_code_user/_delete_form.html.twig') }}

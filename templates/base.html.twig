@@ -2,7 +2,7 @@
 <html lang="hr">
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" >
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
 
         <!-- Website Icon -->
         <link rel="icon" href="{{ asset("/images/logo.png") }}">
@@ -46,13 +46,9 @@
         <!-- Symfony Form Input file name visible -->
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        {% block javascripts %}{% endblock %}
 
-        {% block stylesheets %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
 
@@ -656,7 +652,7 @@
                     ADMIN PANEL - IZBORNIK
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="{{ path('user_index') }}"
+                    <a href="{{ path('order_list_item_index') }}"
                        class="list-group-item list-group-item-action bg-light">
                         Upravljanje narudžbama
                         <img class="nav_icon mr-1"
@@ -685,12 +681,6 @@
                         Upravljanje artiklima
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/items.png') }}" alt="icon">
-                    </a>
-                    <a href="{{ path('order_list_item_index') }}"
-                       class="list-group-item list-group-item-action bg-light">
-                        Upravljanje narudžbama
-                        <img class="nav_icon mr-1"
-                             src="{{ asset('icons/orders.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('category_index') }}"
                        class="list-group-item list-group-item-action bg-light">

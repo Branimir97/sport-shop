@@ -7,10 +7,17 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Moj popis želja <i id="wish_list" class="fas fa-list-ul"></i></h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Moj popis želja
+            <i id="wish_list" class="fas fa-list-ul"></i>
+        </h2>
         {% if wishList.wishListItems is not defined or wishList.wishListItems|length == 0 %}
-            <h6 class="text-center bg-info p-2 text-white">Ne postoji niti jedan artikl na Vašem popisu želja.</h6>
-            <p class="text-center">ps. Ukoliko ne možete odmah kupiti željeni artikl, dodajte ga na popis želja!</p>
+            <h6 class="text-center bg-info p-2 text-white">
+                Ne postoji niti jedan artikl na Vašem popisu želja.
+            </h6>
+            <p class="text-center">
+                ps. Ukoliko ne možete odmah kupiti željeni artikl, dodajte ga na popis želja!
+            </p>
         {% else %}
             <div class="table-responsive">
                 <table class="table table-hover table-warning">
@@ -30,9 +37,11 @@
                         <tr>
                             <td>
                                 {% if wishListItem.item.images|length == 0 %}
-                                    <img class="item_img" src="{{ asset('images/logo.png') }}" alt="logo">
+                                    <img class="item_img"
+                                         src="{{ asset('images/logo.png') }}" alt="logo">
                                 {% else %}
-                                    <img class="item_img" src="{{ asset('uploads/')~wishListItem.item.images[0].path }}"
+                                    <img class="item_img"
+                                         src="{{ asset('uploads/')~wishListItem.item.images[0].path }}"
                                          alt="image_{{ wishListItem.item.images[0].id }}">
                                 {% endif %}
                             </td>

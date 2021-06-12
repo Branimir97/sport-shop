@@ -8,10 +8,17 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h2 class="text-center mt-2 bg-light p-2">Moja košarica <i id="cart" class="fas fa-shopping-cart"></i></h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Moja košarica
+            <i id="cart" class="fas fa-shopping-cart"></i>
+        </h2>
         {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
-            <h6 class="text-center bg-danger p-2 text-white">Ne postoji niti jedan artikl u Vašoj košarici.</h6>
-            <p class="text-center">ps. Kreni u shopping!</p>
+            <h6 class="text-center bg-danger p-2 text-white">
+                Ne postoji niti jedan artikl u Vašoj košarici.
+            </h6>
+            <p class="text-center">
+                ps. Kreni u shopping!
+            </p>
         {% else %}
             <div class="table-responsive">
                 <table class="table table-hover table-warning">
@@ -32,9 +39,12 @@
                         <tr>
                             <td>
                                 {% if cartItem.item.images|length == 0%}
-                                    <img class="item_img" src="{{ asset('images/logo.png') }}" alt="logo">
+                                    <img class="item_img"
+                                         src="{{ asset('images/logo.png') }}" alt="logo">
                                 {% else %}
-                                    <img class="item_img" src="{{ asset('uploads/')~cartItem.item.images[0].path }}" alt="image_{{ cartItem.item.images[0].id }}">
+                                    <img class="item_img"
+                                         src="{{ asset('uploads/')~cartItem.item.images[0].path }}"
+                                         alt="image_{{ cartItem.item.images[0].id }}">
                                 {% endif %}
                             </td>
                             <td>
@@ -45,7 +55,9 @@
                             </td>
                             <td>
                                 <div class="circle_wrapper">
-                                    <div class="circle" style="background-color: {{ cartItem.color.value }}"></div>
+                                    <div class="circle"
+                                         style="background-color: {{ cartItem.color.value }}">
+                                    </div>
                                 </div>
                             </td>
                             <td>
@@ -66,7 +78,11 @@
                 </table>
             </div>
             <div class="text-right">
-                <h5>Ukupna cijena artikala u košarici: <span id="price">{{ totalPrice|number_format(2, '.', ',') }}</span> kn</h5>
+                <h5>Ukupna cijena artikala u košarici:
+                    <span id="price">
+                        {{ totalPrice|number_format(2, '.', ',') }}
+                    </span> kn
+                </h5>
                 <a class="btn btn-info text-white" href="{{ path('checkout') }}">
                     Plaćanje <i class="fab fa-paypal"></i>
                 </a>

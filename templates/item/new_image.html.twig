@@ -8,22 +8,33 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Postavljanje novih fotografija</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Postavljanje novih fotografija
+        </h2>
         <a href="{{ path('item_edit', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Uređivanje artikla
         </a>
-        <h6 class="text-center bg-light p-1">Artikl:</h6>
-        <p class="text-center" id="title">{{ item.title }}</p>
+        <h6 class="text-center bg-light p-1">
+            Artikl:
+        </h6>
+        <p class="text-center" id="title">
+            {{ item.title }}
+        </p>
         {% if item.images|length == 0 %}
-            <p class="text-center">Artikl trenutno nema niti jednu fotografiju.</p>
+            <p class="text-center">
+                Artikl trenutno nema niti jednu fotografiju.
+            </p>
         {% else %}
-            <h6 class="text-center bg-light p-1">Trenutno postavljena/e fotografija/e:</h6>
+            <h6 class="text-center bg-light p-1">
+                Trenutno postavljena/e fotografija/e:
+            </h6>
             <div class="row">
             {% for image in item.images %}
                     <div class="col-sm-3 mb-3">
                         <div class="image-wrapper">
-                            <img src="{{ asset('uploads/')~image.path }}" alt="image_{{ image.id }}">
+                            <img src="{{ asset('uploads/')~image.path }}"
+                                 alt="image_{{ image.id }}">
                         </div>
                     </div>
             {% endfor %}

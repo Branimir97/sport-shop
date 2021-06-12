@@ -8,19 +8,31 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Postavljanje novih boja</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Postavljanje novih boja
+        </h2>
         <a href="{{ path('item_edit', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Uređivanje artikla
         </a>
-        <h6 class="text-center bg-light p-1">Artikl:</h6>
-        <p class="text-center" id="title">{{ item.title }}</p>
-        <h6 class="text-center bg-light p-1">Trenutno postavljena/e boja/e:</h6>
+        <h6 class="text-center bg-light p-1">
+            Artikl:
+        </h6>
+        <p class="text-center" id="title">
+            {{ item.title }}
+        </p>
+        <h6 class="text-center bg-light p-1">
+            Trenutno postavljena/e boja/e:
+        </h6>
         {% if item.itemColors|length == 0 %}
-            <p class="text-center">Artikl trenutno nema niti jednu boju.</p>
+            <p class="text-center">
+                Artikl trenutno nema niti jednu boju.
+            </p>
         {% else %}
             {% for itemColor in item.itemColors %}
-                <p class="text-center m-0" style="color: {{ itemColor.color.value }}">- {{ itemColor.color.value }} | {{ itemColor.color.name }}</p>
+                <p class="text-center m-0" style="color: {{ itemColor.color.value }}">
+                    - {{ itemColor.color.value }} | {{ itemColor.color.name }}
+                </p>
             {% endfor %}
         {% endif %}
         {{ include('item/new_color_form.html.twig') }}

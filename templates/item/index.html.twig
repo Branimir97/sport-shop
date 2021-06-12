@@ -6,17 +6,28 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Upravljanje artiklima</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Upravljanje artiklima
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/items.png') }}" alt="icon">
+        </h2>
         {% if not items %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji niti jedan artikl u bazi podataka.</p>
-                <a href="{{ path('item_new') }}" class="btn btn-outline-info mb-3">Dodaj novi artikl</a>
+                <p>
+                    Ne postoji niti jedan artikl u bazi podataka.
+                </p>
+                <a href="{{ path('item_new') }}"
+                   class="btn btn-outline-info mb-3">
+                    Dodaj novi artikl
+                </a>
             </div>
             {% else %}
-                <a href="{{ path('item_new') }}" class="btn btn-outline-info mb-3">Dodaj novi artikl</a>
+                <a href="{{ path('item_new') }}"
+                   class="btn btn-outline-info mb-3">
+                    Dodaj novi artikl
+                </a>
                 <div class="table-responsive">
                     <table class="table table-hover table-info">
                     <thead>
@@ -38,15 +49,20 @@
                             <td>{{ item.cipher }}</td>
                             <td>{{ item.price|number_format(2, '.', ',') }}</td>
                             <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
-                            <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                             <td>
-                                <a class="btn" href="{{ path('item_show', {'id': item.id}) }}" title="Osnovne informacije">
+                                {{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a class="btn" href="{{ path('item_show',
+                                    {'id': item.id}) }}" title="Osnovne informacije">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
-                                <a href="{{ path('item_edit', {'id': item.id}) }}" title="Uredi">
+                                <a href="{{ path('item_edit',
+                                    {'id': item.id}) }}" title="Uredi">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ path('item_details', {'id': item.id}) }}" title="Prikaži artikl">
+                                <a href="{{ path('item_details',
+                                    {'id': item.id}) }}" title="Prikaži artikl">
                                     <i class="fas fa-chalkboard-teacher"></i>
                                 </a>
                                 {{ include('item/_delete_item_form.html.twig') }}

@@ -7,7 +7,9 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Narudžba br. {{ orderListItem.id }}</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Narudžba br. {{ orderListItem.id }}
+        </h2>
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('order_list_item_index') }}">
                 <i class="fas fa-arrow-alt-circle-left"></i>
@@ -42,9 +44,11 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <small class="text-muted">Ukupan iznos narudžbe sadrži uračunat iznos poštarine (30kn) ukoliko iznos s/bez popusta ne prelazi 300kn.<br>
-                Ukoliko su iskorišteni promo kod/bodovi s kartice, ukupan iznos narudžbe umanjuje se ovisno o promo kodu i
-                količini iskorištenih bodova s loyalty kartice.
+            <small class="text-muted">
+                Ukupan iznos narudžbe sadrži uračunat iznos poštarine (30kn) ukoliko
+                iznos s/bez popusta ne prelazi 300kn.<br> Ukoliko su iskorišteni promo kod/bodovi
+                s kartice, ukupan iznos narudžbe umanjuje se ovisno o promo kodu i količini
+                iskorištenih bodova s loyalty kartice.
             </small>
             <table class="table">
                 <caption>Ostale informacije o narudžbi</caption>
@@ -69,13 +73,16 @@
                         <td>
                             {% if orderListItem.status == "U OBRADI" %}
                                 {{ orderListItem.status }}
-                                <img class="icon" src="{{ asset('icons/box.png') }}" alt="icon">
+                                <img class="icon"
+                                     src="{{ asset('icons/box.png') }}" alt="icon">
                             {% elseif orderListItem.status == "NA DOSTAVI" %}
                                 {{ orderListItem.status }}
-                                <img class="icon" src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                <img class="icon"
+                                     src="{{ asset('icons/delivery.png') }}" alt="icon">
                             {% else %}
                                 {{ orderListItem.status }}
-                                <img class="icon" src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                <img class="icon"
+                                     src="{{ asset('icons/delivering.png') }}" alt="icon">
                             {% endif %}
                         </td>
                     </tr>

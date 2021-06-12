@@ -69,6 +69,7 @@
         width: 20%;
         float: left;
     }
+
     #carousel-homepage-info .carousel-item{
         height: 700px;
     }
@@ -78,6 +79,7 @@
     *{
         font-size: 22px;
     }
+
     .col-lg-15 {
         width: 20%;
         float: left;

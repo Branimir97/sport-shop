@@ -13,28 +13,35 @@
                 {% if item.images|length == 0 %}
                     <div class="no-images text-center">
                         <img src="{{ asset('images/logo.png') }}" alt="logo">
-                        <p>Trenutno nije dodana ni jedna fotografija za ovaj artikl.</p>
+                        <p>
+                            Trenutno nije dodana ni jedna fotografija za ovaj artikl.
+                        </p>
                     </div>
                 {% else %}
                     <div id="carousel-item-info" class="carousel mt-1">
-                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators2"
+                             class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 {% for i in 1..item.images|length %}
-                                    <li class="mr-1" data-target="#carouselExampleIndicators2" data-slide-to="{{ i }}"></li>
+                                    <li class="mr-1" data-target="#carouselExampleIndicators2"
+                                        data-slide-to="{{ i }}"></li>
                                 {% endfor %}
                             </ol>
                             <div class="carousel-inner">
                                 {% for image in item.images %}
                                     <div class="carousel-item">
-                                        <img src="{{ asset('uploads/')~image.path }}" alt="First slide">
+                                        <img src="{{ asset('uploads/')~image.path }}"
+                                             alt="First slide">
                                     </div>
                                 {% endfor %}
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators2"
+                               role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                            <a class="carousel-control-next" href="#carouselExampleIndicators2"
+                               role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -43,7 +50,9 @@
                 {% endif %}
             </div>
             <div class="col-md-6 mt-3">
-                <h3 class="text-center bg-light p-1">{{ item.title }}</h3>
+                <h3 class="text-center bg-light p-1">
+                    {{ item.title }}
+                </h3>
                 <div class="category text-center">
                     <p>Kategorije artikla:
                         {% for itemCategory in item.itemCategories %}
@@ -53,7 +62,8 @@
                 </div>
                 <p>Šifra artikla: <span id="cipher">{{ item.cipher }}</span>
                     {% if is_granted("ROLE_USER") %}
-                        <a id="wish_list" class="btn btn-primary text-white" href="{{ path('wish_list_item_new', {'id':item.id}) }}">
+                        <a id="wish_list" class="btn btn-primary text-white"
+                           href="{{ path('wish_list_item_new', {'id':item.id}) }}">
                             Dodaj na popis želja <i class="fas fa-list-ul"></i>
                         </a>
                     {% endif %}
@@ -61,37 +71,57 @@
                 {% if item.manufacturer is null %}
                     <p>Proizvođač nije unesen.</p>
                 {% else %}
-                    <p>Proizvođač: <span id="manufacturer">{{ item.manufacturer.name }}</span></p>
+                    <p>Proizvođač:
+                        <span id="manufacturer">
+                            {{ item.manufacturer.name }}
+                        </span>
+                    </p>
                 {% endif %}
                 {% if is_granted("ROLE_USER") %}
                     {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}
                         <p class="bg-warning text-center p-1">
                             <i class="fas fa-exclamation-circle"></i>
-                            Podaci o artiklu se ažuriraju, stoga ga nije moguće dodati u košaricu!
+                            Podaci o artiklu se ažuriraju, stoga ga nije moguće
+                            dodati u košaricu!
                         </p>
                     {% endif %}
                     {% for itemColor in item.itemColors %}
                         {% if itemColor.quantity == 0 %}
-                            <small class="text-danger">Nema na zalihi - {{ itemColor.color.name }} boja</small><br>
+                            <small class="text-danger">Nema na zalihi -
+                                {{ itemColor.color.name }} boja
+                            </small><br>
                         {% elseif itemColor.quantity < 10 %}
-                            <small class="text-muted">Zalihe pri kraju - {{ itemColor.color.name }} boja ({{ itemColor.quantity }})</small><br>
+                            <small class="text-muted">Zalihe pri kraju -
+                                {{ itemColor.color.name }} boja ({{ itemColor.quantity }})
+                            </small><br>
                         {% endif %}
                     {% endfor %}
                     {% for itemSize in item.itemSizes %}
                         {% if itemSize.quantity == 0 %}
-                            <small class="text-danger">Nema na zalihi - Veličina {{ itemSize.size.value }}</small><br>
+                            <small class="text-danger">Nema na zalihi -
+                                Veličina {{ itemSize.size.value }}
+                            </small><br>
                         {% elseif itemSize.quantity < 10 %}
-                            <small class="text-muted">Zalihe pri kraju - Veličina {{ itemSize.size.value }} ({{ itemSize.quantity }})</small><br>
+                            <small class="text-muted">Zalihe pri kraju -
+                                Veličina {{ itemSize.size.value }} ({{ itemSize.quantity }})
+                            </small><br>
                         {% endif %}
                     {% endfor %}
                     {{ include('cart/_form.html.twig') }}
                 {% else %}
-                    <h6 class="text-center bg-light p-1">Za dodavanje artikla u košaricu/listu želja potrebno je imati korisnički račun.</h6>
+                    <h6 class="text-center bg-light p-1">
+                        Za dodavanje artikla u košaricu/listu želja potrebno je imati korisnički račun.
+                    </h6>
                     <div class="text-center mb-3">
-                        <a class="text-center" href="{{ path('app_login') }}">Prijava/registracija</a>
+                        <a class="text-center" href="{{ path('app_login') }}">
+                            Prijava/registracija
+                        </a>
                     </div>
                 {% endif %}
-                <h6 class="text-center">Cijena: <span id="price">{{ item.price|number_format(2, '.', ',') }} kn</span> </h6>
+                <h6 class="text-center">Cijena: <span id="price">
+                        {{ item.price|number_format(2, '.', ',') }} kn
+                    </span>
+                </h6>
                 <p>Tagovi:
                     <span id="tag">
                         {% for itemTag in item.itemTags%}
@@ -106,7 +136,9 @@
             <div class="col-md-6 mt-1">
                 <h3 class="text-center bg-light p-1">Opis artikla</h3>
                 {% if item.description is null %}
-                    <p class="text-center">Trenutno nije unesen opis za ovaj artikl.</p>
+                    <p class="text-center">
+                        Trenutno nije unesen opis za ovaj artikl.
+                    </p>
                 {% else %}
                     {{ item.description|raw }}
                 {% endif %}
@@ -117,7 +149,9 @@
                     {{ include('item/new_review_form_modal.html.twig') }}
                 {% endif %}
                 {% if item.reviews|length == 0 %}
-                    <p class="text-center">Trenutno nitko nije napisao recenziju za ovaj artikl.</p>
+                    <p class="text-center">
+                        Trenutno nitko nije napisao recenziju za ovaj artikl.
+                    </p>
                 {% else %}
                     <div class="reviews">
                         <div class="row justify-content-md-center ml-1 mr-1 mt-3">
@@ -132,7 +166,8 @@
                                         {% endif %}
                                     </div>
                                     <h6 class="p-1 border-bottom">
-                                        <span class="mr-1">Autor:</span> {{ review.user.name }} {{ review.user.surname }}
+                                        <span class="mr-1">Autor:</span>
+                                        {{ review.user.name }} {{ review.user.surname }}
                                     </h6>
                                     <h6 class="p-1 border-bottom">
                                         <span>Ocjena</span>
@@ -145,8 +180,15 @@
                                             {% endfor %}
                                         {% endif %}
                                     </h6>
-                                    <p><span>Komentar:</span> <br>{{ review.comment }}</p>
-                                    <p class="text-right">Objavljeno: {{ review.createdAt|date('H:i:s | d.m.Y.') }}</p>
+                                    <p>
+                                        <span>
+                                            Komentar:
+                                        </span><br>
+                                        {{ review.comment }}
+                                    </p>
+                                    <p class="text-right">
+                                        Objavljeno: {{ review.createdAt|date('H:i:s | d.m.Y.') }}
+                                    </p>
                                 </div>
                             {% endfor %}
                         </div>
@@ -154,8 +196,11 @@
                 {% endif %}
             </div>
         </div>
+
         {% if app.user %}
-            <h3 class="text-center bg-light p-1 mt-3 ml-5 mr-5">Slični artikli</h3>
+            <h3 class="text-center bg-light p-1 mt-3 ml-5 mr-5">
+                Predloženi artikli
+            </h3>
             <div class="row ml-0 mr-0">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-3"></div>

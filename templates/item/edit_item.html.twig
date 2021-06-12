@@ -8,16 +8,24 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center p-2 mt-2 bg-light">Uređivanje podataka o artiklu - {{ item.title }}</h2>
+        <h2 class="text-center p-2 mt-2 bg-light">
+            Uređivanje podataka o artiklu - {{ item.title }}
+        </h2>
         <a href="{{ path('item_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista artikala
         </a>
-        <h3 class="bg-light text-center p-1">Naziv, proizvođač, opis, cijena</h3>
+        <h3 class="bg-light text-center p-1">
+            Naziv, proizvođač, opis, cijena
+        </h3>
         {{ include('item/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
-        <h3 class="bg-light text-center p-1">Fotografije</h3>
+        <h3 class="bg-light text-center p-1">
+            Fotografije
+        </h3>
         {% if item.images|length == 0 %}
-                <p class="text-center">Artikl trenutno nema niti jednu fotografiju.</p>
+                <p class="text-center">
+                    Artikl trenutno nema niti jednu fotografiju.
+                </p>
         {% else %}
             <div class="row">
             {% for image in item.images %}
@@ -34,11 +42,14 @@
         {% endif %}
         <div class="text-center">
             <a href="{{ path('item_image_add', {'id':item.id}) }}"
-                class="btn btn-warning p-1 mt-3">Dodaj fotografiju/e
+                class="btn btn-warning p-1 mt-3">
+                Dodaj fotografiju/e
                 <i class="fas fa-images"></i>
             </a>
         </div>
-        <h3 class="bg-light text-center p-1 mb-3 mt-3">Kategorije, tagovi, boje, veličine, proizvođači</h3>
+        <h3 class="bg-light text-center p-1 mb-3 mt-3">
+            Kategorije, tagovi, boje, veličine, proizvođači
+        </h3>
         <div class="row text-center">
             <div class="col-md-4 mb-3">
                 <h6>Kategorije artikla:</h6>
@@ -88,7 +99,8 @@
                                 {{ include('item/_delete_color_form.html.twig') }}
                             </div>
                             <p>- {{ itemColor.color.name }}| {{ itemColor.quantity }}kom
-                                <a href="{{ path('item_color_quantity_edit', {'id':itemColor.id}) }}" title="Uredi količinu">
+                                <a href="{{ path('item_color_quantity_edit',
+                                    {'id':itemColor.id}) }}" title="Uredi količinu">
                                     <i id="edit" class="far fa-edit"></i>
                                 </a>
                             </p>
@@ -110,7 +122,8 @@
                                 {{ include('item/_delete_size_form.html.twig') }}
                             </div>
                             <p>- {{ itemSize.size.value }} | {{ itemSize.quantity }}kom
-                                <a href="{{ path('item_size_quantity_edit', {'id':itemSize.id}) }}" title="Uredi količinu">
+                                <a href="{{ path('item_size_quantity_edit',
+                                    {'id':itemSize.id}) }}" title="Uredi količinu">
                                     <i id="edit" class="far fa-edit ml-1"></i>
                                 </a>
                             </p>
@@ -118,7 +131,8 @@
                     </div>
                 {% endif %}
                 <a href="{{ path('item_add_size', {'id':item.id}) }}"
-                    class="btn btn-success p-1">Dodaj veličinu
+                    class="btn btn-success p-1">
+                    Dodaj veličinu
                 </a>
             </div>
         </div>

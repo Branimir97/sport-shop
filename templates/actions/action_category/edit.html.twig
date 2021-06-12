@@ -7,12 +7,15 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Akcija - {{ action_category.category.name }}</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Akcija - {{ action_category.category.name }}
+        </h2>
         <a href="{{ path('action_category_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista kategorija na akciji
         </a>
-        {{ include('actions/action_category/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('actions/action_category/_form.html.twig',
+            {'button_label': 'Spremi promjene'}) }}
         <div class="text-center">
             {{ include('actions/action_category/_delete_form.html.twig') }}
         </div>

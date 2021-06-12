@@ -4,7 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Upravljanje akcijama</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Upravljanje akcijama
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/action.png') }}" alt="icon">
+        </h2>
         <div class="text-center mt-3">
             <a class="btn btn-primary" href="{{ path('action_item_index') }}">
                 Upravljanje akcijama artikala

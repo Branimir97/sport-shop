@@ -4,7 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Upravljanje proizvođačima</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Upravljanje proizvođačima
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/manufacturers.png') }}" alt="icon">
+        </h2>
         {% if not manufacturers %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
@@ -34,12 +38,18 @@
                             <td>{{ manufacturer.id }}</td>
                             <td>{{ manufacturer.name }}</td>
                             <td>{{ manufacturer.createdAt|date('H:i:s | d.m.Y.') }}</td>
-                            <td>{{ manufacturer.updatedAt ? manufacturer.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                             <td>
-                                <a class="btn" href="{{ path('manufacturer_show', {'id': manufacturer.id}) }}" title="Prikaži pojedinosti">
+                                {{ manufacturer.updatedAt ?
+                                manufacturer.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a class="btn"
+                                   href="{{ path('manufacturer_show', {'id': manufacturer.id}) }}"
+                                   title="Prikaži pojedinosti">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
-                                <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}" title="Uredi">
+                                <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}"
+                                   title="Uredi">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('manufacturer/_delete_form.html.twig') }}

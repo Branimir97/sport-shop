@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Artikl - {{ item.title }}</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            Artikl - {{ item.title }}
+        </h2>
         <a href="{{ path('item_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
             Lista artikala
@@ -33,12 +35,16 @@
                 </tr>
                 <tr>
                     <th>Vrijeme zadnje izmjene</th>
-                    <td>{{ item.updatedAt ? item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                    <td>{{ item.updatedAt ?
+                        item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                 </tr>
             </tbody>
         </table>
         <div class="text-center">
-            <a class="btn btn-outline-success" href="{{ path('item_edit', {'id': item.id}) }}">Uredi podatke</a>
+            <a class="btn btn-outline-success"
+               href="{{ path('item_edit', {'id': item.id}) }}">
+                Uredi podatke
+            </a>
             {{ include('item/_delete_item_form.html.twig') }}
         </div>
     </div>
