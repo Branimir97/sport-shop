@@ -154,12 +154,14 @@
                 {% endif %}
             </div>
         </div>
-        <h3 class="text-center bg-light p-1 mt-3 ml-5 mr-5">Slični artikli</h3>
-        <div class="row ml-0 mr-0">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3"></div>
-        </div>
+        {% if app.user %}
+            <h3 class="text-center bg-light p-1 mt-3 ml-5 mr-5">Slični artikli</h3>
+            <div class="row ml-0 mr-0">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 {% block javascripts %}

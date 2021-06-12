@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" >
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -13,22 +13,35 @@
         <link rel="stylesheet" href="{{ asset("css/navigation.css") }}">
         <link rel="stylesheet" href="{{ asset("css/sidebar.css") }}">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/bootstrap-slider.min.js"></script>
 
         <!-- FontAwesome -->
-        <script src="https://kit.fontawesome.com/f69451562f.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/f69451562f.js"
+                crossorigin="anonymous"></script>
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
 
         <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
 
         <!-- Symfony Form Input file name visible -->
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
@@ -45,10 +58,12 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="main_navbar">
         <a class="navbar-brand" href="{{ path('home') }}">
-            <img src="/images/logo.png" alt="">
+            <img src="{{ asset('/images/logo.png') }}" alt="">
             SportShop</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,62 +73,77 @@
                        href="https://www.youtube.com/"
                        id="navbarDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <img class="nav_icon mr-1" src="{{ asset('icons/man.png') }}" alt="icon"> Muškarci
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/man.png') }}" alt="icon">
+                        Muškarci
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li class="nav-item dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1"
+                               role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/shoe.png') }}" alt="icon"> Obuća
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/shoe.png') }}" alt="icon">
+                                Obuća
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/sneakers.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/sneakers.png') }}" alt="icon">
                                         Tenisice
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/football-boots.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/football-boots.png') }}" alt="icon">
                                         Kopačke
                                     </a>
                                 </li>
                                 <li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/running.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/running.png') }}" alt="icon">
                                         Patike za trčanje
                                     </a>
                                 </li>
                                 <li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/boot.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/boot.png') }}" alt="icon">
                                         Čizme
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                                       role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/others.png') }}" alt="icon"> Dodaci
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/others.png') }}" alt="icon">
+                                        Dodaci
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/insoles.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/insoles.png') }}" alt="icon">
                                                 Ulošci
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/cord-lace.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/cord-lace.png') }}" alt="icon">
                                                 Vezice
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/spray.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/spray.png') }}" alt="icon">
                                                 Impregnacijski sprejevi
                                             </a>
                                         </li>
@@ -122,48 +152,60 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1"
+                               role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/fashion.png') }}" alt="icon"> Odjeća
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/fashion.png') }}" alt="icon">
+                                Odjeća
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/tshirt.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/tshirt.png') }}" alt="icon">
                                         Majice
                                     </a>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/pant.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/pant.png') }}" alt="icon">
                                         Hlače
                                     </a>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
                                         Jakne
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                                       role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/others.png') }}" alt="icon"> Odjevni dodaci
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/others.png') }}" alt="icon">
+                                        Odjevni dodaci
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/cap.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/cap.png') }}" alt="icon">
                                                 Kape
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/glove.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/glove.png') }}" alt="icon">
                                                 Rukavice
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/scarf.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/scarf.png') }}" alt="icon">
                                                 Šalovi
                                             </a>
                                         </li>
@@ -174,62 +216,78 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <img class="nav_icon mr-1" src="{{ asset('icons/woman.png') }}" alt="icon"> Žene
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/woman.png') }}" alt="icon">
+                        Žene
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li class="nav-item dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                               data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/shoe.png') }}" alt="icon"> Obuća
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/shoe.png') }}" alt="icon">
+                                Obuća
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/sneakers.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/sneakers.png') }}" alt="icon">
                                         Tenisice
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/football-boots.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/football-boots.png') }}" alt="icon">
                                         Kopačke
                                     </a>
                                 </li>
                                 <li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/running.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/running.png') }}" alt="icon">
                                         Patike za trčanje
                                     </a>
                                 </li>
                                 <li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/boot.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/boot.png') }}" alt="icon">
                                         Čizme
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                                       role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/others.png') }}" alt="icon"> Dodaci
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/others.png') }}" alt="icon">
+                                        Dodaci
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/tshirt.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/tshirt.png') }}" alt="icon">
                                                 Majice
                                             </a>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/pant.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/pant.png') }}" alt="icon">
                                                 Hlače
                                             </a>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
                                                 Jakne
                                             </a>
                                         </li>
@@ -238,48 +296,60 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1"
+                               role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/fashion.png') }}" alt="icon"> Odjeća
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/fashion.png') }}" alt="icon">
+                                Odjeća
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/spray.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/spray.png') }}" alt="icon">
                                         Majice
                                     </a>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/spray.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/spray.png') }}" alt="icon">
                                         Hlače
                                     </a>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/spray.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/spray.png') }}" alt="icon">
                                         Jakne
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                                       role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/others.png') }}" alt="icon"> Odjevni dodaci
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/others.png') }}" alt="icon">
+                                        Odjevni dodaci
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/cap.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/cap.png') }}" alt="icon">
                                                 Kape
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/glove.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/glove.png') }}" alt="icon">
                                                 Rukavice
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/scarf.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/scarf.png') }}" alt="icon">
                                                 Šalovi
                                             </a>
                                         </li>
@@ -290,62 +360,78 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                       role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <img class="nav_icon mr-1" src="{{ asset('icons/children.png') }}" alt="icon"> Djeca
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/children.png') }}" alt="icon">
+                        Djeca
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li class="nav-item dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1"
+                               role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/shoe.png') }}" alt="icon"> Obuća
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/shoe.png') }}" alt="icon">
+                                Obuća
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/sneakers.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/sneakers.png') }}" alt="icon">
                                         Tenisice
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/football-boots.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/football-boots.png') }}" alt="icon">
                                         Kopačke
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/running.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/running.png') }}" alt="icon">
                                         Patike za trčanje
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/boot.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/boot.png') }}" alt="icon">
                                         Čizme
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                                       role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/others.png') }}" alt="icon"> Dodaci
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/others.png') }}" alt="icon">
+                                        Dodaci
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/insoles.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/insoles.png') }}" alt="icon">
                                                 Ulošci
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/cord-lace.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/cord-lace.png') }}" alt="icon">
                                                 Vezice
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/spray.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/spray.png') }}" alt="icon">
                                                 Impregnacijski sprejevi
                                             </a>
                                         </li>
@@ -354,48 +440,60 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown1"
+                               role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/fashion.png') }}" alt="icon"> Odjeća
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/fashion.png') }}" alt="icon">
+                                Odjeća
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/tshirt.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/tshirt.png') }}" alt="icon">
                                         Majice
                                     </a>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/pant.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/pant.png') }}" alt="icon">
                                         Hlače
                                     </a>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
                                         Jakne
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                                       role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <img class="nav_icon mr-1" src="{{ asset('icons/others.png') }}" alt="icon"> Odjevni dodaci
+                                        <img class="nav_icon mr-1"
+                                             src="{{ asset('icons/others.png') }}" alt="icon">
+                                        Odjevni dodaci
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/cap.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/cap.png') }}" alt="icon">
                                                 Kape
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/glove.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/glove.png') }}" alt="icon">
                                                 Rukavice
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <img class="nav_icon mr-1" src="{{ asset('icons/scarf.png') }}" alt="icon">
+                                                <img class="nav_icon mr-1"
+                                                     src="{{ asset('icons/scarf.png') }}" alt="icon">
                                                 Šalovi
                                             </a>
                                         </li>
@@ -406,38 +504,46 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                       role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <img class="nav_icon mr-1" src="{{ asset('icons/sports.png') }}" alt="icon"> Sportska oprema
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/sports.png') }}" alt="icon">
+                        Sportska oprema
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
                             <a class="dropdown-item" href="#">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/sport_football.png') }}" alt="icon">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/sport_football.png') }}" alt="icon">
                                 Nogomet
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="#">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/sport_handball.png') }}" alt="icon">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/sport_handball.png') }}" alt="icon">
                                 Rukomet
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="#">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/sport_basketball.png') }}" alt="icon">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/sport_basketball.png') }}" alt="icon">
                                 Košarka
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="#">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/sport_volleyball.png') }}" alt="icon">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/sport_volleyball.png') }}" alt="icon">
                                 Odbojka
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="#">
-                                <img class="nav_icon mr-1" src="{{ asset('icons/sport_table_tennis.png') }}" alt="icon">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/sport_table_tennis.png') }}" alt="icon">
                                 Stolni tenis
                             </a>
                         </li>
@@ -445,53 +551,66 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">
-                        <img class="nav_icon mr-1" src="{{ asset('icons/action.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/action.png') }}" alt="icon">
                         Akcijska ponuda</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto justify-content-end">
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <input class="form-control mr-sm-2" type="search"
+                               placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            Search
+                        </button>
                     </form>
                 </li>
                 {% if app.user %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                           role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <img class="nav_icon mr-1" src="{{ asset('icons/user.png') }}" alt="icon">
+                            <img class="nav_icon mr-1"
+                                 src="{{ asset('icons/user.png') }}" alt="icon">
                             {{ app.user.name }} {{ app.user.surname }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <li>
-                                <a class="dropdown-item" href="{{ path('order_list') }}">Moje narudžbe
-                                    <img class="nav_icon mr-1" src="{{ asset('icons/orders.png') }}" alt="icon">
+                                <a class="dropdown-item" href="{{ path('order_list') }}">
+                                    Moje narudžbe
+                                    <img class="nav_icon mr-1"
+                                         src="{{ asset('icons/orders.png') }}" alt="icon">
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ path('wish_list_index') }}">
                                     Moj popis želja
-                                    <img class="nav_icon mr-1" src="{{ asset('icons/wish_list.png') }}" alt="icon">
+                                    <img class="nav_icon mr-1"
+                                         src="{{ asset('icons/wish_list.png') }}" alt="icon">
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ path('account_settings') }}">
                                     Postavke računa
-                                    <img class="nav_icon mr-1" src="{{ asset('icons/settings.png') }}" alt="icon">
+                                    <img class="nav_icon mr-1"
+                                         src="{{ asset('icons/settings.png') }}" alt="icon">
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">
                                     Odjava
-                                    <img class="nav_icon mr-1" src="{{ asset('icons/logout.png') }}" alt="icon">
+                                    <img class="nav_icon mr-1"
+                                         src="{{ asset('icons/logout.png') }}" alt="icon">
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('cart_index') }}">Košarica
-                            <img id="cart_icon" class="nav_icon mr-1" src="{{ asset('icons/cart.png') }}" alt="icon">
+                        <a class="nav-link" href="{{ path('cart_index') }}">
+                            Košarica
+                            <img id="cart_icon" class="nav_icon mr-1"
+                                 src="{{ asset('icons/cart.png') }}" alt="icon">
 {#                            <span class="badge">#}
 {#                                {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}#}
 {#                                    0#}
@@ -505,7 +624,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">
                             Prijava
-                            <img class="nav_icon mr-1" src="{{ asset('icons/sign_in.png') }}" alt="icon">
+                            <img class="nav_icon mr-1"
+                                 src="{{ asset('icons/sign_in.png') }}" alt="icon">
                         </a>
                     </li>
                 {% endif %}
@@ -531,83 +651,116 @@
         <div class="d-flex .d-none" id="wrapper">
             <div class="bg-light border-right" id="sidebar-wrapper">
                 <div class="sidebar-heading">
-                    <img class="nav_icon mr-1" src="{{ asset('icons/menu.png') }}" alt="icon">
+                    <img class="nav_icon mr-1"
+                         src="{{ asset('icons/menu.png') }}" alt="icon">
                     ADMIN PANEL - IZBORNIK
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="{{ path('user_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('user_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje narudžbama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/orders.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/orders.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('user_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('user_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje korisnicima
-                        <img class="nav_icon mr-1" src="{{ asset('icons/users.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/users.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('promo_code_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('promo_code_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Generiranje koda za popust
-                        <img class="nav_icon mr-1" src="{{ asset('icons/promo_code.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/promo_code.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('actions') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('actions') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje akcijama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/action.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/action.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('item_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('item_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje artiklima
-                        <img class="nav_icon mr-1" src="{{ asset('icons/items.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/items.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('order_list_item_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('order_list_item_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje narudžbama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/orders.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/orders.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('category_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('category_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje kategorijama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/categories.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/categories.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('color_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('color_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje bojama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/colors.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/colors.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('size_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('size_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje veličinama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/sizes.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/sizes.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('manufacturer_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('manufacturer_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje proizvođačima
-                        <img class="nav_icon mr-1" src="{{ asset('icons/manufacturers.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/manufacturers.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('delivery_address_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('delivery_address_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje adresama isporuka
-                        <img class="nav_icon mr-1" src="{{ asset('icons/delivery_address.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/delivery_address.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('review_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('review_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje recenzijama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/review.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/review.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('loyalty_card_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('loyalty_card_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje loyalty karticama
-                        <img class="nav_icon mr-1" src="{{ asset('icons/loyalty_card.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/loyalty_card.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('promo_code_user_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('promo_code_user_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Upravljanje iskorištenim promo kodovima
-                        <img class="nav_icon mr-1" src="{{ asset('icons/used_promo_codes.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/used_promo_codes.png') }}" alt="icon">
                     </a>
-                    <a href="{{ path('subscriber_index') }}" class="list-group-item list-group-item-action bg-light">
+                    <a href="{{ path('subscriber_index') }}"
+                       class="list-group-item list-group-item-action bg-light">
                         Lista pretplaćenih korisnika
-                        <img class="nav_icon mr-1" src="{{ asset('icons/subscribe.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/subscribe.png') }}" alt="icon">
                     </a>
                 </div>
             </div>
             <div id="page-content-wrapper">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <button class="btn btn-primary" id="menu2-toggle">
-                        <img class="nav_icon mr-1" src="{{ asset('icons/menu.png') }}" alt="icon">
+                        <img class="nav_icon mr-1"
+                             src="{{ asset('icons/menu.png') }}" alt="icon">
                         Admin panel - Izbornik
                     </button>
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('admin_panel') }}">
                                 Pregled značajki
-                                <img class="nav_icon mb-2 ml-1" src="{{ asset('icons/features.png') }}" alt="icon">
+                                <img class="nav_icon mb-2 ml-1"
+                                     src="{{ asset('icons/features.png') }}" alt="icon">
                             </a>
                         </li>
                     </ul>
@@ -622,8 +775,8 @@
                 <div class="row ml-0 mr-0">
                     <div class="col-md-4 text-center">
                         <h3>PRVI SAZNAJTE SVE NOVOSTI</h3>
-                        <p>Saznaj sve najnovije informacije o SportShop akcijama, promo kodovima i ostalim važnim događajima.
-                            Prijavi se na naš newsletter!
+                        <p>Saznaj sve najnovije informacije o SportShop akcijama,
+                            promo kodovima i ostalim važnim događajima. Prijavi se na naš newsletter!
                         </p>
                     </div>
                     <div class="col-md-4">
@@ -634,7 +787,8 @@
                                 action="{{ path('subscriber_new') }}"
                               {% endif %}method="POST">
                             <input type="text" required placeholder="Email adresa" name="email">
-                            <button class="newsletter_submit_btn" type="submit" title="Pretplati se">
+                            <button class="newsletter_submit_btn" type="submit"
+                                    title="Pretplati se">
                                 <i class="fa fa-paper-plane"></i>
                             </button>
                         </form>
@@ -685,16 +839,34 @@
                             <div class="footer-logo">
                                 <img src="/images/logo.png" alt="logo">
                             </div>
-                            <p>Vaša platforma na jednom mjestu koja nudi velik izbor artikala za različite vrste sportova.</p>
+                            <p>
+                                Vaša platforma na jednom mjestu koja nudi velik izbor artikala za
+                                različite vrste sportova.
+                            </p>
                         </div>
                         <div class="col-md-2 col-sm-6">
                             <h3>Brze poveznice</h3>
                             <ul class="footer-links">
-                                <li><a href="{{ path('home') }}">Naslovnica</a></li>
-                                <li><a href="{{ path('about_us') }}">O nama</a></li>
-                                <li><a href="{{ path('payment_and_security') }}">Plaćanje i sigurnost</a></li>
-                                <li><a href="{{ path('terms_and_conditions') }}">Uvjeti i odredbe</a></li>
-                                <li><a href="{{ path('loyalty_program') }}">Loyalty program vjernosti</a></li>
+                                <li><a href="{{ path('home') }}">
+                                        Naslovnica
+                                    </a>
+                                </li>
+                                <li><a href="{{ path('about_us') }}">
+                                        O nama
+                                    </a>
+                                </li>
+                                <li><a href="{{ path('payment_and_security') }}">
+                                        Plaćanje i sigurnost
+                                    </a>
+                                </li>
+                                <li><a href="{{ path('terms_and_conditions') }}">
+                                        Uvjeti i odredbe
+                                    </a>
+                                </li>
+                                <li><a href="{{ path('loyalty_program') }}">
+                                        Loyalty program vjernosti
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-md-3 col-sm-6">
@@ -727,18 +899,25 @@
                                         marginheight="0"
                                         marginwidth="0"
                                         id="gmap_canvas"
-                                        src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=Ulica%20Kneza%20Trpimira%202b%20Osijek+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                                        src="https://maps.google.com/maps?width=520&amp;
+                                        height=400&amp;hl=en&amp;q=Ulica%20Kneza%20Trpimira%202b%20Osijek+()&amp;
+                                        t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
                                 </iframe>
-                                <a href='https://www.symptoma.hr/hr/info/covid-19#info'>COVID-19</a>
+                                <a href='https://www.symptoma.hr/hr/info/covid-19#info'>
+                                    COVID-19
+                                </a>
                                 <script type='text/javascript'
-                                        src='https://embedmaps.com/google-maps-authorization/script.js?id=8a3df4aec8b2af26fcb590b8aa6761a07acaf5b2'>
+                                        src='https://embedmaps.com/google-maps-authorization/script.js?
+                                        id=8a3df4aec8b2af26fcb590b8aa6761a07acaf5b2'>
                                 </script>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="bg-info p-2 text-center"> Autorska prava 2021 | Sva prava pridržana od strane SportShop d.o.o.</div>
+            <div class="bg-info p-2 text-center">
+                Autorska prava 2021 | Sva prava pridržana od strane SportShop d.o.o.
+            </div>
         </div>
     </footer>
 </body>
