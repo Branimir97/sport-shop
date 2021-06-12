@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Akcijska ponuda{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/items_list.css') }}">
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -10,22 +13,34 @@
                  src="{{ asset('icons/action.png') }}" alt="icon">
         </h2>
         {% if items|length == 0 %}
-            <h6 class="text-center bg-danger p-2 text-white">
-                Trenutno nemamo artikle u akcijskoj ponudi.
-            </h6>
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <h6 class="bg-danger p-2 text-white">
+                    Trenutno nemamo artikle u akcijskoj ponudi.
+                </h6>
+            </div>
         {% else %}
             <div class="row">
                 {% for item in items %}
                     <div class="col-sm-3 mb-2">
                         <div class="one_item">
                             <div class="img-wrapper">
-                                <div class="new_badge p-1">
-                                    NOVO
-                                </div>
+                                {% set difference = date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                {% set daysDiff = difference.days %}
+                                {% if daysDiff <= 2 %}
+                                    <div class="new_badge p-1">
+                                        NOVO
+                                    </div>
+                                {% endif %}
+                                {% set loopIndex = loop.index %}
                                 <div class="action_badge p-1">
-                                    -33%
+                                    - {{ discounts[loopIndex-1] }}%
                                 </div>
-                                <img src="{{ asset('uploads/')~item.images[0].path }}" alt="item_image">
+                                {% if item.images|length == 0 %}
+                                    <img src="{{ asset('images/logo.png') }}" alt="item_image">
+                                {% else %}
+                                    <img src="{{ asset('uploads/')~item.images[0].path }}" alt="item_image">
+                                {% endif %}
                             </div>
                             <div class="overlay">
                                 <a href="{{ path('wish_list_item_new', {'id':item.id}) }}"
@@ -45,9 +60,13 @@
                                     Dostupne boje
                                 </p>
                                 <div class="item-colors text-center">
-                                    {% foreach itemColor in item.itemColors %}
-                                        <a id="color" style="background-color: {{ itemColor.color.value }}"></a>
-                                    {% endfor %}
+                                    {% if item.itemColors|length == 0 %}
+                                        <small>Boje nisu definirane.</small>
+                                    {% else %}
+                                        {% for itemColor in item.itemColors %}
+                                            <a id="color" style="background-color: {{ itemColor.color.value }}"></a>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <h6 id="price" class="text-center p-1 bg-success text-white">
                                     Cijena:
