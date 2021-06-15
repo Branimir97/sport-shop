@@ -67,6 +67,10 @@ nav .navbar-brand img{
     height: 25px;
 }
 
+#language_icon{
+    color: lightgray;
+}
+
 @media (min-width: 768px) {
     .dropdown-menu .dropdown .dropdown-menu {
         margin:0;
