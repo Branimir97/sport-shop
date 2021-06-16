@@ -10,7 +10,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     /**
-     * @Route("/prijava", name="app_login")
+     * @Route({
+     *     "en": "/login",
+     *     "hr": "/prijava"
+     *     },name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -24,9 +27,11 @@ class LoginController extends AbstractController
     }
 
     /**
-     * @Route("/odjava", name="app_logout")
+     * @Route({
+     *     "en": "/logout",
+     *     "hr": "/odjava"
+     *     }, name="app_logout")
      */
     public function logout()
-    {
-    }
+    {}
 }

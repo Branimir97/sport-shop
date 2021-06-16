@@ -17,7 +17,10 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/registracija", name="app_register")
+     * @Route({
+     *     "en": "/register",
+     *     "hr": "/registracija"
+     *     }, name="app_register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler

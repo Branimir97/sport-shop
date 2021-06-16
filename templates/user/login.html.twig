@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Prijava u sustav{% endblock %}
+{% block title %}{{ 'title'|trans({}, 'login')}}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/login.css") }}">
 {% endblock %}
@@ -14,13 +14,14 @@
                 </div>
             {% endif %}
             <h2 class="mb-3 mt-2 text-center p-2 bg-light">
-                Prijava u sustav
+                {{ 'title'|trans({}, 'login')}}
+                <img class="panel_icon ml-1"
+                     src="{{ asset('icons/sign_in.png') }}" alt="icon">
             </h2>
-            <label for="inputEmail">Email</label>
+            <label for="inputEmail">{{ 'emailLabel'|trans({}, 'login')}}</label>
             <input type="email" value="{{ last_username }}"
-
                    name="email" id="inputEmail" class="form-control" required autofocus>
-            <label for="inputPassword">Lozinka</label>
+            <label for="inputPassword">{{ 'passwordLabel'|trans({}, 'login')}}</label>
 
             <input type="password" name="password" id="inputPassword"
                    class="form-control" required>
@@ -31,32 +32,31 @@
             <div class="checkbox mt-2 text-center">
                 <label>
                     <input type="checkbox" name="_remember_me" checked>
-                    Zapamti me
+                    {{ 'rememberMe'|trans({}, 'login')}}
                 </label>
             </div>
 
             <div class="text-center">
                 <button class="btn btn-primary mt-2 mb-3" type="submit">
-                    Prijava
+                    {{ 'signInButton'|trans({}, 'login')}}
                 </button>
             </div>
             <p class="text-center">
-                Nemate postojeći račun na našoj platformi?
-                 Kreirajte Vaš račun
+                {{ 'registrationText'|trans({}, 'login')}}
                 <a href="{{ path('app_register') }}">
-                    ovdje
+                    {{ 'registrationHrefText'|trans({}, 'login')}}
                 </a>!
             </p>
         </form>
         <div class="text-center mb-3">
             <a class="btn btn-outline-info mt-1"
                href="{{ path('connect_facebook_start') }}">
-                Prijavi me koristeći Facebook
+                {{ 'facebookSignIn'|trans({}, 'login')}}
                 <i class="fab fa-facebook"></i>
             </a>
             <a class="btn btn-outline-success mt-1"
                href="{{ path('connect_google_start') }}">
-                Prijavi me koristeći Google
+                {{ 'googleSignIn'|trans({}, 'login')}}
                 <i class="fab fa-google"></i>
             </a>
         </div>

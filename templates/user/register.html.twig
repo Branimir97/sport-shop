@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registracija{% endblock %}
+{% block title %}{{ 'title'|trans({}, 'register')}}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container50.css') }}">
 {% endblock %}
@@ -12,7 +12,9 @@
                  role="alert">{{ flashError }}</div>
         {% endfor %}
         <h2 class="text-center mb-3 mt-2 p-2 bg-light">
-            Registracija novog korisnika
+            {{ 'heading'|trans({}, 'register')}}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/sign-up.png') }}" alt="icon">
         </h2>
         <div class="text-center">
             {{ include('user/_form.html.twig') }}

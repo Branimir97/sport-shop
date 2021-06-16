@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang=""{{ app.request.locale }}"">
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" >
         <title>{% block title %}{% endblock %}</title>
@@ -556,12 +556,14 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                        role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
+                        <span id="locale">{{ app.request.locale }}</span>
                         <i id="language_icon" class="fas fa-globe"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
                             <a class="dropdown-item"
-                               href="{{path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'hr'})) }}">
+                               href="{{path(app.request.attributes.get('_route'),
+                                   app.request.attributes.get('_route_params')|merge({'_locale': 'hr'})) }}">
                             <img class="nav_icon mr-1"
                                  src="{{ asset('icons/croatia.png') }}" alt="icon">
                                 {{ 'croatian'|trans({}, 'navigation')}}
@@ -569,7 +571,8 @@
                         </li>
                         <li>
                             <a class="dropdown-item"
-                               href="{{path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+                               href="{{path(app.request.attributes.get('_route'),
+                                   app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
                             <img class="nav_icon mr-1"
                                  src="{{ asset('icons/united-kingdom.png') }}" alt="icon">
                                 {{ 'english'|trans({}, 'navigation')}}
