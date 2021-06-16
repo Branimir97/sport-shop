@@ -677,90 +677,90 @@
                 <div class="sidebar-heading">
                     <img class="nav_icon mr-1"
                          src="{{ asset('icons/menu.png') }}" alt="icon">
-                    ADMIN PANEL - IZBORNIK
+                    {{ 'title'|trans({}, 'admin_panel_menu')}}
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="{{ path('order_list_item_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje narudžbama
+                        {{ 'orders'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/orders.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('user_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje korisnicima
+                        {{ 'users'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/users.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('promo_code_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Generiranje koda za popust
+                        {{ 'promoCodes'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/promo_code.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('actions') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje akcijama
+                        {{ 'actions'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/action.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('item_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje artiklima
+                        {{ 'items'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/items.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('category_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje kategorijama
+                        {{ 'categories'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/categories.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('color_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje bojama
+                        {{ 'colors'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/colors.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('size_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje veličinama
+                        {{ 'sizes'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/sizes.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('manufacturer_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje proizvođačima
+                        {{ 'manufacturers'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/manufacturers.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('delivery_address_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje adresama isporuka
+                        {{ 'deliveryAddresses'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/delivery_address.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('review_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje recenzijama
+                        {{ 'reviews'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/review.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('loyalty_card_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje loyalty karticama
+                        {{ 'loyaltyCards'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/loyalty_card.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('promo_code_user_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Upravljanje iskorištenim promo kodovima
+                        {{ 'usedPromoCodes'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/used_promo_codes.png') }}" alt="icon">
                     </a>
                     <a href="{{ path('subscriber_index') }}"
                        class="list-group-item list-group-item-action bg-light">
-                        Lista pretplaćenih korisnika
+                        {{ 'subscribers'|trans({}, 'admin_panel_menu')}}
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/subscribe.png') }}" alt="icon">
                     </a>
@@ -771,12 +771,12 @@
                     <button class="btn btn-primary" id="menu2-toggle">
                         <img class="nav_icon mr-1"
                              src="{{ asset('icons/menu.png') }}" alt="icon">
-                        Admin panel - Izbornik
+                        {{ 'sidebarButton'|trans({}, 'admin_panel_menu')}}
                     </button>
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('admin_panel') }}">
-                                Pregled značajki
+                                {{ 'features'|trans({}, 'admin_panel_menu')}}
                                 <img class="nav_icon mb-2 ml-1"
                                      src="{{ asset('icons/features.png') }}" alt="icon">
                             </a>

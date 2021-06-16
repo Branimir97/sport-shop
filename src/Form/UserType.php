@@ -22,10 +22,12 @@ class UserType extends AbstractType
         $isEditForm = $options['isEditForm'];
         $builder
             ->add('name', null, [
-                'label'=>'Ime *'
+                'label'=>'form.labels.name',
+                'translation_domain'=>'register'
             ])
             ->add('surname', null, [
-                'label'=>'Prezime *'
+                'label'=>'form.labels.surname',
+                'translation_domain'=>'register'
             ])
             ->add('gender', ChoiceType::class, [
                 'choices' => [
@@ -33,17 +35,20 @@ class UserType extends AbstractType
                     'Muški' => 'Muški',
                     'Ženski' => 'Ženski'
                 ],
-                'help'=>'Parametar nije obavezan, ali doprinosi boljem korisničkom iskustvu',
-                'label'=>'Spol'
+                'help'=>'form.help.gender',
+                'label'=>'form.labels.gender',
+                'translation_domain'=>'register'
             ])
             ->add('birthDate', DateType::class, [
                 'required'=>false,
                 'widget' => 'single_text',
-                'help'=>'Parametar nije obavezan, ali doprinosi boljem korisničkom iskustvu',
-                'label'=>'Datum i godina rođenja'
+                'help'=>'form.help.birthDate',
+                'label'=>'form.labels.birthDate',
+                'translation_domain'=>'register'
             ])
             ->add('email', null, [
-                'label'=>'Email adresa *'
+                'label'=>'form.labels.email',
+                'translation_domain'=>'register'
             ]);
 
             if(!$isEditForm) {
@@ -52,22 +57,22 @@ class UserType extends AbstractType
                         'type'=>PasswordType::class,
                         'mapped' => false,
                         'first_options'  => [
-                            'label' => 'Lozinka *',
-                            'help'=>'Lozinka mora sadržavati min. 8 znakova'
+                            'help'=>'form.help.password',
+                            'label'=>'form.labels.password',
                         ],
                         'second_options' => [
-                            'label' => 'Ponovni unos lozinke *',
-                            'help'=>'Lozinke se moraju podudarati'
+                            'help'=>'form.help.passwordRepeat',
+                            'label'=>'form.labels.passwordRepeat',
                         ],
-                        'invalid_message' => 'Lozinke se moraju podudarati.',
+                        'invalid_message' => 'form.invalid_message.password',
+                        'translation_domain'=>'register',
                         'constraints' => [
                             new NotBlank([
-                                'message' => 'Unesite lozinku',
+                                'message' => 'validators.passwordNotBlank',
                             ]),
                             new Length([
                                 'min' => 8,
-                                'minMessage' => 'Lozinka mora sadržavati min. 8 znakova',
-                                // max length allowed by Symfony for security reasons
+                                'minMessage' => 'validators.passwordLength',
                                 'max' => 4096,
                             ]),
                         ],
@@ -76,19 +81,18 @@ class UserType extends AbstractType
                         'mapped' => false,
                         'constraints' => [
                             new IsTrue([
-                                'message' => 'Za uspješnu registraciju potrebno je prihvatiti 
-                                naše uvjete i odredbe našeg web mjesta.',
+                                'message' => 'validators.agreeTerms',
                             ]),
                         ],
                         'label_html'=>true,
-                        'label'=>'Registracijom prihvaćate uvjete i odredbe našeg web shopa.'
+                        'label'=>'form.labels.agreeTerms',
+                        'translation_domain'=>'register'
                     ])
                     ->add('subscribeMe', CheckboxType::class, [
                         'required'=>false,
                         'mapped' => false,
-                        'label'=>
-                            'Želim primati sve novosti o SportShop akcijama, promo kodovima 
-                            i ostalim važnim događajima.'
+                        'label'=> 'form.labels.subscribe',
+                        'translation_domain'=>'register'
                     ])
                 ;
             }

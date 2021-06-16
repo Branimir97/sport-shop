@@ -14,7 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminPanelController extends AbstractController
 {
     /**
-     * @Route("/admin/panel", name="admin_panel")
+     * @Route({
+     *     "en": "/admin/panel",
+     *     "hr": "/admin/panela",
+     *      }, name="admin_panel")
      */
     public function index(UserRepository $userRepository,
                           OrderListItemRepository $orderListItemRepository,

@@ -1,0 +1,46 @@
+title: Pregled značajki
+usersNumber: BROJ KORISNIKA
+administratorsNumber: Broj administratora
+soldItemsNumber: BROJ PRODANIH ARTIKALA
+ordersNumber: BROJ NARUDŽBI
+earnings: ZARADA [KN]
+promoCodesTitle: Aktivni promo kodovi
+noPromoCodes: Nije evidentiran ni jedan promo kod u sustavu.
+editPromoCode: Uredi promo kod
+actionsTitle: Aktivne akcije na kategorijama
+noActions: Nije evidentirana ni jedna akcija u sustavu.
+editAction: Uredi akciju
+lastOrdersTitle: 10 posljednjih narudžbi
+noOrders: Nije evidentirana ni jedna narudžba u sustavu.
+recentlyRegistratedUsersTitle: Nedavno registrirani korisnici
+noUsers: Nije evidentiran ni jedan korisnik u sustavu.
+recentlyReviews: Nedavno napisane recenzije
+noReviews: Nije evidentirana ni jedna recenzija u sustavu.
+
+ordersTable:
+  number: Br. narudžbe
+  user: Korisnik
+  createdAt: Vrijeme izvršenja narudžbe
+  status: Status
+  earnings: Ukupan iznos narudžbe [kn]
+  details: Detalji
+  detailsLink: Više o narudžbi
+
+usersTable:
+  email: Email adresa
+  name: Ime
+  surname: Prezime
+  gender: Spol
+  createdAt: Vrijeme registracije
+  updatedAt: Vrijeme zadnje izmjene
+  details: Detalji
+  detailsLink: Više o korisniku
+
+reviewsTable:
+  grade: Ocjena
+  item: Artikl
+  user: Autor
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  details: Detalji
+  editLink: Uredi recenziju

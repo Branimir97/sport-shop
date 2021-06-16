@@ -1,2 +1,38 @@
 title: Registracija
 heading: Registracija novog korisnika
+
+form:
+  labels:
+    name: Ime *
+    surname: Prezime *
+    gender: Spol
+    birthDate: Datum i godina rođenja
+    email: Email adresa *
+    password: Lozinka *
+    passwordRepeat: Ponovni unos lozinke *
+    termsOfUse: Registracijom prihvaćate uvjete i odredbe našeg web shopa.
+    newsletter: Želim primati sve novosti o SportShop akcijama, promo kodovima i ostalim važnim događajima.
+    agreeTerms: Registracijom prihvaćate uvjete i odredbe našeg web shopa.
+    subscribe: Želim primati sve novosti o SportShop akcijama, promo kodovima
+      i ostalim važnim događajima.
+  registerButton: Registracija
+
+  help:
+    gender: Parametar nije obavezan, ali doprinosi boljem korisničkom iskustvu
+    birthDate: Parametar nije obavezan, ali doprinosi boljem korisničkom iskustvu
+    password: Lozinka mora sadržavati min. 8 znakova
+    passwordRepeat: Lozinke se moraju podudarati
+    termsOfUse: Uvjete i odredbe moguće je pročitati
+    termsOfUseLink: ovdje
+
+  invalid_message:
+    password: Lozinke se moraju podudarati.
+
+  constraints:
+    passwordNotBlank: Unesite lozinku
+    passwordLength: Lozinka mora sadržavati min. 8 znakova
+    agreeTerms: Za uspješnu registraciju potrebno je prihvatiti
+      naše uvjete i odredbe našeg web mjesta.
+    email: Već postoji račun s ovom email adresom
+
+

@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
- * @UniqueEntity(fields={"email"}, message="Već postoji račun s ovom email adresom")
+ * @UniqueEntity(fields={"email"}, message="entity.site.unique")
  */
 class User implements UserInterface
 {

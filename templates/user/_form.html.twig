@@ -22,15 +22,15 @@
     {{ form_rest(form) }}
     <div class="mb-2">
         <small class="text-muted mb-2">
-            Uvjete i odredbe moguće je pročitati
+            {{ 'form.help.termsOfUse'|trans({}, 'register')}}
             <a href="{{ path('terms_and_conditions') }}"
-               target="_blank">ovdje
+               target="_blank">{{ 'form.help.termsOfUseLink'|trans({}, 'register')}}
             </a>.
         </small>
     </div>
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">
-            {{ button_label|default('Registracija') }}
+            {{ button_label|default('form.registerButton'|trans({}, 'register')) }}
         </button>
     </div>
 {{ form_end(form) }}

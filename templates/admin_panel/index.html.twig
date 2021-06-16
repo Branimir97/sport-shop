@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pregled značajki{% endblock %}
+{% block title %}{{ 'title'|trans({}, 'admin_panel_features')}}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/admin_panel.css") }}">
 {% endblock %}
@@ -11,13 +11,14 @@
             <div class="col-sm-3">
                 <div id="users" class="card">
                     <p>
-                        BROJ KORISNIKA
+                        {{ 'usersNumber'|trans({}, 'admin_panel_features')}}
                     </p>
                     <h5>
                         {{ users }}
                     </h5>
                     <small class="text-dark">
-                        Broj administratora: {{ admins }}
+                        {{ 'administratorsNumber'|trans({}, 'admin_panel_features')}}:
+                        {{ admins }}
                     </small>
                     <img id="icon"
                          src="{{ asset('icons/users.png') }}" alt="icon">
@@ -26,7 +27,7 @@
             <div class="col-sm-3">
                 <div id="sold_items" class="card">
                     <p>
-                        BROJ PRODANIH ARTIKALA
+                        {{ 'soldItemsNumber'|trans({}, 'admin_panel_features')}}
                     </p>
                     <h5>
                         {{ soldItems }}
@@ -38,7 +39,7 @@
             <div class="col-sm-3">
                 <div id="orders" class="card">
                     <p>
-                        BROJ NARUDŽBI
+                        {{ 'ordersNumber'|trans({}, 'admin_panel_features')}}
                     </p>
                     <h5>
                         {{ orders }}
@@ -50,7 +51,7 @@
             <div class="col-sm-3">
                 <div id="earnings" class="card">
                     <p>
-                        ZARADA [KN]
+                        {{ 'earnings'|trans({}, 'admin_panel_features')}}
                     </p>
                     <h5>
                         {{ earnings|number_format(2, '.', ',')}}
@@ -63,20 +64,20 @@
         <div class="row mt-3 mb-3">
             <div class="col-sm-6">
                 <h3 class="text-center">
-                    Aktivni promo kodovi
+                    {{ 'promoCodesTitle'|trans({}, 'admin_panel_features')}}
                     <img class="ml-2" id="icon"
                          src="{{ asset('icons/promo_code.png') }}" alt="icon">
                 </h3>
                 {% if promoCodes|length == 0 %}
                 <p class="text-center">
-                    Nije evidentiran ni jedan promo kod u sustavu.
+                    {{ 'noPromoCodes'|trans({}, 'admin_panel_features')}}
                 </p>
                 {% else %}
                     {% for promoCode in promoCodes %}
                         <p class="text-center text-success">
                             {{ promoCode.code }} | {{ promoCode.discountPercentage }}%
                             <a class="ml-1" href="{{ path('promo_code_edit', {'id':promoCode.id}) }}"
-                                title="Uredi promo kod">
+                                title="{{ 'editPromoCode'|trans({}, 'admin_panel_features')}}">
                                 <i class="fas fa-long-arrow-alt-right"></i>
                             </a>
                         </p>
@@ -85,12 +86,12 @@
             </div>
             <div class="col-sm-6">
                 <h3 class="text-center">
-                    Aktivne akcije na kategorijama
+                    {{ 'actionsTitle'|trans({}, 'admin_panel_features')}}
                     <img class="ml-2" id="icon" src="{{ asset('icons/action.png') }}" alt="icon">
                 </h3>
                 {% if actionCategories|length == 0%}
                     <p class="text-center">
-                        Nije evidentirana ni jedna akcija u sustavu.
+                        {{ 'noActions'|trans({}, 'admin_panel_features')}}
                     </p>
                 {% else %}
                     {% for actionCategory in actionCategories %}
@@ -98,7 +99,7 @@
                             {{ actionCategory.title }} | {{ actionCategory.discountPercentage }}%
                             <a class="ml-1"
                                href="{{ path('action_category_edit', {'id':actionCategory.id}) }}"
-                               title="Uredi akciju">
+                               title="{{ 'editAction'|trans({}, 'admin_panel_features')}}">
                                 <i class="fas fa-long-arrow-alt-right"></i>
                             </a>
                         </p>
@@ -109,25 +110,37 @@
         <div class="row mt-3 mb-3">
             <div class="col-sm-6">
                 <h3 class="text-center">
-                    10 posljednjih narudžbi
+                    {{ 'lastOrdersTitle'|trans({}, 'admin_panel_features')}}
                     <img class="ml-2" id="icon"
                          src="{{ asset('icons/orders.png') }}" alt="icon">
                 </h3>
                 {% if last10orderListItems|length == 0 %}
                     <p class="text-center">
-                        Nije evidentirana ni jedna narudžba u sustavu.
+                        {{ 'noOrders'|trans({}, 'admin_panel_features')}}
                     </p>
                 {% else %}
                 <div class="table-responsive">
                     <table class="table table-hover table-info">
                         <thead>
                         <tr>
-                            <th>Br. narudžbe</th>
-                            <th>Korisnik</th>
-                            <th>Vrijeme izvršenja narudžbe</th>
-                            <th>Status</th>
-                            <th>Ukupan iznos narudžbe[kn]</th>
-                            <th>Detalji</th>
+                            <th>
+                                {{ 'ordersTable.number'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.user'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.createdAt'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.status'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.earnings'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.details'|trans({}, 'admin_panel_features')}}
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -162,7 +175,8 @@
                                 </td>
                                 <td>
                                     <a href="{{ path('order_details', {'id':order_list_item.id}) }}">
-                                        Više o narudžbi <i class="fas fa-long-arrow-alt-right"></i>
+                                        {{ 'ordersTable.detailsLink'|trans({}, 'admin_panel_features')}}
+                                        <i class="fas fa-long-arrow-alt-right"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -174,27 +188,43 @@
             </div>
             <div class="col-sm-6">
                 <h3 class="text-center">
-                    Nedavno registrirani korisnici
+                    {{ 'recentlyRegistratedUsersTitle'|trans({}, 'admin_panel_features')}}
                     <img class="ml-2" id="icon"
                          src="{{ asset('icons/users.png') }}" alt="icon">
                 </h3>
                 {% if last5registeredUsers|length == 0 %}
                     <p class="text-center">
-                        Nije evidentiran ni jedan korisnik u sustavu.
+                        {{ 'noUsers'|trans({}, 'admin_panel_features')}}
                     </p>
                 {% else %}
                     <div class="table-responsive">
                         <table class="table table-hover table-info">
                             <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Email adresa</th>
-                                <th>Ime</th>
-                                <th>Prezime</th>
-                                <th>Spol</th>
-                                <th>Vrijeme registracije</th>
-                                <th>Vrijeme zadnje izmjene</th>
-                                <th>Detalji</th>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    {{ 'usersTable.email'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.name'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.surname'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.gender'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.createdAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.updatedAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.details'|trans({}, 'admin_panel_features')}}
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -212,7 +242,8 @@
                                     </td>
                                     <td>
                                         <a class="btn" href="{{ path('user_show', {'id': user.id}) }}">
-                                            Više o korisniku <i class="fas fa-long-arrow-alt-right"></i>
+                                            {{ 'usersTable.detailsLink'|trans({}, 'admin_panel_features')}}
+                                            <i class="fas fa-long-arrow-alt-right"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -222,25 +253,39 @@
                     </div>
                 {% endif %}
                 <h3 class="text-center mt-3">
-                    Nedavno napisane recenzije
+                    {{ 'recentlyReviews'|trans({}, 'admin_panel_features')}}
                     <img class="ml-2" id="icon" src="{{ asset('icons/review.png') }}" alt="icon">
                 </h3>
                 {% if last5reviews|length == 0 %}
                     <p class="text-center">
-                        Nije evidentirana ni jedna recenzija u sustavu.
+                        {{ 'noReviews'|trans({}, 'admin_panel_features')}}
                     </p>
                 {% else %}
                     <div class="table-responsive">
                         <table class="table table-hover table-info">
                             <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Ocjena</th>
-                                <th>Artikl</th>
-                                <th>Autor</th>
-                                <th>Vrijeme stvaranja</th>
-                                <th>Vrijeme zadnje izmjene</th>
-                                <th>Detalji</th>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.grade'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.item'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.user'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.createdAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.updatedAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.details'|trans({}, 'admin_panel_features')}}
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -266,7 +311,8 @@
                                     </td>
                                     <td>
                                         <a href="{{ path('review_edit', {'id': review.id}) }}">
-                                            Uredi recenziju <i class="fas fa-long-arrow-alt-right"></i>
+                                            {{ 'reviewsTable.editLink'|trans({}, 'admin_panel_features')}}
+                                            <i class="fas fa-long-arrow-alt-right"></i>
                                         </a>
                                     </td>
                                 </tr>
