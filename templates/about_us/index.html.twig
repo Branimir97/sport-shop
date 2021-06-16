@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}O nama{% endblock %}
+{% block title %}{{ 'title'|trans({}, 'about_us')}}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/about_us.css') }}">
 {% endblock %}
@@ -8,7 +8,7 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            O nama
+            {{ 'heading'|trans({}, 'about_us')}}
             <img id="icon_about-us" class="ml-1"
                  src="{{ asset('icons/about_us.png') }}" alt="icon">
         </h2>
@@ -16,21 +16,21 @@
             <div class="col-sm-6 mb-3">
                 <h6 class="p-1">
                     <i class="fas fa-street-view"></i>
-                    <b>Lokacija</b>
+                    <b>{{ 'locationTitle'|trans({}, 'about_us')}}</b>
                 </h6>
                 <p class="bg-light p-1">
                     Ulica Kneza Trpimira 2B, 31000 Osijek
                 </p>
                 <h6 class="p-1">
                     <i class="fas fa-file-contract"></i>
-                    <b>Puni naziv firme</b>
+                    <b>{{ 'companyNameTitle'|trans({}, 'about_us')}}</b>
                 </h6>
                 <p class="bg-light p-1">
                     SportShop d.o.o.
                 </p>
                 <h6 class="p-1">
                     <i class="fas fa-file-contract"></i>
-                    <b>Email adresa</b>
+                    <b>{{ 'emailAddressTitle'|trans({}, 'about_us')}}</b>
                 </h6>
                 <p class="bg-light p-1">
                     sportshop@gmail.com
@@ -62,12 +62,7 @@
             <div class="col-sm-4">
                 <div class="card">
                     <p class="p-2">
-                        Tvrtka SportShop bavi se prodajom sportske opreme za različite vrste
-                        sportova. Nudi veliki izbor artikala, od odjeće i obuće za sve uzraste,
-                        pa do sportske opreme za različite sportove. Glavni fokus je usmjeren
-                        na sport, iz čega se može zaključiti da je cilj SportShop-a potaknuti
-                        zanimanje svojih kupaca na aktivniji način života, što zahtijeva
-                        bavljenje sportom.
+                        {{ 'textSection1'|trans({}, 'about_us')}}
                     </p>
                 </div>
             </div>
@@ -79,14 +74,7 @@
             <div class="col-sm-5">
                 <div class="card">
                     <p class="p-2">
-                        SportShop artikli izuzetno su kvalitetni, što govori velika većina
-                        artikala koji su vodećih svjetskih sportskih brandova kao što su Nike,
-                        Adidas, Reebok, itd. Poslovanje tvrtke SportShop posvećeno je davanju
-                        pozitivnog doprinosa društvu i okolini, razvojem i implementacijom
-                        odgovorne poslovne prakse koja ujedno osigurava i ostvarivanje financijskih
-                        uspjeha. Tvrtku karakteriziraju fleksibilnost, profesionalnost i dinamična
-                        strategija razvoja i od svog osnivanja je tržišno orijentirana s prepoznatljivim
-                        brandovima.
+                        {{ 'textSection2'|trans({}, 'about_us')}}
                     </p>
                 </div>
             </div>
