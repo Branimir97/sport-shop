@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Loyalty program vjernosti{% endblock %}
+{% block title %}{{ 'title'|trans({}, 'loyalty_program')}}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('/css/loyalty_program.css') }}">
 {% endblock %}
@@ -9,28 +9,18 @@
 
 <div class="container">
     <h2 class="text-center mt-2 bg-light p-2">
-        Kako do svoje SportShop kartice vjernosti?
+        {{ 'heading'|trans({}, 'loyalty_program')}}
         <img class="panel_icon ml-1"
              src="{{ asset('icons/loyalty_card.png') }}" alt="">
     </h2>
     <div class="card">
         <p class="p-2 text-center">
-            Loyalty karticu vjernosti možete stvoriti tek nakon što ste postali
-            naš korisnik. Dakle potrebno je prvo biti registriran, zatim posjetiti
-            postavke korisničkog računa gdje će biti ponuđena opcija stvaranja
-            SportShop loyalty kartice. Stvaranjem kartice možete ostvariti pogodnosti
-            na način da skupljate bodove.<br>Svakom kupovinom možete skupiti određen
-            broj bodova, ovisno o ukupnom utrošku na kupnju artikala. Za svakih potrošenih
-            100kn, dobivate 10 bodova na Vašoj kartici (ukoliko ste ju prethodno stvorili).
-            Iste te bodove, prilikom naplate artikala iz košarice, možete iskoristiti na
-            način da se ukupan iznos umanji za iznos prikupljenih bodova.
-            Loyalty karticu vjernosti također možete vrlo jednostavno obrisati u postavkama
-            korisničkog računa.
+            {{ 'textSection'|trans({}, 'loyalty_program')}}
         </p>
     </div>
 
     <h6 class="mt-3 mb-3 text-center p-2 bg-light">
-        Prikaz loyalty kartice vjernosti za korisnika
+        {{ 'loyaltyCardText'|trans({}, 'loyalty_program')}}
         <strong>
             Branimir Butković
         </strong>
@@ -42,19 +32,19 @@
             </div>
             <div class="col-sm-6">
                 <h6 class="mt-1 bg-light">
-                    Broj kartice
+                    {{ 'loyaltyCardNumber'|trans({}, 'loyalty_program')}}
                 </h6>
                 <p id="loyalty_card_info" class="m-0">
                     12102432014111
                 </p>
                 <h6 class="mt-2 bg-light">
-                    Korisnik
+                    {{ 'loyaltyCardUser'|trans({}, 'loyalty_program')}}
                 </h6>
                 <p id="loyalty_card_info" class="m-0">
                     Branimir Butković
                 </p>
                 <h6 class="mt-2 bg-light">
-                    Bodovi
+                    {{ 'loyaltyCardCredits'|trans({}, 'loyalty_program')}}
                 </h6>
                 <p id="loyalty_card_info" class="m-0">
                     52
