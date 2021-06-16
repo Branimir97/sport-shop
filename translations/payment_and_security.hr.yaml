@@ -1,0 +1,23 @@
+title: Plaćanje i sigurnost
+heading: Plaćanje i sigurnost
+textSection1Title: PLAĆANJE NA NAŠOJ WEB STRANI JE SIGURNO!
+textSection1: Nakon što potvrdite da želite kupiti artikle iz košarice,
+              bit ćete preusmjereni na stranicu gdje će se izvršiti naplata.
+              Nakon odabira adrese isporuke, potrebno je odabrati način plaćanja
+              (Debitna/Kreditna kartica ili Paypal) te unesti podatke o Vašoj
+              kartici (Vaše ime i prezime, broj kartice, datum isteka te CVV broj).
+              Nakon unosa navedenih podataka, potrebno je potvrditi postupak naplate.
+              Ako je transakcija uspješna bit ćete preusmjereni na stranicu s popisom
+              uspješno izvršenih narudžbi, u suprotnom ćete dobiti poruku o pogrešci.
+textSection2Part1: Prilikom kreiranja i plaćanja narudžbe za koje je kao način plaćanja
+                   odabrano plaćanje karticom na Vašu e-mail adresu primit ćete dvije
+                   odvojene e-mail poruke - prvi email o
+orderConfirmation: Potvrdi narudžbe
+textSection2Part2: i nakon što se transakcija plaćanja izvrši, e-mail o
+paymentConfirmation: Potvrdi plaćanja
+textSection3Title1: POTVRDA NARUDŽBE
+textSection3Part1: e-mail koji dobijete kad ste na našoj stranici kao registrirani kupac
+                   uspješno stavili odabrane artikle u košaricu, popunili podatke, odabrali
+                   kartično plaćanje i potvrdili naplatu.
+textSection3Title2: POTVRDA PLAĆANJA
+textSection3Part2: e-mail koji dobijete nakon što se transakcija plaćanja izvrši.

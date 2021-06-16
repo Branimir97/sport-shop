@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Plaćanje i sigurnost{% endblock %}
+{% block title %}{{ 'title'|trans({}, 'payment_and_security')}}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/payment_and_security.css') }}">
 {% endblock %}
@@ -8,7 +8,7 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Plaćanje i sigurnost
+            {{ 'title'|trans({}, 'payment_and_security')}}
             <img id="icon_debit-card" class="ml-1"
                  src="{{ asset('icons/debit-card.png') }}" alt="icon">
         </h2>
@@ -16,16 +16,9 @@
             <div class="col-sm-6 card">
                 <p>
                     <strong>
-                        PLAĆANJE NA NAŠIM WEB STRANICAMA JE SIGURNO!
+                        {{ 'textSection1Title'|trans({}, 'payment_and_security')}}
                     </strong><br>
-                    Nakon što potvrdite da želite kupiti artikle iz košarice, bit ćete
-                    preusmjereni na stranicu gdje će se izvršiti naplata. Nakon odabira
-                    adrese isporuke, potrebno je odabrati način plaćanja (Debitna/Kreditna
-                    kartica ili Paypal) te unesti podatke o Vašoj kartici (Vaše ime i prezime,
-                    broj kartice, datum isteka te CVV broj). Nakon unosa navedenih podataka,
-                    potrebno je potvrditi postupak naplate. Ako je transakcija uspješna bit
-                    ćete preusmjereni na stranicu s popisom uspješno izvršenih narudžbi,
-                    u suprotnom ćete dobiti poruku o pogrešci.
+                    {{ 'textSection1'|trans({}, 'payment_and_security')}}
                 </p>
             </div>
             <div class="col-sm-2"></div>
@@ -37,11 +30,10 @@
             <div class="col-sm-6"></div>
             <div class="col-sm-3 card">
                 <p>
-                    Prilikom kreiranja i plaćanja narudžbe za koje je kao način plaćanja
-                    odabrano plaćanje karticom na Vašu e-mail adresu primit ćete dvije
-                    odvojene e-mail poruke - prvi email o
-                    <i>Potvrdi narudžbe</i> i nakon što se transakcija plaćanja izvrši,
-                    e-mail o <i>Potvrdi plaćanja</i>.
+                    {{ 'textSection2Part1'|trans({}, 'payment_and_security')}}
+                    <i>{{ 'orderConfirmation'|trans({}, 'payment_and_security')}}</i>
+                    {{ 'textSection2Part2'|trans({}, 'payment_and_security')}}
+                    <i>{{ 'paymentConfirmation'|trans({}, 'payment_and_security')}}</i>.
                 </p>
             </div>
             <div class="col-sm-3"></div>
@@ -58,13 +50,11 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-3 card">
                 <p>
-                    <strong>POTVRDA NARUDŽBE</strong> -
-                    e-mail koji dobijete kad ste na našoj stranici kao registrirani kupac
-                    uspješno stavili odabrane artikle u košaricu, popunili podatke, odabrali
-                    kartično plaćanje i potvrdili naplatu.
+                    <strong>{{ 'textSection3Title1'|trans({}, 'payment_and_security')}}</strong> -
+                    {{ 'textSection3Part1'|trans({}, 'payment_and_security')}}
                     <br>
-                    <strong>POTVRDA PLAĆANJA</strong> -
-                    e-mail koji dobijete nakon što se transakcija plaćanja izvrši.
+                    <strong>{{ 'textSection3Title2'|trans({}, 'payment_and_security')}}</strong> -
+                    {{ 'textSection3Part2'|trans({}, 'payment_and_security')}}
                 </p>
             </div>
         </div>
