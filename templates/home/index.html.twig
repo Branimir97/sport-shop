@@ -13,23 +13,22 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
-                            Dobrodošli na SportShop Webshop!
+                            {{ 'carouselMessage1'|trans({}, 'homepage')}}
                         </h5>
                     </div>
                     <div class="carousel-item">
                         <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
-                            Registrirajte se i započnite s dodavanjem omiljenih artikala u košaricu!
+                            {{ 'carouselMessage2'|trans({}, 'homepage')}}
                         </h5>
                     </div>
                     <div class="carousel-item">
                         <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
-                            Besplatna dostava za narudžbe iznad 300kn!
+                            {{ 'carouselMessage3'|trans({}, 'homepage')}}
                         </h5>
                     </div>
                     <div class="carousel-item">
                         <h5 class="bg-secondary text-center mt-1 pt-1 text-white">
-                            Napravite SportShop loyalty karticu vjernosti, skupljajte bodove
-                            i ostvarite pogodnosti!
+                            {{ 'carouselMessage4'|trans({}, 'homepage')}}
                         </h5>
                     </div>
                 </div>
@@ -74,54 +73,54 @@
         {% if app.user %}
                 <h4 class="bg-secondary text-center mt-1 pt-1 text-white
                 recommended-categories-title">
-                    Preporučeni artikli
+                    {{ 'recommendedItemsTitle'|trans({}, 'homepage')}}
                 </h4>
         {% endif %}
 
         <h4 class="bg-secondary text-center mt-1 pt-1 text-white top-categories-title">
-            Istaknute kategorije
+            {{ 'prominentCategoriesTitle'|trans({}, 'homepage')}}
         </h4>
         <div class="row ml-0 mr-0 mt-1 top-categories">
             <div class="col-md-15">
                 <div class="row ml-0 mr-0 no-gutters">
                     <div class="col-md-12 mb-2 item1">
-                        <p>Nogomet</p>
+                        <p>{{ 'football'|trans({}, 'homepage')}}</p>
                         <img src="{{ asset('/images/football.jpg') }}" alt="">
                     </div>
                     <div class="col-md-12 mb-2 item2">
-                        <p>Rukomet</p>
+                        <p>{{ 'handball'|trans({}, 'homepage')}}</p>
                         <img src="{{ asset('/images/handball.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
             <div class="col-md-15 activity mb-2">
-                <p>Trčanje</p>
+                <p>{{ 'running'|trans({}, 'homepage')}}</p>
                 <img src="{{ asset('/images/running.jpg') }}" alt="">
             </div>
             <div class="col-md-15">
                 <div class="row ml-0 mr-0 no-gutters">
                     <div class="col-md-12 mb-2 item1">
-                        <p>Košarka</p>
+                        <p>{{ 'basketball'|trans({}, 'homepage')}}</p>
                         <img src="{{ asset('/images/basketball.jpg') }}" alt="">
                     </div>
                     <div class="col-md-12 mb-2 item2">
-                        <p>Odbojka</p>
+                        <p>{{ 'volleyball'|trans({}, 'homepage')}}</p>
                         <img src="{{ asset('/images/volleyball.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
             <div class="col-md-15 activity mb-2">
-                <p>Fitness</p>
+                <p>{{ 'fitness'|trans({}, 'homepage')}}</p>
                 <img src="{{ asset('/images/fitness.jpg') }}" alt="">
             </div>
             <div class="col-md-15">
                 <div class="row ml-0 mr-0 no-gutters">
                     <div class="col-md-12 mb-2 item1">
-                        <p>Tenis</p>
+                        <p>{{ 'tennis'|trans({}, 'homepage')}}</p>
                         <img src="{{ asset('/images/tennis.jpg') }}" alt="">
                     </div>
                     <div class="col-md-12 mb-2 item2">
-                        <p>Stolni tenis</p>
+                        <p>{{ 'tableTennis'|trans({}, 'homepage')}}</p>
                         <img src="{{ asset('/images/table-tennis.jpg') }}" alt="">
                     </div>
                 </div>
