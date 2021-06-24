@@ -1,0 +1,27 @@
+index:
+  title: Upravljanje promo kodovima
+  noPromoCodes: Ne postoji niti jedan promo kod u bazi podataka.
+  newPromoCode: Generiraj novi promo kod
+
+new:
+  title: Novi promo kod
+  heading: Generiranje novog promo koda
+
+show:
+  title: Promo kod
+  editPromoCode: Uredi podatke
+
+promoCodesList: Lista promo kodova
+promoCodesTable:
+  promoCode: Promo kod
+  discount: Popust
+  expirationTime: Vrijeme isteka koda
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  status: Status
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši promo kod
+
+

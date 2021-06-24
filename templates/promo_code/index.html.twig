@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje kodovima za popust{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'promo_code') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/promo_code.css') }}">
 {% endblock %}
@@ -8,34 +10,52 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje kodovima za popust
+            {{ 'index.title'|trans({}, 'promo_code') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/promo_code.png') }}" alt="icon">
         </h2>
         {% if not promo_codes %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji niti jedan promo kod u bazi podataka.</p>
+                <p>
+                    {{ 'noPromoCodes'|trans({}, 'promo_code') }}
+                </p>
                 <a href="{{ path('promo_code_new') }}" class="btn btn-outline-info mb-3">
-                    Generiraj novi kod
+                    {{ 'index.newPromoCode'|trans({}, 'promo_code') }}
                 </a>
             </div>
         {% else %}
             <a href="{{ path('promo_code_new') }}" class="btn btn-outline-info mb-3">
-                Generiraj novi kod
+                {{ 'index.newPromoCode'|trans({}, 'promo_code') }}
             </a>
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Promo kod</th>
-                            <th>Popust [%]</th>
-                            <th>Vrijeme isteka koda</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Status</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.promoCode'|trans({}, 'promo_code') }}
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.discount'|trans({}, 'promo_code') }}[%]
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.expirationTime'|trans({}, 'promo_code') }}
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.createdAt'|trans({}, 'promo_code') }}
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.updatedAt'|trans({}, 'promo_code') }}
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.status'|trans({}, 'promo_code') }}
+                            </th>
+                            <th>
+                                {{ 'promoCodesTable.actions'|trans({}, 'promo_code') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,11 +84,11 @@
                             </td>
                             <td>
                                 <a href="{{ path('promo_code_show', {'id': promo_code.id}) }}"
-                                   title="Prikaži pojedinosti">
+                                   title="{{ 'promoCodesTable.infoTitle'|trans({}, 'promo_code') }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{{ path('promo_code_edit', {'id': promo_code.id}) }}"
-                                   title="Uredi">
+                                   title="{{ 'promoCodesTable.editTitle'|trans({}, 'promo_code') }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('promo_code/_delete_form.html.twig') }}

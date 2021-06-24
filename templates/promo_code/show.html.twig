@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Promo kod "{{ promo_code.code }}"{% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'promo_code') }}
+    "{{ promo_code.code }}"
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/promo_code.css') }}">
 {% endblock %}
@@ -8,44 +11,59 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Promo kod "{{ promo_code.code }}"
+            {{ 'show.title'|trans({}, 'promo_code') }}
+            "{{ promo_code.code }}"
         </h2>
         <a href="{{ path('promo_code_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista promo kodova
+            {{ 'promoCodesList'|trans({}, 'promo_code') }}
         </a>
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>
+                        Id
+                    </th>
                     <td>{{ promo_code.id }}</td>
                 </tr>
                 <tr>
-                    <th>Promo kod</th>
+                    <th>
+                        {{ 'promoCodesTable.promoCode'|trans({}, 'promo_code') }}
+                    </th>
                     <td>{{ promo_code.code }}</td>
                 </tr>
                 <tr>
-                    <th>Postotak popusta</th>
+                    <th>
+                        {{ 'promoCodesTable.discount'|trans({}, 'promo_code') }}[%]
+                    </th>
                     <td>{{ promo_code.discountPercentage }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme isteka koda</th>
+                    <th>
+                        {{ 'promoCodesTable.expirationTime'|trans({}, 'promo_code') }}
+                    </th>
                     <td>
                         {{ promo_code.endDate ? promo_code.endDate|date('H:i:s | d.m.Y.') : '' }}
                     </td>
                 </tr>
                 <tr>
-                    <th>Vrijeme stvaranja</th>
+                    <th>
+                        {{ 'promoCodesTable.createdAt'|trans({}, 'promo_code') }}
+                    </th>
                     <td>{{ promo_code.createdAt|date('H:i:s | d.m.Y.')}}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme zadnje izmjene</th>
+                    <th>
+                        {{ 'promoCodesTable.updatedAt'|trans({}, 'promo_code') }}
+                    </th>
                     <td>
                         {{ promo_code.updatedAt ? promo_code.updatedAt|date('H:i:s | d.m.Y.') : '' }}
                     </td>
                 </tr>
                 <tr>
-                    <th>Status</th>
+                    <th>
+                        {{ 'promoCodesTable.status'|trans({}, 'promo_code') }}
+                    </th>
                     <td>
                         {% if promo_code.status == "AKTIVAN" %}
                             <p class="active_code">
@@ -63,7 +81,7 @@
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('promo_code_edit',
                 {'id': promo_code.id}) }}">
-                Uredi podatke
+                {{ 'show.editPromoCode'|trans({}, 'promo_code') }}
             </a>
             {{ include('promo_code/_delete_form.html.twig') }}
         </div>

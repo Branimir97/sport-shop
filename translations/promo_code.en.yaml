@@ -1,0 +1,27 @@
+index:
+  title: Promo code management
+  noPromoCodes: There are no promo codes in out database.
+  newPromoCode: Generate new promo code
+
+new:
+  title: New promo code
+  heading: Generating new promo code
+
+show:
+  title: Promo code
+  editPromoCode: Edit data
+
+promoCodesList: List of promo codes
+promoCodesTable:
+  promoCode: Promo code
+  discount: Discount
+  expirationTime: Expiration time
+  createdAt: Registration time
+  updatedAt: Last modified time
+  status: Status
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete promo code
+
+

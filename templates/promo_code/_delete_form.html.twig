@@ -2,5 +2,7 @@
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj promo kod?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo_code.id) }}">
-    <button class="btn btn-outline-danger mb-3 mt-2">Obriši promo kod</button>
+    <button class="btn btn-outline-danger mb-3 mt-2">
+        {{ 'promoCodesTable.delete'|trans({}, 'promo_code') }}
+    </button>
 </form>

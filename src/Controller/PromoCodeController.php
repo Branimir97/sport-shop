@@ -5,13 +5,18 @@ namespace App\Controller;
 use App\Entity\PromoCode;
 use App\Form\PromoCodeType;
 use App\Repository\PromoCodeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/promo/kodovi")
+ * @Route({
+ *     "en": "/promo/codes",
+ *     "hr": "/promo/kodovi",
+ * })
+ * @IsGranted("ROLE_ADMIN")
  */
 class PromoCodeController extends AbstractController
 {
@@ -26,7 +31,10 @@ class PromoCodeController extends AbstractController
     }
 
     /**
-     * @Route("/novi", name="promo_code_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/novi",
+     * }, name="promo_code_new", methods={"GET","POST"})
      */
     public function new(Request $request,
                         PromoCodeRepository $promoCodeRepository): Response
@@ -76,7 +84,10 @@ class PromoCodeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="promo_code_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi",
+     * }, name="promo_code_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, PromoCode $promoCode,
                          PromoCodeRepository $promoCodeRepository): Response

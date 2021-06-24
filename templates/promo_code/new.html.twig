@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Novi promo kod{% endblock %}
+{% block title %}
+    {{ 'new.title'|trans({}, 'promo_code') }}
+{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
@@ -9,11 +11,11 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Dodavanje novog promo koda
+            {{ 'new.heading'|trans({}, 'promo_code') }}
         </h2>
         <a href="{{ path('promo_code_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista promo kodova
+            {{ 'promoCodesList'|trans({}, 'promo_code') }}
         </a>
         {{ include('promo_code/_form.html.twig') }}
     </div>
