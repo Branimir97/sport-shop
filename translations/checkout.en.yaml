@@ -1,0 +1,18 @@
+title: Billing
+yourCart: Your shopping cart
+color: color
+size: Size
+quantity: Quantity
+pricePerPiece: Price per piece
+discount: Discount
+loyaltyCardCredits: Leveraging points with a loyalty card
+promoCode: Promo code
+shipping: Shipping
+total: Total
+shippingFree: Free
+totalWithDiscount: Total with discount
+totalWithoutDiscount: Total without discount
+loyaltyCardText: On the loyalty card you have
+loyaltyCardText2: credits.
+earnedCredits: The number of points earned on the loyalty card if you make a payment
+deliveryAddressSelect: Select delivery address

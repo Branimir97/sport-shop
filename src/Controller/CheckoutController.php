@@ -14,15 +14,22 @@ use App\Repository\DeliveryAddressRepository;
 use App\Repository\PromoCodeRepository;
 use App\Repository\PromoCodeUserRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class CheckoutController extends AbstractController
 {
     /**
-     * @Route("/plaćanje", name="checkout")
+     * @Route({
+     *     "en": "/billing",
+     *     "hr": "/plaćanje"
+     * }, name="checkout")
      */
     public function index(Request $request, CartRepository $cartRepository,
                           CartItemRepository $cartItemRepository,

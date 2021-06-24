@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Plaćanje{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'checkout') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
 {% endblock %}
@@ -8,25 +10,36 @@
 {% block body %}
     <div class="container">
         <h2 id="title" class="text-center mt-2 bg-success text-white p-2">
-            Plaćanje
+            {{ 'title'|trans({}, 'checkout') }}
             <i class="fas fa-hand-holding-usd"></i>
         </h2>
         <div class="row mt-3">
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">
-                        Vaša košarica
+                        {{ 'yourCart'|trans({}, 'checkout') }}
                     </span>
                 </h4>
                 <ul class="list-group mb-3">
                     {% for cartItem in cartItems %}
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{ cartItem.item.title }}</h6>
-                                <small class="text-muted">{{ cartItem.color.name }} boja |</small>
-                                <small class="text-muted">Veličina {{ cartItem.size.value }}</small><br>
-                                <small class="text-muted">Količina: {{ cartItem.quantity }} |</small>
-                                <small class="text-muted">Cijena po kom.:
+                                <h6 class="my-0">
+                                    {{ cartItem.item.title }}
+                                </h6>
+                                <small class="text-muted">
+                                    {{ cartItem.color.name }} {{ 'color'|trans({}, 'checkout') }} |
+                                </small>
+                                <small class="text-muted">
+                                    {{ 'size'|trans({}, 'checkout') }}
+                                    {{ cartItem.size.value }}
+                                </small><br>
+                                <small class="text-muted">
+                                    {{ 'quantity'|trans({}, 'checkout') }}:
+                                    {{ cartItem.quantity }} |
+                                </small>
+                                <small class="text-muted">
+                                    {{ 'pricePerPiece'|trans({}, 'checkout') }}:
                                     {{ cartItem.item.price|number_format(2, '.', ',') }} kn
                                 </small>
                             </div>
@@ -39,7 +52,8 @@
                                 <div class="text-success">
                                     <h6 class="my-0">{{ cartItem.item.actionItem.title }}</h6>
                                     <small class="text-muted">
-                                        Popust {{ cartItem.item.actionItem.discountPercentage }}%
+                                        {{ 'discount'|trans({}, 'checkout') }}:
+                                        {{ cartItem.item.actionItem.discountPercentage }}%
                                     </small>
                                 </div>
                                 <span class="text-success">
@@ -56,7 +70,7 @@
                                             {{ cartItemCategory.category.actionCategory.title }}
                                         </h6>
                                         <small class="text-muted">
-                                            Popust
+                                            {{ 'discount'|trans({}, 'checkout') }}:
                                             {{ cartItemCategory.category.actionCategory.discountPercentage }}%
                                         </small>
                                     </div>
@@ -72,7 +86,7 @@
                         <li class="list-group-item d-flex justify-content-between bg-light">
                             <div class="text-success">
                                 <h6 class="my-0">
-                                    Iskorištavanje bodova s loyalty kartice
+                                    {{ 'loyaltyCardCredits'|trans({}, 'checkout') }}:
                                 </h6>
                             </div>
                             <span class="text-success">
@@ -84,10 +98,12 @@
                         <li class="list-group-item d-flex justify-content-between bg-light">
                             <div class="text-success">
                                 <h6 class="my-0">
-                                    Promo kod {{ app.session.get('promoCode') }}
+                                    {{ 'promoCode'|trans({}, 'checkout') }}:
+                                    {{ app.session.get('promoCode') }}
                                 </h6>
                                 <small class="text-muted">
-                                    Popust {{ app.session.get('promoCodeDiscount') }}%
+                                    {{ 'discount'|trans({}, 'checkout') }}:
+                                    {{ app.session.get('promoCodeDiscount') }}%
                                 </small>
                             </div>
                             <span class="text-success">
@@ -98,52 +114,78 @@
                     {% if discount == 0 %}
                         {% if totalPrice < 300%}
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Poštarina</span>
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>30 kn</strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between text-danger">
-                                <span>Ukupno</span>
+                                <span>
+                                    {{ 'total'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>{{ (totalPrice + 30)|number_format(2, '.', ',') }} kn</strong>
                             </li>
                         {% else %}
                             <li class="list-group-item d-flex justify-content-between text-success">
-                                <span>Poštarina</span>
-                                <strong>Besplatna</strong>
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>
+                                    {{ 'shippingFree'|trans({}, 'checkout') }}:
+                                </strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between text-danger">
-                                <span>Ukupno</span>
+                                <span>
+                                    {{ 'total'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>{{ totalPrice|number_format(2, '.', ',') }} kn</strong>
                             </li>
                         {% endif %}
                     {% else %}
                         <li class="list-group-item d-flex justify-content-between text-success">
-                            <span>Popust</span>
+                            <span>
+                                {{ 'discount'|trans({}, 'checkout') }}:
+                            </span>
                             <strong>- {{ discount|number_format(2, '.', ',') }} kn</strong>
                         </li>
                         {% if totalPrice < 300 %}
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Poštarina</span>
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>30 kn</strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Ukupno bez popusta</span>
+                                <span>
+                                    {{ 'totalWithoutDiscount'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>{{ (totalPrice+30)|number_format(2, '.', ',') }} kn</strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between text-danger">
-                                <span>Ukupno s popustom</span>
+                                <span>
+                                    {{ 'totalWithDiscount'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>{{ (totalPriceWithDiscount+30)|number_format(2, '.', ',') }} kn</strong>
                             </li>
                         {% else %}
                             <li class="list-group-item d-flex justify-content-between text-success">
-                                <span>Poštarina</span>
-                                <strong>Besplatna</strong>
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>
+                                    {{ 'shippingFree'|trans({}, 'checkout') }}:
+                                </strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Ukupno bez popusta kn</span>
+                                <span>
+                                    {{ 'totalWithoutDiscount'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between text-danger">
-                                <span>Ukupno s popustom</span>
+                                <span>
+                                    {{ 'totalWithDiscount'|trans({}, 'checkout') }}:
+                                </span>
                                 <strong>{{ totalPriceWithDiscount|number_format(2, '.', ',') }} kn</strong>
                             </li>
                         {% endif %}
@@ -154,10 +196,12 @@
                 </div>
                 {% if loyaltyCardCredits is not null %}
                     <p class="text-center pt-2">
-                        Na loyalty kartici vjernosti imate {{ loyaltyCardCredits }} bodova.
+                        {{ 'loyaltyCardText'|trans({}, 'checkout') }}:
+                        {{ loyaltyCardCredits }}
+                        {{ 'loyaltyCardText2'|trans({}, 'checkout') }}
                     </p>
                     <p id="credits" class="text-center">
-                        Broj ostvarenih bodova na kartici vjernosti ukoliko izvršite plaćanje:
+                        {{ 'earnedCredits'|trans({}, 'checkout') }}:
                         <span>
                             <b>
                                 {{ creditsEarned }}
@@ -167,7 +211,9 @@
                 {% endif %}
             </div>
             <div class="col-md-8 order-md-1">
-                <h4 class="mb-3">Odabir adrese isporuke</h4>
+                <h4 class="mb-3">
+                    {{ 'deliveryAddressSelect'|trans({}, 'checkout') }}:
+                </h4>
                 {{ include('checkout/_form.html.twig') }}
             </div>
         </div>

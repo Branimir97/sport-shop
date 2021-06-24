@@ -1,0 +1,18 @@
+title: Plaćanje
+yourCart: Vaša košarica
+color: boja
+size: Veličina
+quantity: Količina
+pricePerPiece: Cijena po kom.
+discount: Popust
+loyaltyCardCredits: Iskorištavanje bodova s loyalty kartice
+promoCode: Promo kod
+shipping: Poštarina
+total: Ukupno
+shippingFree: Besplatna
+totalWithDiscount: Ukupno s popustom
+totalWithoutDiscount: Ukupno bez popusta
+loyaltyCardText: Na loyalty kartici vjernosti imate
+loyaltyCardText2: bodova.
+earnedCredits: Broj ostvarenih bodova na kartici vjernosti ukoliko izvršite plaćanje
+deliveryAddressSelect: Odabir adrese isporuke
