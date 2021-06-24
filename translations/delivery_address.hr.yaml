@@ -1,0 +1,31 @@
+index:
+  title: Upravljanje adresama isporuka
+  noDeliveryAddresses: Ne postoji niti jedna adresa isporuke u bazi podataka.
+
+new:
+  title: Nova adresa isporuke
+  heading: Dodavanje nove adrese isporuke
+
+show:
+  title: Adresa isporuke
+  editDeliveryAddress: Uredi podatke
+
+accountSettings: Postavke računa
+deliveryAddressList: Lista adresa isporuka
+deliveryAddressTable:
+  street: Ulica
+  city: Grad
+  county: Županija
+  postalCode: Poštanski broj
+  country: Država
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši adresu isporuke
+  user: Adresa pripada korisniku
+  editUser: Uredi podatke o korisniku
+
+
+

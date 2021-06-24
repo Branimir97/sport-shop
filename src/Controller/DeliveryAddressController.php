@@ -5,13 +5,18 @@ namespace App\Controller;
 use App\Entity\DeliveryAddress;
 use App\Form\DeliveryAddressType;
 use App\Repository\DeliveryAddressRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/adrese/isporuka")
+ * @Route({
+ *     "en": "/delivery/addresses",
+ *     "hr": "/adrese/isporuka"
+ * })
+ * @IsGranted("ROLE_USER")
  */
 class DeliveryAddressController extends AbstractController
 {
@@ -26,7 +31,10 @@ class DeliveryAddressController extends AbstractController
     }
 
     /**
-     * @Route("/nova", name="delivery_address_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/nova"
+     * }, name="delivery_address_new", methods={"GET","POST"})
      */
     public function new(Request $request,
                         DeliveryAddressRepository $deliveryAddressRepository): Response
@@ -69,7 +77,10 @@ class DeliveryAddressController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="delivery_address_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="delivery_address_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, DeliveryAddress $deliveryAddress): Response
     {

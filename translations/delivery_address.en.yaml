@@ -1,0 +1,29 @@
+index:
+  title: Delivery address management
+  noDeliveryAddresses: There are no categories in out database.
+
+new:
+  title: New delivery address
+  heading: Adding new delivery address
+
+show:
+  title: Delivery address
+  editDeliveryAddress: Edit data
+
+accountSettings: Account settings
+deliveryAddressList: List of delivery addresses
+deliveryAddressTable:
+  street: Street
+  city: City
+  county: County
+  postalCode: Postal code
+  country: Country
+  createdAt: Registration time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete delivery address
+  user: The address belongs to the user
+  editUser: Edit data about user
+

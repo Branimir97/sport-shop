@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adresa "{{ delivery_address.street }}"{% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'delivery_address') }}
+    "{{ delivery_address.street }}"
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
 {% endblock %}
@@ -8,17 +11,18 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Adresa "{{ delivery_address.street }}"
+            {{ 'show.title'|trans({}, 'delivery_address') }}
+            "{{ delivery_address.street }}"
         </h2>
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('delivery_address_index') }}">
                 <i class="fas fa-arrow-alt-circle-left"></i>
-                Lista adresa isporuka
+                {{ 'deliveryAddressList'|trans({}, 'delivery_address') }}
             </a>
             {% else %}
             <a href="{{ path('account_settings') }}">
                 <i class="fas fa-arrow-alt-circle-left"></i>
-                Postavke računa
+                {{ 'accountSettings'|trans({}, 'delivery_address') }}
             </a>
         {% endif %}
         {{ include('delivery_address/_form.html.twig',

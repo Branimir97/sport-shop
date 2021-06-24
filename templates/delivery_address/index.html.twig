@@ -1,33 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje adresama isporuka{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'delivery_address') }}
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje adresama isporuka
+            {{ 'index.title'|trans({}, 'delivery_address') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/delivery_address.png') }}" alt="icon">
         </h2>
         {% if not delivery_addresses %}
         <div class="text-center">
             <img src="{{ asset('images/logo.png') }}" alt="">
-            <p>Ne postoji niti jedna adresa isporuke u bazi podataka.</p>
+            <p>
+                {{ 'noDeliveryAddresses'|trans({}, 'delivery_address') }}
+            </p>
         </div>
         {% else %}
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Ulica</th>
-                            <th>Grad</th>
-                            <th>Županija</th>
-                            <th>Poštanski broj</th>
-                            <th>Država</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.street'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.city'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.county'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.postalCode'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.country'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.createdAt'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.updatedAt'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.actions'|trans({}, 'delivery_address') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,12 +69,12 @@
                             <td>
                                 <a class="btn" href="{{ path('delivery_address_show',
                                     {'id': delivery_address.id}) }}"
-                                   title="Prikaži pojedinosti">
+                                   title="{{ 'deliveryAddressTable.infoTitle'|trans({}, 'delivery_address') }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{{ path('delivery_address_edit',
                                     {'id': delivery_address.id}) }}"
-                                   title="Uredi">
+                                   title="{{ 'deliveryAddressTable.editTitle'|trans({}, 'delivery_address') }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('delivery_address/_delete_form.html.twig') }}
