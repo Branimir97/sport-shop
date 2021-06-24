@@ -8,13 +8,18 @@ use App\Repository\ItemRepository;
 use App\Repository\UserRepository;
 use App\Repository\WishListItemRepository;
 use App\Repository\WishListRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/popis/želja")
+ * @Route({
+ *     "en": "/wish/list",
+ *     "hr": "/popis/želja"
+ * })
+ * @IsGranted("ROLE_USER")
  */
 class WishListController extends AbstractController
 {
@@ -31,7 +36,10 @@ class WishListController extends AbstractController
     }
 
     /**
-     * @Route("/novi/artikl/{id}", name="wish_list_item_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new/item/{id}",
+     *     "hr": "/novi/artikl/{id}"
+     * }, name="wish_list_item_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserRepository $userRepository,
                         WishListItemRepository $wishListItemRepository,
@@ -70,7 +78,10 @@ class WishListController extends AbstractController
     }
 
     /**
-     * @Route("/artikl/{id}", name="wish_list_item_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/item/{id}",
+     *     "hr": "/artikl/{id}"
+     * }, name="wish_list_item_delete", methods={"DELETE"})
      */
     public function deleteItem(Request $request, WishListItem $wishListItem,
                                WishListRepository $wishListRepository,

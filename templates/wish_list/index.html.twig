@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Moj popis želja{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'wish_list') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/cart_wish_order_list.css") }}">
 {% endblock %}
@@ -8,28 +10,42 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Moj popis želja
+            {{ 'title'|trans({}, 'wish_list') }}:
             <i id="wish_list" class="fas fa-list-ul"></i>
         </h2>
         {% if wishList.wishListItems is not defined or wishList.wishListItems|length == 0 %}
             <h6 class="text-center bg-info p-2 text-white">
-                Ne postoji niti jedan artikl na Vašem popisu želja.
+                {{ 'noWishListItems'|trans({}, 'wish_list') }}:
             </h6>
             <p class="text-center">
-                ps. Ukoliko ne možete odmah kupiti željeni artikl, dodajte ga na popis želja!
+                {{ 'wishListMessage'|trans({}, 'wish_list') }}:
             </p>
         {% else %}
             <div class="table-responsive">
                 <table class="table table-hover table-warning">
                     <thead>
                         <tr>
-                            <th>Slika artikla</th>
-                            <th>Naziv artikla</th>
-                            <th>Šifra artikla</th>
-                            <th>Cijena [kn]</th>
-                            <th>Vrijeme dodavanja</th>
-                            <th>Obriši artikl</th>
-                            <th>Nastavi kupnju</th>
+                            <th>
+                                {{ 'wishListTable.image'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.itemName'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.itemCipher'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.itemPrice'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.createdAt'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.delete'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.continueShopping'|trans({}, 'wish_list') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,7 +71,7 @@
                             <td>
                                 <a class="btn btn-success text-white"
                                    href="{{ path('item_details', {'id':wishListItem.item.id}) }}"
-                                    title="Nastavi do artikla">
+                                    title="{{ 'wishListTable.goToItem'|trans({}, 'wish_list') }}">
                                     <i class="fas fa-shopping-bag"></i>
                                 </a>
                             </td>

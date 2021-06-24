@@ -1,0 +1,12 @@
+title: Moj popis želja
+noWishListItems: Ne postoji niti jedan artikl na Vašem popisu želja.
+wishListMessage: ps. Ukoliko ne možete odmah kupiti željeni artikl, dodajte ga na popis želja!
+wishListTable:
+  image: Item image
+  itemName: Item name
+  itemCipher: Item cipher
+  itemPrice: Price
+  createdAt: Creation time
+  delete: Delete item from wish list
+  continueShopping: Continue shopping
+  goToItem: Continute to the item
