@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Akcija - {{ action_category.category.name }}{% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'action_categories') }}
+    - {{ action_category.category.name }}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
 {% endblock %}
@@ -8,11 +10,12 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Akcija - {{ action_category.category.name }}
+            {{ 'show.title'|trans({}, 'action_categories') }}
+            - {{ action_category.category.name }}
         </h2>
         <a href="{{ path('action_category_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista kategorija na akciji
+            {{ 'actionsList'|trans({}, 'action_categories') }}
         </a>
         {{ include('actions/action_category/_form.html.twig',
             {'button_label': 'Spremi promjene'}) }}

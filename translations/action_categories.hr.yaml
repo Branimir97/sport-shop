@@ -1,0 +1,25 @@
+index:
+  title: Upravljanje akcijama kategorija
+  noActions: Ne postoji niti jedna kategorija na akciji.
+  newAction: Postavi novu kategoriju na akciju
+
+new:
+  title: Nova akcija na kategorije
+  heading: Postavljanje kategorije/a na akciju
+
+show:
+  title: Akcija
+  editAction: Uredi podatke
+
+actionsList: Lista kategorija na akciji
+actionsTable:
+  category: Kategorija
+  name: Naziv akcije
+  discount: Popust [%]
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitleCategory: Informacije o kategoriji
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Ukloni akciju

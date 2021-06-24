@@ -16,7 +16,7 @@ class AdminPanelController extends AbstractController
     /**
      * @Route({
      *     "en": "/admin/panel",
-     *     "hr": "/admin/panela",
+     *     "hr": "/upravljačka/ploča",
      *      }, name="admin_panel")
      */
     public function index(UserRepository $userRepository,

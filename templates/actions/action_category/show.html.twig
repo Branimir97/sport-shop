@@ -1,40 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Akcija - {{ action_category.category.name }}{% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'action_categories') }}
+    - {{ action_category.category.name }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Akcija - {{ action_category.category.name }}
+            {{ 'show.title'|trans({}, 'action_categories') }}
+            - {{ action_category.category.name }}
         </h2>
         <a href="{{ path('action_category_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista kategorija na akciji
+            {{ 'actionsList'|trans({}, 'action_categories') }}
         </a>
         <table class="table">
             <tbody>
             <tr>
-                <th>Id</th>
+                <th>
+                    Id
+                </th>
                 <td>{{ action_category.id }}</td>
             </tr>
             <tr>
-                <th>Kategorija</th>
+                <th>
+                    {{ 'actionsTable.category'|trans({}, 'action_categories') }}
+                </th>
                 <td>{{ action_category.category.name }}</td>
             </tr>
             <tr>
-                <th>Naziv akcije</th>
+                <th>
+                    {{ 'actionsTable.name'|trans({}, 'action_categories') }}
+                </th>
                 <td>{{ action_category.title }}</td>
             </tr>
             <tr>
-                <th>Popust</th>
+                <th>
+                    {{ 'actionsTable.discount'|trans({}, 'action_categories') }}
+                </th>
                 <td>{{ action_category.discountPercentage }}</td>
             </tr>
             <tr>
-                <th>Vrijeme stvaranja</th>
+                <th>
+                    {{ 'actionsTable.createdAt'|trans({}, 'action_categories') }}
+                </th>
                 <td>{{ action_category.createdAt|date('H:i:s | d.m.Y.') }}</td>
             </tr>
             <tr>
-                <th>Vrijeme zadnje izmjene</th>
+                <th>
+                    {{ 'actionsTable.updatedAt'|trans({}, 'action_categories') }}
+                </th>
                 <td>
                     {{ action_category.updatedAt ?
                     action_category.updatedAt|date('H:i:s | d.m.Y.') : '' }}
@@ -45,7 +61,7 @@
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('action_category_edit',
                    {'id': action_category.id}) }}">
-                Uredi podatke
+                {{ 'show.editAction'|trans({}, 'action_categories') }}
             </a>
             {{ include('actions/action_category/_delete_form.html.twig') }}
         </div>

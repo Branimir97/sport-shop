@@ -1,33 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Artikli na akciji{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'action_items') }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Artikli na akciji
+            {{ 'index.title'|trans({}, 'action_items') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/action.png') }}" alt="icon">
         </h2>
         {% if not action_items %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji niti jedan artkl na akciji.</p>
-                <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">Postavi novi artikl na akciju</a>
+                <p>
+                    {{ 'index.noActions'|trans({}, 'action_items') }}
+                </p>
+                <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">
+                    {{ 'index.newAction'|trans({}, 'action_items') }}
+                </a>
             </div>
         {% else %}
-            <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">Postavi novi artikl na akciju</a>
+            <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">
+                {{ 'index.newAction'|trans({}, 'action_items') }}
+            </a>
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Artikl</th>
-                            <th>Naziv akcije</th>
-                            <th>Popust [%]</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'actionsTable.item'|trans({}, 'action_items') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.name'|trans({}, 'action_items') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.discount'|trans({}, 'action_items') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.createdAt'|trans({}, 'action_items') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.updatedAt'|trans({}, 'action_items') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.actions'|trans({}, 'action_items') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +57,8 @@
                             <tr>
                                 <td>{{ action_item.id }}</td>
                                 <td>{{ action_item.item.title }}
-                                    <a href="{{ path('item_details', {'id':action_item.item.id}) }}" title="Informacije o artiklu">
+                                    <a href="{{ path('item_details', {'id':action_item.item.id}) }}"
+                                       title="{{ 'index.actionsTable.infoTitleItem'|trans({}, 'action_items') }}">
                                         <i class="fas fa-angle-double-right"></i>
                                     </a>
                                 </td>
@@ -44,10 +67,12 @@
                                 <td>{{ action_item.createdAt|date('H:i:s | d.m.Y.') }}</td>
                                 <td>{{ action_item.updatedAt ? action_item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
                                 <td>
-                                    <a href="{{ path('action_item_show', {'id': action_item.id}) }}" title="Prikaži pojedinosti">
+                                    <a href="{{ path('action_item_show', {'id': action_item.id}) }}"
+                                       title="{{ 'index.actionsTable.infoTitle'|trans({}, 'action_items') }}">
                                         <i class="fas fa-info-circle"></i>
                                     </a>
-                                    <a href="{{ path('action_item_edit', {'id': action_item.id}) }}" title="Uredi">
+                                    <a href="{{ path('action_item_edit', {'id': action_item.id}) }}"
+                                       title="{{ 'index.actionsTable.infoTitle'|trans({}, 'action_items') }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     {{ include('actions/action_item/_delete_form.html.twig') }}

@@ -13,7 +13,7 @@ class LoginController extends AbstractController
      * @Route({
      *     "en": "/login",
      *     "hr": "/prijava"
-     *     },name="app_login")
+     * }, name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -30,7 +30,7 @@ class LoginController extends AbstractController
      * @Route({
      *     "en": "/logout",
      *     "hr": "/odjava"
-     *     }, name="app_logout")
+     * }, name="app_logout")
      */
     public function logout()
     {}

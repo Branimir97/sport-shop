@@ -1,0 +1,25 @@
+index:
+  title: Upravljanje akcijama artikala
+  noActions: Ne postoji niti jedan artkl na akciji.
+  newAction: Postavi novi artikl na akciju
+
+new:
+  title: Nova akcija na artikl
+  heading: Postavljanje artikla na akciju
+
+show:
+  title: Akcija
+  editAction: Uredi podatke
+
+actionsList: Lista artikala na akciji
+actionsTable:
+  item: Artikl
+  name: Naziv akcije
+  discount: Popust [%]
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitleItem: Informacije o artiklu
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Ukloni akciju

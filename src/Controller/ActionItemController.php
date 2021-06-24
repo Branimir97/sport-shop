@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/akcije/artikli")
+ * @Route({
+ *     "en": "/actions/items",
+ *     "hr": "/akcije/artikli"
+ * })
  */
 class ActionItemController extends AbstractController
 {
@@ -27,7 +30,10 @@ class ActionItemController extends AbstractController
     }
 
     /**
-     * @Route("/nova", name="action_item_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/nova"
+     * }, name="action_item_new", methods={"GET","POST"})
      */
     public function new(Request $request, ItemRepository $itemRepository): Response
     {
@@ -80,7 +86,10 @@ class ActionItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="action_item_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="action_item_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ActionItem $actionItem): Response
     {

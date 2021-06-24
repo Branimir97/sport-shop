@@ -9,7 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActionsController extends AbstractController
 {
     /**
-     * @Route("/akcije", name="actions")
+     * @Route({
+     *     "en": "/actions",
+     *     "hr": "/akcije"
+     * }, name="actions")
      */
     public function index(): Response
     {

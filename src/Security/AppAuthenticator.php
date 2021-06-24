@@ -20,7 +20,8 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class AppAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
+class AppAuthenticator extends AbstractFormLoginAuthenticator
+            implements PasswordAuthenticatedInterface
 {
     use TargetPathTrait;
 
@@ -70,7 +71,8 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        $user = $this->entityManager->getRepository(User::class)->
+                findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
@@ -92,7 +94,8 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         return $credentials['password'];
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token,
+                                            string $providerKey): RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);

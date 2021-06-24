@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/akcije/kategorije")
+ * @Route({
+ *     "en": "/actions/categories",
+ *     "hr": "/akcije/kategorije"
+ * })
  */
 class ActionCategoryController extends AbstractController
 {
@@ -27,7 +30,10 @@ class ActionCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/nova", name="action_category_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/nova"
+     * }, name="action_category_new", methods={"GET","POST"})
      */
     public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
@@ -77,7 +83,10 @@ class ActionCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="action_category_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="action_category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ActionCategory $actionCategory): Response
     {

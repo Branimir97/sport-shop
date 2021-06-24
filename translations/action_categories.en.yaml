@@ -1,0 +1,26 @@
+index:
+  title: Action category management
+  noActions: There are not categories on action.
+  newAction: Put a new category on sale
+
+new:
+  title: New category action
+  heading: Setting the category to action
+
+show:
+  title: Action
+  editAction: Edit data
+
+actionsList: List of categories on action
+actionsTable:
+  category: Category
+  name: Action name
+  discount: Discount [%]
+  createdAt: Registration time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitleCategory: Category information
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Remove action
+

@@ -9,7 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class LoyaltyProgramController extends AbstractController
 {
     /**
-     * @Route("/loyalty/program/vjernosti", name="loyalty_program")
+     * @Route("/loyalty/program/{_locale}",
+     *      name="loyalty_program", defaults={"_locale"="hr"})
      */
     public function index(): Response
     {

@@ -9,7 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AboutUsController extends AbstractController
 {
     /**
-     * @Route("/o/nama", name="about_us")
+     * @Route({
+     *     "en": "/about/us",
+     *     "hr": "/o/nama"
+     * }, name="about_us")
      */
     public function index(): Response
     {

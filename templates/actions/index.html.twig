@@ -1,21 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje akcijama{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'actions') }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje akcijama
+            {{ 'title'|trans({}, 'actions') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/action.png') }}" alt="icon">
         </h2>
         <div class="text-center mt-3">
             <a class="btn btn-primary" href="{{ path('action_item_index') }}">
-                Upravljanje akcijama artikala
+                {{ 'itemAction'|trans({}, 'actions') }}
                 <i class="fas fa-hand-pointer"></i>
             </a>
             <a class="btn btn-info" href="{{ path('action_category_index') }}">
-                Upravljanje akcijama kategorija
+                {{ 'categoryAction'|trans({}, 'actions') }}
                 <i class="far fa-hand-pointer"></i>
             </a>
         </div>

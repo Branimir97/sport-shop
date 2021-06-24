@@ -9,7 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class TermsAndConditionsController extends AbstractController
 {
     /**
-     * @Route("/uvjeti/i/odredbe", name="terms_and_conditions")
+     * @Route({
+     *     "en": "/terms/and/conditions",
+     *     "hr": "/uvjeti/i/odredbe"
+     *     }, name="terms_and_conditions")
      */
     public function index(): Response
     {

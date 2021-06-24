@@ -2,5 +2,7 @@
       onsubmit="return confirm('Jeste li sigurni da želite ukloniti akciju za ovoj kategoriji?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ action_category.id) }}">
-    <button class="btn btn-outline-danger mb-3 mt-2">Ukloni akciju</button>
+    <button class="btn btn-outline-danger mb-3 mt-2">
+        {{ 'actionsTable.delete'|trans({}, 'action_items') }}
+    </button>
 </form>
