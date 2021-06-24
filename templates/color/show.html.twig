@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ color.name }} boja{% endblock %}
+{% block title %}
+    {{ color.name }}
+    {{ 'show.title'|trans({}, 'color') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/color_circle75.css") }}">
 {% endblock %}
@@ -8,7 +11,8 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            {{ color.name }} boja
+            {{ color.name }}
+            {{ 'show.title'|trans({}, 'color') }}
         </h2>
         <div class="circle_wrapper">
             <div class="circle"
@@ -17,28 +21,38 @@
         </div>
         <a href="{{ path('color_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista boja
+            {{ 'colorsList'|trans({}, 'color') }}
         </a>
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>
+                        Id
+                    </th>
                     <td>{{ color.id }}</td>
                 </tr>
                 <tr>
-                    <th>Kod boje</th>
+                    <th>
+                        {{ 'colorsTable.code'|trans({}, 'color') }}
+                    </th>
                     <td>{{ color.value }}</td>
                 </tr>
                 <tr>
-                    <th>Naziv boje</th>
+                    <th>
+                        {{ 'colorsTable.name'|trans({}, 'color') }}
+                    </th>
                     <td>{{ color.name }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme stvaranja</th>
+                    <th>
+                        {{ 'colorsTable.createdAt'|trans({}, 'color') }}
+                    </th>
                     <td>{{ color.createdAt|date('H:i:s | d.m.Y.') }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme zadnje izmjene</th>
+                    <th>
+                        {{ 'colorsTable.updatedAt'|trans({}, 'color') }}
+                    </th>
                     <td>
                         {{ color.updatedAt ?
                         color.updatedAt|date('H:i:s | d.m.Y.') : '' }}
@@ -49,7 +63,7 @@
         <div class="text-center">
             <a class="btn btn-outline-success"
                href="{{ path('color_edit', {'id': color.id}) }}">
-                Uredi podatke
+                {{ 'show.editColor'|trans({}, 'color') }}
             </a>
             {{ include('color/_delete_form.html.twig') }}
         </div>

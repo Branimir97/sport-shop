@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/boje")
+ * @Route({
+ *     "en": "/colors",
+ *     "hr": "/boje"
+ * })
  * @IsGranted("ROLE_ADMIN")
  */
 class ColorController extends AbstractController
@@ -28,7 +31,10 @@ class ColorController extends AbstractController
     }
 
     /**
-     * @Route("/nova", name="color_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/nova"
+     * }, name="color_new", methods={"GET","POST"})
      */
     public function new(Request $request, ColorRepository $colorRepository): Response
     {
@@ -68,7 +74,10 @@ class ColorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="color_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="color_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Color $color): Response
     {

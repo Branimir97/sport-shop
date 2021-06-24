@@ -1,0 +1,26 @@
+index:
+  title: Upravljanje bojama
+  noColors: Ne postoji niti jedna boja u bazi podataka.
+  newColor: Dodaj novu boju
+
+new:
+  title: Nova boja
+  heading: Dodavanje nove boje
+
+show:
+  title: boja
+  editColor: Uredi podatke
+
+colorsList: Lista boja
+colorsTable:
+  color: Boja
+  code: Kod boje
+  name: Naziv boje
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši boju
+
+

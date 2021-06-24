@@ -1,0 +1,26 @@
+index:
+  title: Color Management
+  noColors: There are no colors in our database.
+  newColor: Add new color
+
+new:
+  title: New color
+  heading: Adding new color
+
+show:
+  title: color
+  editColor: Edit data
+
+colorsList: List of colors
+colorsTable:
+  color: Color
+  code: Color code
+  name: Color name
+  createdAt: Registration time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete color
+
+
