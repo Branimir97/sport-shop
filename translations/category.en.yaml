@@ -1,0 +1,24 @@
+index:
+  title: Category Management
+  noCategories: There are no categories in out database.
+  newCategory: Add new category
+
+new:
+  title: New category
+  heading: Adding new category
+
+show:
+  title: Category
+  editCategory: Edit data
+
+categoriesList: List of categories
+categoriesTable:
+  name: Category name
+  createdAt: Registration time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete category
+
+

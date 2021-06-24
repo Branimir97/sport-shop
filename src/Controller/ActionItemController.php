@@ -6,6 +6,7 @@ use App\Entity\ActionItem;
 use App\Form\ActionItemType;
 use App\Repository\ActionItemRepository;
 use App\Repository\ItemRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     "en": "/actions/items",
  *     "hr": "/akcije/artikli"
  * })
+ * @IsGranted("ROLE_ADMIN")
  */
 class ActionItemController extends AbstractController
 {

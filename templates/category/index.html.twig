@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje kategorijama{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'category') }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje kategorijama
+            {{ 'index.title'|trans({}, 'category') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/categories.png') }}" alt="icon">
         </h2>
@@ -13,27 +15,37 @@
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
                 <p>
-                    Ne postoji niti jedna kategorija u bazi podataka.
+                    {{ 'noCategories'|trans({}, 'category') }}
                 </p>
                 <a href="{{ path('category_new') }}"
                    class="btn btn-outline-info mb-3">
-                    Dodaj novu kategoriju
+                    {{ 'index.newCategory'|trans({}, 'category') }}
                 </a>
             </div>
         {% else %}
             <a href="{{ path('category_new') }}"
                class="btn btn-outline-info mb-3">
-                Stvori novu kategoriju
+                {{ 'index.newCategory'|trans({}, 'category') }}
             </a>
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Naziv kategorije</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'categoriesTable.name'|trans({}, 'category') }}
+                            </th>
+                            <th>
+                                {{ 'categoriesTable.createdAt'|trans({}, 'category') }}
+                            </th>
+                            <th>
+                                {{ 'categoriesTable.updatedAt'|trans({}, 'category') }}
+                            </th>
+                            <th>
+                                {{ 'categoriesTable.actions'|trans({}, 'category') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,12 +61,12 @@
                             <td>
                                 <a class="btn" href="{{ path('category_show',
                                        {'id': category.id}) }}"
-                                   title="Prikaži pojedinosti">
+                                   title="{{ 'categoriesTable.infoTitle'|trans({}, 'category') }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{{ path('category_edit',
                                     {'id': category.id}) }}"
-                                   title="Uredi">
+                                   title="{{ 'categoriesTable.editTitle'|trans({}, 'category') }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('category/_delete_form.html.twig') }}

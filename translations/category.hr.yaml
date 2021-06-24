@@ -1,0 +1,24 @@
+index:
+  title: Upravljanje kategorijama
+  noCategories: Ne postoji niti jedna kategorija u bazi podataka.
+  newCategory: Dodaj novu kategoriju
+
+new:
+  title: Nova kategorija
+  heading: Dodavanje nove kategorije
+
+show:
+  title: Akcija
+  editCategory: Uredi podatke
+
+categoriesList: Lista kategorija na akciji
+categoriesTable:
+  name: Naziv kategorije
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši kategoriju
+
+
