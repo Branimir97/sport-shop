@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/košarica")
+ * @Route({
+ *     "en": "/cart",
+ *     "hr": "/košarica"
+ * })
  */
 class CartController extends AbstractController
 {
@@ -36,7 +39,10 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/artikl/{id}", name="cart_item_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/item/{id}",
+     *     "hr": "/artikl/{id}"
+     * }, name="cart_item_delete", methods={"DELETE"})
      */
     public function deleteItem(Request $request, CartItem $cartItem,
                                CartRepository $cartRepository,

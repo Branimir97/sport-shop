@@ -1,0 +1,17 @@
+title: My shopping cart
+noCartItems: There are no items in your shopping cart.
+startShopping: ps. Go shopping!
+cartTable:
+  image: Item image
+  item: Item name
+  size: Size
+  color: Color
+  quantity: Quantity
+  price: Price [kn]
+  totalPrice: Total price [kn]
+  removeItem: Remove item
+  removeItemTitle: Remove item from my shopping cart
+  itemDetails: Item details
+
+totalCartPrice: Total price of items in the cart
+payment: Billing

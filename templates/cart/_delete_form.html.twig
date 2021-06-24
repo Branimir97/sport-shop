@@ -2,7 +2,8 @@
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj artikl iz košarice?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cartItem.id) }}">
-    <button class="btn btn-danger" title="Obriši artikl iz košarice">
+    <button class="btn btn-danger"
+            title="{{ 'cartTable.removeItemTitle'|trans({}, 'cart') }}">
         <i class="far fa-trash-alt"></i>
     </button>
 </form>

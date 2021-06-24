@@ -1,0 +1,17 @@
+title: Moja košarica
+noCartItems: Ne postoji niti jedan artikl u Vašoj košarici.
+startShopping: ps. Kreni u shopping!
+cartTable:
+  image: Slika artikla
+  item: Naziv artikla
+  size: Veličina
+  color: Boja
+  quantity: Količina
+  price: Cijena [kn]
+  totalPrice: Ukupna cijena [kn]
+  removeItem: Obriši artikl
+  removeItemTitle: Obriši artikl iz košarice
+  itemDetails: Detalji o artiklu
+
+totalCartPrice: Ukupna cijena artikala u košarici
+payment: Plaćanje
