@@ -2,5 +2,9 @@
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu veličinu?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemSize.id) }}">
-    <button><i id="delete" class="far fa-trash-alt" title="Obriši veličinu"></i></button>
+    <button>
+        <i id="delete" class="far fa-trash-alt"
+           title="{{ 'edit.deleteItemSize'|trans({}, 'item') }}">
+        </i>
+    </button>
 </form>

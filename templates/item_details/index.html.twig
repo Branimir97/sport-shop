@@ -14,7 +14,7 @@
                     <div class="no-images text-center">
                         <img src="{{ asset('images/logo.png') }}" alt="logo">
                         <p>
-                            Trenutno nije dodana ni jedna fotografija za ovaj artikl.
+                            {{ 'noImages'|trans({}, 'item_details') }}
                         </p>
                     </div>
                 {% else %}
@@ -54,24 +54,31 @@
                     {{ item.title }}
                 </h3>
                 <div class="category text-center">
-                    <p>Kategorije artikla:
+                    <p>
+                        {{ 'itemCategories'|trans({}, 'item_details') }}:
                         {% for itemCategory in item.itemCategories %}
                             <a href="#">{{ itemCategory.category.name }}</a>
                         {% endfor %}
                     </p>
                 </div>
-                <p>Šifra artikla: <span id="cipher">{{ item.cipher }}</span>
+                <p>
+                    {{ 'itemCipher'|trans({}, 'item_details') }}:
+                    <span id="cipher">{{ item.cipher }}</span>
                     {% if is_granted("ROLE_USER") %}
                         <a id="wish_list" class="btn btn-primary text-white"
                            href="{{ path('wish_list_item_new', {'id':item.id}) }}">
-                            Dodaj na popis želja <i class="fas fa-list-ul"></i>
+                            {{ 'addToWishList'|trans({}, 'item_details') }}
+                            <i class="fas fa-list-ul"></i>
                         </a>
                     {% endif %}
                 </p>
                 {% if item.manufacturer is null %}
-                    <p>Proizvođač nije unesen.</p>
+                    <p>
+                        {{ 'noManufacturer'|trans({}, 'item_details') }}
+                    </p>
                 {% else %}
-                    <p>Proizvođač:
+                    <p>
+                        {{ 'manufacturer'|trans({}, 'item_details') }}:
                         <span id="manufacturer">
                             {{ item.manufacturer.name }}
                         </span>
@@ -81,48 +88,59 @@
                     {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}
                         <p class="bg-warning text-center p-1">
                             <i class="fas fa-exclamation-circle"></i>
-                            Podaci o artiklu se ažuriraju, stoga ga nije moguće
-                            dodati u košaricu!
+                            {{ 'updatingData'|trans({}, 'item_details') }}
                         </p>
                     {% endif %}
                     {% for itemColor in item.itemColors %}
                         {% if itemColor.quantity == 0 %}
-                            <small class="text-danger">Nema na zalihi -
-                                {{ itemColor.color.name }} boja
+                            <small class="text-danger">
+                                {{ 'outOfStock'|trans({}, 'item_details') }} -
+                                {{ itemColor.color.name }}
+                                {{ 'color'|trans({}, 'item_details') }}
                             </small><br>
                         {% elseif itemColor.quantity < 10 %}
-                            <small class="text-muted">Zalihe pri kraju -
-                                {{ itemColor.color.name }} boja ({{ itemColor.quantity }})
+                            <small class="text-muted">
+                                {{ 'stocksAtTheEnd'|trans({}, 'item_details') }} -
+                                {{ itemColor.color.name }}
+                                {{ 'color'|trans({}, 'item_details') }}
+                                ({{ itemColor.quantity }})
                             </small><br>
                         {% endif %}
                     {% endfor %}
                     {% for itemSize in item.itemSizes %}
                         {% if itemSize.quantity == 0 %}
-                            <small class="text-danger">Nema na zalihi -
-                                Veličina {{ itemSize.size.value }}
+                            <small class="text-danger">
+                                {{ 'outOfStock'|trans({}, 'item_details') }} -
+                                {{ 'size'|trans({}, 'item_details') }}
+                                {{ itemSize.size.value }}
                             </small><br>
                         {% elseif itemSize.quantity < 10 %}
-                            <small class="text-muted">Zalihe pri kraju -
-                                Veličina {{ itemSize.size.value }} ({{ itemSize.quantity }})
+                            <small class="text-muted">
+                                {{ 'stocksAtTheEnd'|trans({}, 'item_details') }} -
+                                {{ 'size'|trans({}, 'item_details') }}
+                                {{ itemSize.size.value }} ({{ itemSize.quantity }})
                             </small><br>
                         {% endif %}
                     {% endfor %}
                     {{ include('cart/_form.html.twig') }}
                 {% else %}
                     <h6 class="text-center bg-light p-1">
-                        Za dodavanje artikla u košaricu/listu želja potrebno je imati korisnički račun.
+                        {{ 'warningMessage'|trans({}, 'item_details') }}
                     </h6>
                     <div class="text-center mb-3">
                         <a class="text-center" href="{{ path('app_login') }}">
-                            Prijava/registracija
+                            {{ 'loginRegister'|trans({}, 'item_details') }}
                         </a>
                     </div>
                 {% endif %}
-                <h6 class="text-center">Cijena: <span id="price">
+                <h6 class="text-center">
+                    {{ 'price'|trans({}, 'item_details') }}:
+                    <span id="price">
                         {{ item.price|number_format(2, '.', ',') }} kn
                     </span>
                 </h6>
-                <p>Tagovi:
+                <p>
+                    {{ 'tags'|trans({}, 'item_details') }}:
                     <span id="tag">
                         {% for itemTag in item.itemTags%}
                             #{{ itemTag.tag }}
@@ -134,23 +152,27 @@
 
         <div class="row ml-0 mr-0">
             <div class="col-md-6 mt-1">
-                <h3 class="text-center bg-light p-1">Opis artikla</h3>
+                <h3 class="text-center bg-light p-1">
+                    {{ 'itemDescription'|trans({}, 'item_details') }}
+                </h3>
                 {% if item.description is null %}
                     <p class="text-center">
-                        Trenutno nije unesen opis za ovaj artikl.
+                        {{ 'noDescription'|trans({}, 'item_details') }}
                     </p>
                 {% else %}
                     {{ item.description|raw }}
                 {% endif %}
             </div>
             <div class="col-md-6 mt-1 mb-2">
-                <h3 class="text-center bg-light p-1">Recenzije</h3>
+                <h3 class="text-center bg-light p-1">
+                    {{ 'reviews'|trans({}, 'item_details') }}
+                </h3>
                 {% if app.user %}
                     {{ include('item/new_review_form_modal.html.twig') }}
                 {% endif %}
                 {% if item.reviews|length == 0 %}
                     <p class="text-center">
-                        Trenutno nitko nije napisao recenziju za ovaj artikl.
+                        {{ 'noReviews'|trans({}, 'item_details') }}
                     </p>
                 {% else %}
                     <div class="reviews">
@@ -160,17 +182,21 @@
                                     <div id="edit_icon">
                                         {% if app.user == review.user or is_granted("ROLE_ADMIN") %}
                                             <a href="{{ path('review_edit', {id: review.id}) }}"
-                                               title="Uredi recenziju">
+                                               title="{{ 'editReviewTitle'|trans({}, 'item_details') }}">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                         {% endif %}
                                     </div>
                                     <h6 class="p-1 border-bottom">
-                                        <span class="mr-1">Autor:</span>
+                                        <span class="mr-1">
+                                           {{ 'reviewAuthor'|trans({}, 'item_details') }}:
+                                        </span>
                                         {{ review.user.name }} {{ review.user.surname }}
                                     </h6>
                                     <h6 class="p-1 border-bottom">
-                                        <span>Ocjena</span>
+                                        <span>
+                                           {{ 'reviewGrade'|trans({}, 'item_details') }}:
+                                        </span>
                                         {% for i in 1..review.rating %}
                                             <span class="fa fa-star checked"></span>
                                         {% endfor %}
@@ -182,12 +208,15 @@
                                     </h6>
                                     <p>
                                         <span>
-                                            Komentar:
+                                            {{ 'reviewComment'|trans({}, 'item_details') }}:
                                         </span><br>
                                         {{ review.comment }}
                                     </p>
                                     <p class="text-right">
-                                        Objavljeno: {{ review.createdAt|date('H:i:s | d.m.Y.') }}
+                                        <span>
+                                            {{ 'reviewCreatedAt'|trans({}, 'item_details') }}:
+                                        </span>
+                                        {{ review.createdAt|date('H:i:s | d.m.Y.') }}
                                     </p>
                                 </div>
                             {% endfor %}
@@ -199,7 +228,7 @@
 
         {% if app.user %}
             <h3 class="text-center bg-light p-1 mt-3 ml-5 mr-5">
-                Predloženi artikli
+                {{ 'suggestedItems'|trans({}, 'item_details') }}:
             </h3>
             <div class="row ml-0 mr-0">
                 <div class="col-sm-3"></div>

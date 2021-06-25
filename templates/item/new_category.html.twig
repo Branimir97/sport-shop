@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Postavljanje novih kategorija{% endblock %}
+{% block title %}
+    {{ 'new_category.title'|trans({}, 'item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
     <link rel="stylesheet" href="{{ asset('css/edit_item.css') }}">
@@ -9,24 +11,24 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Postavljanje novih kategorija
+            {{ 'new_category.title'|trans({}, 'item') }}
         </h2>
         <a href="{{ path('item_edit', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Uređivanje artikla
+            {{ 'new_category.editItem'|trans({}, 'item') }}
         </a>
         <h6 class="text-center bg-light p-1">
-            Artikl:
+            {{ 'new_category.item'|trans({}, 'item') }}:
         </h6>
         <p class="text-center" id="title">
             {{ item.title }}
         </p>
         <h6 class="text-center bg-light p-1">
-            Trenutno postavljena/e kategorija/e:
+            {{ 'new_category.currentCategories'|trans({}, 'item') }}:
         </h6>
         {% if item.itemCategories|length == 0 %}
             <p class="text-center">
-                Artikl trenutno nema niti jednu kategoriju.
+                {{ 'new_category.noItemCategories'|trans({}, 'item') }}
             </p>
         {% else %}
             {% for itemCategory in item.itemCategories %}

@@ -1,0 +1,107 @@
+index:
+  title: Upravljanje artiklima
+  noItems: Ne postoji niti jedan artikl u bazi podataka.
+  newItem: Dodaj novi artikl
+new:
+  title: Novi artikl
+  heading: Dodavanje novog artikla
+
+set_quantity:
+  title: Postavljanje količine artikala
+
+set_color_quantity:
+  title: Postavljanje količine boja
+  newColors: Postavljanje novih boja
+  warningMessage: Prije dodavanja boje, potrebno je unijeti količinu za odabrane boje.
+
+set_size_quantity:
+  title: Postavljanje količine veličina
+  newSizes: Postavljanje novih veličina
+  warningMessage: Prije dodavanja veličine, potrebno je unijeti količinu za odabrane veličine.
+
+show:
+  title: Artikl
+  editItem: Uredi podatke
+
+edit:
+  title: Uređivanje
+  heading: Uređivanje podataka o artiklu
+  subheading1: Naziv, proizvođač, opis, cijena
+  subheading2: Fotografije
+  noItemImages:  Artikl trenutno nema niti jednu fotografiju.
+  deleteItemImage: Obriši fotografiju
+  addItemImages: Dodaj fotografiju/e
+  subheading3: Kategorije, tagovi, boje, veličine
+  itemCategories: Kategorije artikla
+  deleteItemCategory: Obriši kategoriju
+  addItemCategory: Dodaj kategoriju
+  itemTags: Tagovi artikla
+  deleteItemTag: Obriši tag
+  addItemTag: Dodaj tag
+  itemColors: Boje artikla
+  deleteItemColor: Obriši boju
+  addItemColor: Dodaj boju
+  itemSizes: Veličine artikla
+  deleteItemSize: Obriši veličinu
+  addItemSize: Dodaj veličinu
+  noItemProperties: Nema
+  editQuantityTitle: Uredi količinu
+  quantityPieces: kom
+
+new_image:
+  title: Postavljanje novih fotografija
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemImages: Artikl trenutno nema niti jednu fotografiju.
+  currentImages: Trenutno postavljena/e fotografija/e
+
+new_category:
+  title: Postavljanje novih kategorija
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemCategories: Artikl trenutno nema niti jednu kategoriju.
+  currentCategories: Trenutno postavljena/e kategorija/e
+
+new_tag:
+  title: Postavljanje novih tagova
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemTags: Artikl trenutno nema niti jedan tag.
+  currentTags: Trenutno postavljen/i tag/ovi
+
+new_color:
+  title: Postavljanje novih boja
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemColors: Artikl trenutno nema niti jednu boju.
+  currentColors: Trenutno postavljena/e boja/e
+
+new_size:
+  title: Postavljanje novih veličina
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemSizes: Artikl trenutno nema niti jednu veličinu.
+  currentSizes: Trenutno postavljena/e veličina/e
+
+edit_color_quantity:
+  title: Uređivanje količine boje
+  editItem: Uređivanje artikla
+
+new_review:
+  button: Dodaj novu recenziju
+  title: Dodavanje nove recenzije
+  close: Zatvori
+  add: Dodaj recenziju
+
+itemsList: Lista artikala
+itemsTable:
+  title: Naziv artikla
+  cipher: Šifra artikla
+  price: Cijena [kn]
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  basicInfoTitle: Osnovne informacije
+  editTitle: Uredi
+  showTitle: Prikaži artikl
+  delete: Obriši artikl

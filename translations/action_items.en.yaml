@@ -16,7 +16,7 @@ actionsTable:
   item: Item
   name: Action name
   discount: Discount [%]
-  createdAt: Registration time
+  createdAt: Creation time
   updatedAt: Last modified time
   actions: Actions
   infoTitleItem: Item information

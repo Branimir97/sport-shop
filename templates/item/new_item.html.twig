@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Novi artikl{% endblock %}
+{% block title %}
+    {{ 'new.title'|trans({}, 'item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container50.css') }}">
 {% endblock %}
@@ -8,11 +10,11 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Dodavanje novog artikla
+            {{ 'new.heading'|trans({}, 'item') }}
         </h2>
         <a href="{{ path('item_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista artikala
+            {{ 'itemsList'|trans({}, 'item') }}
         </a>
         {{ include('item/new_item_form.html.twig') }}
     </div>

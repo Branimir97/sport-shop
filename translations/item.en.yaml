@@ -1,0 +1,112 @@
+index:
+  title: Item management
+  noItems: There are no items in our database.
+  newItem: Add new item
+
+new:
+  title: New item
+  heading: Adding new item
+
+set_quantity:
+  title: Setting the item quantity
+
+set_color_quantity:
+  title: Setting colors quantity
+  newColors: Setting new colors
+  warningMessage: Before adding colors, you must enter the amount of selected colors.
+
+set_size_quantity:
+  title: Setting sizes quantity
+  newSizes: Setting new sizes
+  warningMessage: Before adding sizes, you need to enter the quantity for the selected sizes.
+
+show:
+  title: Item
+  editItem: Edit data
+
+edit:
+  title: Editing
+  heading: Editing data about item
+  subheading1: Title, manufacturer, description, price
+  subheading2: Images
+  noItemImages: The item does not currently have any photos.
+  deleteItemImage: Delete image
+  addItemImages: Add images
+  subheading3: Categories, tags, colors, sizes
+  itemCategories: Item categories
+  deleteItemCategory: Delete category
+  addItemCategory: Add category
+  itemTags: Item tags
+  deleteItemTag: Delete tag
+  addItemTag: Add tag
+  itemColors: Item colors
+  deleteItemColor: Delete color
+  addItemColor: Add color
+  itemSizes: Item sizes
+  deleteItemSize: Delete size
+  addItemSize: Add size
+  noItemProperties: None
+  editQuantityTitle: Edit quantity
+  quantityPieces: pcs
+
+new_image:
+  title: Setting new images
+  editItem: Edit item
+  item: Item
+  noItemImages: The item does not currently have any images.
+  currentImages: Current item images
+
+new_category:
+  title: Setting new categories
+  editItem: Edit item
+  item: Item
+  noItemCategories: The item does not currently have any categories.
+  currentCategories: Current item categories
+
+new_tag:
+  title: Setting new tags
+  editItem: Edit item
+  item: Item
+  noItemTags: The item does not currently have any tags.
+  currentTags: Current item tags
+
+new_color:
+  title: Setting new colors
+  editItem: Edit item
+  item: Item
+  noItemColors: The item does not currently have any colors.
+  currentColors: Current item colors
+
+edit_color_quantity:
+  title: Editing color quantity
+  editItem: Edit item
+
+edit_size_quantity:
+  title: Editing size quantity
+  editItem: Edit item
+
+new_size:
+  title: Setting new sizes
+  editItem: Edit item
+  item: Item
+  noItemSizes: The item does not currently have any sizes.
+  currentSizes: Current item sizes
+
+new_review:
+  button: Add new review
+  title: Adding new review
+  close: Close
+  add: Add review
+
+itemsList: List of items
+itemsTable:
+  title: Item title
+  cipher: Item cipher
+  price: Price [kn]
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  basicInfoTitle: Basic information
+  editTitle: Edit
+  showTitle: Show details
+  delete: Delete item

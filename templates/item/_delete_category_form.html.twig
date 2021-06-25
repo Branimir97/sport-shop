@@ -2,5 +2,9 @@
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu kategoriju?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemCategory.id) }}">
-    <button><i id="delete" class="far fa-trash-alt" title="Obriši kategoriju"></i></button>
+    <button>
+        <i id="delete" class="far fa-trash-alt"
+           title="{{ 'edit.deleteItemCategory'|trans({}, 'item') }}">
+        </i>
+    </button>
 </form>

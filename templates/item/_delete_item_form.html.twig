@@ -2,5 +2,7 @@
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj artikl?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
-    <button class="btn btn-outline-danger mb-3 mt-2">Obriši artikl</button>
+    <button class="btn btn-outline-danger mb-3 mt-2">
+        {{ 'itemsTable.delete'|trans({}, 'item') }}
+    </button>
 </form>

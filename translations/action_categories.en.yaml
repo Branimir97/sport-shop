@@ -16,7 +16,7 @@ actionsTable:
   category: Category
   name: Action name
   discount: Discount [%]
-  createdAt: Registration time
+  createdAt: Creation time
   updatedAt: Last modified time
   actions: Actions
   infoTitleCategory: Category information

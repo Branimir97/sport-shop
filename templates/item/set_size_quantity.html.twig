@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Postavljanje količine veličina{% endblock %}
+{% block title %}
+    {{ 'set_size_quantity.title'|trans({}, 'item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
 {% endblock %}
@@ -8,16 +10,15 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Postavljanje količine veličina
+            {{ 'set_size_quantity.title'|trans({}, 'item') }}
         </h2>
         <a href="{{ path('item_add_size', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Postavljanje novih veličina
+            {{ 'set_size_quantity.newSizes'|trans({}, 'item') }}
         </a>
         <p class="bg-danger text-white p-2 text-center">
             <i class="fas fa-exclamation-circle"></i>
-            Prije dodavanja veličine, potrebno je unijeti
-            količinu za odabrane veličine.
+            {{ 'set_size_quantity.warningMessage'|trans({}, 'item') }}
         </p>
         {{ include('item/set_size_quantity_form.html.twig') }}
     </div>

@@ -27,13 +27,13 @@ use App\Form\SizeQuantityType;
 use App\Repository\CartItemRepository;
 use App\Repository\ColorRepository;
 use App\Repository\ImageRepository;
-use App\Repository\ItemCategoryRepository;
 use App\Repository\ItemColorRepository;
 use App\Repository\ItemRepository;
 use App\Repository\ItemSizeRepository;
 use App\Repository\SizeRepository;
 use App\Repository\UserRepository;
 use App\Service\ImageUploadHelper;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/artikli")
+ * @Route({
+ *     "en": "/items",
+ *     "hr": "/artikli"
+ * })
+ * @IsGranted("ROLE_ADMIN")
  */
 class ItemController extends AbstractController
 {
@@ -57,7 +61,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/novi", name="item_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/novi"
+     * }, name="item_new", methods={"GET","POST"})
      */
     public function new(Request $request, ImageUploadHelper $uploadHelper): Response
     {
@@ -136,7 +143,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/postavi/količinu", name="item_quantity_set", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/set/quantity",
+     *     "hr": "/{id}/postavi/količinu"
+     * }, name="item_quantity_set", methods={"GET","POST"})
      */
     public function setQuantity(Request $request, ItemRepository $itemRepository,
                                 ItemSizeRepository $itemSizeRepository,
@@ -188,7 +198,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="item_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="item_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Item $item): Response
     {
@@ -212,7 +225,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/dodaj/fotografije", name="item_image_add", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/{id}/add/images",
+     *     "hr": "/{id}/dodaj/fotografije"
+     * }, name="item_image_add", methods={"GET", "POST"})
      */
     public function addImage(Request $request,
                              ImageUploadHelper $uploadHelper,
@@ -249,7 +265,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/obriši/fotografiju", name="item_image_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/{id}/delete/image",
+     *     "hr": "/{id}/obriši/fotografiju"
+     * }, name="item_image_delete", methods={"DELETE"})
      */
     public function deleteImage(Request $request, Image $image,
                                 ImageRepository $imageRepository): RedirectResponse
@@ -269,7 +288,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/dodaj/kategorije", name="item_add_category", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/add/categories",
+     *     "hr": "/{id}/dodaj/kategorije"
+     * }, name="item_add_category", methods={"GET","POST"})
      */
     public function addCategory(Request $request, ItemRepository $itemRepository): Response
     {
@@ -304,7 +326,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/obriši/kategoriju", name="item_category_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/{id}/delete/category",
+     *     "hr": "/{id}/obriši/kategoriju"
+     * }, name="item_category_delete", methods={"DELETE"})
      */
     public function deleteCategory(Request $request, ItemCategory $itemCategory): RedirectResponse
     {
@@ -319,11 +344,13 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/dodaj/tagove", name="item_add_tag", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/add/tags",
+     *     "hr": "/{id}/dodaj/tagove"
+     * }, name="item_add_tag", methods={"GET","POST"})
      */
     public function addTag(Request $request, ItemRepository $itemRepository): Response
     {
-
         $entityManager=$this->getDoctrine()->getManager();
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
         $itemTags = [];
@@ -361,7 +388,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/obriši/tag", name="item_tag_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/{id}/delete/tag",
+     *     "hr": "/{id}/obriši/tag"
+     * }, name="item_tag_delete", methods={"DELETE"})
      */
     public function deleteTag(Request $request, ItemTag $itemTag): RedirectResponse
     {
@@ -376,7 +406,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/dodaj/boje", name="item_add_color", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/add/colors",
+     *     "hr": "/{id}/dodaj/boje"
+     * }, name="item_add_color", methods={"GET","POST"})
      */
     public function addColor(Request $request, ItemRepository $itemRepository): Response
     {
@@ -404,7 +437,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     *@Route("/postavi/količinu/boja", name="item_color_set_quantity", methods={"GET", "POST"})
+     *@Route({
+     *     "en": "/set/colors/quantity",
+     *     "hr": "/postavi/količinu/boja"
+     * }, name="item_color_set_quantity", methods={"GET", "POST"})
      */
     public function setNewColorQuantity(Request $request,
                                         ColorRepository $colorRepository): Response
@@ -450,7 +486,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/uredi/količinu/{id}/boje", name="item_color_quantity_edit", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/edit/color/{id}/quantity",
+     *     "hr": "/uredi/količinu/{id}/boje"
+     * }, name="item_color_quantity_edit", methods={"GET", "POST"})
      */
     public function editColorQuantity(Request $request,
                                       ItemColorRepository $itemColorRepository): Response
@@ -471,7 +510,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/obriši/boju", name="item_color_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/{id}/delete/color",
+     *     "hr": "/{id}/obriši/boju"
+     * }, name="item_color_delete", methods={"DELETE"})
      */
     public function deleteColor(Request $request, ItemColor $itemColor): RedirectResponse
     {
@@ -488,7 +530,10 @@ class ItemController extends AbstractController
 
 
     /**
-     * @Route("/{id}/dodaj/veličine", name="item_add_size", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/add/sizes",
+     *     "hr": "/{id}/dodaj/veličine"
+     * }, name="item_add_size", methods={"GET","POST"})
      */
     public function addSize(Request $request, ItemRepository $itemRepository): Response
     {
@@ -516,7 +561,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     *@Route("/postavi/količinu/veličina", name="item_size_set_quantity", methods={"GET", "POST"})
+     *@Route({
+     *     "en": "/set/sizes/quantity",
+     *     "hr": "/postavi/količinu/veličina"
+     * }, name="item_size_set_quantity", methods={"GET", "POST"})
      */
     public function setNewSizeQuantity(Request $request,
                                        SizeRepository $sizeRepository): Response
@@ -562,7 +610,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/uredi/količinu/{id}/veličine", name="item_size_quantity_edit", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/edit/size/{id}/quantity",
+     *     "hr": "/uredi/količinu/{id}/veličine"
+     * }, name="item_size_quantity_edit", methods={"GET", "POST"})
      */
     public function editSizeQuantity(Request $request,
                                      ItemSizeRepository $itemSizeRepository)
@@ -584,7 +635,10 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/obriši/veličinu", name="item_size_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/{id}/delete/size",
+     *     "hr": "/{id}/obriši/veličinu"
+     * }, name="item_size_delete", methods={"DELETE"})
      */
     public function deleteSize(Request $request, ItemSize $itemSize): RedirectResponse
     {
@@ -620,118 +674,5 @@ class ItemController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('item_index');
-    }
-
-    /**
-     * @Route("/{id}/detalji", name="item_details", methods={"GET", "POST"})
-     */
-    public function showItemdetails(Request $request,
-                                    ItemRepository $itemRepository,
-                                    ItemSizeRepository $itemSizeRepository,
-                                    ItemColorRepository $itemColorRepository,
-                                    UserRepository $userRepository,
-                                    CartItemRepository $cartItemRepository): Response
-    {
-        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
-        $entityManager = $this->getDoctrine()->getManager();
-        $sizeChoices = [];
-        $colorChoices = [];
-        foreach($item->getItemSizes() as $itemSize) {
-            $sizeObject = $itemSize->getSize();
-            $sizeValue = $itemSize->getSize()->getValue();
-            $sizeChoices[$sizeValue]=$sizeObject;
-        }
-        foreach($item->getItemColors() as $itemColor) {
-            $colorObject = $itemColor->getColor();
-            $colorValue = $itemColor->getColor()->getName();
-            $colorChoices[$colorValue]=$colorObject;
-        }
-        $cartItem = new CartItem();
-        $formCart = $this->createForm(CartItemType::class, $cartItem,
-            ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
-        $formCart->handleRequest($request);
-        if ($formCart->isSubmitted() && $formCart->isValid()) {
-            $formCartQuantity = $formCart->get('quantity')->getData();
-            $cartItemSizeObj = $itemSizeRepository->findOneBy(
-                ['size' => $formCart->get('size')->getData()]);
-            $cartItemColorObj = $itemColorRepository->findOneBy(
-                ['color' => $formCart->get('color')->getData()]);
-            if ($formCartQuantity > $cartItemSizeObj->getQuantity()) {
-                $this->addFlash('danger',
-                    'Max. količina veličine "' . $cartItemSizeObj->getSize()->getValue() .
-                    '" za ovaj artikl je ' . $cartItemSizeObj->getQuantity() . ".");
-                return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
-            } else if ($formCartQuantity > $cartItemColorObj->getQuantity()) {
-                $this->addFlash('danger',
-                    'Max. količina "' . $cartItemColorObj->getColor()->getName() .
-                    '" boje za ovaj artikl je ' . $cartItemColorObj->getQuantity() . ".");
-                return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
-            } else {
-                $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
-                if (is_null($user->getCart())) {
-                    $cart = new Cart();
-                    $cart->setUser($this->getUser());
-                    $entityManager->persist($cart);
-                    $entityManager->flush();
-                } else {
-                    $cart = $user->getCart();
-                }
-                $cartItemDb = $cartItemRepository->findOneBy(['cart' => $cart,
-                    'item' => $item,
-                    'size' => $formCart->get('size')->getData(),
-                    'color' => $formCart->get('color')->getData()
-                ]);
-                if (is_null($cartItemDb)) {
-                    $cartItem->setItem($item);
-                    $entityManager->persist($cartItem);
-                    $cart->addCartItem($cartItem);
-                    $entityManager->persist($cart);
-                    $entityManager->flush();
-                    $this->addFlash('success',
-                        'Artikl "' . $item->getTitle() . '" uspješno dodan u košaricu.');
-                    return $this->redirectToRoute('cart_index');
-                } else {
-                    $previousQuantity = $cartItemDb->getQuantity();
-                    if (($previousQuantity + $formCartQuantity) > $cartItemColorObj->getQuantity()) {
-                        $this->addFlash('danger', 'Količina istog artikla u košarici i 
-                        trenutno odabrana količina prelaze ukupnu količinu artikla za odabranu boju. 
-                        Max = '.($cartItemColorObj->getQuantity()-$previousQuantity));
-                    } else if (($previousQuantity + $formCartQuantity) > $cartItemSizeObj->getQuantity()) {
-                        $this->addFlash('danger', 'Količina istog artikla u košarici i 
-                        trenutno odabrana količina prelaze ukupnu količinu artikla za odabranu veličinu. 
-                        Max = '.($cartItemSizeObj->getQuantity()-$previousQuantity));
-                        return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
-                    } else {
-                        $cartItemDb->setQuantity($previousQuantity + $formCartQuantity);
-                        $entityManager->persist($cartItemDb);
-                        $entityManager->flush();
-                        $this->addFlash('success',
-                            'Artikl "' . $item->getTitle() . '" uspješno dodan u košaricu.');
-                        return $this->redirectToRoute('cart_index');
-                    }
-                }
-            }
-        }
-
-        $review = new Review();
-        $formReview = $this->createForm(ReviewType::class, $review);
-        $formReview->handleRequest($request);
-
-        if($formReview->isSubmitted() && $formReview->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $review->setUser($this->getUser());
-            $review->setItem($item);
-            $entityManager->persist($review);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Recenzija uspješno dodana.');
-            return $this->redirect($request->getUri());
-        }
-
-        return $this->render('item/item_details.html.twig', [
-            'item' => $item,
-            'formReview'=>$formReview->createView(),
-            'formCart'=>$formCart->createView()
-        ]);
     }
 }

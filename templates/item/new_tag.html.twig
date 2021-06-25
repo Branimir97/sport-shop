@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Postavljanje novih tagova{% endblock %}
+{% block title %}
+    {{ 'new_tag.title'|trans({}, 'item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
     <link rel="stylesheet" href="{{ asset('css/edit_item.css') }}">
@@ -9,24 +11,24 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Postavljanje novih tagova
+            {{ 'new_tag.title'|trans({}, 'item') }}
         </h2>
         <a href="{{ path('item_edit', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Uređivanje artikla
+            {{ 'new_tag.editItem'|trans({}, 'item') }}
         </a>
         <h6 class="text-center bg-light p-1">
-            Artikl:
+            {{ 'new_tag.item'|trans({}, 'item') }}:
         </h6>
         <p class="text-center" id="title">
             {{ item.title }}
         </p>
         <h6 class="text-center bg-light p-1">
-            Trenutno postavljen/i tag/ovi:
+            {{ 'new_tag.currentTags'|trans({}, 'item') }}:
         </h6>
         {% if item.itemTags|length == 0 %}
             <p class="text-center">
-                Artikl trenutno nema niti jedan tag.
+                {{ 'new_tag.noItemTags'|trans({}, 'item') }}
             </p>
         {% else %}
             {% for itemTag in item.itemTags %}

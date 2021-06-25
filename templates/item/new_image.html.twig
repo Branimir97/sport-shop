@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Postavljanje novih fotografija{% endblock %}
+{% block title %}
+    {{ 'new_image.title'|trans({}, 'item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
     <link rel="stylesheet" href="{{ asset('css/add_item_image.css') }}">
@@ -9,25 +11,25 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Postavljanje novih fotografija
+            {{ 'new_image.title'|trans({}, 'item') }}
         </h2>
         <a href="{{ path('item_edit', {'id':item.id}) }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Uređivanje artikla
+            {{ 'new_image.editItem'|trans({}, 'item') }}
         </a>
         <h6 class="text-center bg-light p-1">
-            Artikl:
+            {{ 'new_image.item'|trans({}, 'item') }}:
         </h6>
         <p class="text-center" id="title">
             {{ item.title }}
         </p>
         {% if item.images|length == 0 %}
             <p class="text-center">
-                Artikl trenutno nema niti jednu fotografiju.
+                {{ 'new_image.noItemImages'|trans({}, 'item') }}
             </p>
         {% else %}
             <h6 class="text-center bg-light p-1">
-                Trenutno postavljena/e fotografija/e:
+                {{ 'new_image.currentImages'|trans({}, 'item') }}:
             </h6>
             <div class="row">
             {% for image in item.images %}

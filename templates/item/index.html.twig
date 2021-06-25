@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje artiklima{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/item_index.css') }}">
 {% endblock %}
@@ -8,7 +10,7 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje artiklima
+            {{ 'index.title'|trans({}, 'item') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/items.png') }}" alt="icon">
         </h2>
@@ -16,29 +18,43 @@
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
                 <p>
-                    Ne postoji niti jedan artikl u bazi podataka.
+                    {{ 'index.noItems'|trans({}, 'item') }}
                 </p>
                 <a href="{{ path('item_new') }}"
                    class="btn btn-outline-info mb-3">
-                    Dodaj novi artikl
+                    {{ 'index.newItem'|trans({}, 'item') }}
                 </a>
             </div>
             {% else %}
                 <a href="{{ path('item_new') }}"
                    class="btn btn-outline-info mb-3">
-                    Dodaj novi artikl
+                    {{ 'index.newItem'|trans({}, 'item') }}
                 </a>
                 <div class="table-responsive">
                     <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Naziv artikla</th>
-                            <th>Šifra artikla</th>
-                            <th>Cijena [kn]</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'itemsTable.title'|trans({}, 'item') }}
+                            </th>
+                            <th>
+                                {{ 'itemsTable.cipher'|trans({}, 'item') }}
+                            </th>
+                            <th>
+                                {{ 'itemsTable.price'|trans({}, 'item') }}
+                            </th>
+                            <th>
+                                {{ 'itemsTable.createdAt'|trans({}, 'item') }}
+                            </th>
+                            <th>
+                                {{ 'itemsTable.updatedAt'|trans({}, 'item') }}
+                            </th>
+                            <th>
+                                {{ 'itemsTable.actions'|trans({}, 'item') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,15 +70,18 @@
                             </td>
                             <td>
                                 <a class="btn" href="{{ path('item_show',
-                                    {'id': item.id}) }}" title="Osnovne informacije">
+                                    {'id': item.id}) }}"
+                                   title="{{ 'itemsTable.basicInfoTitle'|trans({}, 'item') }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{{ path('item_edit',
-                                    {'id': item.id}) }}" title="Uredi">
+                                    {'id': item.id}) }}"
+                                   title="{{ 'itemsTable.editTitle'|trans({}, 'item') }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="{{ path('item_details',
-                                    {'id': item.id}) }}" title="Prikaži artikl">
+                                    {'id': item.id}) }}"
+                                   title="{{ 'itemsTable.showTitle'|trans({}, 'item') }}">
                                     <i class="fas fa-chalkboard-teacher"></i>
                                 </a>
                                 {{ include('item/_delete_item_form.html.twig') }}

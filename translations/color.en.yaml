@@ -16,7 +16,7 @@ colorsTable:
   color: Color
   code: Color code
   name: Color name
-  createdAt: Registration time
+  createdAt: Creation time
   updatedAt: Last modified time
   actions: Actions
   infoTitle: Show details

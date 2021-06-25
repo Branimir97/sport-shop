@@ -1,7 +1,7 @@
 <div class="text-center">
     <button type="button" class="btn btn-primary mb-2"
             data-toggle="modal" data-target="#exampleModalCenter">
-        Dodaj novu recenziju
+        {{ 'new_review.button'|trans({}, 'item') }}
     </button>
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1"
@@ -10,7 +10,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">
-                    Dodavanje nove recenzije
+                    {{ 'new_review.title'|trans({}, 'item') }}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -26,9 +26,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">Zatvori</button>
+                        data-dismiss="modal">
+                    {{ 'new_review.close'|trans({}, 'item') }}
+                </button>
                 <button type="submit" class="btn btn-primary">
-                    Dodaj recenziju
+                    {{ 'new_review.add'|trans({}, 'item') }}
                 </button>
             </div>
             {{ form_end(formReview) }}
