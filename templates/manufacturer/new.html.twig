@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Novi proizvođač{% endblock %}
+{% block title %}
+    {{ 'new.title'|trans({}, 'manufacturer') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
 {% endblock %}
@@ -8,11 +10,11 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Dodavanje novog proizvođača
+            {{ 'new.heading'|trans({}, 'manufacturer') }}
         </h2>
         <a href="{{ path('manufacturer_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista proizvođača
+            {{ 'manufacturerList'|trans({}, 'manufacturer') }}
         </a>
         {{ include('manufacturer/_form.html.twig') }}
     </div>

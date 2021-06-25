@@ -1,0 +1,24 @@
+index:
+  title: Manufacturer management
+  noManufacturers: There are no manufacturers in our database.
+  newManufacturer: Add new manufacturer
+
+new:
+  title: New manufacturer
+  heading: Adding new manufacturer
+
+show:
+  title: Manufacturer
+  editManufacturer: Edit data
+
+manufacturerList: List of manufacturers
+manufacturerTable:
+  manufacturer: Manufacturer
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete manufacturer
+
+

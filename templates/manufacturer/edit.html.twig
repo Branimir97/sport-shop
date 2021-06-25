@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Uređivanje proizvođača - {{ manufacturer.name }} {% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'manufacturer') }}
+    - {{ manufacturer.name }}
+{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
@@ -8,10 +11,13 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-2 bg-light p-2">Uređivanje proizvođača - {{ manufacturer.name }}</h2>
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'manufacturer') }}
+            - {{ manufacturer.name }}
+        </h2>
         <a href="{{ path('manufacturer_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista proizvođača
+            {{ 'manufacturerList'|trans({}, 'manufacturer') }}
         </a>
         {{ include('manufacturer/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
         <div class="text-center">

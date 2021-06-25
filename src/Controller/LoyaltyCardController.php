@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/kartice/vjernosti")
+ * @Route({
+ *     "en": "/loyalty/cards",
+ *     "hr": "/kartice/vjernosti"
+ * })
  */
 class LoyaltyCardController extends AbstractController
 {
@@ -21,16 +24,21 @@ class LoyaltyCardController extends AbstractController
      */
     public function index(LoyaltyCardRepository $loyaltyCardRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('loyalty_card/index.html.twig', [
             'loyalty_cards' => $loyaltyCardRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
     /**
-     * @Route("/nova", name="loyalty_card_new", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/nova"
+     * }, name="loyalty_card_new", methods={"GET", "POST"})
      */
     public function new(): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $loyaltyCard = new LoyaltyCard();
         $loyaltyCard->setUser($this->getUser());
         $randomNumber = substr(str_shuffle("012345678912345"), 0, 15);
@@ -45,11 +53,15 @@ class LoyaltyCardController extends AbstractController
     }
 
     /**
-     * @Route("/nova/administrator", name="loyalty_card_new_admin", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/new/administrator",
+     *     "hr": "/nova/administrator"
+     * }, name="loyalty_card_new_admin", methods={"GET", "POST"})
      */
     public function newByAdmin(Request $request,
                                UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $users = $userRepository->findAll();
         $usersWithoutLoyaltyCard = [];
         foreach($users as $user) {
@@ -83,16 +95,21 @@ class LoyaltyCardController extends AbstractController
      */
     public function show(LoyaltyCard $loyaltyCard): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('loyalty_card/show.html.twig', [
             'loyalty_card' => $loyaltyCard,
         ]);
     }
 
     /**
-     * @Route("/{id}/uredi", name="loyalty_card_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="loyalty_card_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, LoyaltyCard $loyaltyCard): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard, ['isEdit'=>true]);
         $form->handleRequest($request);
 
@@ -113,6 +130,7 @@ class LoyaltyCardController extends AbstractController
      */
     public function delete(Request $request, LoyaltyCard $loyaltyCard): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         if ($this->isCsrfTokenValid('delete'.$loyaltyCard->getId(),
             $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

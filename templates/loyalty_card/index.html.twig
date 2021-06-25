@@ -1,39 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje loyalty karticama{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'loyalty_card') }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje loyalty karticama
+            {{ 'index.title'|trans({}, 'loyalty_card') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/loyalty_card.png') }}" alt="icon">
         </h2>
         {% if not loyalty_cards %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji niti jedna loyalty kartica u bazi podataka.</p>
+                <p>
+                    {{ 'index.noLoyaltyCards'|trans({}, 'loyalty_card') }}
+                </p>
                 <a href="{{ path('loyalty_card_new_admin') }}"
                    class="btn btn-outline-info mb-3">
-                    Dodaj novu loyalty karticu
+                    {{ 'index.newLoyaltyCard'|trans({}, 'loyalty_card') }}
                 </a>
             </div>
         {% else %}
             <a href="{{ path('loyalty_card_new_admin') }}"
                class="btn btn-outline-info mb-3">
-                Stvori novu loyalty karticu
+                {{ 'index.newLoyaltyCard'|trans({}, 'loyalty_card') }}
             </a>
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Broj kartice</th>
-                            <th>Korisnik</th>
-                            <th>Bodovi</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'loyaltyCardTable.cardNumber'|trans({}, 'loyalty_card') }}
+                            </th>
+                            <th>
+                                {{ 'loyaltyCardTable.user'|trans({}, 'loyalty_card') }}
+                            </th>
+                            <th>
+                                {{ 'loyaltyCardTable.credits'|trans({}, 'loyalty_card') }}
+                            </th>
+                            <th>
+                                {{ 'loyaltyCardTable.createdAt'|trans({}, 'loyalty_card') }}
+                            </th>
+                            <th>
+                                {{ 'loyaltyCardTable.updatedAt'|trans({}, 'loyalty_card') }}
+                            </th>
+                            <th>
+                                {{ 'loyaltyCardTable.actions'|trans({}, 'loyalty_card') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,11 +68,13 @@
                             </td>
                             <td>
                                 <a href="{{ path('loyalty_card_show',
-                                    {'id': loyalty_card.id}) }}" title="Prikaži pojedinosti">
+                                    {'id': loyalty_card.id}) }}"
+                                   title="{{ 'loyaltyCardTable.infoTitle'|trans({}, 'loyalty_card') }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{{ path('loyalty_card_edit',
-                                    {'id': loyalty_card.id}) }}" title="Uredi">
+                                    {'id': loyalty_card.id}) }}"
+                                   title="{{ 'loyaltyCardTable.editTitle'|trans({}, 'loyalty_card') }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('loyalty_card/_delete_form.html.twig') }}

@@ -1,0 +1,26 @@
+index:
+  title: Loyalty card management
+  noLoyaltyCards: There are no loyalty cards in our database.
+  newLoyaltyCard: Create new loyalty card
+
+new:
+  title: New loyalty card
+  heading: Adding new loyalty card
+
+show:
+  title: Loyalty card number
+  editLoyaltyCard: Edit data
+
+loyaltyCardList: List of loyalty cards
+loyaltyCardTable:
+  cardNumber: Card number
+  user: User
+  credits: Credits
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete loyalty card
+
+

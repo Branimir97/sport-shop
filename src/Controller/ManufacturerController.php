@@ -5,13 +5,18 @@ namespace App\Controller;
 use App\Entity\Manufacturer;
 use App\Form\ManufacturerType;
 use App\Repository\ManufacturerRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/proizvođači")
+ * @Route({
+ *     "en": "/manufacturers",
+ *     "hr": "/proizvođači"
+ * })
+ * @IsGranted("ROLE_ADMIN")
  */
 class ManufacturerController extends AbstractController
 {
@@ -26,7 +31,10 @@ class ManufacturerController extends AbstractController
     }
 
     /**
-     * @Route("/novi", name="manufacturer_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/novi"
+     * }, name="manufacturer_new", methods={"GET","POST"})
      */
     public function new(Request $request,
                         ManufacturerRepository $manufacturerRepository): Response
@@ -68,7 +76,10 @@ class ManufacturerController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="manufacturer_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="manufacturer_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Manufacturer $manufacturer): Response
     {

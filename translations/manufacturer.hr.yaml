@@ -1,0 +1,24 @@
+index:
+  title: Upravljanje proizvođačima
+  noManufacturers: Ne postoji niti jedan proizvođač u bazi podataka.
+  newManufacturer: Dodaj novog proizvođača
+
+new:
+  title: Novi proizvođač
+  heading: Dodavanje novog proizvođača
+
+show:
+  title: Proizvođač
+  editManufacturer: Uredi podatke
+
+manufacturerList: Lista proizvođača
+manufacturerTable:
+  manufacturer: Proizvođač
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši proizvođača
+
+
