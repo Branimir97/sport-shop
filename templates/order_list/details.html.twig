@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Narudžba br. {{ orderListItem.id }}{% endblock %}
+{% block title %}
+    {{ 'details.title'|trans({}, 'order_list') }}
+    {{ orderListItem.id }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
 {% endblock %}
@@ -8,28 +11,41 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Narudžba br. {{ orderListItem.id }}
+            {{ 'details.title'|trans({}, 'order_list') }}
+            {{ orderListItem.id }}
         </h2>
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('order_list_item_index') }}">
                 <i class="fas fa-arrow-alt-circle-left"></i>
-                Lista svih narudžbi
+                {{ 'orderList'|trans({}, 'order_list') }}
             </a><br>
         {% endif %}
         <a href="{{ path('order_list') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista mojih narudžbi
+            {{ 'myOrderList'|trans({}, 'order_list') }}
         </a>
         <div class="table-responsive">
             <table class="table table-hover table-warning">
-                <caption>Popis artikala za ovu narudžbu</caption>
+                <caption>
+                    {{ 'details.itemsListCaption'|trans({}, 'order_list') }}
+                </caption>
                 <thead>
                     <tr>
-                        <th>Naziv artikla</th>
-                        <th>Veličina</th>
-                        <th>Boja</th>
-                        <th>Količina</th>
-                        <th>Cijena [kn]</th>
+                        <th>
+                            {{ 'details.itemsTable.title'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.size'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.color'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.quantity'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.price'|trans({}, 'order_list') }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,31 +61,39 @@
                 </tbody>
             </table>
             <small class="text-muted">
-                Ukupan iznos narudžbe sadrži uračunat iznos poštarine (30kn) ukoliko
-                iznos s/bez popusta ne prelazi 300kn.<br> Ukoliko su iskorišteni promo kod/bodovi
-                s kartice, ukupan iznos narudžbe umanjuje se ovisno o promo kodu i količini
-                iskorištenih bodova s loyalty kartice.
+                {{ 'details.messagePart1'|trans({}, 'order_list') }}<br>
+                {{ 'details.messagePart2'|trans({}, 'order_list') }}
             </small>
             <table class="table">
-                <caption>Ostale informacije o narudžbi</caption>
+                <caption>
+                    {{ 'details.otherOrderInfo'|trans({}, 'order_list') }}
+                </caption>
                 <tbody>
                     <tr>
-                        <th>Broj narudžbe</th>
+                        <th>
+                            {{ 'orderTable.number'|trans({}, 'order_list') }}
+                        </th>
                         <td>{{ orderListItem.id }}</td>
                     </tr>
                     <tr>
-                        <th>Vrijeme izvršenja narudžbe</th>
+                        <th>
+                            {{ 'orderTable.createdAt'|trans({}, 'order_list') }}
+                        </th>
                         <td>{{ orderListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
                     </tr>
                     <tr>
-                        <th>Adresa isporuke</th>
+                        <th>
+                            {{ 'orderTable.deliveryAddress'|trans({}, 'order_list') }}
+                        </th>
                         <td>{{ orderListItem.deliveryAddress.street }},
                             {{ orderListItem.deliveryAddress.postalCode }}
                             {{ orderListItem.deliveryAddress.city }}
                         </td>
                     </tr>
                     <tr>
-                        <th>Status</th>
+                        <th>
+                            {{ 'orderTable.status'|trans({}, 'order_list') }}
+                        </th>
                         <td>
                             {% if orderListItem.status == "U OBRADI" %}
                                 {{ orderListItem.status }}
@@ -87,14 +111,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Cijena [kn]</th>
+                        <th>
+                            {{ 'orderTable.price'|trans({}, 'order_list') }}
+                        </th>
                         <td>{{ orderListItem.priceWithoutDiscount|number_format(2, '.', ',') }}</td>
                     <tr class="text-danger">
-                        <th>Popust [kn]</th>
+                        <th>
+                            {{ 'orderTable.discount'|trans({}, 'order_list') }}
+                        </th>
                         <td>{{ orderListItem.discount|number_format(2, '.', ',') }}</td>
                     </tr>
                     <tr class="text-success">
-                        <th>Ukupna cijena s popustom [kn]</th>
+                        <th>
+                            {{ 'orderTable.priceWithDiscount'|trans({}, 'order_list') }}
+                        </th>
                         <td>{{ orderListItem.totalPrice|number_format(2, '.', ',') }}</td>
                     </tr>
                 </tbody>

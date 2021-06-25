@@ -2,5 +2,7 @@
       onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu narudžbu?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order_list_item.id) }}">
-    <button class="btn btn-outline-danger mb-3 mt-2">Obriši narudžbu</button>
+    <button class="btn btn-outline-danger mb-3 mt-2">
+        {{ 'orderTable.delete'|trans({}, 'order_list_item') }}
+    </button>
 </form>

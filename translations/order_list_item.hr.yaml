@@ -1,0 +1,18 @@
+title: Upravljanje narudžbama
+noOrders: Ne postoji niti jedna narudžba u bazi podataka.
+
+orderTable:
+  number: Broj narudžbe
+  user: Korisnik
+  createdAt: Vrijeme izvršenja narudžbe
+  deliveryAddress: Adresa isporuke
+  status: Status
+  price: Ukupan iznos narudžbe [kn]
+  actions: Mogućnosti
+  details: Detalji
+  orderLink: Više o narudžbi
+  setStatusInProcess: Postavi status u obradi
+  setStatusDelivering: Postavi status na dostavi
+  setStatusDelivered: Postavi status dostavljeno
+  delete: Obriši narudžbu
+

@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje narudžbama{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'order_list_item') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
 {% endblock %}
@@ -8,28 +10,46 @@
 {% block body %}
     <div class="container-fluid">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje narudžbama
+            {{ 'title'|trans({}, 'order_list_item') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/orders.png') }}" alt="icon">
         </h2>
         {% if not order_list_items %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji niti jedna narudžba u bazi podataka.</p>
+                <p>
+                    {{ 'noOrders'|trans({}, 'order_list_item') }}
+                </p>
             </div>
         {% else %}
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                     <tr>
-                        <th>Br. narudžbe</th>
-                        <th>Korisnik</th>
-                        <th>Vrijeme izvršenja narudžbe</th>
-                        <th>Adresa isporuke</th>
-                        <th>Status</th>
-                        <th>Ukupan iznos narudžbe[kn]</th>
-                        <th>Mogućnosti</th>
-                        <th>Detalji</th>
+                        <th>
+                            {{ 'orderTable.number'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.user'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.createdAt'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.deliveryAddress'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.status'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.price'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.actions'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.details'|trans({}, 'order_list_item') }}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,19 +87,19 @@
                             <td>
                                 <a href="{{ path('order_list_item_status_processing',
                                     {'id': order_list_item.id}) }}"
-                                    title="Postavi status u obradi">
+                                    title="{{ 'orderTable.setStatusInProcess'|trans({}, 'order_list_item') }}">
                                     <img class="icon"
                                          src="{{ asset('icons/box.png') }}" alt="icon">
                                 </a>
                                 <a href="{{ path('order_list_item_status_delivering',
                                     {'id': order_list_item.id}) }}"
-                                    title="Postavi status na dostavi">
+                                    title="{{ 'orderTable.setStatusDelivering'|trans({}, 'order_list_item') }}">
                                     <img class="icon"
                                          src="{{ asset('icons/delivery.png') }}" alt="icon">
                                 </a>
                                 <a href="{{ path('order_list_item_status_delivered',
                                     {'id': order_list_item.id}) }}"
-                                    title="Postavi status dostavljeno">
+                                    title="{{ 'orderTable.setStatusDelivered'|trans({}, 'order_list_item') }}">
                                     <img class="icon"
                                          src="{{ asset('icons/delivering.png') }}" alt="icon">
                                 </a>
@@ -88,7 +108,8 @@
                             <td>
                                 <a href="{{ path('order_details',
                                     {'id':order_list_item.id}) }}">
-                                    Više o narudžbi <i class="fas fa-long-arrow-alt-right"></i>
+                                    {{ 'orderTable.orderLink'|trans({}, 'order_list_item') }}
+                                    <i class="fas fa-long-arrow-alt-right"></i>
                                 </a>
                             </td>
                         </tr>

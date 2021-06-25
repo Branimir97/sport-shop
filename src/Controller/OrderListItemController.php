@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\OrderListItem;
 use App\Repository\OrderListItemRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/sve/narudžbe")
+ * @Route({
+ *     "en": "/all/orders",
+ *     "hr": "/sve/narudžbe"
+ * })
+ * @IsGranted("ROLE_ADMIN")
  */
 class OrderListItemController extends AbstractController
 {
@@ -26,7 +31,10 @@ class OrderListItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status/obrada", name="order_list_item_status_processing", methods={"GET", "PATCH"})
+     * @Route({
+     *     "en": "/{id}/status/in/process",
+     *     "hr": "/{id}/status/obrada"
+     * }, name="order_list_item_status_processing", methods={"GET", "PATCH"})
      */
     public function setStatusProcessing(Request $request,
                                         OrderListItemRepository $orderListItemRepository): RedirectResponse
@@ -42,7 +50,10 @@ class OrderListItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status/dostava", name="order_list_item_status_delivering", methods={"GET", "PATCH"})
+     * @Route({
+     *     "en": "/{id}/status/delivering",
+     *     "hr": "/{id}/status/dostava"
+     * }, name="order_list_item_status_delivering", methods={"GET", "PATCH"})
      */
     public function setStatusDelivering(Request $request,
                                         OrderListItemRepository $orderListItemRepository): RedirectResponse
@@ -57,7 +68,10 @@ class OrderListItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status/dostavljeno", name="order_list_item_status_delivered", methods={"GET", "PATCH"})
+     * @Route({
+     *     "en": "/{id}/status/delivered",
+     *     "hr": "/{id}/status/dostavljeno"
+     * }, name="order_list_item_status_delivered", methods={"GET", "PATCH"})
      */
     public function setStatusDelivered(Request $request,
                                        OrderListItemRepository $orderListItemRepository): RedirectResponse

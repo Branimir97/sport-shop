@@ -1,0 +1,18 @@
+title: Order management
+noOrders: There are no orders in our database.
+
+orderTable:
+  number: Order number
+  user: User
+  createdAt: Creation time
+  deliveryAddress: Delivery address
+  status: Status
+  price: Total order price [kn]
+  actions: Actions
+  details: Details
+  orderLink: More about order
+  setStatusInProcess: Set status in process
+  setStatusDelivering: Set status delivering
+  setStatusDelivered: Set status delivered
+  delete: Delete order
+

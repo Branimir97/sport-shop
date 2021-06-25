@@ -1,0 +1,32 @@
+title: Moje narudžbe
+noOrders: Još niste naručili ni jedan artikl.
+orderMessage: Nakon uspješne naplate artikala iz košarice, isti se izlistavaju ovdje!
+
+details:
+  title: Narudžba br.
+  itemsTable:
+    title: Naziv artikla
+    size: Veličina
+    color: Boja
+    quantity: Količina
+    price: Cijena [kn]
+  itemsListCaption: Popis artikala za ovu narudžbu
+  messagePart1: Ukupan iznos narudžbe sadrži uračunat iznos poštarine (30kn) ukoliko
+                iznos s/bez popusta ne prelazi 300kn.
+  messagePart2: Ukoliko su iskorišteni promo kod/bodovi
+                s kartice, ukupan iznos narudžbe umanjuje se ovisno o promo kodu i količini
+                iskorištenih bodova s loyalty kartice.
+  otherOrderInfo: Ostale informacije o narudžbi
+
+orderList: Lista svih narudžbi
+myOrderList: Lista mojih narudžbi
+orderTable:
+  number:  Broj narudžbe
+  price: Iznos [kn]
+  createdAt: Vrijeme izvršenja narudžbe
+  deliveryAddress: Adresa isporuke
+  status: Status
+  details: Detalji
+  orderLink: Više o narudžbi
+  discount: Popust [kn]
+  priceWithDiscount: Ukupna cijena s popustom [kn]

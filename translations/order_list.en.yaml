@@ -1,0 +1,32 @@
+title: My orders
+noOrders: You haven't ordered any items yet.
+orderMessage: After successful collection of items from the cart, they are listed here!
+
+details:
+  title: Order number
+  itemsTable:
+    title: Item name
+    size: Size
+    color: Color
+    quantity: Quantity
+    price: Price [kn]
+  itemsListCaption: List of items for this order
+  messagePart1: The total amount of the order includes the included amount of postage
+                (30kn) if the amount with / without discount does not exceed 300kn.
+  messagePart2: If promo code / points are used with the card, the total amount of
+                the order decreases depending on the promo code and quantity
+                points used with a loyalty card.
+  otherOrderInfo: Other order information
+
+orderList: List of orders
+myOrderList: List of my orders
+orderTable:
+  number: Order number
+  price: Price [kn]
+  createdAt: Creation time
+  deliveryAddress: Delivery address
+  status: Status
+  details: Details
+  orderLink: More about order
+  discount: Discount [kn]
+  priceWithDiscount: Total price with discount [kn]
