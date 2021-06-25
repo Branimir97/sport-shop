@@ -1,0 +1,25 @@
+index:
+  title: Size management
+  noSizes: There are no sizes in our database.
+  newSize: Add new size
+
+new:
+  title: New size
+  heading: Adding new size
+
+show:
+  title: Size
+  editSize: Edit data
+
+sizesList: List of sizes
+sizesTable:
+  size: Size
+  itemType: Item type
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete size
+
+

@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nova veličina{% endblock %}
+{% block title %}
+    {{ 'new.title'|trans({}, 'size') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/container50.css') }}">
 {% endblock %}
@@ -8,11 +10,11 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Dodavanje nove veličine
+            {{ 'new.title'|trans({}, 'size') }}
         </h2>
         <a href="{{ path('size_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista veličina
+            {{ 'sizesList'|trans({}, 'size') }}
         </a>
         {{ include('size/_form.html.twig') }}
     </div>

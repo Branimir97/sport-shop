@@ -1,36 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Veličina {{ size.value }}{% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'size') }}
+    {{ size.value }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Veličina {{ size.value }}
+            {{ 'show.title'|trans({}, 'size') }}
+            {{ size.value }}
         </h2>
         <a href="{{ path('size_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista veličina
+            {{ 'sizesList'|trans({}, 'size') }}
         </a>
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>
+                        Id
+                    </th>
                     <td>{{ size.id }}</td>
                 </tr>
                 <tr>
-                    <th>Veličina</th>
+                    <th>
+                        {{ 'sizesTable.size'|trans({}, 'size') }}
+                    </th>
                     <td>{{ size.value }}</td>
                 </tr>
                 <tr>
-                    <th>Vrsta artikla</th>
+                    <th>
+                        {{ 'sizesTable.itemType'|trans({}, 'size') }}
+                    </th>
                     <td>{{ size.type }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme stvaranja</th>
+                    <th>
+                        {{ 'sizesTable.createdAt'|trans({}, 'size') }}
+                    </th>
                     <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme zadnje izmjene</th>
+                    <th>
+                        {{ 'sizesTable.updatedAt'|trans({}, 'size') }}
+                    </th>
                     <td>
                         {{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}
                     </td>
@@ -39,7 +53,7 @@
         </table>
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('size_edit', {'id': size.id}) }}">
-                Uredi podatke
+                {{ 'show.editSize'|trans({}, 'size') }}
             </a>
             {{ include('size/_delete_form.html.twig') }}
         </div>

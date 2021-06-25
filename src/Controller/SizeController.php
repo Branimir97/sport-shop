@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/veličine")
+ * @Route({
+ *     "en": "/sizes",
+ *     "hr": "/veličine",
+ * })
  * @IsGranted("ROLE_ADMIN")
  */
 class SizeController extends AbstractController
@@ -28,7 +31,10 @@ class SizeController extends AbstractController
     }
 
     /**
-     * @Route("/nova", name="size_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/nova",
+     * }, name="size_new", methods={"GET","POST"})
      */
     public function new(Request $request, SizeRepository $sizeRepository): Response
     {
@@ -69,7 +75,10 @@ class SizeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="size_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi",
+     * }, name="size_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Size $size): Response
     {

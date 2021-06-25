@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\ActionCategoryRepository;
 use App\Repository\ActionItemRepository;
 use App\Repository\ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,12 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpecialOfferController extends AbstractController
 {
     /**
-     * @Route("/akcijska/ponuda", name="special_offer")
+     * @Route({
+     *     "en": "/special/offer",
+     *     "hr": "/akcijska/ponuda"
+     * }, name="special_offer")
      */
     public function index(ActionItemRepository $actionItemRepository,
                           ItemRepository $itemRepository): Response
     {
-
         $items = [];
         $discounts = [];
         $actionItems = $actionItemRepository->findAll();

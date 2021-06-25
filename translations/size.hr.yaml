@@ -1,0 +1,25 @@
+index:
+  title: Upravljanje veličinama
+  noSizes: Ne postoji niti jedna veličina u bazi podataka.
+  newSize: Dodaj novu veličinu
+
+new:
+  title: Nova veličina
+  heading: Dodavanje nove veličine
+
+show:
+  title: Veličina
+  editSize: Uredi podatke
+
+sizesList: Lista veličina
+sizesTable:
+  size: Veličina
+  itemType: Tip artikla
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši veličinu
+
+
