@@ -1,0 +1,7 @@
+title: Upravljanje iskorištenim promo kodovima
+noUsedPromoCodes: Ne postoji niti jedan iskorišteni promo kod u bazi podataka.
+promoCodeUserTable:
+  promoCode: Promo kod
+  user: Korisnik
+  utilizationTime: Vrijeme iskorištenja
+  delete: Obriši evidenciju

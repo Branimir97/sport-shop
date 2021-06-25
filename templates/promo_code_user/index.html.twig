@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje iskorištenim promo kodovima{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'promo_code_user') }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje iskorištenim promo kodovima
+            {{ 'title'|trans({}, 'promo_code_user') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/used_promo_codes.png') }}" alt="icon">
         </h2>
@@ -13,7 +15,7 @@
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
                 <p>
-                    Ne postoji niti jedan iskorišteni promo kod u bazi podataka.
+                    {{ 'noUsedPromoCodes'|trans({}, 'promo_code_user') }}
                 </p>
             </div>
         {% else %}
@@ -21,11 +23,21 @@
                 <table class="table table-hover table-info">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Promo kod</th>
-                        <th>Korisnik</th>
-                        <th>Vrijeme iskorištenja</th>
-                        <th>Obriši evidenciju</th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            {{ 'promoCodeUserTable.promoCode'|trans({}, 'promo_code_user') }}
+                        </th>
+                        <th>
+                            {{ 'promoCodeUserTable.user'|trans({}, 'promo_code_user') }}
+                        </th>
+                        <th>
+                            {{ 'promoCodeUserTable.utilizationTime'|trans({}, 'promo_code_user') }}
+                        </th>
+                        <th>
+                            {{ 'promoCodeUserTable.delete'|trans({}, 'promo_code_user') }}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>

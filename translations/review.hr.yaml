@@ -1,0 +1,17 @@
+index:
+  title: Upravljanje recenzijama
+  noReviews: Ne postoji ni jedna recenzija u bazi podataka.
+
+edit:
+  title: Uređivanje recenzije
+
+reviewList: Lista recenzija
+reviewTable:
+  grade: Ocjena
+  item: Artikl
+  author: Autor
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  editTitle: Uredi
+  delete: Obriši recenziju

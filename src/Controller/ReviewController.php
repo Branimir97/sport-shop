@@ -5,13 +5,18 @@ namespace App\Controller;
 use App\Entity\Review;
 use App\Form\ReviewType;
 use App\Repository\ReviewRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/recenzije")
+ * @Route({
+ *     "en": "/reviews",
+ *     "hr": "/recenzije"
+ *     })
+ * @IsGranted("ROLE_ADMIN")
  */
 class ReviewController extends AbstractController
 {
@@ -26,7 +31,10 @@ class ReviewController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/uredi", name="review_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "hr": "/{id}/uredi"
+     * }, name="review_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Review $review): Response
     {

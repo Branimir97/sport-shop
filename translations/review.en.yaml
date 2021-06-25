@@ -1,0 +1,17 @@
+index:
+  title: Review management
+  noReviews: There are no reviews in our database.
+
+edit:
+  title: Editing review
+
+reviewList: List of reviews
+reviewTable:
+  grade: Grade
+  item: Item
+  author: Author
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  editTitle: Edit
+  delete: Delete review

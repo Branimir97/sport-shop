@@ -4,13 +4,18 @@ namespace App\Controller;
 
 use App\Entity\PromoCodeUser;
 use App\Repository\PromoCodeUserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/iskorišteni/promo/kodovi")
+ * @Route({
+ *     "en": "/used/promo/codes",
+ *     "hr": "/iskorišteni/promo/kodovi"
+ * })
+ * @IsGranted("ROLE_ADMIN")
  */
 class PromoCodeUserController extends AbstractController
 {

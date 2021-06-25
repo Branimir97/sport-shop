@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravljanje recenzijama{% endblock %}
+{% block title %}
+    {{ 'index.title'|trans({}, 'review') }}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/review_index.css") }}">
 {% endblock %}
@@ -8,27 +10,43 @@
 {% block body %}
     <div class="container-fluid">
         <h2 class="text-center mt-2 bg-light p-2">
-            Upravljanje recenzijama
+            {{ 'index.title'|trans({}, 'review') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/review.png') }}" alt="icon">
         </h2>
         {% if not reviews %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <p>Ne postoji ni jedna recenzija u bazi podataka.</p>
+                <p>
+                    {{ 'index.noReviews'|trans({}, 'review') }}
+                </p>
             </div>
         {% else %}
             <div class="table-responsive">
                 <table class="table table-hover table-info">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Ocjena</th>
-                            <th>Artikl</th>
-                            <th>Autor</th>
-                            <th>Vrijeme stvaranja</th>
-                            <th>Vrijeme zadnje izmjene</th>
-                            <th>Mogućnosti</th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'reviewTable.grade'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.item'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.author'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.createdAt'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.updatedAt'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.actions'|trans({}, 'review') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +71,7 @@
                             </td>
                             <td>
                                 <a href="{{ path('review_edit', {'id': review.id}) }}"
-                                   title="Uredi">
+                                   title="{{ 'reviewTable.editTitle'|trans({}, 'review') }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{ include('review/_delete_form.html.twig') }}

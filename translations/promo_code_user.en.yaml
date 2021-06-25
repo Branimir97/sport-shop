@@ -1,0 +1,7 @@
+title: Used promo code management
+noUsedPromoCodes: There are no used promo codes in our database.
+promoCodeUserTable:
+  promoCode: Promo code
+  user: User
+  utilizationTime: Utilization time
+  delete: Delete record
