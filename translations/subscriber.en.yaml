@@ -1,0 +1,8 @@
+title: List of subscribed users
+noSubscribers: There are no subscribed users in our database.
+
+subscriberTable:
+  userEmail: User email
+  createdAt: Creation time
+  updatedAt: Last modified time
+  remove: Remove subscription

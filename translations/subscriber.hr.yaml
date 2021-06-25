@@ -1,0 +1,8 @@
+title: Lista pretplaćenih korisnika
+noSubscribers: Ne postoji niti jedan pretplaćeni korisnik u bazi podataka.
+
+subscriberTable:
+  userEmail: Email korisnika
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  remove: Obriši pretplatu

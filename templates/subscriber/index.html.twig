@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lista pretplaćenih korisnika{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'subscriber') }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Lista pretplaćenih korisnika
+            {{ 'title'|trans({}, 'subscriber') }}
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/subscribe.png') }}" alt="icon">
         </h2>
@@ -13,7 +15,7 @@
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
                 <p>
-                    Ne postoji niti jedan pretplaćeni korisnik u bazi podataka.
+                    {{ 'noSubscribers'|trans({}, 'subscriber') }}
                 </p>
             </div>
         {% else %}
@@ -21,11 +23,21 @@
                 <table class="table table-hover table-info">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Email korisnika</th>
-                        <th>Vrijeme stvaranja</th>
-                        <th>Vrijeme zadnje izmjene</th>
-                        <th>Ukloni pretplatu</th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            {{ 'subscriberTable.userEmail'|trans({}, 'subscriber') }}
+                        </th>
+                        <th>
+                            {{ 'subscriberTable.createdAt'|trans({}, 'subscriber') }}
+                        </th>
+                        <th>
+                            {{ 'subscriberTable.updatedAt'|trans({}, 'subscriber') }}
+                        </th>
+                        <th>
+                            {{ 'subscriberTable.remove'|trans({}, 'subscriber') }}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>

@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/pretplatnici")
+ * @Route({
+ *     "en": "/subscribers",
+ *     "hr": "/pretplatnici"
+ * })
  */
 class SubscriberController extends AbstractController
 {
@@ -20,13 +23,17 @@ class SubscriberController extends AbstractController
      */
     public function index(SubscriberRepository $subscriberRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('subscriber/index.html.twig', [
             'subscribers' => $subscriberRepository->findBy([], ['id'=>'DESC']),
         ]);
     }
 
     /**
-     * @Route("/novi", name="subscriber_new", methods={"POST"})
+     * @Route({
+     *     "en": "/new",
+     *     "hr": "/novi"
+     * }, name="subscriber_new", methods={"POST"})
      */
     public function new(Request $request,
                         SubscriberRepository $subscriberRepository,
@@ -61,11 +68,15 @@ class SubscriberController extends AbstractController
     }
 
     /**
-     * @Route("/novi/registrirani", name="subscriber_new_registered", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/new/registered",
+     *     "hr": "/novi/registrirani"
+     * }, name="subscriber_new_registered", methods={"GET","POST"})
      */
     public function newRegistered(Request $request,
                                   SubscriberRepository $subscriberRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $formEmail = $request->request->get('email');
         $subscriber = new Subscriber();
         $currentEmail = $this->getUser()->getUsername();
@@ -87,10 +98,14 @@ class SubscriberController extends AbstractController
     }
 
     /**
-     * @Route("/obriši/registrirani", name="subscriber_delete_registered", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/delete/registered",
+     *     "hr": "/obriši/registrirani"
+     * }, name="subscriber_delete_registered", methods={"GET", "POST"})
      */
     public function deleteRegistered(SubscriberRepository $subscriberRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $subscriber = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($subscriber);
@@ -106,6 +121,7 @@ class SubscriberController extends AbstractController
      */
     public function delete(Request $request, Subscriber $subscriber): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         if ($this->isCsrfTokenValid('delete'.$subscriber->getId(),
             $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
