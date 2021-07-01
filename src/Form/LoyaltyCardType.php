@@ -31,17 +31,19 @@ class LoyaltyCardType extends AbstractType
                                 ->setParameter('array', $users);
                         },
                         'choice_label' => 'name',
-                        'help' => "Odaberite korisnika kojem želite stvoriti loyalty karticu",
-                        'label' => 'Odabir korisnika'
+                        'help' => 'form.user_help',
+                        'label' => 'form.user_label',
+                        'translation_domain' => 'loyalty_card'
                     ]);
                 }
             $builder
             ->add('credits', IntegerType::class, [
-                'required'=>false,
-                'attr'=>[
-                    'min'=>0
+                'required' => false,
+                'attr' => [
+                    'min' => 0
                 ],
-                'label'=>'Broj bodova'
+                'label' => 'form.credits_label',
+                'translation_domain' => 'loyalty_card'
             ])
         ;
     }
@@ -50,8 +52,8 @@ class LoyaltyCardType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LoyaltyCard::class,
-            'isEdit'=>false,
-            'users'=>[]
+            'isEdit' => false,
+            'users' => []
         ]);
     }
 }

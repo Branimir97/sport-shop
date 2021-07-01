@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class LoyaltyCardController extends AbstractController
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('loyalty_card/index.html.twig', [
-            'loyalty_cards' => $loyaltyCardRepository->findBy([], ['id'=>'DESC']),
+            'loyalty_cards' => $loyaltyCardRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -36,7 +37,7 @@ class LoyaltyCardController extends AbstractController
      *     "hr": "/nova"
      * }, name="loyalty_card_new", methods={"GET", "POST"})
      */
-    public function new(): Response
+    public function new(TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $loyaltyCard = new LoyaltyCard();
@@ -48,7 +49,9 @@ class LoyaltyCardController extends AbstractController
         $entityManager->persist($loyaltyCard);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Loyalty kartica uspješno kreirana.');
+        $this->addFlash('success',
+            $translator->trans('flash_message.loyalty_card_created',
+                [], 'loyalty_card'));
         return $this->redirectToRoute('account_settings');
     }
 
@@ -59,7 +62,8 @@ class LoyaltyCardController extends AbstractController
      * }, name="loyalty_card_new_admin", methods={"GET", "POST"})
      */
     public function newByAdmin(Request $request,
-                               UserRepository $userRepository): Response
+                               UserRepository $userRepository,
+                               TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $users = $userRepository->findAll();
@@ -82,7 +86,9 @@ class LoyaltyCardController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($loyaltyCard);
             $entityManager->flush();
-            $this->addFlash('success', 'Loyalty kartica uspješno kreirana.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.loyalty_card_created',
+                    [], 'loyalty_card'));
             return $this->redirectToRoute('loyalty_card_index');
         }
         return $this->render('loyalty_card/new.html.twig', [
@@ -107,7 +113,8 @@ class LoyaltyCardController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="loyalty_card_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, LoyaltyCard $loyaltyCard): Response
+    public function edit(Request $request, LoyaltyCard $loyaltyCard,
+                         TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard, ['isEdit'=>true]);
@@ -116,6 +123,9 @@ class LoyaltyCardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success',
+                $translator->trans('flash_message.loyalty_card_edited',
+                    [], 'loyalty_card'));
             return $this->redirectToRoute('loyalty_card_index');
         }
 
@@ -128,7 +138,8 @@ class LoyaltyCardController extends AbstractController
     /**
      * @Route("/{id}", name="loyalty_card_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, LoyaltyCard $loyaltyCard): Response
+    public function delete(Request $request, LoyaltyCard $loyaltyCard,
+                           TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         if ($this->isCsrfTokenValid('delete'.$loyaltyCard->getId(),
@@ -140,10 +151,14 @@ class LoyaltyCardController extends AbstractController
             $entityManager->flush();
         }
         if($this->isGranted("ROLE_ADMIN")) {
-            $this->addFlash('danger', 'Loyalty kartica uspješno obrisana.');
+            $this->addFlash('danger',
+                $translator->trans('flash_message.loyalty_card_deleted',
+                    [], 'loyalty_card'));
             return $this->redirectToRoute('loyalty_card_index');
         } else {
-            $this->addFlash('danger', 'Loyalty kartica uspješno obrisana.');
+            $this->addFlash('danger',
+                $translator->trans('flash_message.loyalty_card_deleted',
+                    [], 'loyalty_card'));
             return $this->redirectToRoute('account_settings');
         }
     }

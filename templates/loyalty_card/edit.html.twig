@@ -19,7 +19,7 @@
             {{ 'loyaltyCardList'|trans({}, 'loyalty_card') }}
         </a>
         {{ include('loyalty_card/_form.html.twig',
-            {'button_label': 'Spremi promjene'}) }}
+            {'button_label': 'form.edit_button_label'|trans({}, 'loyalty_card')}) }}
         <div class="text-center">
             {{ include('loyalty_card/_delete_form.html.twig') }}
         </div>

@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('loyalty_card_delete', {'id': loyalty_card.id}) }}"
-      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu loyalty karticu?');">
+      onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'loyalty_card') }}');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ loyalty_card.id) }}">
     <button class="btn btn-outline-danger mb-3 mt-2">
