@@ -54,7 +54,7 @@ class PromoCodeController extends AbstractController
                 $this->addFlash('danger',
                     $translator->trans('flash_message.promo_code_exists',
                         [], 'promo_code'));
-                return $this->redirectToRoute('promo_code_index');
+                return $this->redirectToRoute('promo_code_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
             $endDate = $form->get('endDate')->getData();
@@ -108,8 +108,8 @@ class PromoCodeController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             if(in_array($promoCode->getCode(), $promoCodes)) {
-                $this->addFlash('danger',
-                    $translator->trans('flash_message.promo_code_exists',
+                $this->addFlash('success',
+                    $translator->trans('flash_message.promo_code_edited',
                         [], 'promo_code'));
                 return $this->redirectToRoute('promo_code_index');
             }

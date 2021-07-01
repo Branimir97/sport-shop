@@ -2,7 +2,7 @@
       onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'order_list_item') }}');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order_list_item.id) }}">
-    <button class="btn btn-outline-danger mb-3 mt-2">
+    <button class="btn btn-danger mb-3 mt-2">
         {{ 'orderTable.delete'|trans({}, 'order_list_item') }}
     </button>
 </form>

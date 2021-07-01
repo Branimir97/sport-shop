@@ -15,15 +15,17 @@ class ReviewType extends AbstractType
     {
         $builder
             ->add('rating', RangeType::class, [
-                'label'=>'Ocjena',
-                'attr'=>[
-                    'min'=>1,
-                    'max'=>5
+                'attr' => [
+                    'min' => 1,
+                    'max' => 5
                 ],
-                'help'=> 'Raspon od min 1 do max 5'
+                'help' => 'form.rating_help',
+                'label' => 'form.rating_label',
+                'translation_domain' => 'review'
             ])
             ->add('comment', TextareaType::class, [
-                'label'=>'Komentar'
+                'label' => 'form.comment_label',
+                'translation_domain' => 'review'
             ])
         ;
     }

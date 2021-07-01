@@ -2,7 +2,7 @@
       onsubmit="return confirm('Jeste li sigurni da želite ukloniti ovu pretplatu?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subscriber.id) }}">
-    <button class="btn btn-outline-danger mb-3 mt-2">
+    <button class="btn btn-danger mb-3 mt-2">
         {{ 'subscriberTable.remove'|trans({}, 'subscriber') }}
     </button>
 </form>

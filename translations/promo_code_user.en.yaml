@@ -11,5 +11,9 @@ form:
   use_credits_label: I want to use the points on the card
   button_label: Confirm entry
 
+flash_message:
+  record_deleted: Successfully deleted records of used promo code from
+                  by the user "%user_name% %user_surname%".
+
 delete_confirmation:
   message: Are you sure you want to delete the usage records for this promo code?

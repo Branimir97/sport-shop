@@ -34,10 +34,10 @@ form:
   edit_button_label: Spremi promjene
 
 flash_message:
-  code_exists: Već postoji takav promo kod.
-  code_created: Promo kod uspješno generiran.
-  code_edited: Promo kod uspješno ažuriran.
-  code_deleted: Promo kod uspješno obrisan.
+  promo_code_exists: Već postoji takav promo kod.
+  promo_code_created: Promo kod uspješno generiran.
+  promo_code_edited: Promo kod uspješno ažuriran.
+  promo_code_deleted: Promo kod uspješno obrisan.
 
 delete_confirmation:
   message: Jeste li sigurni da želite obrisati ovaj promo kod?

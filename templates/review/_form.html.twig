@@ -1,6 +1,6 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn btn-success">
-        Spremi promjene
+        {{ 'form.button_label'|trans({}, 'review') }}
     </button>
 {{ form_end(form) }}

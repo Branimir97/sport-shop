@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -25,14 +26,15 @@ class PromoCodeUserController extends AbstractController
     public function index(PromoCodeUserRepository $promoCodeUserRepository): Response
     {
         return $this->render('promo_code_user/index.html.twig', [
-            'promo_code_users' => $promoCodeUserRepository->findBy([], ['id'=>'DESC']),
+            'promo_code_users' => $promoCodeUserRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
     /**
      * @Route("/{id}", name="promo_code_user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, PromoCodeUser $promoCodeUser): Response
+    public function delete(Request $request, PromoCodeUser $promoCodeUser,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$promoCodeUser->getId(),
             $request->request->get('_token'))) {
@@ -40,9 +42,11 @@ class PromoCodeUserController extends AbstractController
             $entityManager->remove($promoCodeUser);
 
             $this->addFlash('danger',
-                'Uspješno obrisana evidencija o iskorištenom promo kodu od 
-                    strane korisnika '.$promoCodeUser->getUser()->getName()).' '
-                    .$promoCodeUser->getUser()->getSurname().'.';
+                $translator->trans('flash_message.record_deleted',
+                    [
+                        '%user_name%' => $promoCodeUser->getUser()->getName(),
+                        '%user_surname%' => $promoCodeUser->getUser()->getSurname()
+                    ], 'promo_code_user'));
             $entityManager->flush();
         }
         return $this->redirectToRoute('promo_code_user_index');

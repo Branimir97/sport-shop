@@ -34,10 +34,10 @@ form:
   edit_button_label: Save changes
 
 flash_message:
-  code_exists: There is already such a promo code.
-  code_created: Promo code successfully generated.
-  code_edited: Promo code successfully updated.
-  code_deleted: Promo code successfully deleted.
+  promo_code_exists: There is already such a promo code.
+  promo_code_created: Promo code successfully generated.
+  promo_code_edited: Promo code successfully updated.
+  promo_code_deleted: Promo code successfully deleted.
 
 delete_confirmation:
   message: Are you sure you want to delete this promo code?

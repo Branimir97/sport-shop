@@ -15,3 +15,16 @@ reviewTable:
   actions: Mogućnosti
   editTitle: Uredi
   delete: Obriši recenziju
+
+form:
+  rating_label: Ocjena
+  rating_help: Raspon od min 1 do max 5
+  comment_label: Komentar
+  button_label: Spremi promjene
+
+flash_message:
+  review_edited: Recenzija uspješno ažurirana.
+  review_deleted: Recenzija uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu recenziju?
