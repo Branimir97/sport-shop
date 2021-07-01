@@ -20,10 +20,10 @@ class ActionCategoryType extends AbstractType
             $noActionCategories = $options['noActionCategories'];
             $builder
                 ->add('category', EntityType::class, [
-                    'mapped'=> false,
-                    'class'=>Category::class,
-                    'multiple'=>true,
-                    'query_builder'=> function(EntityRepository $entityRepository) use ($noActionCategories) {
+                    'mapped' => false,
+                    'class' => Category::class,
+                    'multiple' => true,
+                    'query_builder' => function(EntityRepository $entityRepository) use ($noActionCategories) {
                         if(count($noActionCategories) == 0) {
                             return $entityRepository->createQueryBuilder('c');
                         }
@@ -40,19 +40,19 @@ class ActionCategoryType extends AbstractType
         }
         $builder
             ->add('title', TextType::class, [
-                'label'=>'form.title_label',
-                'attr'=>[
-                    'placeholder'=>'form.title_placeholder'
+                'label' => 'form.title_label',
+                'attr' => [
+                    'placeholder' => 'form.title_placeholder'
                 ],
                 'translation_domain' => 'action_category'
             ])
             ->add('discountPercentage', IntegerType::class, [
                 'label'=>'form.discount_label',
-                'attr'=>[
-                    'min'=>1,
-                    'max'=>30
+                'attr' => [
+                    'min' => 1,
+                    'max' => 30
                 ],
-                'help'=>'form.discount_help',
+                'help' => 'form.discount_help',
                 'translation_domain' => 'action_category'
             ])
         ;
@@ -61,8 +61,8 @@ class ActionCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'isEdit'=>false,
-            'noActionCategories'=>[]
+            'isEdit' => false,
+            'noActionCategories' => []
         ]);
     }
 }

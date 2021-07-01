@@ -49,19 +49,19 @@ class AdminPanelController extends AbstractController
             }
             $earnings+=$orderListItem->getTotalPrice();
         }
-        $promoCodes = $promoCodeRepository->findBy(['status'=>"AKTIVAN"],['id'=>'DESC']);
+        $promoCodes = $promoCodeRepository->findBy(['status' => "AKTIVAN"],['id' => 'DESC']);
         $actionCategories = $actionCategoryRepository->findAll();
         return $this->render('admin_panel/index.html.twig', [
-            'users'=>$usersNumber+$adminsNumber,
-            'admins'=>$adminsNumber,
-            'soldItems'=>$soldItems,
-            'orders'=>$orders,
-            'earnings'=>$earnings,
-            'promoCodes'=>$promoCodes,
-            'actionCategories'=>$actionCategories,
-            'last10orderListItems'=>$orderListItemRepository->findBy([], ['id'=>'DESC'], 10),
-            'last5registeredUsers'=>$userRepository->findBy([], ['id'=>'DESC'], 5),
-            'last5reviews'=>$reviewRepository->findBy([], ['id'=>'DESC'], 5)
+            'users' => $usersNumber+$adminsNumber,
+            'admins' => $adminsNumber,
+            'soldItems' => $soldItems,
+            'orders' => $orders,
+            'earnings'=> $earnings,
+            'promoCodes' => $promoCodes,
+            'actionCategories' => $actionCategories,
+            'last10orderListItems' => $orderListItemRepository->findBy([], ['id' => 'DESC'], 10),
+            'last5registeredUsers' => $userRepository->findBy([], ['id' => 'DESC'], 5),
+            'last5reviews' => $reviewRepository->findBy([], ['id' => 'DESC'], 5)
         ]);
     }
 }

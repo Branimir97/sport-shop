@@ -20,10 +20,10 @@ class ActionItemType extends AbstractType
             $noActionItems = $options['noActionItems'];
             $builder
                 ->add('item', EntityType::class, [
-                    'mapped'=> false,
-                    'class'=>Item::class,
-                    'multiple'=>true,
-                    'query_builder'=> function(EntityRepository $entityRepository) use ($noActionItems) {
+                    'mapped' => false,
+                    'class' => Item::class,
+                    'multiple' => true,
+                    'query_builder' => function(EntityRepository $entityRepository) use ($noActionItems) {
                         if(count($noActionItems) == 0) {
                             return $entityRepository->createQueryBuilder('i');
                         }
@@ -41,18 +41,18 @@ class ActionItemType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'form.title_label',
-                'attr'=>[
-                    'placeholder'=>'form.title_placeholder'
+                'attr' => [
+                    'placeholder' => 'form.title_placeholder'
                 ],
                 'translation_domain' => 'action_item'
             ])
             ->add('discountPercentage', IntegerType::class, [
-                'label'=>'form.discount_label',
-                'attr'=>[
-                    'min'=>1,
-                    'max'=>30
+                'label' => 'form.discount_label',
+                'attr' => [
+                    'min' => 1,
+                    'max' => 30
                 ],
-                'help'=>'form.discount_help',
+                'help' => 'form.discount_help',
                 'translation_domain' => 'action_item'
             ])
         ;
@@ -61,8 +61,8 @@ class ActionItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'isEdit'=>false,
-            'noActionItems'=>[]
+            'isEdit' => false,
+            'noActionItems' => []
         ]);
     }
 }

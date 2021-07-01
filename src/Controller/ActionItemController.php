@@ -52,7 +52,7 @@ class ActionItemController extends AbstractController
             }
         }
 
-        $form = $this->createForm(ActionItemType::class, null, ['noActionItems'=>$noActionItems]);
+        $form = $this->createForm(ActionItemType::class, null, ['noActionItems' => $noActionItems]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

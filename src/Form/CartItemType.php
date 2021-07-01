@@ -19,39 +19,44 @@ class CartItemType extends AbstractType
         if(count($sizeChoices) == 0) {
             $builder
                 ->add('size', ChoiceType::class, [
-                    'choices'=>[
-                        ''=>''
+                    'choices' => [
+                        '' => ''
                     ],
-                    'label'=>'Odabir veličine'
+                    'label' => 'form.size_label',
+                    'translation_domain' => 'cart'
                 ]);
         } else {
             $builder
                 ->add('size', ChoiceType::class, [
                     'choices' => $sizeChoices,
-                    'label' => 'Odabir veličine'
+                    'label' => 'form.size_label',
+                    'translation_domain' => 'cart'
                 ]);
             }
         if(count($colorChoices) ==0) {
             $builder
                 ->add('color', ChoiceType::class, [
-                    'choices'=>[
-                        ''=>''
+                    'choices' => [
+                        '' => ''
                     ],
-                    'label'=>'Odabir boje'
+                    'label' => 'form.color_label',
+                    'translation_domain' => 'cart'
                 ]);
         } else {
             $builder
                 ->add('color', ChoiceType::class, [
-                    'choices'=>$colorChoices,
-                    'label'=>'Odabir boje'
+                    'choices' => $colorChoices,
+                    'label' => 'form.color_label',
+                    'translation_domain' => 'cart'
                 ]);
         }
         $builder
             ->add('quantity', IntegerType::class, [
-                'label'=>'Količina',
-                'attr'=>[
-                    'min'=>1
+                'label' => 'form.quantity_label',
+                'attr' => [
+                    'min' => 1
                 ],
+                'translation_domain' => 'cart'
             ])
         ;
     }
@@ -59,9 +64,9 @@ class CartItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data-class'=>CartItem::class,
-            'sizeChoices'=>[],
-            'colorChoices'=>[]
+            'data-class' => CartItem::class,
+            'sizeChoices' => [],
+            'colorChoices' => []
         ]);
     }
 }

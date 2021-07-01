@@ -49,7 +49,7 @@ class ActionCategoryController extends AbstractController
             }
         }
         $form = $this->createForm(ActionCategoryType::class, null,
-            ['noActionCategories'=>$noActionCategories]);
+            ['noActionCategories' => $noActionCategories]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ItemDetailsController extends AbstractController
 {
@@ -30,25 +31,26 @@ class ItemDetailsController extends AbstractController
                           ItemSizeRepository $itemSizeRepository,
                           ItemColorRepository $itemColorRepository,
                           UserRepository $userRepository,
-                          CartItemRepository $cartItemRepository): Response
+                          CartItemRepository $cartItemRepository,
+                          TranslatorInterface $translator): Response
     {
-        $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
+        $item = $itemRepository->findOneBy(['id' => $request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $sizeChoices = [];
         $colorChoices = [];
         foreach($item->getItemSizes() as $itemSize) {
             $sizeObject = $itemSize->getSize();
             $sizeValue = $itemSize->getSize()->getValue();
-            $sizeChoices[$sizeValue]=$sizeObject;
+            $sizeChoices[$sizeValue] = $sizeObject;
         }
         foreach($item->getItemColors() as $itemColor) {
             $colorObject = $itemColor->getColor();
             $colorValue = $itemColor->getColor()->getName();
-            $colorChoices[$colorValue]=$colorObject;
+            $colorChoices[$colorValue] = $colorObject;
         }
         $cartItem = new CartItem();
         $formCart = $this->createForm(CartItemType::class, $cartItem,
-            ['sizeChoices'=>$sizeChoices, 'colorChoices'=>$colorChoices]);
+            ['sizeChoices' => $sizeChoices, 'colorChoices' => $colorChoices]);
         $formCart->handleRequest($request);
         if ($formCart->isSubmitted() && $formCart->isValid()) {
             $formCartQuantity = $formCart->get('quantity')->getData();
@@ -58,13 +60,19 @@ class ItemDetailsController extends AbstractController
                 ['color' => $formCart->get('color')->getData()]);
             if ($formCartQuantity > $cartItemSizeObj->getQuantity()) {
                 $this->addFlash('danger',
-                    'Max. količina veličine "' . $cartItemSizeObj->getSize()->getValue() .
-                    '" za ovaj artikl je ' . $cartItemSizeObj->getQuantity() . ".");
+                    $translator->trans('flash_message.max_item_size_error',
+                        [
+                            '%size%' => $cartItemSizeObj->getSize()->getValue(),
+                            '%quantity%' => $cartItemSizeObj->getQuantity(),
+                        ], 'cart'));
                 return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
             } else if ($formCartQuantity > $cartItemColorObj->getQuantity()) {
                 $this->addFlash('danger',
-                    'Max. količina "' . $cartItemColorObj->getColor()->getName() .
-                    '" boje za ovaj artikl je ' . $cartItemColorObj->getQuantity() . ".");
+                    $translator->trans('flash_message.max_item_color_error',
+                        [
+                            '%color%' => $cartItemColorObj->getColor()->getName(),
+                            '%quantity%' => $cartItemColorObj->getQuantity(),
+                        ], 'cart'));
                 return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
             } else {
                 $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
@@ -88,25 +96,35 @@ class ItemDetailsController extends AbstractController
                     $entityManager->persist($cart);
                     $entityManager->flush();
                     $this->addFlash('success',
-                        'Artikl "' . $item->getTitle() . '" uspješno dodan u košaricu.');
+                        $translator->trans('flash_message.item_added',
+                            [
+                                '%item_title%' => $item->getTitle()
+                            ], 'cart'));
                     return $this->redirectToRoute('cart_index');
                 } else {
                     $previousQuantity = $cartItemDb->getQuantity();
                     if (($previousQuantity + $formCartQuantity) > $cartItemColorObj->getQuantity()) {
-                        $this->addFlash('danger', 'Količina istog artikla u košarici i 
-                        trenutno odabrana količina prelaze ukupnu količinu artikla za odabranu boju. 
-                        Max = '.($cartItemColorObj->getQuantity()-$previousQuantity));
+                        $this->addFlash('danger',
+                            $translator->trans('flash_message.max_item_color_cart_error',
+                                [
+                                    '%quantity%' => $cartItemColorObj->getQuantity()-$previousQuantity
+                                ], 'cart'));
                     } else if (($previousQuantity + $formCartQuantity) > $cartItemSizeObj->getQuantity()) {
-                        $this->addFlash('danger', 'Količina istog artikla u košarici i 
-                        trenutno odabrana količina prelaze ukupnu količinu artikla za odabranu veličinu. 
-                        Max = '.($cartItemSizeObj->getQuantity()-$previousQuantity));
+                        $this->addFlash('danger',
+                            $translator->trans('flash_message.max_item_size_cart_error',
+                                [
+                                    '%quantity%' => $cartItemSizeObj->getQuantity()-$previousQuantity
+                                ], 'cart'));
                         return $this->redirectToRoute('item_details', ['id' => $item->getId()]);
                     } else {
                         $cartItemDb->setQuantity($previousQuantity + $formCartQuantity);
                         $entityManager->persist($cartItemDb);
                         $entityManager->flush();
                         $this->addFlash('success',
-                            'Artikl "' . $item->getTitle() . '" uspješno dodan u košaricu.');
+                            $translator->trans('flash_message.item_added',
+                                [
+                                    '%item_title%' => $item->getTitle()
+                                ], 'cart'));
                         return $this->redirectToRoute('cart_index');
                     }
                 }
@@ -124,14 +142,16 @@ class ItemDetailsController extends AbstractController
             $entityManager->persist($review);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Recenzija uspješno dodana.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.review_added',
+                    [], 'cart'));
             return $this->redirect($request->getUri());
         }
 
         return $this->render('item_details/index.html.twig', [
             'item' => $item,
-            'formReview'=>$formReview->createView(),
-            'formCart'=>$formCart->createView()
+            'formReview' => $formReview->createView(),
+            'formCart' => $formCart->createView()
         ]);
     }
 }

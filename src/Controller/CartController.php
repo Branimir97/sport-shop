@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class CartController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
         $cart = $user->getCart();
         $totalPrice = 0;
         if($cart != null) {
@@ -36,7 +37,7 @@ class CartController extends AbstractController
         }
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
-            'totalPrice'=>$totalPrice
+            'totalPrice' => $totalPrice
         ]);
     }
 
@@ -48,18 +49,22 @@ class CartController extends AbstractController
      */
     public function deleteItem(Request $request, CartItem $cartItem,
                                CartRepository $cartRepository,
-                               CartItemRepository $cartItemRepository): Response
+                               CartItemRepository $cartItemRepository,
+                               TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$cartItem->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($cartItem);
 
             $this->addFlash('danger',
-                'Artikl "'.$cartItem->getItem()->getTitle().'" uspješno obrisan iz košarice.');
+                $translator->trans('flash_message.item_deleted',
+                    [
+                        '%item_title%' => $cartItem->getItem()->getTitle()
+                    ], 'cart'));
             $entityManager->flush();
         }
 
-        $cart = $cartRepository->findOneBy(['user'=>$this->getUser()]);
+        $cart = $cartRepository->findOneBy(['user' => $this->getUser()]);
         $cartItems = $cartItemRepository->findBy(['cart' => $cart]);
         if (count($cartItems) == 0) {
             $entityManager = $this->getDoctrine()->getManager();
