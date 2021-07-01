@@ -18,7 +18,8 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             {{ 'categoriesList'|trans({}, 'category') }}
         </a>
-        {{ include('category/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('category/_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'category')}) }}
         <div class="text-center">
             {{ include('category/_delete_form.html.twig') }}
         </div>

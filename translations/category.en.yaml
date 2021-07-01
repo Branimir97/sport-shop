@@ -21,4 +21,17 @@ categoriesTable:
   editTitle: Edit
   delete: Delete category
 
+form:
+  category_name_placeholder: e.g. Mens
+  category_name_label: Name
+  button_label: Add category
+  edit_button_label: Save changes
 
+flash_message:
+  category_exists: Category "%category_name%" already exists.
+  category_added: Category successfully added.
+  category_edited: Category "%category_name%" successfully updated.
+  category_deleted: Category "%category_name%" successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this category?

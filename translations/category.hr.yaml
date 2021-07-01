@@ -11,7 +11,7 @@ show:
   title: Kategorija
   editCategory: Uredi podatke
 
-categoriesList: Lista kategorija na akciji
+categoriesList: Lista kategorija
 categoriesTable:
   name: Naziv kategorije
   createdAt: Vrijeme stvaranja
@@ -21,4 +21,17 @@ categoriesTable:
   editTitle: Uredi
   delete: Obriši kategoriju
 
+form:
+  category_name_placeholder: npr. Muškarci
+  category_name_label: Naziv
+  button_label: Dodaj kategoriju
+  edit_button_label: Spremi promjene
 
+flash_message:
+  category_exists: Kategorija "%category_name%" već postoji.
+  category_added: Kategorija uspješno dodana.
+  category_edited: Kategorija "%category_name%" uspješno ažurirana.
+  category_deleted: Kategorija "%category_name%" uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu kategoriju?

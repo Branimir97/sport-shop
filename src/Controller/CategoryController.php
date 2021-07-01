@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class CategoryController extends AbstractController
     public function index(CategoryRepository $categoryRepository): Response
     {
         return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findBy([], ['id'=>'DESC']),
+            'categories' => $categoryRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -36,7 +37,8 @@ class CategoryController extends AbstractController
      *     "hr": "/nova"
      * }, name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    public function new(Request $request, CategoryRepository $categoryRepository,
+                        TranslatorInterface $translator): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -46,14 +48,19 @@ class CategoryController extends AbstractController
             $categoryName = $form->get('name')->getData();
             if(!is_null($categoryRepository->findOneBy(['name'=>$categoryName]))) {
                 $this->addFlash('danger',
-                    'Kategorija "'.$categoryName.'" već postoji.');
-                return $this->redirectToRoute('category_index');
+                    $translator->trans('flash_message.category_exists',
+                        [
+                            '%category_name%' => $categoryName
+                        ], 'category'));
+                return $this->redirectToRoute('category_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Kategorija uspješno dodana.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.category_added',
+                    [], 'category'));
             return $this->redirectToRoute('category_index');
         }
         return $this->render('category/new.html.twig', [
@@ -78,7 +85,8 @@ class CategoryController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category,
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -87,7 +95,11 @@ class CategoryController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success',
-                'Kategorija "'.$category->getName().'" uspješno ažurirana.');
+                $translator->trans('flash_message.category_edited',
+                    [
+                        '%category_name%' => $category->getName()
+                    ], 'category'));
+
             return $this->redirectToRoute('category_index');
         }
         return $this->render('category/edit.html.twig', [
@@ -99,7 +111,8 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Category $category): Response
+    public function delete(Request $request, Category $category,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(),
             $request->request->get('_token'))) {
@@ -107,7 +120,10 @@ class CategoryController extends AbstractController
             $entityManager->remove($category);
 
             $this->addFlash('danger',
-                'Kategorija "'.$category->getName().'" uspješno obrisana.');
+                $translator->trans('flash_message.category_deleted',
+                    [
+                        '%category_name%' => $category->getName()
+                    ], 'category'));
             $entityManager->flush();
         }
         return $this->redirectToRoute('category_index');
