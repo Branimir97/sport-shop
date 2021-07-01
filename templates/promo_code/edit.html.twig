@@ -18,7 +18,8 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             {{ 'promoCodesList'|trans({}, 'promo_code') }}
         </a>
-        {{ include('promo_code/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('promo_code/_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'promo_code')}) }}
         <div class="text-center">
             {{ include('promo_code/_delete_form.html.twig') }}
         </div>

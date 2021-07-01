@@ -24,4 +24,20 @@ promoCodesTable:
   editTitle: Uredi
   delete: Obriši promo kod
 
+form:
+  code_label: Promo kod
+  code_placeholder: npr. SPORTSHOP20
+  discount_percentage_label: Postotak popusta
+  discount_percentage_help: Postotak u rasponu od [1-30]%
+  end_date_label: Vrijeme isteka koda
+  button_label: Generiraj kod
+  edit_button_label: Spremi promjene
 
+flash_message:
+  code_exists: Već postoji takav promo kod.
+  code_created: Promo kod uspješno generiran.
+  code_edited: Promo kod uspješno ažuriran.
+  code_deleted: Promo kod uspješno obrisan.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovaj promo kod?

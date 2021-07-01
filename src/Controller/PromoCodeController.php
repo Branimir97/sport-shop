@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class PromoCodeController extends AbstractController
     public function index(PromoCodeRepository $promoCodeRepository): Response
     {
         return $this->render('promo_code/index.html.twig', [
-            'promo_codes' => $promoCodeRepository->findBy([], ['id'=>'DESC']),
+            'promo_codes' => $promoCodeRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -37,7 +38,8 @@ class PromoCodeController extends AbstractController
      * }, name="promo_code_new", methods={"GET","POST"})
      */
     public function new(Request $request,
-                        PromoCodeRepository $promoCodeRepository): Response
+                        PromoCodeRepository $promoCodeRepository,
+                        TranslatorInterface $translator): Response
     {
         $promoCode = new PromoCode();
         $form = $this->createForm(PromoCodeType::class, $promoCode);
@@ -49,7 +51,9 @@ class PromoCodeController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             if(in_array($promoCode->getCode(), $promoCodes)) {
-                $this->addFlash('danger', 'Već postoji takav promo kod.');
+                $this->addFlash('danger',
+                    $translator->trans('flash_message.promo_code_exists',
+                        [], 'promo_code'));
                 return $this->redirectToRoute('promo_code_index');
             }
             $entityManager = $this->getDoctrine()->getManager();
@@ -63,7 +67,9 @@ class PromoCodeController extends AbstractController
             $entityManager->persist($promoCode);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Promo kod uspješno generiran.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.promo_code_created',
+                    [], 'promo_code'));
             return $this->redirectToRoute('promo_code_index');
         }
 
@@ -90,7 +96,8 @@ class PromoCodeController extends AbstractController
      * }, name="promo_code_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, PromoCode $promoCode,
-                         PromoCodeRepository $promoCodeRepository): Response
+                         PromoCodeRepository $promoCodeRepository,
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(PromoCodeType::class, $promoCode);
         $form->handleRequest($request);
@@ -101,7 +108,9 @@ class PromoCodeController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             if(in_array($promoCode->getCode(), $promoCodes)) {
-                $this->addFlash('danger', 'Već postoji takav promo kod.');
+                $this->addFlash('danger',
+                    $translator->trans('flash_message.promo_code_exists',
+                        [], 'promo_code'));
                 return $this->redirectToRoute('promo_code_index');
             }
             $endDate = $form->get('endDate')->getData();
@@ -113,7 +122,9 @@ class PromoCodeController extends AbstractController
             }
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Promo kod uspješno ažuriran.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.promo_code_edited',
+                    [], 'promo_code'));
             return $this->redirectToRoute('promo_code_index');
         }
 
@@ -126,7 +137,8 @@ class PromoCodeController extends AbstractController
     /**
      * @Route("/{id}", name="promo_code_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, PromoCode $promoCode): Response
+    public function delete(Request $request, PromoCode $promoCode,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$promoCode->getId(),
             $request->request->get('_token'))) {
@@ -138,7 +150,9 @@ class PromoCodeController extends AbstractController
             $entityManager->remove($promoCode);
             $entityManager->flush();
         }
-        $this->addFlash('danger', 'Promo kod uspješno obrisan.');
+        $this->addFlash('danger',
+            $translator->trans('flash_message.promo_code_deleted',
+                [], 'promo_code'));
         return $this->redirectToRoute('promo_code_index');
     }
 }

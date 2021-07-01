@@ -16,22 +16,25 @@ class PromoCodeType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, [
-                'label'=>'Promo kod',
-                'attr'=>[
-                    'placeholder'=>'npr. SPORTSHOP20'
-                ]
+                'attr' => [
+                    'placeholder' => 'form.code_placeholder'
+                ],
+                'label' => 'form.code_label',
+                'translation_domain' => 'promo_code'
             ])
             ->add('discountPercentage', IntegerType::class, [
-                'label'=>'Postotak popusta',
-                'attr'=>[
-                    'min'=>1,
-                    'max'=>30
+                'attr' => [
+                    'min' => 1,
+                    'max' => 30
                 ],
-                'help'=>'Postotak u rasponu od [1-30]%'
+                'help' => 'form.discount_percentage_help',
+                'label' => 'form.discount_percentage_label',
+                'translation_domain' => 'promo_code'
             ])
             ->add('endDate', DateTimeType::class, [
-                'label'=>'Vrijeme isteka koda',
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'label' => 'form.end_date_label',
+                'translation_domain' => 'promo_code'
             ])
         ;
     }

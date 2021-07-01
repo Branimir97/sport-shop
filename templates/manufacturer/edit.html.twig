@@ -19,7 +19,8 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             {{ 'manufacturerList'|trans({}, 'manufacturer') }}
         </a>
-        {{ include('manufacturer/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('manufacturer/_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'manufacturer')}) }}
         <div class="text-center">
             {{ include('manufacturer/_delete_form.html.twig') }}
         </div>

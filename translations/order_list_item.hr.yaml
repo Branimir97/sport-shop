@@ -16,3 +16,9 @@ orderTable:
   setStatusDelivered: Postavi status dostavljeno
   delete: Obriši narudžbu
 
+flash_message:
+  status_updated: Status narudžbe uspješno ažuriran.
+  order_deleted: Narudžba uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu narudžbu?

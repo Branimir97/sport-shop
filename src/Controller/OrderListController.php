@@ -29,9 +29,9 @@ class OrderListController extends AbstractController
                           OrderListRepository $orderListRepository,
                           OrderListItemRepository $orderListItemRepository): Response
     {
-        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
-        $orderList = $orderListRepository->findOneBy(['user'=>$user]);
-        $orderListItems = $orderListItemRepository->findBy(['orderList'=>$orderList], ['id'=>'DESC']);
+        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
+        $orderList = $orderListRepository->findOneBy(['user' => $user]);
+        $orderListItems = $orderListItemRepository->findBy(['orderList' => $orderList], ['id' => 'DESC']);
         return $this->render('order_list/index.html.twig', [
             'orderListItems' => $orderListItems,
         ]);
@@ -44,11 +44,11 @@ class OrderListController extends AbstractController
                             OrderListItemRepository $orderListItemRepository,
                             OrderItemRepository $orderItemRepository): Response
     {
-        $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
-        $orderItems = $orderItemRepository->findBy(['orderListItem'=>$orderListItem]);
+        $orderListItem = $orderListItemRepository->findOneBy(['id' => $request->get('id')]);
+        $orderItems = $orderItemRepository->findBy(['orderListItem' => $orderListItem]);
 
         return $this->render('order_list/details.html.twig', [
-            'orderListItem'=>$orderListItem,
+            'orderListItem' => $orderListItem,
             'orderItems' => $orderItems,
         ]);
     }

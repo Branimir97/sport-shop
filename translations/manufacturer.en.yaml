@@ -21,4 +21,17 @@ manufacturerTable:
   editTitle: Edit
   delete: Delete manufacturer
 
+form:
+  name_placeholder: e.g. Nike
+  name_label: Manufacturer
+  button_label: Add manufacturer
+  edit_button_label: Save changes
 
+flash_message:
+  manufacturer_exists: Manufacturer "%manufacturer_name%" already exists.
+  manufacturer_added: Manufacturer successfully added.
+  manufacturer_edited: Manufacturer "%manufacturer_name%" successfully updated.
+  manufacturer_deleted: Manufacturer "%manufacturer_name%" successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this manufacturer?

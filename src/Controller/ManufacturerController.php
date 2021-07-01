@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class ManufacturerController extends AbstractController
     public function index(ManufacturerRepository $manufacturerRepository): Response
     {
         return $this->render('manufacturer/index.html.twig', [
-            'manufacturers' => $manufacturerRepository->findBy([], ['id'=>'DESC']),
+            'manufacturers' => $manufacturerRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -37,7 +38,8 @@ class ManufacturerController extends AbstractController
      * }, name="manufacturer_new", methods={"GET","POST"})
      */
     public function new(Request $request,
-                        ManufacturerRepository $manufacturerRepository): Response
+                        ManufacturerRepository $manufacturerRepository,
+                        TranslatorInterface $translator): Response
     {
         $manufacturer = new Manufacturer();
         $form = $this->createForm(ManufacturerType::class, $manufacturer);
@@ -46,16 +48,21 @@ class ManufacturerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manufacturerName = $form->get('name')->getData();
             if(!is_null($manufacturerRepository->findOneBy(
-                ['name'=>$manufacturerName]))) {
+                ['name' => $manufacturerName]))) {
                 $this->addFlash('danger',
-                    'Proizvođač "'.$manufacturerName.'" već postoji.');
-                return $this->redirectToRoute('manufacturer_index');
+                    $translator->trans('flash_message.manufacturer_exists',
+                        [
+                            '%manufacturer_name%' => $manufacturer->getName()
+                        ], 'manufacturer'));
+                return $this->redirectToRoute('manufacturer_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Proizvođač uspješno dodan.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.manufacturer_added',
+                    [], 'manufacturer'));
             return $this->redirectToRoute('manufacturer_index');
         }
 
@@ -81,7 +88,8 @@ class ManufacturerController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="manufacturer_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Manufacturer $manufacturer): Response
+    public function edit(Request $request, Manufacturer $manufacturer,
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ManufacturerType::class, $manufacturer);
         $form->handleRequest($request);
@@ -90,7 +98,10 @@ class ManufacturerController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success',
-                '"'.$manufacturer->getName().'" proizvođač uspješno ažuriran.');
+                $translator->trans('flash_message.manufacturer_edited',
+                    [
+                        '%manufacturer_name%' => $manufacturer->getName()
+                    ], 'manufacturer'));
             return $this->redirectToRoute('manufacturer_index');
         }
 
@@ -103,7 +114,8 @@ class ManufacturerController extends AbstractController
     /**
      * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Manufacturer $manufacturer): Response
+    public function delete(Request $request, Manufacturer $manufacturer,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$manufacturer->getId(),
             $request->request->get('_token'))) {
@@ -111,7 +123,10 @@ class ManufacturerController extends AbstractController
             $entityManager->remove($manufacturer);
 
             $this->addFlash('danger',
-                '"'.$manufacturer->getName().'" proizvođač uspješno obrisan.');
+                $translator->trans('flash_message.manufacturer_deleted',
+                    [
+                        '%manufacturer_name%' => $manufacturer->getName()
+                    ], 'manufacturer'));
             $entityManager->flush();
         }
         return $this->redirectToRoute('manufacturer_index');

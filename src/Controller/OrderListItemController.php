@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class OrderListItemController extends AbstractController
     public function index(OrderListItemRepository $orderListItemRepository): Response
     {
         return $this->render('order_list_item/index.html.twig', [
-            'order_list_items' => $orderListItemRepository->findBy([], ['id'=>'DESC']),
+            'order_list_items' => $orderListItemRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -37,7 +38,8 @@ class OrderListItemController extends AbstractController
      * }, name="order_list_item_status_processing", methods={"GET", "PATCH"})
      */
     public function setStatusProcessing(Request $request,
-                                        OrderListItemRepository $orderListItemRepository): RedirectResponse
+                                        OrderListItemRepository $orderListItemRepository,
+                                        TranslatorInterface $translator): RedirectResponse
     {
         $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
@@ -45,7 +47,8 @@ class OrderListItemController extends AbstractController
         $entityManager->persist($orderListItem);
         $entityManager->flush();
         $this->addFlash('success',
-            'Status narudžbe uspješno ažuriran.');
+            $translator->trans('flash_message.status_updated',
+                [], 'order_list_item'));
         return $this->redirectToRoute('order_list_item_index');
     }
 
@@ -56,14 +59,17 @@ class OrderListItemController extends AbstractController
      * }, name="order_list_item_status_delivering", methods={"GET", "PATCH"})
      */
     public function setStatusDelivering(Request $request,
-                                        OrderListItemRepository $orderListItemRepository): RedirectResponse
+                                        OrderListItemRepository $orderListItemRepository,
+                                        TranslatorInterface $translator): RedirectResponse
     {
         $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('NA DOSTAVI');
         $entityManager->persist($orderListItem);
         $entityManager->flush();
-        $this->addFlash('success', 'Status narudžbe uspješno ažuriran.');
+        $this->addFlash('success',
+            $translator->trans('flash_message.status_updated',
+                [], 'order_list_item'));
         return $this->redirectToRoute('order_list_item_index');
     }
 
@@ -74,21 +80,25 @@ class OrderListItemController extends AbstractController
      * }, name="order_list_item_status_delivered", methods={"GET", "PATCH"})
      */
     public function setStatusDelivered(Request $request,
-                                       OrderListItemRepository $orderListItemRepository): RedirectResponse
+                                       OrderListItemRepository $orderListItemRepository,
+                                       TranslatorInterface $translator): RedirectResponse
     {
         $orderListItem = $orderListItemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
         $orderListItem->setStatus('DOSTAVLJENO');
         $entityManager->persist($orderListItem);
         $entityManager->flush();
-        $this->addFlash('success', 'Status narudžbe uspješno ažuriran.');
+        $this->addFlash('success',
+            $translator->trans('flash_message.status_updated',
+                [], 'order_list_item'));
         return $this->redirectToRoute('order_list_item_index');
     }
 
     /**
      * @Route("/{id}", name="order_list_item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, OrderListItem $orderListItem): Response
+    public function delete(Request $request, OrderListItem $orderListItem,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$orderListItem->getId(),
             $request->request->get('_token'))) {
@@ -99,7 +109,9 @@ class OrderListItemController extends AbstractController
             $entityManager->remove($orderListItem);
             $entityManager->flush();
         }
-        $this->addFlash('danger', 'Narudžba uspješno obrisana.');
+        $this->addFlash('danger',
+            $translator->trans('flash_message.order_deleted',
+                [], 'order_list_item'));
         return $this->redirectToRoute('order_list_item_index');
     }
 }

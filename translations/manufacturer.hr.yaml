@@ -21,4 +21,17 @@ manufacturerTable:
   editTitle: Uredi
   delete: Obriši proizvođača
 
+form:
+  name_placeholder: npr. Nike
+  name_label: Proizvođač
+  button_label: Dodaj proizvođača
+  edit_button_label: Spremi promjene
 
+flash_message:
+  manufacturer_exists: Proizvođač "%manufacturer_name%" već postoji.
+  manufacturer_added: Proizvođač uspješno dodan.
+  manufacturer_edited: Proizvođač "%manufacturer_name%" uspješno ažuriran.
+  manufacturer_deleted: Proizvođač "%manufacturer_name%" uspješno obrisan.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovog proizvođača?

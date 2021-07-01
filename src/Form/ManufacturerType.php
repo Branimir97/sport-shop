@@ -14,10 +14,11 @@ class ManufacturerType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr'=>[
-                    'placeholder'=>'npr. Nike'
+                'attr' => [
+                    'placeholder' => 'form.name_placeholder'
                 ],
-                'label'=>'Proizvođač'
+                'label' => 'form.name_label',
+                'translation_domain' => 'manufacturer'
             ])
         ;
     }
