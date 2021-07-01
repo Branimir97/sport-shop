@@ -23,3 +23,21 @@ actionsTable:
   infoTitle: Prikaži pojedinosti
   editTitle: Uredi
   delete: Ukloni akciju
+
+form:
+  item_help: Odaberite jedan ili više artikala
+  item_label: Dostupni artikli
+  title_label: Naziv akcije
+  title_placeholder: npr. Popust na artikl - Nike Air Max
+  discount_label: Postotak popusta
+  discount_help: Postotak u rasponu od [1-30]%
+  button_label: Postavi artikl/e na akciju
+  edit_button_label: Spremi promjene
+
+flash_message:
+  action_item_created: Artikl/i uspješno postavljen/i na akciju.
+  action_item_edited: Podaci o akciji uspješno ažurirani.
+  action_item_deleted: Akcija uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite ukloniti akciju za ovaj artikl?

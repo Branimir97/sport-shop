@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -37,14 +38,15 @@ class ActionItemController extends AbstractController
      *     "hr": "/nova"
      * }, name="action_item_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ItemRepository $itemRepository): Response
+    public function new(Request $request, ItemRepository $itemRepository,
+                        TranslatorInterface $translator): Response
     {
         $items = $itemRepository->findAll();
         $noActionItems = [];
         foreach ($items as $item) {
             $itemCategories = $item->getItemCategories();
             foreach($itemCategories as $itemCategory) {
-                if(!is_null($itemCategory->getCategory()->getActionCategory())) {
+                if(is_null($itemCategory->getCategory()->getActionCategory())) {
                     array_push($noActionItems, $item);
                 }
             }
@@ -68,7 +70,8 @@ class ActionItemController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success',
-                'Artikl/i uspješno postavljen/i na akciju.');
+                $translator->trans('flash_message.action_item_created',
+                    [], 'action_item'));
             return $this->redirectToRoute('action_item_index');
         }
 
@@ -93,7 +96,7 @@ class ActionItemController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="action_item_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, ActionItem $actionItem): Response
+    public function edit(Request $request, ActionItem $actionItem, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ActionItemType::class, $actionItem, ['isEdit'=>true]);
         $form->handleRequest($request);
@@ -101,7 +104,9 @@ class ActionItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Podaci o akciji uspješno ažurirani.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.action_item_edited',
+                    [], 'action_item'));
             return $this->redirectToRoute('action_item_index');
         }
 
@@ -114,7 +119,7 @@ class ActionItemController extends AbstractController
     /**
      * @Route("/{id}", name="action_item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ActionItem $actionItem): Response
+    public function delete(Request $request, ActionItem $actionItem, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$actionItem->getId(),
             $request->request->get('_token'))) {
@@ -122,7 +127,9 @@ class ActionItemController extends AbstractController
             $entityManager->remove($actionItem);
             $entityManager->flush();
         }
-        $this->addFlash('danger', 'Akcija uspješno obrisana.');
+        $this->addFlash('danger',
+            $translator->trans('flash_message.action_item_deleted',
+                [], 'action_item'));
         return $this->redirectToRoute('action_item_index');
     }
 }

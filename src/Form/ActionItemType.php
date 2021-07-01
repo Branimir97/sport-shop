@@ -28,29 +28,32 @@ class ActionItemType extends AbstractType
                             return $entityRepository->createQueryBuilder('i');
                         }
                         return $entityRepository->createQueryBuilder('i')
-                            ->where('i NOT IN (:array)')
+                            ->where('i IN (:array)')
                             ->setParameter('array', $noActionItems);
                     },
                     'choice_label' => 'title',
-                    'help' => "Odaberite jedan ili više artikala",
-                    'label' => 'Dostupni artikli'
+                    'help' => 'form.item_help',
+                    'label' => 'form.item_label',
+                    'translation_domain' => 'action_item'
                 ])
             ;
         }
         $builder
             ->add('title', TextType::class, [
-                'label'=>'Naziv akcije',
+                'label' => 'form.title_label',
                 'attr'=>[
-                    'placeholder'=>'npr. Popust na artikl - Nike Air Max'
-                ]
+                    'placeholder'=>'form.title_placeholder'
+                ],
+                'translation_domain' => 'action_item'
             ])
             ->add('discountPercentage', IntegerType::class, [
-                'label'=>'Postotak popusta',
+                'label'=>'form.discount_label',
                 'attr'=>[
                     'min'=>1,
                     'max'=>30
                 ],
-                'help'=>'Postotak u rasponu od [1-30]%'
+                'help'=>'form.discount_help',
+                'translation_domain' => 'action_item'
             ])
         ;
     }

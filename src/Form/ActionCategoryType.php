@@ -32,7 +32,7 @@ class ActionCategoryType extends AbstractType
                             ->setParameter('array', $noActionCategories);
                     },
                     'choice_label' => 'name',
-                    'help' => "form.category_help",
+                    'help' => 'form.category_help',
                     'label' => 'form.category_label',
                     'translation_domain' => 'action_category'
                 ])

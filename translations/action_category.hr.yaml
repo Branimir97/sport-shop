@@ -34,7 +34,6 @@ form:
   button_label: Postavi kategoriju/e na akciju
   edit_button_label: Spremi promjene
 
-
 flash_message:
   action_category_created: Kategorija/e uspješno postavljena/e na akciju.
   action_category_edited: Podaci o akciji uspješno ažurirani.

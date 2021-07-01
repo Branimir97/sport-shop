@@ -2,7 +2,7 @@
     {{ form_widget(form) }}
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">
-            {{ button_label|default('Postavi artikl/e na akciju') }}
+            {{ button_label|default('form.button_label'|trans({}, 'action_item')) }}
         </button>
     </div>
 {{ form_end(form) }}

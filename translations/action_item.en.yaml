@@ -24,3 +24,20 @@ actionsTable:
   editTitle: Edit
   delete: Remove action
 
+form:
+  item_help: Select one or more items
+  item_label: Available items
+  title_label: Action name
+  title_placeholder: e.g. Discount on item - Nike Air Max
+  discount_label: Discount percentage
+  discount_help: Percentage ranging from [1-30]%
+  button_label: Set category (s) on action
+  edit_button_label: Save changes
+
+flash_message:
+  action_item_created: Item (s) successfully placed on the action.
+  action_item_edited: Action data successfully updated.
+  action_item_deleted: Action deleted successfully.
+
+delete_confirmation:
+  message: Are you sure you want to remove the action for this item?
