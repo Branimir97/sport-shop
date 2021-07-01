@@ -2,7 +2,7 @@
     {{ form_widget(formSetQuantity) }}
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">
-            Postavi količine boja/veličina
+            {{ 'form_set_quantity.button_label'|trans({}, 'item') }}
         </button>
     </div>
 {{ form_end(formSetQuantity) }}

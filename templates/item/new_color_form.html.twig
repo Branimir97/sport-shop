@@ -2,7 +2,7 @@
     {{ form_widget(form) }}
     <div class="text-center">
         <button class="btn btn-success mb-3">
-            Dodaj boju/e
+            {{ 'form_add_color.button_label'|trans({}, 'item') }}
         </button>
     </div>
 {{ form_end(form) }}

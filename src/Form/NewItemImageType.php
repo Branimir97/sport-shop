@@ -16,10 +16,9 @@ class NewItemImageType extends AbstractType
                 'required' => true,
                 'mapped' => false,
                 'multiple' => true,
-                'help' =>
-                    'Dopušteni formati slika su: jpg, jpeg i png; 
-                    Maksimalna dopuštena veličina pojedine slike je 2MB',
-                'label' => 'Fotografije'
+                'help' => 'form.image_help',
+                'label' => 'form.image_label',
+                'translation_domain' => 'item'
             ])
         ;
     }

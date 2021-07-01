@@ -16,10 +16,10 @@ class NewItemCategoryType extends AbstractType
         $categoryNames = $options['category_names'];
         $builder
             ->add('category', EntityType::class, [
-                'mapped'=> false,
-                'class'=>Category::class,
-                'multiple'=>true,
-                'query_builder'=> function(EntityRepository $entityRepository) use ($categoryNames) {
+                'mapped' => false,
+                'class' => Category::class,
+                'multiple' => true,
+                'query_builder' => function(EntityRepository $entityRepository) use ($categoryNames) {
                     if(count($categoryNames) == 0) {
                         return $entityRepository->createQueryBuilder('c');
                     }
@@ -28,8 +28,9 @@ class NewItemCategoryType extends AbstractType
                         ->setParameter('array', $categoryNames);
                 },
                 'choice_label' => 'name',
-                'help' => "Odaberite jednu ili više kategorija",
-                'label' => 'Ostale kategorije'
+                'help' => 'form.category_help',
+                'label' => 'form_add_category.other_categories',
+                'translation_domain' => 'item'
             ])
         ;
     }
@@ -37,7 +38,7 @@ class NewItemCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'category_names'=>[]
+            'category_names' => []
         ]);
     }
 }

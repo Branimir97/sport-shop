@@ -2,6 +2,7 @@ noImages: The item does not currently have any images.
 itemCategories: Item categories
 itemCipher: Item cipher
 addToWishList: Add to wish list
+noItemCategories: Categories not entered.
 noManufacturer: Manufacturer not entered.
 manufacturer: Manufacturer
 updatingData: Item information is being updated, so it is not possible to add it to the cart!

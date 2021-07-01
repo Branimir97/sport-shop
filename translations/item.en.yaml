@@ -50,28 +50,28 @@ edit:
   quantityPieces: pcs
 
 new_image:
-  title: Setting new images
+  title: Adding new images
   editItem: Edit item
   item: Item
   noItemImages: The item does not currently have any images.
   currentImages: Current item images
 
 new_category:
-  title: Setting new categories
+  title: Adding new categories
   editItem: Edit item
   item: Item
   noItemCategories: The item does not currently have any categories.
   currentCategories: Current item categories
 
 new_tag:
-  title: Setting new tags
+  title: Adding new tags
   editItem: Edit item
   item: Item
   noItemTags: The item does not currently have any tags.
   currentTags: Current item tags
 
 new_color:
-  title: Setting new colors
+  title: Adding new colors
   editItem: Edit item
   item: Item
   noItemColors: The item does not currently have any colors.
@@ -86,7 +86,7 @@ edit_size_quantity:
   editItem: Edit item
 
 new_size:
-  title: Setting new sizes
+  title: Adding new sizes
   editItem: Edit item
   item: Item
   noItemSizes: The item does not currently have any sizes.
@@ -110,3 +110,101 @@ itemsTable:
   editTitle: Edit
   showTitle: Show details
   delete: Delete item
+
+form:
+  title_placeholder: e.g. Nike Air Max sneakers
+  title_label: Title
+  manufacturer_help: Choose a manufacturer
+  manufacturer_label: Manufacturer
+  category_help: Select one or more categories
+  category_label: Categories
+  tag_help: Enter each tag in a new line
+  tag_placeholder: e.g. football
+  tag_label: Tags
+  size_help: Choose one or more sizes
+  size_label: Available sizes
+  color_help: Choose one or more colors
+  color_label: Available colors
+  image_help: Allowed image formats are jpg, jpeg and png;
+              The maximum allowed size of an individual image is 2MB
+  image_label: Images
+  description_label: Item description
+  description_placeholder: e.g. composition, tips on use, purpose, etc.
+  description_help: The use of HTML elements is enabled
+  price_placeholder: e.g. 349,50
+  price_help: Entry in HRK
+  price_label: Price
+  button_label: Add item
+  edit_button_label: Save changes
+
+form_add_image:
+  button_label: Add photo (s)
+
+form_add_category:
+  other_categories: Other categories
+  button_label: Add category (s)
+
+form_add_tag:
+  tag_label: New tags
+  button_label: Add tag (s)
+
+form_add_color:
+  other_colors: Other colors
+  button_label: Add color (s)
+
+form_add_size:
+  other_sizes: Other sizes
+  button_label: Add size (s)
+
+form_set_color_quantity:
+  color_label: Color (%color_name%) - enter the quantity
+  color_placeholder: e.g. 15
+  button_label: Set color (s)
+  edit_button_label: Save changes
+  edit_quantity_label: Enter a new quantity
+
+form_set_size_quantity:
+  size_label: Size (%size_value%) - enter the quantity
+  size_placeholder: e.g. 15
+  button_label: Add size (s)
+  edit_button_label: Save changes
+  edit_quantity_label: Enter a new quantity
+
+form_set_quantity:
+  button_label: Set color / size quantities
+
+flash_message:
+  image_error: Error uploading photo (s).
+               Allowed photo formats jpg, jpeg and png.
+  enter_quantity: Item successfully added. Enter the quantity for the selected colors / sizes.
+  item_added: Item successfully added.
+  added_quantites: Successfully set quantities of colors / items for a new item.
+  edit_message: Item "%item_title%" successfully updated.
+  image_added: Photo (s) successfully added.
+  image_deleted: Photo deleted successfully.
+  category_added: Category (s) successfully added.
+  category_deleted: Category "%category_name%" successfully deleted.
+  tag_error: The tag (s) you are trying to enter is already associated with this item.
+  tag_added: Tag (s) successfully added.
+  tag_deleted: Tag "%tag%" successfully deleted.
+  color_added: Color (s) successfully added.
+  color_edited: Color (%color_name%) - quantity successfully updated.
+  color_deleted: Color successfully deleted.
+  size_added: Size (s) successfully added.
+  size_edited: Size (%size_value%) - quantity successfully updated.
+  size_deleted: Size successfully deleted.
+  item_deleted: Item "%item_title%" successfully deleted.
+
+delete_confirmation:
+  item:
+    message: Are you sure you want to delete this item?
+  image:
+    message: Are you sure you want to delete this photo?
+  category:
+    message: Are you sure you want to delete this category?
+  tag:
+    message: Are you sure you want to delete this tag?
+  color:
+    message: Are you sure you want to delete this color?
+  size:
+    message: Are you sure you want to delete this size?

@@ -24,10 +24,11 @@ class ItemType extends AbstractType
         $isEditForm = $options['isEdit'];
         $builder
             ->add('title', TextType::class, [
-                'attr'=>[
-                    'placeholder'=>'npr. Nike Air Max tenisice'
+                'attr' => [
+                    'placeholder' => 'form.title_placeholder'
                 ],
-                'label'=>'Naziv',
+                'label' => 'form.title_label',
+                'translation_domain' => 'item'
             ])
             ->add('manufacturer', EntityType::class, [
                 'required' => false,
@@ -36,31 +37,35 @@ class ItemType extends AbstractType
                     return $entityRepository->createQueryBuilder('m');
                 },
                 'choice_label' => 'name',
-                'help' => "Odaberite proizvođača",
-                'label' => 'Proizvođač'
+                'help' => 'form.manufacturer_help',
+                'label' => 'form.manufacturer_label',
+                'translation_domain' => 'item'
             ])
         ;
         if(!$isEditForm) {
             $builder
                 ->add('category', EntityType::class, [
                     'mapped' => false,
+                    'required' => false,
                     'class' => Category::class,
                     'multiple' => true,
                     'query_builder' => function (EntityRepository $entityRepository) {
                         return $entityRepository->createQueryBuilder('c');
                     },
                     'choice_label' => 'name',
-                    'help' => "Odaberite jednu ili više kategorija",
-                    'label' => 'Kategorije'
+                    'help' => 'form.category_help',
+                    'label' => 'form.category_label',
+                    'translation_domain' => 'item'
                 ])
                 ->add('tag', TextareaType::class, [
                     'required' => false,
                     'mapped' => false,
-                    'help' => "Unesite svaki #tag u novi red",
                     'attr' => [
-                        'placeholder' => 'npr. nogomet'
+                        'placeholder' => 'form.tag_placeholder'
                     ],
-                    'label' => 'Tagovi',
+                    'help' => 'form.tag_help',
+                    'label' => 'form.tag_label',
+                    'translation_domain' => 'item'
                 ])
                 ->add('size', EntityType::class, [
                     'required' => false,
@@ -71,8 +76,9 @@ class ItemType extends AbstractType
                         return $entityRepository->createQueryBuilder('s');
                     },
                     'choice_label' => 'value',
-                    'help' => "Odaberite jednu ili više veličina",
-                    'label' => 'Dostupne veličine',
+                    'help' => 'form.size_help',
+                    'label' => 'form.size_label',
+                    'translation_domain' => 'item'
                 ])
                 ->add('color', EntityType::class, [
                     'required' => false,
@@ -83,36 +89,38 @@ class ItemType extends AbstractType
                         return $entityRepository->createQueryBuilder('c');
                     },
                     'choice_label' => 'name',
-                    'help' => "Odaberite jednu ili više boja",
-                    'label' => 'Dostupne boje',
+                    'help' => 'form.color_help',
+                    'label' => 'form.color_label',
+                    'translation_domain' => 'item'
                 ])
                 ->add('image', FileType::class, [
-                    'required'=>false,
+                    'required' => false,
                     'mapped' => false,
                     'multiple' => true,
-                    'help' =>
-                        'Dopušteni formati slika su: jpg, jpeg i png; 
-                        Maksimalna dopuštena veličina pojedine slike je 2MB',
-                    'label' => 'Slike'
+                    'help' => 'form.image_help',
+                    'label' => 'form.image_label',
+                    'translation_domain' => 'item'
                 ])
             ;
         }
         $builder
             ->add('description', TextareaType::class, [
-                'required'=>false,
-                'label'=>'Opis artikla',
-                'attr'=>[
-                    'rows'=>10,
-                    'placeholder'=>'npr. sastav, savjeti oko uporabe, namjena, itd.'
+                'required' => false,
+                'attr' => [
+                    'rows' => 10,
+                    'placeholder' => 'form.description_placeholder'
                 ],
-                'help' => 'Omogućeno je korištenje HTML elemenata',
+                'help' => 'form.description_help',
+                'label' => 'form.description_label',
+                'translation_domain' => 'item'
             ])
             ->add('price', NumberType::class, [
-                'attr'=>[
-                    'placeholder'=>'npr. 349,50'
+                'attr' => [
+                    'placeholder' => 'form.price_placeholder'
                 ],
-                'label'=>'Cijena',
-                'help' => 'Unos u kunama',
+                'help' => 'form.price_help',
+                'label' => 'form.price_label',
+                'translation_domain' => 'item'
             ])
         ;
     }

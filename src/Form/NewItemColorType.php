@@ -16,10 +16,10 @@ class NewItemColorType extends AbstractType
         $colorValues = $options['color_values'];
         $builder
             ->add('color', EntityType::class, [
-                'mapped'=> false,
-                'class'=>Color::class,
-                'multiple'=>true,
-                'query_builder'=> function(EntityRepository $entityRepository) use ($colorValues) {
+                'mapped' => false,
+                'class' => Color::class,
+                'multiple' => true,
+                'query_builder' => function(EntityRepository $entityRepository) use ($colorValues) {
                     if(count($colorValues) == 0) {
                         return $entityRepository->createQueryBuilder('c');
                     }
@@ -28,8 +28,9 @@ class NewItemColorType extends AbstractType
                         ->setParameter('array', $colorValues);
                 },
                 'choice_label' => 'name',
-                'help' => "Odaberite jednu ili više boja",
-                'label' => 'Ostale boje'
+                'help' => 'form.color_help',
+                'label' => 'form_add_color.other_colors',
+                'translation_domain' => 'item'
             ])
         ;
     }
@@ -37,7 +38,7 @@ class NewItemColorType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'color_values'=>[]
+            'color_values' => []
         ]);
     }
 }

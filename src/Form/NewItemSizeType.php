@@ -16,10 +16,10 @@ class NewItemSizeType extends AbstractType
         $sizeValues = $options['size_values'];
         $builder
             ->add('size', EntityType::class, [
-                'mapped'=> false,
-                'class'=>Size::class,
-                'multiple'=>true,
-                'query_builder'=> function(EntityRepository $entityRepository) use ($sizeValues) {
+                'mapped' => false,
+                'class' => Size::class,
+                'multiple' => true,
+                'query_builder' => function(EntityRepository $entityRepository) use ($sizeValues) {
                     if(count($sizeValues) == 0) {
                         return $entityRepository->createQueryBuilder('s');
                     }
@@ -28,8 +28,9 @@ class NewItemSizeType extends AbstractType
                         ->setParameter('array', $sizeValues);
                 },
                 'choice_label' => 'value',
-                'help' => "Odaberite jednu ili više veličina",
-                'label' => 'Ostale veličine'
+                'help' => 'form.size_help',
+                'label' => 'form_add_size.other_sizes',
+                'translation_domain' => 'item'
             ])
         ;
     }
@@ -37,7 +38,7 @@ class NewItemSizeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'size_values'=>[]
+            'size_values' => []
         ]);
     }
 }

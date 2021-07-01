@@ -2,7 +2,7 @@
     {{ form_widget(form) }}
     <div class="text-center">
         <button class="btn btn-success mb-3">
-            Postavi boju/e
+            {{ 'form_set_color_quantity.button_label'|trans({}, 'item') }}
         </button>
     </div>
 {{ form_end(form) }}

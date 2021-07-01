@@ -16,10 +16,14 @@ class SizeQuantityType extends AbstractType
             $counter++;
             $builder
                 ->add('size_'.$counter, null, [
-                    'label'=>'['.$size->getValue().'] veličina - unesite količinu',
-                    'attr'=>[
-                        'placeholder'=>'npr. 15'
-                    ]
+                    'attr' => [
+                        'placeholder' => 'form_set_size_quantity.size_placeholder'
+                    ],
+                    'label' => 'form_set_size_quantity.size_label',
+                    'label_translation_parameters' => [
+                        '%size_value%' => $size->getValue()
+                    ],
+                    'translation_domain' => 'item'
                 ])
             ;
         }
@@ -28,7 +32,7 @@ class SizeQuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'sizes'=>null
+            'sizes' => null
         ]);
     }
 }

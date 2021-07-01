@@ -22,7 +22,8 @@
         <h3 class="bg-light text-center p-1">
             {{ 'edit.subheading1'|trans({}, 'item') }}
         </h3>
-        {{ include('item/new_item_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('item/new_item_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'item')}) }}
         <h3 class="bg-light text-center p-1">
             {{ 'edit.subheading2'|trans({}, 'item') }}
         </h3>

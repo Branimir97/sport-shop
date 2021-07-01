@@ -2,7 +2,7 @@
     {{ form_widget(formNewItem) }}
     <div class="text-center">
         <button class="btn btn-success mb-3">
-            {{ button_label|default('Dodaj artikl') }}
+            {{ button_label|default('form.button_label'|trans({}, 'item')) }}
         </button>
     </div>
 {{ form_end(formNewItem) }}

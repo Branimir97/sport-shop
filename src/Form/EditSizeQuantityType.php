@@ -13,10 +13,11 @@ class EditSizeQuantityType extends AbstractType
     {
         $builder
             ->add('quantity', null, [
-                'label'=>'Unesite novu količinu',
-                'attr'=>[
-                    'min'=>0
-                ]
+                'label' => 'form_set_size_quantity.edit_quantity_label',
+                'attr' => [
+                    'min' => 0
+                ],
+                'translation_domain' => 'item'
             ])
         ;
     }

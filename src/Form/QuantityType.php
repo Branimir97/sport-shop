@@ -19,12 +19,15 @@ class QuantityType extends AbstractType
                 $counter++;
                 $builder
                     ->add('itemSize_'.$itemSize->getId(), null, [
-                        'label'=>
-                            'Veličina ['.$itemSize->getSize()->getValue().'] - unesite količinu',
-                        'attr'=>[
-                            'placeholder'=>'npr. 15',
-                            'min'=>0
-                        ]
+                        'attr' => [
+                            'placeholder' => 'form_set_size_quantity.size_placeholder',
+                            'min' => 0
+                        ],
+                        'label' => 'form_set_size_quantity.size_label',
+                        'label_translation_parameters' => [
+                            '%size_value%' => $itemSize->getSize()->getValue()
+                        ],
+                        'translation_domain' => 'item'
                     ])
                 ;
             }
@@ -35,12 +38,15 @@ class QuantityType extends AbstractType
                 $counter++;
                 $builder
                     ->add('itemColor_'.$itemColor->getId(), null, [
-                        'label'=>
-                            '['.$itemColor->getColor()->getName().'] boja - unesite količinu',
-                        'attr'=>[
-                            'placeholder'=>'npr. 15',
-                            'min'=>0
-                        ]
+                        'attr' => [
+                            'placeholder' => 'form_set_color_quantity.color_placeholder',
+                            'min' => 0
+                        ],
+                        'label' => 'form_set_color_quantity.color_label',
+                        'label_translation_parameters' => [
+                            '%color_name%' => $itemColor->getColor()->getName()
+                        ],
+                        'translation_domain' => 'item'
                     ])
                 ;
             }
@@ -50,8 +56,8 @@ class QuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'itemSizes'=>null,
-            'itemColors'=>null
+            'itemSizes' => null,
+            'itemColors' => null
         ]);
     }
 }

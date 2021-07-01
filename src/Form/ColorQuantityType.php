@@ -16,10 +16,14 @@ class ColorQuantityType extends AbstractType
             $counter++;
             $builder
                 ->add('color_'.$counter, null, [
-                    'label'=>'['.$color->getName().'] boja - unesite količinu',
-                    'attr'=>[
-                        'placeholder'=>'npr. 15'
-                    ]
+                    'attr' => [
+                        'placeholder' => 'form_set_color_quantity.color_placeholder'
+                    ],
+                    'label' => 'form_set_color_quantity.color_label',
+                    'label_translation_parameters' => [
+                        '%color_name%' => $color->getName()
+                    ],
+                    'translation_domain' => 'item'
                 ])
             ;
         }
@@ -28,7 +32,7 @@ class ColorQuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'colors'=>null
+            'colors' => null
         ]);
     }
 }

@@ -54,12 +54,18 @@
                     {{ item.title }}
                 </h3>
                 <div class="category text-center">
-                    <p>
-                        {{ 'itemCategories'|trans({}, 'item_details') }}:
-                        {% for itemCategory in item.itemCategories %}
-                            <a href="#">{{ itemCategory.category.name }}</a>
-                        {% endfor %}
-                    </p>
+                    {% if item.itemCategories|length == 0 %}
+                        <p>
+                            {{ 'noItemCategories'|trans({}, 'item_details') }}
+                        </p>
+                    {% else %}
+                        <p>
+                            {{ 'itemCategories'|trans({}, 'item_details') }}:
+                            {% for itemCategory in item.itemCategories %}
+                                <a href="#">{{ itemCategory.category.name }}</a>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
                 </div>
                 <p>
                     {{ 'itemCipher'|trans({}, 'item_details') }}:

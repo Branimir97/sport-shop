@@ -14,11 +14,12 @@ class NewItemTagType extends AbstractType
         $builder
             ->add('tag', TextareaType::class, [
                 'mapped' => false,
-                'help' => "Unesite svaki #tag u novi red",
                 'attr' => [
-                    'placeholder' => 'npr. nogomet'
+                    'placeholder' => 'form.tag_placeholder'
                 ],
-                'label' => 'Novi tagovi',
+                'help' => 'form.tag_help',
+                'label' => 'form_add_tag.tag_label',
+                'translation_domain' => 'item'
             ])
         ;
     }
