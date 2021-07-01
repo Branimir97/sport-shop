@@ -1,7 +1,7 @@
 {% set newDeliveryAddress %}
     <a class="btn btn-sm bg-info text-white"
        href="{{ path('delivery_address_new') }}">
-        Dodaj novu adresu isporuke
+        {{ 'addNewDeliveryAddress'|trans({}, 'checkout') }}
     </a>
 {% endset %}
 
@@ -9,7 +9,9 @@
     {{ form_label(formCheckout.deliveryAddress, newDeliveryAddress|raw)}}
     {{ form_row(formCheckout.deliveryAddress) }}
     <hr class="mb-4">
-    <h4 class="mb-3">Način plaćanja</h4>
+    <h4 class="mb-3">
+        {{ 'paymentMethod'|trans({}, 'checkout') }}
+    </h4>
     {{ form_row(formCheckout.card) }}
     <div class="row">
         <div class="col-sm-6">
@@ -31,7 +33,7 @@
     </div>
     <div class="text-center">
         <button class="btn btn-primary btn-md btn-block mb-3" type="submit">
-            Izvrši plaćanje
+            {{ 'form.button_label'|trans({}, 'checkout') }}
             <i class="fas fa-hand-holding-usd"></i>
         </button>
     </div>

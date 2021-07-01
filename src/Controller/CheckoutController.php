@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -36,14 +37,15 @@ class CheckoutController extends AbstractController
                           DeliveryAddressRepository $deliveryAddressRepository,
                           PromoCodeRepository $promoCodeRepository,
                           PromoCodeUserRepository $promoCodeUserRepository,
-                          UserRepository $userRepository): Response
+                          UserRepository $userRepository,
+                          TranslatorInterface $translator): Response
     {
         $totalPrice = 0;
         $discount = 0;
         $entityManager = $this->getDoctrine()->getManager();
         $session = $this->get('session');
-        $cart = $cartRepository->findOneBy(['user'=>$this->getUser()]);
-        $cartItems = $cartItemRepository->findBy(['cart'=>$cart]);
+        $cart = $cartRepository->findOneBy(['user' => $this->getUser()]);
+        $cartItems = $cartItemRepository->findBy(['cart' => $cart]);
         $activeUserAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
         $userAddressesWithData = [];
         foreach($activeUserAddresses as $activeUserAddress) {
@@ -68,7 +70,7 @@ class CheckoutController extends AbstractController
                 }
             }
         }
-        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
         $loyaltyCard = $user->getLoyaltyCard();
         if(!is_null($loyaltyCard)) {
             $loyaltyCardCredits = $loyaltyCard->getCredits();
@@ -77,26 +79,27 @@ class CheckoutController extends AbstractController
         }
         $promoCodeUser = new PromoCodeUser();
         $formPromoCode = $this->createForm(PromoCodeUserType::class, null,
-            ['loyaltyCardCredits'=>$loyaltyCardCredits]);
+            ['loyaltyCardCredits' => $loyaltyCardCredits]);
         $formPromoCode->handleRequest($request);
         if ($formPromoCode->isSubmitted() && $formPromoCode->isValid()) {
             $promoCodeObj = $promoCodeRepository->findOneBy(
                 ['code'=>$formPromoCode->get('code')->getData()]);
             $promoCodeUserObj = $promoCodeUserRepository->findOneBy(
                 ['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
-            if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
+            if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits > 0
                 && !$formPromoCode->get('use_credits')->getData() &&
                 is_null($promoCodeUserObj)) {
                 $this->addFlash('danger',
-                    'Pogreška. Potrebno je unijeti ili promo kod ili odabrati 
-                    korištenje bodova s kartice ili oboje.');
+                    $translator->trans('flash_message.error_message',
+                        [], 'checkout'));
                 return $this->redirect($request->getUri());
             }
             else if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
-                && $formPromoCode->get('use_credits')->getData() &&
-                !is_null($promoCodeUserObj)) {
+                && $formPromoCode->get('use_credits')->getData()) {
                 if(!is_null($promoCodeUserObj)) {
-                    $this->addFlash('danger', 'Već ste iskoristili ovaj promo kod.');
+                    $this->addFlash('danger',
+                        $translator->trans('flash_message.used_promo_code',
+                            [], 'checkout'));
                     return $this->redirect($request->getUri());
                 }
                 $session->set('discountWithUsedCredits', $loyaltyCardCredits);
@@ -104,45 +107,52 @@ class CheckoutController extends AbstractController
                 $entityManager->persist($loyaltyCard);
                 $entityManager->flush();
                 $this->addFlash('success',
-                    'Cijena uspješno umanjena za količinu bodova na loyalty kartici.');
+                    $translator->trans('flash_message.price_reduced_loyalty_credits',
+                        [], 'checkout'));
                 return $this->redirect($request->getUri());
-            } else if((!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
-                    && $formPromoCode->get('use_credits')->getData())&&is_null($promoCodeObj)) {
+            } else if((!is_null($loyaltyCardCredits) && $loyaltyCardCredits > 0
+                    && $formPromoCode->get('use_credits')->getData()) && is_null($promoCodeObj)) {
                 $session->set('discountWithUsedCredits', $loyaltyCardCredits);
                 $loyaltyCard->setCredits(0);
                 $entityManager->persist($loyaltyCard);
                 $entityManager->flush();
                 $this->addFlash('success',
-                    'Cijena uspješno umanjena za količinu bodova na loyalty kartici.');
+                    $translator->trans('flash_message.price_reduced_loyalty_credits',
+                        [], 'checkout'));
                 return $this->redirect($request->getUri());
             }
             else {
                 if(!is_null($promoCodeUserObj)) {
-                    $this->addFlash('danger', 'Već ste iskoristili ovaj promo kod.');
-                    return $this->redirect($request->getUri());
+                    $this->addFlash('danger',
+                        $translator->trans('flash_message.used_promo_code',
+                            [], 'checkout'));
                 } else {
-                    if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
+                    if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits > 0
                         && $formPromoCode->get('use_credits')->getData()) {
                         $session->set('discountWithUsedCredits', $loyaltyCardCredits);
                         $loyaltyCard->setCredits(0);
                         $entityManager->persist($loyaltyCard);
                         $entityManager->flush();
                         $this->addFlash('success',
-                            'Cijena uspješno umanjena za količinu bodova na loyalty kartici.');
+                            $translator->trans('flash_message.price_reduced_loyalty_credits',
+                                [], 'checkout'));
                     }
                     $promoCodeUser->setUser($this->getUser());
                     $promoCodeUser->setPromoCode($promoCodeObj);
                     $entityManager->persist($promoCodeUser);
                     $entityManager->flush();
                     $this->addFlash('success',
-                        'Promo kod '.$promoCodeObj->getCode(). ' prihvaćen. 
-                    Cijena uspješno umanjena za '.$promoCodeObj->getDiscountPercentage(). '%.');
+                        $translator->trans('flash_message.promo_code_accepted',
+                            [
+                                '%promoCode%' => $promoCodeObj->getCode(),
+                                '%promoCodeDiscountPercentage%' => $promoCodeObj->getDiscountPercentage()
+                            ], 'checkout'));
                     $session->set('discountWithUsedPromoCode',
                         $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
                     $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
                     $session->set('promoCode', $promoCodeObj->getCode());
-                    return $this->redirect($request->getUri());
                 }
+                return $this->redirect($request->getUri());
             }
         }
         if($session->get('discountWithUsedCredits') !=null) {
@@ -162,7 +172,7 @@ class CheckoutController extends AbstractController
             $creditsEarned = floor($totalPriceWithDiscount/10);
         }
         $formCheckout = $this->createForm(CheckoutType::class, null,
-            ['activeUserAddresses'=>$userAddressesWithData]);
+            ['activeUserAddresses' => $userAddressesWithData]);
         $formCheckout->handleRequest($request);
         if($formCheckout->isSubmitted() && $formCheckout->isValid()) {
             if($user->getOrderList() != null) {
@@ -177,10 +187,10 @@ class CheckoutController extends AbstractController
             $cardExpiration = $formCheckout->get('card_expiration')->getData();
             $cardCVV = $formCheckout->get('card_cvv')->getData();
             $now = new \DateTime('now');
-            if(strlen($cardNumber)<16  || strlen($cardCVV)<3 || $cardExpiration<$now) {
+            if(strlen($cardNumber) < 16  || strlen($cardCVV) < 3 || $cardExpiration < $now) {
                 $this->addFlash('danger',
-                    'Pogreška prilikom obrade Vaše kartice, 
-                    provjerite podatke i pokušajte ponovno!');
+                    $translator->trans('flash_message.card_error',
+                        [], 'checkout'));
                 return $this->redirectToRoute('checkout');
             }
             $orderListItem = null;
@@ -239,19 +249,20 @@ class CheckoutController extends AbstractController
             $entityManager->flush();
             $session->clear();
             $this->addFlash('success',
-                'Uspješno provedeno plaćanje. Narudžba je u procesu obrade za dostavu.');
+                $translator->trans('flash_message.payment_success',
+                    [], 'checkout'));
             return $this->redirectToRoute('order_list');
         }
 
         return $this->render('checkout/index.html.twig', [
-            'cartItems'=>$cartItems,
-            'formCheckout'=>$formCheckout->createView(),
-            'loyaltyCardCredits'=>$loyaltyCardCredits,
-            'creditsEarned'=>$creditsEarned,
-            'totalPrice'=>$totalPrice,
-            'discount'=>$discount,
-            'totalPriceWithDiscount'=>$totalPriceWithDiscount,
-            'formPromoCode'=>$formPromoCode->createView(),
+            'cartItems' => $cartItems,
+            'formCheckout' => $formCheckout->createView(),
+            'loyaltyCardCredits' => $loyaltyCardCredits,
+            'creditsEarned' => $creditsEarned,
+            'totalPrice' => $totalPrice,
+            'discount' => $discount,
+            'totalPriceWithDiscount' => $totalPriceWithDiscount,
+            'formPromoCode' => $formPromoCode->createView(),
         ]);
     }
 }

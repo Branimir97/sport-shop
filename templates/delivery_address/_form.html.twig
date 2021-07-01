@@ -19,7 +19,7 @@
     {{ form_rest(form) }}
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">
-            {{ button_label|default('Dodaj adresu isporuke') }}
+            {{ button_label|default('form.button_label'|trans({}, 'delivery_address')) }}
         </button>
     </div>
 {{ form_end(form) }}

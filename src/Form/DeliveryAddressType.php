@@ -13,34 +13,39 @@ class DeliveryAddressType extends AbstractType
     {
         $builder
             ->add('street', null, [
-                'attr'=>[
-                    'placeholder'=>'npr. Kneza Trpimira 2B'
+                'attr' => [
+                    'placeholder' => 'form.street_placeholder'
                 ],
-                'label'=>'Ulica'
+                'label' => 'form.street_label',
+                'translation_domain' => 'delivery_address'
             ])
             ->add('city', null, [
-                'attr'=>[
-                    'placeholder'=>'npr. Osijek'
+                'attr' => [
+                    'placeholder' => 'form.city_placeholder'
                 ],
-                'label'=>'Grad'
+                'label' => 'form.city_label',
+                'translation_domain' => 'delivery_address'
             ])
             ->add('county', null, [
-                'attr'=>[
-                    'placeholder'=>'npr. Osječko-Baranjska'
+                'attr' => [
+                    'placeholder' => 'form.county_placeholder'
                 ],
-                'label'=>'Županija'
+                'label' => 'form.county_label',
+                'translation_domain' => 'delivery_address'
             ])
             ->add('postalCode', null, [
-                'attr'=>[
-                    'placeholder'=>'npr. 31000'
+                'attr' => [
+                    'placeholder'=>'form.postalCode_placeholder'
                 ],
-                'label'=>'Poštanski broj'
+                'label' => 'form.postalCode_label',
+                'translation_domain' => 'delivery_address'
             ])
             ->add('country', null, [
-                'attr'=>[
-                    'placeholder'=>'npr. Hrvatska'
+                'attr' => [
+                    'placeholder' => 'form.country_placeholder'
                 ],
-                'label'=>'Država'
+                'label' => 'form.country_label',
+                'translation_domain' => 'delivery_address'
             ])
         ;
     }

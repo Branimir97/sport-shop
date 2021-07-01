@@ -27,3 +27,25 @@ deliveryAddressTable:
   user: The address belongs to the user
   editUser: Edit data about user
 
+form:
+  street_placeholder: e.g. Kneza Trpimira 2B
+  street_label: Street
+  city_placeholder: e.g. Osijek
+  city_label: City
+  county_placeholder: e.g. Osječko-Baranjska
+  county_label: County
+  postalCode_placeholder: e.g. 31000
+  postalCode_label: Postal code
+  country_placeholder: e.g. Croatia
+  country_label: Country
+  button_label: Add delivery address
+  edit_button_label: Save changes
+
+flash_message:
+  delivery_address_exists: Delivery address already exists in this account.
+  delivery_address_added: Delivery address successfully added.
+  delivery_address_edited: Delivery address "%street% %postal_code% %city%" successfully updated.
+  delivery_address_deleted: Delivery address "%street% %postal_code% %city%" successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this address?

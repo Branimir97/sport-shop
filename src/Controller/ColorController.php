@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -36,7 +37,8 @@ class ColorController extends AbstractController
      *     "hr": "/nova"
      * }, name="color_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ColorRepository $colorRepository): Response
+    public function new(Request $request, ColorRepository $colorRepository,
+                        TranslatorInterface $translator): Response
     {
         $color = new Color();
         $form = $this->createForm(ItemColorType::class, $color);
@@ -46,14 +48,19 @@ class ColorController extends AbstractController
             $colorValue = $form->get('value')->getData();
             if(!is_null($colorRepository->findOneBy(['value'=>$colorValue]))) {
                 $this->addFlash('danger',
-                    'Boja s kodom "'.$colorValue.'" već postoji.');
-                return $this->redirectToRoute('color_index');
+                    $translator->trans('flash_message.color_exists',
+                        [
+                            '%color_code%' => $colorValue
+                        ], 'color'));
+                return $this->redirectToRoute('color_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($color);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Boja uspješno dodana.');
+            $this->addFlash('success',
+                $translator->trans('flash_message.color_added',
+                    [], 'color'));
             return $this->redirectToRoute('color_index');
         }
 
@@ -79,7 +86,7 @@ class ColorController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="color_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Color $color): Response
+    public function edit(Request $request, Color $color, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ItemColorType::class, $color);
         $form->handleRequest($request);
@@ -88,7 +95,10 @@ class ColorController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success',
-                '"'.$color->getName().'" boja uspješno ažurirana.');
+                $translator->trans('flash_message.color_edited',
+                    [
+                        '%color_name%' => $color->getName()
+                    ], 'color'));
             return $this->redirectToRoute('color_index');
         }
 
@@ -101,7 +111,7 @@ class ColorController extends AbstractController
     /**
      * @Route("/{id}", name="color_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Color $color): Response
+    public function delete(Request $request, Color $color, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$color->getId(),
             $request->request->get('_token'))) {
@@ -109,10 +119,12 @@ class ColorController extends AbstractController
             $entityManager->remove($color);
 
             $this->addFlash('danger',
-                '"'.$color->getName().'" boja uspješno obrisana.');
+                $translator->trans('flash_message.color_deleted',
+                    [
+                        '%color_name%' => $color->getName()
+                    ], 'color'));
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('color_index');
     }
 }

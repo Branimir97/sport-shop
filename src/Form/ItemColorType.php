@@ -15,13 +15,15 @@ class ItemColorType extends AbstractType
     {
         $builder
             ->add('value', ColorType::class, [
-                'label'=>'Boja'
+                'label' => 'form.value_label',
+                'translation_domain' => 'color'
             ])
             ->add('name', TextType::class, [
-                'label'=>'Naziv boje',
-                'attr'=>[
-                    'placeholder'=>'npr. Crvena'
-                ]
+                'label' => 'form.name_label',
+                'attr' => [
+                    'placeholder' => 'form.name_placeholder'
+                ],
+                'translation_domain' => 'color'
             ])
         ;
     }

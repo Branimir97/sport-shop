@@ -18,60 +18,67 @@ class CheckoutType extends AbstractType
         if(count($activeUserAddresses) == 0){
             $builder
             ->add('deliveryAddress', ChoiceType::class, [
-                'mapped'=> false,
-                'choices'=>[
-                    'Ne postoji ni jedna registrirana adresa isporuke za Vaš račun'=>''
+                'mapped' => false,
+                'choices' => [
+                    'form.delivery_address_choices.empty' => ''
                 ],
-                'label_html'=>true,
-                'label'=>'Odaberite željenu adresu isporuke',
+                'label_html' => true,
+                'label' => 'form.delivery_address_choices.label',
+                'translation_domain' => 'checkout'
             ]);
         } else {
             $builder
                 ->add('deliveryAddress', ChoiceType::class, [
-                    'mapped'=> false,
-                    'choices'=>$activeUserAddresses,
-                    'label'=>'Odaberite željenu adresu isporuke',
-                    'label_html'=>true,
+                    'mapped' => false,
+                    'choices' => $activeUserAddresses,
+                    'label' => 'form.delivery_address_choices.label',
+                    'label_html' => true,
+                    'translation_domain' => 'checkout'
                 ])
             ;
         }
         $builder
             ->add('card', ChoiceType::class, [
                 'choices'=>[
-                    'Kreditna kartica'=>'Kreditna kartica',
-                    'Debitna kartica'=>'Debitna kartica',
-                    'PayPal'=>'PayPal',
+                    'form.card_choices.credit' => 1,
+                    'form.card_choices.debit' => 2,
+                    'form.card_choices.paypal' => 3,
                 ],
-                'expanded'=>true,
-                'multiple'=>false,
-                'label'=>'Odabir kartice'
+                'expanded' => true,
+                'multiple' => false,
+                'label' => 'form.card_choices.label',
+                'translation_domain' => 'checkout'
             ])
             ->add('card_name_surname', TextType::class, [
-                'label'=>'Ime i prezime na kartici',
-                'attr'=>[
-                    'placeholder'=>'Ime Prezime'
+                'label' => 'form.card_name_surname_label',
+                'attr' => [
+                    'placeholder' => 'form.card_name_surname_placeholder'
                 ],
-                'help'=>'Unesite Vaše puno ime kao što je napisano na kartici'
+                'help' => 'form.card_name_surname_help',
+                'translation_domain' => 'checkout'
             ])
             ->add('card_number', TextType::class, [
-                'label'=>'Broj kartice',
-                'attr'=>[
-                    'placeholder'=>'0123 3456 6578 8910',
+                'label' => 'form.card_number_label',
+                'attr' => [
+                    'placeholder' => '0123 3456 6578 8910',
                 ],
-                'help'=>'Pažljivo prepišite broj s kartice | Nije preporučeno kopiranje'
+                'help' => 'form.card_number_help',
+                'translation_domain' => 'checkout'
             ])
             ->add('card_expiration', DateType::class, [
                 'widget' => 'single_text',
-                'label'=>'Datum isteka kartice',
-                'help'=>'Bitni su isključivo mjesec i godina'
+                'label' => 'form.card_expiration_label',
+                'help' => 'form.card_expiration_help',
+                'translation_domain' => 'checkout'
             ])
             ->add('card_cvv', IntegerType::class, [
-                'label'=>'CVV',
-                'attr'=>[
-                    'min'=>0,
-                    'placeholder'=>123
+                'label' => 'CVV',
+                'attr' => [
+                    'min' => 0,
+                    'placeholder' => 123
                 ],
-                'help'=>'Broj od najčešće 3 znamenke na poleđini Vaše kartice'
+                'help' => 'form.card_cvv_help',
+                'translation_domain' => 'checkout'
             ])
         ;
     }
@@ -79,7 +86,7 @@ class CheckoutType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'activeUserAddresses'=>[]
+            'activeUserAddresses' => []
         ]);
     }
 }

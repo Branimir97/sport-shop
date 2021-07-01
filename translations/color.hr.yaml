@@ -23,4 +23,18 @@ colorsTable:
   editTitle: Uredi
   delete: Obriši boju
 
+form:
+  value_label: Boja
+  name_label: Naziv boje
+  name_placeholder: npr. Crvena
+  button_label: Dodaj boju
+  edit_button_label: Spremi promjene
 
+flash_message:
+  color_exists: Boja s kodom "%color_code%" već postoji.
+  color_added: Boja uspješno dodana.
+  color_edited: Boja ("%color_name%") uspješno ažurirana.
+  color_deleted: Boja ("%color_name%") uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu boju?

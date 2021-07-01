@@ -5,3 +5,11 @@ promoCodeUserTable:
   user: User
   utilizationTime: Utilization time
   delete: Delete record
+
+form:
+  code_label: Enter the promo code here
+  use_credits_label: I want to use the points on the card
+  button_label: Confirm entry
+
+delete_confirmation:
+  message: Are you sure you want to delete the usage records for this promo code?

@@ -2,7 +2,7 @@
     {{ form_widget(formPromoCode) }}
     <div class="text-center">
         <button class="btn btn-primary mb-3">
-            Potvrdi unos
+            {{ 'form.button_label'|trans({}, 'promo_code_user') }}
         </button>
     </div>
 {{ form_end(formPromoCode) }}

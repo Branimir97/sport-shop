@@ -2,7 +2,7 @@
     {{ form_widget(form) }}
     <div class="text-center">
         <button class="btn btn-outline-secondary mb-3">
-            {{ button_label|default('Dodaj boju') }}
+            {{ button_label|default('form.button_label'|trans({}, 'color')) }}
         </button>
     </div>
 {{ form_end(form) }}

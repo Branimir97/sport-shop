@@ -23,7 +23,7 @@
             {{ 'colorsList'|trans({}, 'color') }}
         </a>
         {{ include('color/_form.html.twig',
-            {'button_label': 'Spremi promjene'}) }}
+            {'button_label': 'form.edit_button_label'|trans({}, 'color')}) }}
         <div class="text-center">
             {{ include('color/_delete_form.html.twig') }}
         </div>

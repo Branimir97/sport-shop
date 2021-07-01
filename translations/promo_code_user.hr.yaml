@@ -5,3 +5,11 @@ promoCodeUserTable:
   user: Korisnik
   utilizationTime: Vrijeme iskorištenja
   delete: Obriši evidenciju
+
+form:
+  code_label: Ovdje unesite promo kod
+  use_credits_label: Želim iskoristiti bodove na kartici
+  button_label: Potvrdi unos
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati evidenciju o iskorištenosti ovog promo koda?

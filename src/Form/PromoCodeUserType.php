@@ -16,19 +16,22 @@ class PromoCodeUserType extends AbstractType
         if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0){
             $builder
                 ->add('code', TextType::class, [
-                    'required'=>false,
-                    'label'=>'Ovdje unesite promo kod'
+                    'required' => false,
+                    'label' => 'form.code_label',
+                    'translation_domain' => 'promo_code_user'
                 ])
                 ->add('use_credits', CheckboxType::class, [
-                    'required'=>false,
-                    'mapped'=>false,
-                    'label'=>'Želim iskoristiti bodove na kartici'
+                    'required' => false,
+                    'mapped' => false,
+                    'label' => 'form.use_credits_label',
+                    'translation_domain' => 'promo_code_user'
                 ])
             ;
         } else {
             $builder
                 ->add('code', TextType::class, [
-                    'label'=>'Ovdje unesite promo kod'
+                    'label' => 'form.code_label',
+                    'translation_domain' => 'promo_code_user'
                 ])
             ;
         }
@@ -37,7 +40,7 @@ class PromoCodeUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'loyaltyCardCredits'=>null
+            'loyaltyCardCredits' => null
         ]);
     }
 }
