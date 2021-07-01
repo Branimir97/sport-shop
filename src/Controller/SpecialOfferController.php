@@ -39,8 +39,8 @@ class SpecialOfferController extends AbstractController
         }
 
         return $this->render('special_offer/index.html.twig', [
-            'items'=>$items,
-            'discounts'=>$discounts
+            'items' => $items,
+            'discounts' => $discounts
         ]);
     }
 }

@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -28,7 +29,7 @@ class WishListController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        $user = $userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
         $wishList = $user->getWishList();
         return $this->render('wish_list/index.html.twig', [
             'wishList' => $wishList,
@@ -43,7 +44,7 @@ class WishListController extends AbstractController
      */
     public function new(Request $request, UserRepository $userRepository,
                         WishListItemRepository $wishListItemRepository,
-                        ItemRepository $itemRepository): Response
+                        ItemRepository $itemRepository, TranslatorInterface $translator): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
@@ -57,7 +58,7 @@ class WishListController extends AbstractController
             $wishList = $user->getWishList();
         }
         $wishListItemDb = $wishListItemRepository->findOneBy(
-            ['wishList'=>$wishList, 'item'=>$item,]);
+            ['wishList' => $wishList, 'item' => $item,]);
         if(is_null($wishListItemDb)) {
             $wishListItem = new WishListItem();
             $wishListItem->setItem($item);
@@ -67,13 +68,17 @@ class WishListController extends AbstractController
             $entityManager->flush();
         } else {
             $this->addFlash('danger',
-                'Artikl je već dodan na Vašu listu želja.');
+                $translator->trans('flash_message.item_exists',
+                    [], 'wish_list'));
             return $this->redirectToRoute('item_details',
-                ['id'=>$item->getId()]);
+                ['id' => $item->getId()]);
         }
 
         $this->addFlash('success',
-            'Artikl "'.$item->getTitle().'" uspješno dodan na Vašu listu želja.');
+            $translator->trans('flash_message.item_added',
+                [
+                    '%item_title%' => $item->getTitle()
+                ], 'wish_list'));
         return $this->redirectToRoute('wish_list_index');
     }
 
@@ -85,7 +90,8 @@ class WishListController extends AbstractController
      */
     public function deleteItem(Request $request, WishListItem $wishListItem,
                                WishListRepository $wishListRepository,
-                               WishListItemRepository $wishListItemRepository): Response
+                               WishListItemRepository $wishListItemRepository,
+                               TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$wishListItem->getId(),
             $request->request->get('_token'))) {
@@ -93,12 +99,14 @@ class WishListController extends AbstractController
             $entityManager->remove($wishListItem);
 
             $this->addFlash('danger',
-                'Artikl "'.$wishListItem->getItem()->getTitle().'" 
-                uspješno obrisan iz liste želja.');
+                $translator->trans('flash_message.item_deleted',
+                    [
+                        '%item_title%' => $wishListItem->getItem()->getTitle()
+                    ], 'wish_list'));
             $entityManager->flush();
         }
 
-        $wishList = $wishListRepository->findOneBy(['user'=>$this->getUser()]);
+        $wishList = $wishListRepository->findOneBy(['user' => $this->getUser()]);
         $wishListItems = $wishListItemRepository->findBy(['wishList' => $wishList]);
         if (count($wishListItems) == 0) {
             $entityManager = $this->getDoctrine()->getManager();

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -25,7 +26,7 @@ class SubscriberController extends AbstractController
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('subscriber/index.html.twig', [
-            'subscribers' => $subscriberRepository->findBy([], ['id'=>'DESC']),
+            'subscribers' => $subscriberRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -37,7 +38,7 @@ class SubscriberController extends AbstractController
      */
     public function new(Request $request,
                         SubscriberRepository $subscriberRepository,
-                        UserRepository $userRepository): Response
+                        UserRepository $userRepository, TranslatorInterface $translator): Response
     {
         $subscriber = new Subscriber();
         $email = $request->request->get('email');
@@ -48,11 +49,13 @@ class SubscriberController extends AbstractController
         }
         if(!is_null($subscriberRepository->findOneBy(['email'=>$email]))) {
             $this->addFlash('danger',
-                'Već postoji pretplaćeni korisnik na navedenoj email adresi.');
+                $translator->trans('flash_message.subscriber_exists',
+                    [], 'subscriber'));
             return $this->redirectToRoute('home');
         } else if(in_array($email, $userEmails)) {
             $this->addFlash('danger',
-                'Već postoji registrirani korisnik na navedenoj email adresi.');
+                $translator->trans('flash_message.registered_email_used',
+                    [], 'subscriber'));
             return $this->redirectToRoute('home');
         }
         else {
@@ -62,7 +65,8 @@ class SubscriberController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success',
-                'Uspješno ste se pretplatili na naš newsletter!');
+                $translator->trans('flash_message.subscriber_added',
+                    [], 'subscriber'));
             return $this->redirectToRoute('home');
         }
     }
@@ -74,7 +78,8 @@ class SubscriberController extends AbstractController
      * }, name="subscriber_new_registered", methods={"GET","POST"})
      */
     public function newRegistered(Request $request,
-                                  SubscriberRepository $subscriberRepository): Response
+                                  SubscriberRepository $subscriberRepository,
+                                  TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $formEmail = $request->request->get('email');
@@ -83,8 +88,8 @@ class SubscriberController extends AbstractController
         if(!is_null($subscriberRepository->findOneBy(
             ['email'=>$currentEmail])) || ($formEmail !== $currentEmail)) {
             $this->addFlash('danger',
-                'Ukoliko niste pretplaćeni, možete se pretplatiti isključivo s 
-                        Vašom email adresom korištenom za registraciju ovog računa.');
+                $translator->trans('flash_message.registered_subscribe_message',
+                    [], 'subscriber'));
             return $this->redirectToRoute('account_settings');
         }
         $subscriber->setEmail($currentEmail);
@@ -93,7 +98,8 @@ class SubscriberController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success',
-            'Uspješno ste se pretplatili na naš newsletter.');
+            $translator->trans('flash_message.subscriber_added',
+                [], 'subscriber'));
         return $this->redirectToRoute('account_settings');
     }
 
@@ -103,7 +109,8 @@ class SubscriberController extends AbstractController
      *     "hr": "/obriši/registrirani"
      * }, name="subscriber_delete_registered", methods={"GET", "POST"})
      */
-    public function deleteRegistered(SubscriberRepository $subscriberRepository): Response
+    public function deleteRegistered(SubscriberRepository $subscriberRepository,
+                                     TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $subscriber = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
@@ -111,7 +118,9 @@ class SubscriberController extends AbstractController
         $entityManager->remove($subscriber);
         $entityManager->flush();
 
-        $this->addFlash('danger', 'Pretplata uspješno uklonjena.');
+        $this->addFlash('danger',
+            $translator->trans('flash_message.subscriber_deleted',
+                [], 'subscriber'));
         return $this->redirectToRoute('account_settings');
     }
 
@@ -119,7 +128,8 @@ class SubscriberController extends AbstractController
     /**
      * @Route("/{id}", name="subscriber_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Subscriber $subscriber): Response
+    public function delete(Request $request, Subscriber $subscriber,
+                           TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         if ($this->isCsrfTokenValid('delete'.$subscriber->getId(),
@@ -129,7 +139,9 @@ class SubscriberController extends AbstractController
             $entityManager->flush();
         }
 
-        $this->addFlash('danger', 'Pretplata uspješno uklonjena.');
+        $this->addFlash('danger',
+            $translator->trans('flash_message.subscriber_deleted',
+                [], 'subscriber'));
         return $this->redirectToRoute('subscriber_index');
     }
 }

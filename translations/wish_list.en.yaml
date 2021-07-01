@@ -9,4 +9,12 @@ wishListTable:
   createdAt: Creation time
   delete: Delete item from wish list
   continueShopping: Continue shopping
-  goToItem: Continute to the item
+  goToItem: Continue to the item
+
+flash_message:
+  item_exists: The item has already been added to Your wish list.
+  item_added: Item "%item_title%" successfully added to Your wish list.
+  item_deleted: Item "%item_title%" successfully deleted from Your wish list.
+
+delete_confirmation:
+  message: Are you sure you want to delete this item from Your wish list?

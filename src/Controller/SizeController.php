@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -26,7 +27,7 @@ class SizeController extends AbstractController
     public function index(SizeRepository $sizeRepository): Response
     {
         return $this->render('size/index.html.twig', [
-            'sizes' => $sizeRepository->findBy([], ['id'=>'DESC']),
+            'sizes' => $sizeRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -36,7 +37,8 @@ class SizeController extends AbstractController
      *     "hr": "/nova",
      * }, name="size_new", methods={"GET","POST"})
      */
-    public function new(Request $request, SizeRepository $sizeRepository): Response
+    public function new(Request $request, SizeRepository $sizeRepository,
+                        TranslatorInterface $translator): Response
     {
         $size = new Size();
         $form = $this->createForm(SizeType::class, $size);
@@ -44,17 +46,21 @@ class SizeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sizeValue = $form->get('value')->getData();
-            if(!is_null($sizeRepository->findOneBy(['value'=>$sizeValue]))) {
+            if(!is_null($sizeRepository->findOneBy(['value' => $sizeValue]))) {
                 $this->addFlash('danger',
-                    'Veličina "'.$sizeValue.'" već postoji.');
-                return $this->redirectToRoute('size_index');
+                    $translator->trans('flash_message.size_exists',
+                        [
+                            '%size_value%' => $sizeValue
+                        ], 'size'));
+                return $this->redirectToRoute('size_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($size);
             $entityManager->flush();
 
             $this->addFlash('success',
-                'Veličina uspješno dodana.');
+                $translator->trans('flash_message.size_added',
+                    [], 'size'));
             return $this->redirectToRoute('size_index');
         }
 
@@ -80,7 +86,8 @@ class SizeController extends AbstractController
      *     "hr": "/{id}/uredi",
      * }, name="size_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Size $size): Response
+    public function edit(Request $request, Size $size,
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(SizeType::class, $size);
         $form->handleRequest($request);
@@ -89,7 +96,10 @@ class SizeController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success',
-                'Veličina "'.$size->getValue().'" uspješno ažurirana.');
+                $translator->trans('flash_message.size_edited',
+                    [
+                        '%size_value%' => $size->getValue()
+                    ], 'size'));
             return $this->redirectToRoute('size_index');
         }
 
@@ -102,7 +112,8 @@ class SizeController extends AbstractController
     /**
      * @Route("/{id}", name="size_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Size $size): Response
+    public function delete(Request $request, Size $size,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$size->getId(),
             $request->request->get('_token'))) {
@@ -110,7 +121,10 @@ class SizeController extends AbstractController
             $entityManager->remove($size);
 
             $this->addFlash('danger',
-                'Veličina "'.$size->getValue().'" uspješno obrisana.');
+                $translator->trans('flash_message.size_deleted',
+                    [
+                        '%size_value%' => $size->getValue()
+                    ], 'size'));
             $entityManager->flush();
         }
 

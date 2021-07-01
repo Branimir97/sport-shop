@@ -10,15 +10,15 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            {{ 'title'|trans({}, 'wish_list') }}:
+            {{ 'title'|trans({}, 'wish_list') }}
             <i id="wish_list" class="fas fa-list-ul"></i>
         </h2>
         {% if wishList.wishListItems is not defined or wishList.wishListItems|length == 0 %}
             <h6 class="text-center bg-info p-2 text-white">
-                {{ 'noWishListItems'|trans({}, 'wish_list') }}:
+                {{ 'noWishListItems'|trans({}, 'wish_list') }}
             </h6>
             <p class="text-center">
-                {{ 'wishListMessage'|trans({}, 'wish_list') }}:
+                {{ 'wishListMessage'|trans({}, 'wish_list') }}
             </p>
         {% else %}
             <div class="table-responsive">

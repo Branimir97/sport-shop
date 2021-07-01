@@ -2,7 +2,7 @@
     {{ form_widget(form) }}
     <div class="text-center">
         <button class="btn btn-success mb-3">
-            {{ button_label|default('Dodaj veličinu') }}
+            {{ button_label|default('form.button_label'|trans({}, 'size')) }}
         </button>
     </div>
 {{ form_end(form) }}

@@ -22,4 +22,22 @@ sizesTable:
   editTitle: Edit
   delete: Delete size
 
+form:
+  value_placeholder: e.g. XXL for clothing or 45 for footwear
+  value_label: Size
+  type_choices:
+    footwear: Footwear
+    clothes: Clothes
+  type_help: Select which item category the size fits
+  type_label: Item category
+  button_label: Save size
+  edit_button_label: Save changes
 
+flash_message:
+  size_exists: Size (%size_value%) already exists.
+  size_added: Size successfully added.
+  size_edited: Size (%size_value%) successfully updated.
+  size_deleted: Size (%size_value%) successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this size?

@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('size_delete', {'id': size.id}) }}"
-      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu veličinu?');">
+      onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'size') }}');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ size.id) }}">
     <button class="btn btn-danger mb-3 mt-2">

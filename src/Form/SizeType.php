@@ -15,17 +15,19 @@ class SizeType extends AbstractType
         $builder
             ->add('value', null, [
                 'attr'=>[
-                    'placeholder'=>'npr. XXL za odjeću ili 45 za obuću'
+                    'placeholder' => 'form.value_placeholder'
                 ],
-                'label'=>'Veličina'
+                'label' => 'form.value_label',
+                'translation_domain' => 'size'
             ])
             ->add('type', ChoiceType::class, [
-                'choices'=>[
-                    'Odjeća'=>'Odjeća',
-                    'Obuća'=>'Obuća'
+                'choices' => [
+                    'form.type_choices.footwear' => 1,
+                    'form.type_choices.clothes' => 2
                 ],
-                'help'=>'Odabrati kojoj kategoriji artikla veličina odgovara',
-                'label'=>'Kategorija artikla'
+                'help' => 'form.type_help',
+                'label' => 'form.type_label',
+                'translation_domain' => 'size'
             ])
         ;
     }

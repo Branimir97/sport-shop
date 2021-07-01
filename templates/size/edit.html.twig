@@ -18,7 +18,8 @@
             <i class="fas fa-arrow-alt-circle-left"></i>
             {{ 'sizesList'|trans({}, 'size') }}
         </a>
-        {{ include('size/_form.html.twig', {'button_label': 'Spremi promjene'}) }}
+        {{ include('size/_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'size')}) }}
         <div class="text-center">
             {{ include('size/_delete_form.html.twig') }}
         </div>

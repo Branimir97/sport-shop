@@ -22,4 +22,22 @@ sizesTable:
   editTitle: Uredi
   delete: Obriši veličinu
 
+form:
+  value_placeholder: npr. XXL za odjeću ili 45 za obuću
+  value_label: Veličina
+  type_choices:
+      footwear: Obuća
+      clothes: Odjeća
+  type_help: Odabrati kojoj kategoriji artikla veličina odgovara
+  type_label: Kategorija artikla
+  button_label: Spremi veličinu
+  edit_button_label: Spremi promjene
 
+flash_message:
+  size_exists: Veličina (%size_value%) već postoji.
+  size_added: Veličina uspješno dodana.
+  size_edited: Veličina (%size_value%) uspješno ažurirana.
+  size_deleted: Veličina (%size_value%) uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu veličinu?
