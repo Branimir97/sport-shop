@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'show.title'|trans({}, 'action_categories') }}
+    {{ 'show.title'|trans({}, 'action_category') }}
     - {{ action_category.category.name }}
 {% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            {{ 'show.title'|trans({}, 'action_categories') }}
+            {{ 'show.title'|trans({}, 'action_category') }}
             - {{ action_category.category.name }}
         </h2>
         <a href="{{ path('action_category_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            {{ 'actionsList'|trans({}, 'action_categories') }}
+            {{ 'actionsList'|trans({}, 'action_category') }}
         </a>
         <table class="table">
             <tbody>
@@ -25,31 +25,31 @@
             </tr>
             <tr>
                 <th>
-                    {{ 'actionsTable.category'|trans({}, 'action_categories') }}
+                    {{ 'actionsTable.category'|trans({}, 'action_category') }}
                 </th>
                 <td>{{ action_category.category.name }}</td>
             </tr>
             <tr>
                 <th>
-                    {{ 'actionsTable.name'|trans({}, 'action_categories') }}
+                    {{ 'actionsTable.name'|trans({}, 'action_category') }}
                 </th>
                 <td>{{ action_category.title }}</td>
             </tr>
             <tr>
                 <th>
-                    {{ 'actionsTable.discount'|trans({}, 'action_categories') }}
+                    {{ 'actionsTable.discount'|trans({}, 'action_category') }}
                 </th>
                 <td>{{ action_category.discountPercentage }}</td>
             </tr>
             <tr>
                 <th>
-                    {{ 'actionsTable.createdAt'|trans({}, 'action_categories') }}
+                    {{ 'actionsTable.createdAt'|trans({}, 'action_category') }}
                 </th>
                 <td>{{ action_category.createdAt|date('H:i:s | d.m.Y.') }}</td>
             </tr>
             <tr>
                 <th>
-                    {{ 'actionsTable.updatedAt'|trans({}, 'action_categories') }}
+                    {{ 'actionsTable.updatedAt'|trans({}, 'action_category') }}
                 </th>
                 <td>
                     {{ action_category.updatedAt ?
@@ -61,7 +61,7 @@
         <div class="text-center">
             <a class="btn btn-outline-success" href="{{ path('action_category_edit',
                    {'id': action_category.id}) }}">
-                {{ 'show.editAction'|trans({}, 'action_categories') }}
+                {{ 'show.editAction'|trans({}, 'action_category') }}
             </a>
             {{ include('actions/action_category/_delete_form.html.twig') }}
         </div>

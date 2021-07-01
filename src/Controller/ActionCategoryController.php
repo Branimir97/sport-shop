@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route({
@@ -37,7 +38,8 @@ class ActionCategoryController extends AbstractController
      *     "hr": "/nova"
      * }, name="action_category_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    public function new(Request $request, CategoryRepository $categoryRepository,
+                        TranslatorInterface $translator): Response
     {
         $categories = $categoryRepository->findAll();
         $noActionCategories = [];
@@ -65,7 +67,8 @@ class ActionCategoryController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success',
-                'Kategorija/e uspješno postavljena/e na akciju.');
+                    $translator->trans('flash_message.action_category_created',
+                        [], 'action_category'));
             return $this->redirectToRoute('action_category_index');
         }
 
@@ -90,16 +93,20 @@ class ActionCategoryController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="action_category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, ActionCategory $actionCategory): Response
+    public function edit(Request $request, ActionCategory $actionCategory,
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ActionCategoryType::class, $actionCategory, ['isEdit'=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success',
+                $translator->trans('flash_message.action_category_edited',
+                    [], 'action_category'));
             return $this->redirectToRoute('action_category_index');
         }
-
         return $this->render('actions/action_category/edit.html.twig', [
             'action_category' => $actionCategory,
             'form' => $form->createView(),
@@ -109,7 +116,8 @@ class ActionCategoryController extends AbstractController
     /**
      * @Route("/{id}", name="action_category_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ActionCategory $actionCategory): Response
+    public function delete(Request $request, ActionCategory $actionCategory,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$actionCategory->getId(),
             $request->request->get('_token'))) {
@@ -117,7 +125,9 @@ class ActionCategoryController extends AbstractController
             $entityManager->remove($actionCategory);
             $entityManager->flush();
         }
-        $this->addFlash('danger', 'Akcija uspješno obrisana.');
+        $this->addFlash('danger',
+            $translator->trans('flash_message.action_category_deleted',
+                [], 'action_category'));
         return $this->redirectToRoute('action_category_index');
     }
 }

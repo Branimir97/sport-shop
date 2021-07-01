@@ -32,25 +32,28 @@ class ActionCategoryType extends AbstractType
                             ->setParameter('array', $noActionCategories);
                     },
                     'choice_label' => 'name',
-                    'help' => "Odaberite jednu ili više kategorija",
-                    'label' => 'Dostupne kategorije'
+                    'help' => "form.category_help",
+                    'label' => 'form.category_label',
+                    'translation_domain' => 'action_category'
                 ])
             ;
         }
         $builder
             ->add('title', TextType::class, [
-                'label'=>'Naziv akcije',
+                'label'=>'form.title_label',
                 'attr'=>[
-                    'placeholder'=>'npr. Popust na sve artikle iz kategorije Muškarci'
-                ]
+                    'placeholder'=>'form.title_placeholder'
+                ],
+                'translation_domain' => 'action_category'
             ])
             ->add('discountPercentage', IntegerType::class, [
-                'label'=>'Postotak popusta',
+                'label'=>'form.discount_label',
                 'attr'=>[
                     'min'=>1,
                     'max'=>30
                 ],
-                'help'=>'Postotak u rasponu od [1-30]%'
+                'help'=>'form.discount_help',
+                'translation_domain' => 'action_category'
             ])
         ;
     }
