@@ -53,7 +53,9 @@ class AppFixtures extends Fixture
             "Rukomet",
             "Košarka",
             "Odbojka",
+            "Tenis",
             "Stolni tenis",
+            "Fitness"
         ];
 
         $sizesClothes = [

@@ -811,11 +811,35 @@
                                href="{{ path('items_list', {
                                    ('categories'|trans({}, 'navigation')):
                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('tennis'|trans({}, 'navigation'))
+                               }) }}">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/sport_tennis.png') }}" alt="icon">
+                                {{ 'tennis'|trans({}, 'navigation')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
                                    ('tableTennis'|trans({}, 'navigation'))
                                }) }}">
                                 <img class="nav_icon mr-1"
                                      src="{{ asset('icons/sport_table_tennis.png') }}" alt="icon">
                                 {{ 'tableTennis'|trans({}, 'navigation')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('fitness'|trans({}, 'navigation'))
+                               }) }}">
+                                <img class="nav_icon mr-1"
+                                     src="{{ asset('icons/fitness.png') }}" alt="icon">
+                                {{ 'fitness'|trans({}, 'navigation')}}
                             </a>
                         </li>
                     </ul>
@@ -1199,10 +1223,10 @@
                                             <a
                                                 href="{{ path('items_list', {
                                                     ('categories'|trans({}, 'navigation')):
-                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                                    ('tableTennis'|trans({}, 'navigation'))
+                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                    ('runningShoes'|trans({}, 'navigation'))
                                                 }) }}">
-                                                {{ 'tableTennis'|trans({}, 'navigation')}}
+                                                {{ 'running'|trans({}, 'footer')}}
                                             </a>
                                         </li>
                                         <li>
@@ -1219,41 +1243,42 @@
                                     <div class="col-md-6">
                                         <li>
                                             <a
-                                                href="{{ path('special_offer') }}">
-                                                {{ 'specialOffers'|trans({}, 'footer')}}
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('volleyball'|trans({}, 'navigation'))
+                                                }) }}">
+                                                {{ 'volleyball'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 href="{{ path('items_list', {
                                                     ('categories'|trans({}, 'navigation')):
-                                                    ('men'|trans({}, 'navigation'))~ ',' ~
-                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
-                                                    ('sneakers'|trans({}, 'navigation'))
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('fitness'|trans({}, 'navigation'))
                                                 }) }}">
-                                                {{ 'mensSneakers'|trans({}, 'footer')}}
+                                                {{ 'fitness'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 href="{{ path('items_list', {
                                                     ('categories'|trans({}, 'navigation')):
-                                                    ('women'|trans({}, 'navigation'))~ ',' ~
-                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
-                                                    ('sneakers'|trans({}, 'navigation'))
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('tennis'|trans({}, 'navigation'))
                                                 }) }}">
-                                                {{ 'womensSneakers'|trans({}, 'footer')}}
+                                                {{ 'tennis'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 href="{{ path('items_list', {
                                                     ('categories'|trans({}, 'navigation')):
-                                                    ('children'|trans({}, 'navigation'))~ ',' ~
-                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
-                                                    ('sneakers'|trans({}, 'navigation'))
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('tableTennis'|trans({}, 'navigation'))
                                                 }) }}">
-                                                {{ 'childrensSneakers'|trans({}, 'footer')}}
+                                                {{ 'tableTennis'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                     </div>
