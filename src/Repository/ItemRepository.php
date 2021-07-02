@@ -18,4 +18,21 @@ class ItemRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Item::class);
     }
+
+    public function findByCategories($categories)
+    {
+        return $this->createQueryBuilder('i')
+            ->join('i.itemCategories', 'itemCategories')
+            ->join('itemCategories.category', 'category')
+            ->where('category.name IN (:categories)')
+            ->setParameter('categories', $categories)
+            ->join('i.images', 'images')
+            ->join('i.itemColors', 'itemColors')
+            ->join('itemColors.color', 'color')
+            ->addSelect('images')
+            ->addSelect('itemColors')
+            ->addSelect('color')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

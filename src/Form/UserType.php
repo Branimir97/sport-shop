@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -96,6 +98,15 @@ class UserType extends AbstractType
                         'label' => 'form.labels.subscribe',
                         'translation_domain' => 'register'
                     ])
+//                    ->add('captchaCode', CaptchaType::class, [
+//                        'mapped' => false,
+//                        'captchaConfig' => 'ExampleCaptchaUserRegistration',
+////                        'constraints' => [
+////                            new ValidCaptcha([
+////                                'message' => 'Invalid captcha, please try again'
+////                            ])
+////                        ]
+//                    ])
                 ;
             }
     }

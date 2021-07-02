@@ -84,28 +84,52 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('sneakers'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/sneakers.png') }}" alt="icon">
                                         {{ 'sneakers'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('footballBoots'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/football-boots.png') }}" alt="icon">
                                         {{ 'footballBoots'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('runningShoes'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/running.png') }}" alt="icon">
                                         {{ 'runningShoes'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('boots'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/boot.png') }}" alt="icon">
                                         {{ 'boots'|trans({}, 'navigation')}}
@@ -121,21 +145,42 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('men'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('insoles'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/insoles.png') }}" alt="icon">
                                                 {{ 'insoles'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('men'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('laces'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/cord-lace.png') }}" alt="icon">
                                                 {{ 'laces'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('men'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('impregnationSprays'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/spray.png') }}" alt="icon">
                                                 {{ 'impregnationSprays'|trans({}, 'navigation')}}
@@ -155,19 +200,37 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('tShirts'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/tshirt.png') }}" alt="icon">
                                         {{ 'tShirts'|trans({}, 'navigation')}}
                                     </a>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('pants'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/pant.png') }}" alt="icon">
                                         {{ 'pants'|trans({}, 'navigation')}}
                                     </a>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('men'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('jackets'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
                                         {{ 'jackets'|trans({}, 'navigation')}}
@@ -183,21 +246,42 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('men'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('caps'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/cap.png') }}" alt="icon">
                                                 {{ 'caps'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('men'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('gloves'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/glove.png') }}" alt="icon">
                                                 {{ 'gloves'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('men'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('scarfs'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/scarf.png') }}" alt="icon">
                                                 {{ 'scarfs'|trans({}, 'navigation')}}
@@ -228,28 +312,52 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('sneakers'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/sneakers.png') }}" alt="icon">
                                         {{ 'sneakers'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('footballBoots'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/football-boots.png') }}" alt="icon">
                                         {{ 'footballBoots'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('runningShoes'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/running.png') }}" alt="icon">
                                         {{ 'runningShoes'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('boots'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/boot.png') }}" alt="icon">
                                         {{ 'boots'|trans({}, 'navigation')}}
@@ -265,21 +373,42 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('women'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('insoles'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/insoles.png') }}" alt="icon">
                                                 {{ 'insoles'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('women'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('laces'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/cord-lace.png') }}" alt="icon">
                                                 {{ 'laces'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('women'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('impregnationSprays'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/spray.png') }}" alt="icon">
                                                 {{ 'impregnationSprays'|trans({}, 'navigation')}}
@@ -299,19 +428,37 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('tShirts'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/tshirt.png') }}" alt="icon">
                                         {{ 'tShirts'|trans({}, 'navigation')}}
                                     </a>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('pants'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/pant.png') }}" alt="icon">
                                         {{ 'pants'|trans({}, 'navigation')}}
                                     </a>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('women'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('jackets'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
                                         {{ 'jackets'|trans({}, 'navigation')}}
@@ -327,21 +474,42 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('women'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('caps'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/cap.png') }}" alt="icon">
                                                 {{ 'caps'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('women'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('gloves'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/glove.png') }}" alt="icon">
                                                 {{ 'gloves'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('women'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('scarfs'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/scarf.png') }}" alt="icon">
                                                 {{ 'scarfs'|trans({}, 'navigation')}}
@@ -372,28 +540,52 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('sneakers'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/sneakers.png') }}" alt="icon">
                                         {{ 'sneakers'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('footballBoots'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/football-boots.png') }}" alt="icon">
                                         {{ 'footballBoots'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('runningShoes'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/running.png') }}" alt="icon">
                                         {{ 'runningShoes'|trans({}, 'navigation')}}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                           ('boots'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/boot.png') }}" alt="icon">
                                         {{ 'boots'|trans({}, 'navigation')}}
@@ -409,21 +601,42 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('children'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('insoles'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/insoles.png') }}" alt="icon">
                                                 {{ 'insoles'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('children'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('laces'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/cord-lace.png') }}" alt="icon">
                                                 {{ 'laces'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('children'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                   ('footwearAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('impregnationSprays'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/spray.png') }}" alt="icon">
                                                 {{ 'impregnationSprays'|trans({}, 'navigation')}}
@@ -443,19 +656,37 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('tShirts'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/tshirt.png') }}" alt="icon">
                                         {{ 'tShirts'|trans({}, 'navigation')}}
                                     </a>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('pants'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/pant.png') }}" alt="icon">
                                         {{ 'pants'|trans({}, 'navigation')}}
                                     </a>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item"
+                                       href="{{ path('items_list', {
+                                           ('categories'|trans({}, 'navigation')):
+                                           ('children'|trans({}, 'navigation'))~ ',' ~
+                                           ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                           ('jackets'|trans({}, 'navigation'))
+                                       }) }}">
                                         <img class="nav_icon mr-1"
                                              src="{{ asset('icons/varsity-jacket.png') }}" alt="icon">
                                         {{ 'jackets'|trans({}, 'navigation')}}
@@ -471,21 +702,42 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('children'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('caps'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/cap.png') }}" alt="icon">
                                                 {{ 'caps'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('children'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('gloves'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/glove.png') }}" alt="icon">
                                                 {{ 'gloves'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                               href="{{ path('items_list', {
+                                                   ('categories'|trans({}, 'navigation')):
+                                                   ('children'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothes'|trans({}, 'navigation'))~ ',' ~
+                                                   ('clothingAccessories'|trans({}, 'navigation'))~ ',' ~
+                                                   ('scarfs'|trans({}, 'navigation'))
+                                               }) }}">
                                                 <img class="nav_icon mr-1"
                                                      src="{{ asset('icons/scarf.png') }}" alt="icon">
                                                 {{ 'scarfs'|trans({}, 'navigation')}}
@@ -507,35 +759,60 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('football'|trans({}, 'navigation'))
+                               }) }}">
                                 <img class="nav_icon mr-1"
                                      src="{{ asset('icons/sport_football.png') }}" alt="icon">
                                 {{ 'football'|trans({}, 'navigation')}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('handball'|trans({}, 'navigation'))
+                               }) }}">
                                 <img class="nav_icon mr-1"
                                      src="{{ asset('icons/sport_handball.png') }}" alt="icon">
                                 {{ 'handball'|trans({}, 'navigation')}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('basketball'|trans({}, 'navigation'))
+                               }) }}">
                                 <img class="nav_icon mr-1"
                                      src="{{ asset('icons/sport_basketball.png') }}" alt="icon">
                                 {{ 'basketball'|trans({}, 'navigation')}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('volleyball'|trans({}, 'navigation'))
+                               }) }}">
                                 <img class="nav_icon mr-1"
                                      src="{{ asset('icons/sport_volleyball.png') }}" alt="icon">
                                 {{ 'volleyball'|trans({}, 'navigation')}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item"
+                               href="{{ path('items_list', {
+                                   ('categories'|trans({}, 'navigation')):
+                                   ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                   ('tableTennis'|trans({}, 'navigation'))
+                               }) }}">
                                 <img class="nav_icon mr-1"
                                      src="{{ asset('icons/sport_table_tennis.png') }}" alt="icon">
                                 {{ 'tableTennis'|trans({}, 'navigation')}}
@@ -899,44 +1176,83 @@
                                 <div class="row ml-0 mr-0">
                                     <div class="col-md-6">
                                         <li>
-                                            <a href="#">
-                                                {{ 'football'|trans({}, 'footer')}}
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('football'|trans({}, 'navigation'))
+                                                }) }}">
+                                                {{ 'football'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                {{ 'handball'|trans({}, 'footer')}}
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('handball'|trans({}, 'navigation'))
+                                                }) }}">
+                                                {{ 'handball'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                {{ 'tennis'|trans({}, 'footer')}}
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('tableTennis'|trans({}, 'navigation'))
+                                                }) }}">
+                                                {{ 'tableTennis'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                {{ 'basketball'|trans({}, 'footer')}}
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                                                    ('basketball'|trans({}, 'navigation'))
+                                                }) }}">
+                                                {{ 'basketball'|trans({}, 'navigation')}}
                                             </a>
                                         </li>
                                     </div>
                                     <div class="col-md-6">
                                         <li>
-                                            <a href="#">
+                                            <a
+                                                href="{{ path('special_offer') }}">
                                                 {{ 'specialOffers'|trans({}, 'footer')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('men'|trans({}, 'navigation'))~ ',' ~
+                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                    ('sneakers'|trans({}, 'navigation'))
+                                                }) }}">
                                                 {{ 'mensSneakers'|trans({}, 'footer')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('women'|trans({}, 'navigation'))~ ',' ~
+                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                    ('sneakers'|trans({}, 'navigation'))
+                                                }) }}">
                                                 {{ 'womensSneakers'|trans({}, 'footer')}}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a
+                                                href="{{ path('items_list', {
+                                                    ('categories'|trans({}, 'navigation')):
+                                                    ('children'|trans({}, 'navigation'))~ ',' ~
+                                                    ('footwear'|trans({}, 'navigation'))~ ',' ~
+                                                    ('sneakers'|trans({}, 'navigation'))
+                                                }) }}">
                                                 {{ 'childrensSneakers'|trans({}, 'footer')}}
                                             </a>
                                         </li>
