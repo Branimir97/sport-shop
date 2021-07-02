@@ -2,19 +2,26 @@ title: Registracija
 heading: Registracija novog korisnika
 
 form:
+  termsOfUse: Uvjeti i odredbe
+  termsOfUseTitle: Saznajte više o uvjetima i odredbama našeg webshop-a
   labels:
     name: Ime *
     surname: Prezime *
     gender: Spol
+    gender_choices:
+      select: Odaberi...
+      male: Muški
+      female: Ženski
     birthDate: Datum i godina rođenja
     email: Email adresa *
     password: Lozinka *
     passwordRepeat: Ponovni unos lozinke *
     termsOfUse: Registracijom prihvaćate uvjete i odredbe našeg web shopa.
-    newsletter: Želim primati sve novosti o SportShop akcijama, promo kodovima i ostalim važnim događajima.
+    newsletter: Želim primati sve novosti o SportShop akcijama, promo kodovima i
+                ostalim važnim događajima.
     agreeTerms: Registracijom prihvaćate uvjete i odredbe našeg web shopa.
     subscribe: Želim primati sve novosti o SportShop akcijama, promo kodovima
-      i ostalim važnim događajima.
+               i ostalim važnim događajima.
   registerButton: Registracija
 
   help:
@@ -35,4 +42,6 @@ form:
       naše uvjete i odredbe našeg web mjesta.
     email: Već postoji račun s ovom email adresom
 
-
+flash_message:
+  registered_admin: Novi korisnik uspješno registriran.
+  registered_user: Uspješno ste se registrirali. Automatski ste prijavljeni u sustav.

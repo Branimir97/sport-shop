@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title'|trans({}, 'login')}}{% endblock %}
+{% block title %}
+    {{ 'title'|trans({}, 'login')}}
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/login.css") }}">
 {% endblock %}

@@ -18,27 +18,28 @@ class ResetPasswordType extends AbstractType
         if($isAdmin) {
             $builder
                 ->add('password', RepeatedType::class, [
-                    'type'=>PasswordType::class,
+                    'type' => PasswordType::class,
                     'mapped' => false,
                     'first_options'  => [
-                        'label' => 'Nova lozinka *',
-                        'help'=>'Lozinka mora sadržavati min. 8 znakova'
+                        'label' => 'form_reset_password.password_first_label',
+                        'help' => 'form_reset_password.password_first_help',
                     ],
                     'second_options' => [
-                        'label' => 'Ponovni unos nove lozinke *',
-                        'help'=>'Lozinke se moraju podudarati'
+                        'label' => 'form_reset_password.password_second_label',
+                        'help' => 'form_reset_password.password_second_help',
                     ],
-                    'invalid_message'=>'Lozinke se moraju podudarati.',
+                    'invalid_message' => 'form_reset_password.invalid_message',
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Unesite novu lozinku'
+                            'message' => 'form_reset_password.constraint_not_blank'
                         ]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'Nova lozinka mora sadržavati min. 8 znakova',
+                            'minMessage' => 'form_reset_password.constraint_length',
                             'max' => 4096
                         ])
-                    ]
+                    ],
+                    'translation_domain' => 'user'
                 ])
             ;
         } else {
@@ -47,35 +48,36 @@ class ResetPasswordType extends AbstractType
                     'mapped' => false,
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Unesite lozinku'
+                            'message' => 'form_reset_password.current_password_constraint_not_blank'
                         ]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'Lozinka mora sadržavati min. 8 znakova',
+                            'minMessage' => 'form_reset_password.current_password_constraint_length',
                             'max' => 4096
                         ])
                     ],
-                    'label'=>'Trenutna lozinka *'
+                    'label' => 'form_reset_password.current_password_label',
+                    'translation_domain' => 'user'
                 ])
                 ->add('password', RepeatedType::class, [
-                    'type'=>PasswordType::class,
+                    'type' => PasswordType::class,
                     'mapped' => false,
                     'first_options'  => [
-                        'label' => 'Nova lozinka *',
-                        'help'=>'Lozinka mora sadržavati min. 8 znakova'
+                        'label' => 'form_reset_password.password_first_label',
+                        'help' => 'form_reset_password.password_first_help',
                     ],
                     'second_options' => [
-                        'label' => 'Ponovni unos nove lozinke *',
-                        'help'=>'Lozinke se moraju podudarati'
+                        'label' => 'form_reset_password.password_second_label',
+                        'help' => 'form_reset_password.password_second_help',
                     ],
-                    'invalid_message'=>'Lozinke se moraju podudarati.',
+                    'invalid_message' => 'form_reset_password.invalid_message',
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Unesite novu lozinku'
+                            'message' => 'form_reset_password.constraint_not_blank'
                         ]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'Nova lozinka mora sadržavati min. 8 znakova',
+                            'minMessage' => 'form_reset_password.constraint_length',
                             'max' => 4096
                         ])
                     ]
@@ -87,7 +89,7 @@ class ResetPasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'isAdmin'=> false
+            'isAdmin' => false
         ]);
     }
 }

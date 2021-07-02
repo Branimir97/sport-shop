@@ -7,8 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -21,51 +23,51 @@ class UserType extends AbstractType
     {
         $isEditForm = $options['isEditForm'];
         $builder
-            ->add('name', null, [
-                'label'=>'form.labels.name',
-                'translation_domain'=>'register'
+            ->add('name', TextType::class, [
+                'label' => 'form.labels.name',
+                'translation_domain' => 'register'
             ])
-            ->add('surname', null, [
-                'label'=>'form.labels.surname',
-                'translation_domain'=>'register'
+            ->add('surname', TextType::class, [
+                'label' => 'form.labels.surname',
+                'translation_domain' => 'register'
             ])
             ->add('gender', ChoiceType::class, [
                 'choices' => [
-                    'Odaberi...'=>null,
-                    'Muški' => 'Muški',
-                    'Ženski' => 'Ženski'
+                    'form.labels.gender_choices.select' => null,
+                    'form.labels.gender_choices.male' => 'Muški',
+                    'form.labels.gender_choices.female' => 'Ženski'
                 ],
-                'help'=>'form.help.gender',
-                'label'=>'form.labels.gender',
-                'translation_domain'=>'register'
+                'help' => 'form.help.gender',
+                'label' => 'form.labels.gender',
+                'translation_domain' => 'register'
             ])
             ->add('birthDate', DateType::class, [
-                'required'=>false,
+                'required' => false,
                 'widget' => 'single_text',
-                'help'=>'form.help.birthDate',
-                'label'=>'form.labels.birthDate',
-                'translation_domain'=>'register'
+                'help' => 'form.help.birthDate',
+                'label' => 'form.labels.birthDate',
+                'translation_domain' => 'register'
             ])
-            ->add('email', null, [
-                'label'=>'form.labels.email',
-                'translation_domain'=>'register'
+            ->add('email', EmailType::class, [
+                'label' => 'form.labels.email',
+                'translation_domain' => 'register'
             ]);
 
             if(!$isEditForm) {
                 $builder
                     ->add('password', RepeatedType::class, [
-                        'type'=>PasswordType::class,
+                        'type' => PasswordType::class,
                         'mapped' => false,
                         'first_options'  => [
-                            'help'=>'form.help.password',
-                            'label'=>'form.labels.password',
+                            'help' => 'form.help.password',
+                            'label' => 'form.labels.password',
                         ],
                         'second_options' => [
-                            'help'=>'form.help.passwordRepeat',
-                            'label'=>'form.labels.passwordRepeat',
+                            'help' => 'form.help.passwordRepeat',
+                            'label' => 'form.labels.passwordRepeat',
                         ],
                         'invalid_message' => 'form.invalid_message.password',
-                        'translation_domain'=>'register',
+                        'translation_domain' => 'register',
                         'constraints' => [
                             new NotBlank([
                                 'message' => 'validators.passwordNotBlank',
@@ -84,15 +86,15 @@ class UserType extends AbstractType
                                 'message' => 'validators.agreeTerms',
                             ]),
                         ],
-                        'label_html'=>true,
-                        'label'=>'form.labels.agreeTerms',
-                        'translation_domain'=>'register'
+                        'label_html' => true,
+                        'label' => 'form.labels.agreeTerms',
+                        'translation_domain' => 'register'
                     ])
                     ->add('subscribeMe', CheckboxType::class, [
-                        'required'=>false,
+                        'required' => false,
                         'mapped' => false,
-                        'label'=> 'form.labels.subscribe',
-                        'translation_domain'=>'register'
+                        'label' => 'form.labels.subscribe',
+                        'translation_domain' => 'register'
                     ])
                 ;
             }

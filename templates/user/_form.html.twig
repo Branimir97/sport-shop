@@ -1,6 +1,7 @@
 {% set terms_label %}
-    <a title="Saznajte više o uvjetima i odredbama našeg webshop-a"
-            href="{{ path('terms_and_conditions') }}">Uvjeti i odredbe
+    <a title="{{ 'form.help.termsOfUseTitle'|trans({}, 'register')}}"
+            href="{{ path('terms_and_conditions') }}">
+        {{ 'form.termsOfUse'|trans({}, 'register')}}
     </a>
 {% endset %}
 

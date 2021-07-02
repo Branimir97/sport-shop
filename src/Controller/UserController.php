@@ -15,21 +15,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/korisnici", name="user_index", methods={"GET"})
+     * @Route({
+     *     "en": "/users",
+     *     "hr": "korisnici"
+     * }, name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findBy([], ['id'=>'DESC']),
+            'users' => $userRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
     /**
-     * @Route("/korisnik/{id}", name="user_show", methods={"GET"})
+     * @Route({
+     *     "en": "/user/{id}",
+     *     "hr": "/korisnik/{id}"
+     * }, name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -39,21 +46,28 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/korisnik/{id}/uredi", name="user_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/user/{id}/edit",
+     *     "hr": "/korisnik/{id}/uredi"
+     * }, name="user_edit", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
+     * @param TranslatorInterface $translator
      * @return Response
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, TranslatorInterface $translator): Response
     {
-        $form = $this->createForm(UserType::class, $user, ['isEditForm'=>true]);
+        $form = $this->createForm(UserType::class, $user, ['isEditForm' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success',
-                'Podaci o korisniku "'.$user->getName().' '.
-                $user->getSurname().'" uspješno ažurirani.');
+                $translator->trans('flash_message.user_edited',
+                    [
+                        '%user_name%' => $user->getName(),
+                        '%user_surname%' => $user->getSurname()
+                    ], 'user'));
             if($this->isGranted("ROLE_ADMIN")){
                 return $this->redirectToRoute('user_index');
             } else {
@@ -68,9 +82,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/korisnik/{id}", name="user_delete", methods={"DELETE"})
+     * @Route({
+     *     "en": "/user/{id}",
+     *     "hr": "/korisnik/{id}"
+     * }, name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(),
             $request->request->get('_token'))) {
@@ -78,18 +95,20 @@ class UserController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
         }
+        $this->addFlash('danger',
+            $translator->trans('flash_message.user_deleted',
+                [], 'user'));
         if($this->isGranted("ROLE_ADMIN")) {
-            $this->addFlash('success',
-                'Korisnički račun uspješno obrisan.');
             return $this->redirectToRoute('user_index');
         }
-        $this->addFlash('success',
-            'Korisnički račun uspješno obrisan.');
         return $this->redirectToRoute('home');
     }
 
     /**
-     * @Route("/postavke/računa", name="account_settings", methods={"GET"})
+     * @Route({
+     *     "en": "/account/settings",
+     *     "hr": "/postavke/računa"
+     * }, name="account_settings", methods={"GET"})
      * @param DeliveryAddressRepository $deliveryAddressRepository
      * @param LoyaltyCardRepository $loyaltyCardRepository
      * @param SubscriberRepository $subscriberRepository
@@ -99,31 +118,33 @@ class UserController extends AbstractController
                              LoyaltyCardRepository $loyaltyCardRepository,
                              SubscriberRepository $subscriberRepository): Response
     {
-        $deliveryAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
-        $loyaltyCard = $loyaltyCardRepository->findOneBy(['user'=>$this->getUser()]);
-        $subscribed = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $deliveryAddresses = $deliveryAddressRepository->findBy(['user' => $this->getUser()]);
+        $loyaltyCard = $loyaltyCardRepository->findOneBy(['user' => $this->getUser()]);
+        $subscribed = $subscriberRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
         return $this->render('user/account_settings.html.twig', [
-            'deliveryAddresses'=>$deliveryAddresses,
-            'loyalty_card'=>$loyaltyCard,
-            'subscribed'=>$subscribed
+            'deliveryAddresses' => $deliveryAddresses,
+            'loyalty_card' => $loyaltyCard,
+            'subscribed' => $subscribed
         ]);
     }
 
     /**
-     * @Route("/{id}/resetiranje/lozinke", name="reset_password", methods={"GET", "POST"})
+     * @Route({
+     *     "en": "/{id}/password/reset",
+     *     "hr": "/{id}/resetiranje/lozinke"
+     * }, name="reset_password", methods={"GET", "POST"})
      */
     public function resetPassword(Request $request,
                                   UserRepository $userRepository,
-                                  UserPasswordEncoderInterface $passwordEncoder)
+                                  UserPasswordEncoderInterface $passwordEncoder,
+                                  TranslatorInterface $translator)
     {
-        $user = $userRepository->findOneBy(['id'=>$request->get('id')]);
-
+        $user = $userRepository->findOneBy(['id' => $request->get('id')]);
         if(!is_null($user->getFacebookId()) || !is_null($user->getGoogleId())) {
             return $this->redirectToRoute('account_settings');
         }
-
         $form = $this->createForm(ResetPasswordType::class, null,
-            ['isAdmin'=>$this->isGranted("ROLE_ADMIN")]);
+            ['isAdmin' => $this->isGranted("ROLE_ADMIN")]);
         $form->handleRequest($request);
 
         /** @var User $user */
@@ -135,12 +156,13 @@ class UserController extends AbstractController
                     $user,
                     $newPassword
                 ));
-
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Lozinka uspješno promijenjena.');
+                $this->addFlash('success',
+                    $translator->trans('flash_message.password_reset',
+                        [], 'user'));
                 return $this->redirectToRoute('user_index');
             }
             else
@@ -150,25 +172,27 @@ class UserController extends AbstractController
                 if(!$userPassword)
                 {
                     $form->get('current_password')->addError(new FormError(
-                        'Neispravan unos trenutne lozinke.'));
+                        $translator->trans('flash_message.form_error',
+                            [], 'user')));
                 }
                 $newPassword =  $form->get('password')->get('first')->getData();
                 $user->setPassword($passwordEncoder->encodePassword(
                     $user,
                     $newPassword
                 ));
-
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Lozinka uspješno promijenjena.');
+                $this->addFlash('success',
+                    $translator->trans('flash_message.password_reset',
+                        [], 'user'));
                 return $this->redirectToRoute('account_settings');
             }
         }
         return $this->render('user/reset_password.html.twig', [
             'form' => $form->createView(),
-            'user'=>$user,
+            'user' => $user,
         ]);
     }
 }

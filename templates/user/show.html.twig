@@ -1,64 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Korisnik {{ user.name }} {{ user.surname }}{% endblock %}
+{% block title %}
+    {{ 'show.title'|trans({}, 'user') }}
+    {{ user.name }} {{ user.surname }}
+{% endblock %}
 
 {% block body %}
     <div class="container">
         <h2 class="text-center mt-2 bg-light p-2">
-            Korisnik {{ user.name }} {{ user.surname }}
+            {{ 'show.title'|trans({}, 'user') }}
+            {{ user.name }} {{ user.surname }}
         </h2>
         <a href="{{ path('user_index') }}">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Lista korisnika
+            {{ 'usersList'|trans({}, 'user') }}
         </a>
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>
+                        Id
+                    </th>
                     <td>{{ user.id }}</td>
                 </tr>
                 <tr>
-                    <th>Email adresa</th>
+                    <th>
+                        {{ 'usersTable.email'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.email }}</td>
                 </tr>
                 <tr>
-                    <th>Ovlasti</th>
+                    <th>
+                        {{ 'usersTable.authority'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.roles ? user.roles|json_encode : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>Ime</th>
+                    <th>
+                        {{ 'usersTable.name'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.name }}</td>
                 </tr>
                 <tr>
-                    <th>Prezime</th>
+                    <th>
+                        {{ 'usersTable.surname'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.surname }}</td>
                 </tr>
                 <tr>
-                    <th>Spol</th>
+                    <th>
+                        {{ 'usersTable.gender'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.gender ? user.gender : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>Datum i godina rođenja</th>
+                    <th>
+                        {{ 'usersTable.birthDate'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.birthDate ? user.birthDate|date('d.m.Y.') : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>FacebookId</th>
+                    <th>
+                        Facebook Id
+                    </th>
                     <td>{{ user.facebookId ? user.facebookId : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>GoogleId</th>
+                    <th>
+                        Google Id
+                    </th>
                     <td>{{ user.googleId ? user.googleId : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme registracije</th>
+                    <th>
+                        {{ 'usersTable.createdAt'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
                 </tr>
                 <tr>
-                    <th>Vrijeme posljednje izmjene</th>
+                    <th>
+                        {{ 'usersTable.updatedAt'|trans({}, 'user') }}
+                    </th>
                     <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
                 </tr>
                 <tr>
-                    <th>Adrese isporuke</th>
+                    <th>
+                        {{ 'usersTable.deliveryAddresses'|trans({}, 'user') }}
+                    </th>
                     <td>
                         {% if user.deliveryAddresses|length > 0 %}
                             {% for deliveryAddress in user.deliveryAddresses %}
@@ -68,7 +96,7 @@
                                     {{ deliveryAddress.country }}<br>
                                     <a href="{{ path('delivery_address_edit',
                                         {id:deliveryAddress.id}) }}">
-                                        Uredi podatke o adresi isporuke
+                                        {{ 'show.editAddress'|trans({}, 'user') }}
                                         <i class="fas fa-edit"></i>
                                     </a><br>
                             {% endfor %}
@@ -80,9 +108,9 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a class="btn btn-outline-success"
+            <a class="btn btn-success"
                href="{{ path('user_edit', {'id': user.id}) }}">
-                Uredi podatke
+                {{ 'show.editUser'|trans({}, 'user') }}
             </a>
             {{ include('user/_delete_form.html.twig') }}
         </div>

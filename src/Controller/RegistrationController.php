@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -26,13 +27,15 @@ class RegistrationController extends AbstractController
      * @param GuardAuthenticatorHandler $guardHandler
      * @param AppAuthenticator $authenticator
      * @param SubscriberRepository $subscriberRepository
+     * @param TranslatorInterface $translator
      * @return Response
      */
     public function register(Request $request,
                              UserPasswordEncoderInterface $passwordEncoder,
                              GuardAuthenticatorHandler $guardHandler,
                              AppAuthenticator $authenticator,
-                             SubscriberRepository $subscriberRepository): Response
+                             SubscriberRepository $subscriberRepository,
+                             TranslatorInterface $translator): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -45,7 +48,7 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $subscribeMe = $form->get('subscribeMe')->getData();
             if($subscribeMe == true && is_null($subscriberRepository->findOneBy(
-                ['email'=>$user->getEmail()]))){
+                ['email' => $user->getEmail()]))){
                 $subscriber = new Subscriber();
                 $subscriber->setEmail($user->getEmail());
                 $entityManager->persist($subscriber);
@@ -55,11 +58,13 @@ class RegistrationController extends AbstractController
 
             if($this->isGranted("ROLE_ADMIN")){
                 $this->addFlash('success',
-                    'Novi korisnik uspješno registriran.');
+                    $translator->trans('flash_message.registered_admin',
+                        [], 'register'));
                 return $this->redirectToRoute('user_index');
             } else {
                 $this->addFlash('success',
-                    'Uspješno ste se registrirali. Automatski ste prijavljeni u sustav.');
+                    $translator->trans('flash_message.registered_user',
+                        [], 'register'));
                 return $guardHandler->authenticateUserAndHandleSuccess(
                     $user, $request, $authenticator, 'main');
             }
