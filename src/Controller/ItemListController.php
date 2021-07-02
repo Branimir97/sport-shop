@@ -20,11 +20,13 @@ class ItemListController extends AbstractController
     public function index(Request $request, ItemRepository $itemRepository,
                           TranslatorInterface $translator): Response
     {
-        $categoriesRequest = $request->get($translator->trans('categories', [], 'navigation'));
+        $categoriesRequest = $request->get
+            ($translator->trans('categories', [], 'navigation'));
         $categories = explode(',', $categoriesRequest);
         $items = $itemRepository->findByCategories($categories);
         return $this->render('item_list/index.html.twig', [
             'items' => $items,
+            'categories' => $categories
         ]);
     }
 }

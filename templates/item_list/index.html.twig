@@ -9,17 +9,28 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h2 class="text-center mt-2 bg-light p-2">
-            {{ 'title'|trans({}, 'item_list') }}
-        </h2>
         {% if items|length == 0 %}
+            <h2 class="text-center mt-2 bg-light p-2">
+                {{ 'title'|trans({}, 'item_list') }}
+            </h2>
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
-                <h6 class="bg-danger p-2 text-white">
+                <h6 class="bg-light p-2">
                     {{ 'noItems'|trans({}, 'item_list') }}
                 </h6>
             </div>
         {% else %}
+            <div class="bg-light text-center">
+            <h2 class="mt-2 pt-2 pb-0 mb-0">
+                {{ 'title'|trans({}, 'item_list') }}
+            </h2>
+            <small>
+                {{ 'categories'|trans({}, 'item_list') }}:
+                {% for category in categories %}
+                    {{ category|trans({}, 'navigation') }}
+                {% endfor %}
+            </small>
+            </div>
             <div class="row">
                 {% for item in items %}
                     <div class="col-sm-3 mb-2">
