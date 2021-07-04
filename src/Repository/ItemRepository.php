@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,7 +20,7 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
-    public function findByCategories($categories)
+    public function findByCategories($categories): Query
     {
         return $this->createQueryBuilder('i')
             ->join('i.itemCategories', 'itemCategories')
@@ -32,8 +33,7 @@ class ItemRepository extends ServiceEntityRepository
             ->addSelect('images')
             ->addSelect('itemColors')
             ->addSelect('color')
-            ->getQuery()
-            ->getArrayResult();
+            ->getQuery();
     }
 
     public function searchByCipherAndName($keyword)

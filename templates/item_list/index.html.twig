@@ -9,7 +9,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        {% if items|length == 0 %}
+        {% if pagination.getTotalItemCount == 0 %}
             <h2 class="text-center mt-2 bg-light p-2">
                 {{ 'title'|trans({}, 'item_list') }}
             </h2>
@@ -32,7 +32,7 @@
             </small>
             </div>
             <div class="row">
-                {% for item in items %}
+                {% for item in pagination %}
                     <div class="col-sm-3 mb-2">
                         <div class="one_item">
                             <div class="img-wrapper">
@@ -93,5 +93,8 @@
                 {% endfor %}
             </div>
         {% endif %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}

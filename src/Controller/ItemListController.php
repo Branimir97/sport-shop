@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ItemRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,14 +19,20 @@ class ItemListController extends AbstractController
      * }, name="items_list")
      */
     public function index(Request $request, ItemRepository $itemRepository,
-                          TranslatorInterface $translator): Response
+                          TranslatorInterface $translator,
+                          PaginatorInterface $paginator): Response
     {
         $categoriesRequest = $request->get
             ($translator->trans('categories', [], 'navigation'));
         $categories = explode(',', $categoriesRequest);
-        $items = $itemRepository->findByCategories($categories);
+        $itemsQuery = $itemRepository->findByCategories($categories);
+        $pagination = $paginator->paginate(
+            $itemsQuery,
+            $request->query->getInt('page', 1),
+            16
+        );
         return $this->render('item_list/index.html.twig', [
-            'items' => $items,
+            'pagination' => $pagination,
             'categories' => $categories
         ]);
     }
