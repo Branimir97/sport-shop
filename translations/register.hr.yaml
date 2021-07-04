@@ -44,4 +44,4 @@ form:
 
 flash_message:
   registered_admin: Novi korisnik uspješno registriran.
-  registered_user: Uspješno ste se registrirali. Automatski ste prijavljeni u sustav.
+  registered_user: Uspješno ste se registrirali.

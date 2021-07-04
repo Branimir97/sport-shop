@@ -35,4 +35,19 @@ class ItemRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+    public function searchByCipherAndName($keyword)
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.title LIKE :title')
+            ->setParameter('title', '%'.$keyword.'%')
+            ->join('i.images', 'images')
+            ->join('i.itemColors', 'itemColors')
+            ->join('itemColors.color', 'color')
+            ->addSelect('images')
+            ->addSelect('itemColors')
+            ->addSelect('color')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

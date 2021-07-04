@@ -44,4 +44,4 @@ form:
 
 flash_message:
   registered_admin: New user successfully registered.
-  registered_user: You have successfully registered. You are automatically logged in to the system.
+  registered_user: You have successfully registered.
