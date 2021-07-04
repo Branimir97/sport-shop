@@ -1,0 +1,14 @@
+homepage_link: Return to the homepage
+
+403:
+  title: Access forbidden
+  message: You are trying to access something you don't have the permission for.
+
+404:
+  title: Page not found
+  message: The requested page couldn't be located. Checkout for any URL misspelling.
+
+other:
+  title: Oops
+  message: It looks like something went wrong.
+
