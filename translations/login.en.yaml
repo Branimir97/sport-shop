@@ -7,3 +7,6 @@ registrationText: Don't have an existing account on our platform? Create your ac
 registrationHrefText: here
 facebookSignIn: Sign in using Facebook
 googleSignIn: Sign in using Google
+
+flash_message:
+  loggedIn: Successful login.

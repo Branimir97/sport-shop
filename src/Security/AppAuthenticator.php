@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -33,18 +34,21 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
     private $csrfTokenManager;
     private $passwordEncoder;
     private $translator;
+    private $flashBag;
 
     public function __construct(EntityManagerInterface $entityManager,
                                 UrlGeneratorInterface $urlGenerator,
                                 CsrfTokenManagerInterface $csrfTokenManager,
                                 UserPasswordEncoderInterface $passwordEncoder,
-                                TranslatorInterface $translator)
+                                TranslatorInterface $translator,
+                                FlashBagInterface $flashBag)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->translator = $translator;
+        $this->flashBag = $flashBag;
     }
 
     public function supports(Request $request): bool
@@ -106,6 +110,9 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $this->flashBag->add('success',
+            $this->translator->trans('flash_message.loggedIn',
+                [], 'login'));
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 
@@ -113,4 +120,5 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+
 }
