@@ -385,7 +385,7 @@ class ItemController extends AbstractController
                         $this->addFlash('danger',
                             $translator->trans('flash_message.tag_error',
                                 [], 'item'));
-                        return $this->redirectToRoute('item_edit',
+                        return $this->redirectToRoute('item_add_tag',
                             ['id' => $item->getId()]);
                     } else {
                         $itemTag = new ItemTag();
