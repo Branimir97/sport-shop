@@ -83,7 +83,7 @@ class Item
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="item")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="item", orphanRemoval=true)
      */
     private $reviews;
 
