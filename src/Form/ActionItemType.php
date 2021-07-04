@@ -15,9 +15,9 @@ class ActionItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $actionItems = $options['actionItems'];
         $isEdit = $options['isEdit'];
         if(!$isEdit) {
-            $actionItems = $options['actionItems'];
             $builder
                 ->add('item', EntityType::class, [
                     'mapped' => false,

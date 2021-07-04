@@ -229,6 +229,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getFullName(): string
+    {
+        return $this->name . ' ' . $this->surname;
+    }
+
     public function getGender(): ?string
     {
         return $this->gender;

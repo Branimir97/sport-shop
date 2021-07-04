@@ -15,22 +15,25 @@ class LoyaltyCardType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $users = $options['users'];
+        $usersWithLoyaltyCard = $options['usersWithLoyaltyCard'];
         $isEdit = $options['isEdit'];
             if(!$isEdit) {
                 $builder
                     ->add('user', EntityType::class, [
                         'mapped' => false,
                         'class' => User::class,
-                        'query_builder' => function (EntityRepository $entityRepository) use ($users) {
-                            if(count($users) == 0) {
+                        'query_builder' => function (EntityRepository $entityRepository)
+                                            use ($usersWithLoyaltyCard) {
+                            if(count($usersWithLoyaltyCard) == 0) {
                                 return $entityRepository->createQueryBuilder('u');
                             }
                             return $entityRepository->createQueryBuilder('u')
                                 ->where('u NOT IN (:array)')
-                                ->setParameter('array', $users);
+                                ->setParameter('array', $usersWithLoyaltyCard);
                         },
-                        'choice_label' => 'name',
+                        'choice_label' => function(User $user) {
+                                return $user->getFullName();
+                        },
                         'help' => 'form.user_help',
                         'label' => 'form.user_label',
                         'translation_domain' => 'loyalty_card'
@@ -53,7 +56,7 @@ class LoyaltyCardType extends AbstractType
         $resolver->setDefaults([
             'data_class' => LoyaltyCard::class,
             'isEdit' => false,
-            'users' => []
+            'usersWithLoyaltyCard' => []
         ]);
     }
 }

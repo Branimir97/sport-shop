@@ -67,18 +67,18 @@ class LoyaltyCardController extends AbstractController
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $users = $userRepository->findAll();
-        $usersWithoutLoyaltyCard = [];
+        $usersWithLoyaltyCard = [];
         foreach($users as $user) {
             if(!is_null($user->getLoyaltyCard())) {
-                array_push($usersWithoutLoyaltyCard, $user);
+                array_push($usersWithLoyaltyCard, $user);
             }
         }
-        $loyaltyCard = new LoyaltyCard();
-        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard,
-            ['users'=>$usersWithoutLoyaltyCard]);
+        $form = $this->createForm(LoyaltyCardType::class, null,
+            ['usersWithLoyaltyCard' => $usersWithLoyaltyCard]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->get('user')->getData();
+            $loyaltyCard = new LoyaltyCard();
             $loyaltyCard->setUser($user);
             $randomNumber = substr(str_shuffle("012345678912345"), 0, 15);
             $loyaltyCard->setNumber($randomNumber);
