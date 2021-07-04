@@ -73,25 +73,52 @@ class SubscriberController extends AbstractController
 
     /**
      * @Route({
-     *     "en": "/new/registered",
-     *     "hr": "/novi/registrirani"
-     * }, name="subscriber_new_registered", methods={"GET","POST"})
+     *     "en": "/new/registered/settings",
+     *     "hr": "/novi/registrirani/postavke"
+     * }, name="subscriber_new_registered_settings", methods={"GET","POST"})
      */
-    public function newRegistered(Request $request,
-                                  SubscriberRepository $subscriberRepository,
-                                  TranslatorInterface $translator): Response
+    public function newRegisteredSettings(TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
-        $formEmail = $request->request->get('email');
         $subscriber = new Subscriber();
         $currentEmail = $this->getUser()->getUsername();
-        if(!is_null($subscriberRepository->findOneBy(
-            ['email'=>$currentEmail])) || ($formEmail !== $currentEmail)) {
+        $subscriber->setEmail($currentEmail);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($subscriber);
+        $entityManager->flush();
+
+        $this->addFlash('success',
+            $translator->trans('flash_message.subscriber_added',
+                [], 'subscriber'));
+        return $this->redirectToRoute('account_settings');
+    }
+
+    /**
+     * @Route({
+     *     "en": "/new/registered/settings/footer",
+     *     "hr": "/novi/registrirani/podnožje"
+     * }, name="subscriber_new_registered_footer", methods={"GET","POST"})
+     */
+    public function newRegisteredFooter(Request $request,
+                                        SubscriberRepository $subscriberRepository,
+                                        TranslatorInterface $translator): Response
+    {
+        $this->denyAccessUnlessGranted("ROLE_USER");
+        $formEmail = $request->get('email');
+        $subscriber = new Subscriber();
+        $currentEmail = $this->getUser()->getUsername();
+        if($formEmail !== $currentEmail) {
             $this->addFlash('danger',
                 $translator->trans('flash_message.registered_subscribe_message',
                     [], 'subscriber'));
             return $this->redirectToRoute('account_settings');
+        } else if(!is_null($subscriberRepository->findOneBy(['email' => $currentEmail]))) {
+            $this->addFlash('danger',
+                $translator->trans('flash_message.subscriber_exists',
+                    [], 'subscriber'));
+            return $this->redirectToRoute('account_settings');
         }
+
         $subscriber->setEmail($currentEmail);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($subscriber);

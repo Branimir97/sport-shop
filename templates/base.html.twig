@@ -1104,11 +1104,11 @@
                     <div class="col-md-4">
                         <form class="newsletter"
                               {% if app.user %}
-                                action="{{ path('subscriber_new_registered') }}"
+                                action="{{ path('subscriber_new_registered_footer') }}"
                                 {% else %}
                                 action="{{ path('subscriber_new') }}"
-                              {% endif %}method="POST">
-                            <input type="text" required
+                              {% endif %} method="POST">
+                            <input type="email" required
                                    placeholder="{{ 'emailInputPlaceholder'|trans({}, 'footer')}}" name="email">
                             <button class="newsletter_submit_btn" type="submit"
                                     title="{{ 'emailButtonTitle'|trans({}, 'footer')}}">

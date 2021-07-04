@@ -160,7 +160,7 @@ footer{
     background: #333;
 }
 
-footer .newsletter input[type="text"]{
+footer .newsletter input[type="email"]{
     width: 100%;
     background: #fff;
     color: #333;

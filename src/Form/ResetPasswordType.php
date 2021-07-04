@@ -7,11 +7,24 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ResetPasswordType extends AbstractType
 {
+    public $translator;
+
+    /**
+     * ResetPasswordType constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $isAdmin = $options['isAdmin'];
@@ -28,14 +41,17 @@ class ResetPasswordType extends AbstractType
                         'label' => 'form_reset_password.password_second_label',
                         'help' => 'form_reset_password.password_second_help',
                     ],
-                    'invalid_message' => 'form_reset_password.invalid_message',
+                    'invalid_message' => $this->translator->trans
+                                        ('form_reset_password.invalid_message', [], 'user'),
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'form_reset_password.constraint_not_blank'
+                            'message' => $this->translator->trans
+                                        ('form_reset_password.constraint_not_blank', [], 'user'),
                         ]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'form_reset_password.constraint_length',
+                            'minMessage' => $this->translator->trans
+                                        ('form_reset_password.constraint_length', [], 'user'),
                             'max' => 4096
                         ])
                     ],
@@ -48,11 +64,15 @@ class ResetPasswordType extends AbstractType
                     'mapped' => false,
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'form_reset_password.current_password_constraint_not_blank'
+                            'message' => $this->translator->trans
+                                        ('form_reset_password.current_password_constraint_not_blank',
+                                            [], 'user'),
                         ]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'form_reset_password.current_password_constraint_length',
+                            'minMessage' => $this->translator->trans
+                                            ('form_reset_password.current_password_constraint_length',
+                                                [], 'user'),
                             'max' => 4096
                         ])
                     ],
@@ -70,17 +90,21 @@ class ResetPasswordType extends AbstractType
                         'label' => 'form_reset_password.password_second_label',
                         'help' => 'form_reset_password.password_second_help',
                     ],
-                    'invalid_message' => 'form_reset_password.invalid_message',
+                    'invalid_message' => $this->translator->trans
+                                        ('form_reset_password.invalid_message', [], 'user'),
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'form_reset_password.constraint_not_blank'
+                            'message' => $this->translator->trans
+                                        ('form_reset_password.constraint_not_blank', [], 'user'),
                         ]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'form_reset_password.constraint_length',
+                            'minMessage' => $this->translator->trans
+                                        ('form_reset_password.constraint_length', [], 'user'),
                             'max' => 4096
                         ])
-                    ]
+                    ],
+                    'translation_domain' => 'user'
                 ])
             ;
         }

@@ -31,7 +31,7 @@
             <p class="bg-warning p-2 text-center">
                 {{ 'account_settings.subscribe'|trans({}, 'user') }}
                 <a id="subscribe"
-                   href="{{ path('subscriber_new_registered') }}">
+                   href="{{ path('subscriber_new_registered_settings') }}">
                     {{ 'account_settings.subscribe_button'|trans({}, 'user') }}
                 </a>
             </p>
@@ -96,7 +96,7 @@
                 </h3>
                 {% if not deliveryAddresses %}
                     <p class="bg-danger p-2 text-white text-center">
-                        {{ 'usersTable.deliveryAddress_warning'|trans({}, 'user') }}:
+                        {{ 'usersTable.deliveryAddress_warning'|trans({}, 'user') }}
                     </p>
                 {% else %}
                     {% for deliveryAddress in deliveryAddresses%}
