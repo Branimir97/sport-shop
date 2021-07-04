@@ -17,19 +17,20 @@ class ActionItemType extends AbstractType
     {
         $isEdit = $options['isEdit'];
         if(!$isEdit) {
-            $noActionItems = $options['noActionItems'];
+            $actionItems = $options['actionItems'];
             $builder
                 ->add('item', EntityType::class, [
                     'mapped' => false,
                     'class' => Item::class,
                     'multiple' => true,
-                    'query_builder' => function(EntityRepository $entityRepository) use ($noActionItems) {
-                        if(count($noActionItems) == 0) {
+                    'query_builder' => function(EntityRepository $entityRepository) use
+                                                ($actionItems) {
+                        if(count($actionItems) == 0) {
                             return $entityRepository->createQueryBuilder('i');
                         }
                         return $entityRepository->createQueryBuilder('i')
-                            ->where('i IN (:array)')
-                            ->setParameter('array', $noActionItems);
+                            ->where('i NOT IN (:array)')
+                            ->setParameter('array', $actionItems);
                     },
                     'choice_label' => 'title',
                     'help' => 'form.item_help',
@@ -62,7 +63,7 @@ class ActionItemType extends AbstractType
     {
         $resolver->setDefaults([
             'isEdit' => false,
-            'noActionItems' => []
+            'actionItems' => [],
         ]);
     }
 }

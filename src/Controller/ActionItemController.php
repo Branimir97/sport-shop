@@ -42,17 +42,21 @@ class ActionItemController extends AbstractController
                         TranslatorInterface $translator): Response
     {
         $items = $itemRepository->findAll();
-        $noActionItems = [];
+        $actionItems = [];
         foreach ($items as $item) {
             $itemCategories = $item->getItemCategories();
             foreach($itemCategories as $itemCategory) {
-                if(is_null($itemCategory->getCategory()->getActionCategory())) {
-                    array_push($noActionItems, $item);
+                if(!is_null($itemCategory->getCategory()->getActionCategory())) {
+                    array_push($actionItems, $item);
                 }
+            }
+            if(!is_null($item->getActionItem())) {
+                array_push($actionItems, $item);
             }
         }
 
-        $form = $this->createForm(ActionItemType::class, null, ['noActionItems' => $noActionItems]);
+        $form = $this->createForm(ActionItemType::class, null,
+            ['actionItems' => $actionItems]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -96,7 +100,8 @@ class ActionItemController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="action_item_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, ActionItem $actionItem, TranslatorInterface $translator): Response
+    public function edit(Request $request, ActionItem $actionItem,
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ActionItemType::class, $actionItem, ['isEdit'=>true]);
         $form->handleRequest($request);
@@ -119,7 +124,8 @@ class ActionItemController extends AbstractController
     /**
      * @Route("/{id}", name="action_item_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ActionItem $actionItem, TranslatorInterface $translator): Response
+    public function delete(Request $request, ActionItem $actionItem,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$actionItem->getId(),
             $request->request->get('_token'))) {
