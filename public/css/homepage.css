@@ -3,6 +3,14 @@
     width: auto;
 }
 
+.carousel-content {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    color: white;
+    text-shadow: -1px -1px 14px rgba(119, 234, 101, 1);
+}
+
 #carousel-homepage-info .carousel .carousel-indicators li{
     margin-right: 10px!important;
     width: 10px;
