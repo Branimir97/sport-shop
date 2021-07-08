@@ -25,7 +25,7 @@ form:
 flash_message:
   max_item_size_error: Max. size %size% quantity for this item is %quantity%.
   max_item_color_error: Max. color (%color%) quantity for this item is %quantity%.
-  item_added: Item %item_title% successfully added to cart.
+  item_added: Item "%item_title%" successfully added to cart.
   max_item_color_cart_error: The quantity of the same item in the cart and currently selected
                              the quantity exceeds the total quantity of the item for the selected color.
                              Max. = %quantity%

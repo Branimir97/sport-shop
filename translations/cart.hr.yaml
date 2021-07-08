@@ -25,7 +25,7 @@ form:
 flash_message:
   max_item_size_error: Max. količina veličine %size% za ovaj artikl je %quantity%.
   max_item_color_error: Max. količina boje (%color%) za ovaj artikl je %quantity%.
-  item_added: Artikl %item_title% uspješno dodan u košaricu.
+  item_added: Artikl "%item_title%" uspješno dodan u košaricu.
   max_item_color_cart_error: Količina istog artikla u košarici i trenutno odabrana
                              količina prelaze ukupnu količinu artikla za odabranu boju.
                              Max. = %quantity%
