@@ -95,7 +95,7 @@ class MyGoogleAuthenticator extends SocialAuthenticator
                                             TokenInterface $token,
                                             string $providerKey): ?Response
     {
-        $targetUrl = $this->router->generate('home');
+        $targetUrl = $this->router->generate('homepage');
         return new RedirectResponse($targetUrl);
     }
 }

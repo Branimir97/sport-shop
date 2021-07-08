@@ -146,12 +146,17 @@
                     </span>
                 </h6>
                 <p>
-                    {{ 'tags'|trans({}, 'item_details') }}:
-                    <span id="tag">
-                        {% for itemTag in item.itemTags%}
-                            #{{ itemTag.tag }}
-                        {% endfor %}
-                    </span>
+
+                    {% if item.itemTags|length == 0 %}
+                        {{ 'noTags'|trans({}, 'item_details') }}
+                    {% else %}
+                        {{ 'tags'|trans({}, 'item_details') }}:
+                        <span id="tag">
+                            {% for itemTag in item.itemTags%}
+                                #{{ itemTag.tag }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}
                 </p>
             </div>
         </div>

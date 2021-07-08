@@ -96,7 +96,7 @@ class MyFacebookAuthenticator extends SocialAuthenticator
                                             TokenInterface $token,
                                             string $providerKey): RedirectResponse
     {
-        $targetUrl = $this->router->generate('home');
+        $targetUrl = $this->router->generate('homepage');
         return new RedirectResponse($targetUrl);
     }
 }

@@ -101,7 +101,7 @@ class UserController extends AbstractController
         if($this->isGranted("ROLE_ADMIN")) {
             return $this->redirectToRoute('user_index');
         }
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('homepage');
     }
 
     /**

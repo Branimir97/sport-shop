@@ -12,10 +12,10 @@ class HomeController extends AbstractController
      * @Route({
      *     "en": "homepage",
      *     "hr": "/"
-     * }, name="home")
+     * }, name="homepage")
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('homepage/index.html.twig');
     }
 }

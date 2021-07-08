@@ -113,7 +113,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
         $this->flashBag->add('success',
             $this->translator->trans('flash_message.loggedIn',
                 [], 'login'));
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        return new RedirectResponse($this->urlGenerator->generate('homepage'));
     }
 
     protected function getLoginUrl(): string

@@ -29,6 +29,6 @@ class EmailController extends AbstractController
             ->html('<p>See Twig integration for better HTML integration!</p>');
 //            ->addTextHeader('X-Auto-Response-Suppress', 'OOF, DR, RN, NRN, AutoReply');
              $mailer->send($email);
-             return $this->redirectToRoute('home');
+             return $this->redirectToRoute('homepage');
     }
 }

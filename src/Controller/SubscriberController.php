@@ -51,12 +51,12 @@ class SubscriberController extends AbstractController
             $this->addFlash('danger',
                 $translator->trans('flash_message.subscriber_exists',
                     [], 'subscriber'));
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('homepage');
         } else if(in_array($email, $userEmails)) {
             $this->addFlash('danger',
                 $translator->trans('flash_message.registered_email_used',
                     [], 'subscriber'));
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('homepage');
         }
         else {
             $subscriber->setEmail($email);
@@ -67,7 +67,7 @@ class SubscriberController extends AbstractController
             $this->addFlash('success',
                 $translator->trans('flash_message.subscriber_added',
                     [], 'subscriber'));
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('homepage');
         }
     }
 
