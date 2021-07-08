@@ -41,7 +41,6 @@ class LoyaltyCardType extends AbstractType
                 }
             $builder
             ->add('credits', IntegerType::class, [
-                'required' => false,
                 'attr' => [
                     'min' => 0
                 ],

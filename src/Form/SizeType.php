@@ -22,8 +22,8 @@ class SizeType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
-                    'form.type_choices.footwear' => 1,
-                    'form.type_choices.clothes' => 2
+                    'form.type_choices.footwear' => "form.type_choices.footwear",
+                    'form.type_choices.clothes' => "form.type_choices.clothes"
                 ],
                 'help' => 'form.type_help',
                 'label' => 'form.type_label',
