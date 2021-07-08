@@ -935,18 +935,18 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="cart">
                         <a class="nav-link" href="{{ path('cart_index') }}">
                             {{ 'cart'|trans({}, 'navigation')}}
-                            <img id="cart_icon" class="nav_icon mr-1"
+                            <span class="badge">
+                                {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
+                                    0
+                                {% else %}
+                                    {{ cart.cartItems|length }}
+                                {% endif %}
+                            </span>
+                            <img class="nav_icon mr-1"
                                  src="{{ asset('icons/cart.png') }}" alt="icon">
-{#                            <span class="badge">#}
-{#                                {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}#}
-{#                                    0#}
-{#                                {% else %}#}
-{#                                    {{ cart.cartItems|length }}#}
-{#                                {% endif %}#}
-{#                            </span>#}
                         </a>
                     </li>
                 {% else %}
