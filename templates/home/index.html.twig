@@ -40,11 +40,26 @@
                  data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li class="mr-1 active" data-target="#carouselExampleIndicators2"
-                        data-slide-to="0"></li>
+                        data-slide-to="0">
+                    </li>
                     <li class="mr-1" data-target="#carouselExampleIndicators2"
-                        data-slide-to="1"></li>
+                        data-slide-to="1">
+                    </li>
                     <li class="mr-1" data-target="#carouselExampleIndicators2"
-                        data-slide-to="2"></li>
+                        data-slide-to="2">
+                    </li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2"
+                        data-slide-to="3">
+                    </li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2"
+                        data-slide-to="4">
+                    </li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2"
+                        data-slide-to="5">
+                    </li>
+                    <li class="mr-1" data-target="#carouselExampleIndicators2"
+                        data-slide-to="6">
+                    </li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -53,7 +68,12 @@
                                 {{ 'carouselContent1'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <img src="{{ asset('/images/cover1.jpg') }}" alt="First slide">
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('specialOffers'|trans({}, 'navigation'))
+                            }) }}">
+                            <img src="{{ asset('/images/cover1.jpg') }}" alt="First slide">
+                        </a>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-content">
@@ -61,7 +81,13 @@
                                 {{ 'carouselContent2'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <img src="{{ asset('/images/cover2.jpg') }}" alt="Second slide">
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
+                            ('football'|trans({}, 'navigation'))
+                            }) }}">
+                            <img src="{{ asset('/images/cover2.jpg') }}" alt="Second slide">
+                        </a>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-content">
@@ -69,7 +95,13 @@
                                 {{ 'carouselContent3'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <img src="{{ asset('/images/cover3.jpg') }}" alt="Third slide">
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('clothes'|trans({}, 'navigation'))~ ',' ~
+                            ('clothingAccessories'|trans({}, 'navigation'))
+                            }) }}">
+                            <img src="{{ asset('/images/cover3.jpg') }}" alt="Third slide">
+                        </a>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-content">
@@ -77,7 +109,13 @@
                                 {{ 'carouselContent4'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <img src="{{ asset('/images/cover4.jpg') }}" alt="Fourth slide">
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('footwear'|trans({}, 'navigation'))~ ',' ~
+                            ('runningShoes'|trans({}, 'navigation'))
+                            }) }}">
+                            <img src="{{ asset('/images/cover4.jpg') }}" alt="Fourth slide">
+                        </a>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-content">
@@ -85,7 +123,12 @@
                                 {{ 'carouselContent5'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <img src="{{ asset('/images/cover5.jpg') }}" alt="Fifth slide">
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('clothes'|trans({}, 'navigation'))
+                            }) }}">
+                            <img src="{{ asset('/images/cover5.jpg') }}" alt="Fifth slide">
+                        </a>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-content">
@@ -93,7 +136,12 @@
                                 {{ 'carouselContent6'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <img src="{{ asset('/images/cover6.jpg') }}" alt="Sixth slide">
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('sportsEquipment'|trans({}, 'navigation'))
+                            }) }}">
+                            <img src="{{ asset('/images/cover6.jpg') }}" alt="Sixth slide">
+                        </a>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators2"
