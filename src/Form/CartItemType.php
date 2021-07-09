@@ -56,6 +56,7 @@ class CartItemType extends AbstractType
                 'attr' => [
                     'min' => 1
                 ],
+                'data' => 1,
                 'translation_domain' => 'cart'
             ])
         ;
