@@ -64,10 +64,7 @@
                                 {{ order_list_item.createdAt ?
                                 order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}
                             </td>
-                            <td>{{ order_list_item.deliveryAddress.street }},
-                                {{ order_list_item.deliveryAddress.postalCode }}
-                                {{ order_list_item.deliveryAddress.city }}
-                            </td>
+                            <td>{{ order_list_item.deliveryAddress }}</td>
                             <td>
                                 {% if order_list_item.status == "U OBRADI" %}
                                     {{ order_list_item.status }}

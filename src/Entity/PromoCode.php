@@ -36,6 +36,11 @@ class PromoCode
     private $endDate;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -51,11 +56,6 @@ class PromoCode
      * @ORM\OneToMany(targetEntity=PromoCodeUser::class, mappedBy="promoCode")
      */
     private $promoCodeUsers;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
 
     public function __construct()
     {
@@ -99,6 +99,19 @@ class PromoCode
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
+
+        return $this;
+    }
+
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -153,18 +166,6 @@ class PromoCode
                 $promoCodeUser->setPromoCode(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

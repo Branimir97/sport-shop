@@ -19,20 +19,17 @@ class OrderItem
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="orderItems")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $item;
+    private $itemTitle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="orderItems")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $size;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="orderItems")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $color;
 
@@ -69,40 +66,34 @@ class OrderItem
         return $this->id;
     }
 
-    public function getItem(): ?Item
+    public function getItemTitle()
     {
-        return $this->item;
+        return $this->itemTitle;
     }
 
-    public function setItem(?Item $item): self
+    public function setItemTitle($itemTitle): void
     {
-        $this->item = $item;
-
-        return $this;
+        $this->itemTitle = $itemTitle;
     }
 
-    public function getSize(): ?Size
+    public function getSize()
     {
         return $this->size;
     }
 
-    public function setSize(?Size $size): self
+    public function setSize($size): void
     {
         $this->size = $size;
-
-        return $this;
     }
 
-    public function getColor(): ?Color
+    public function getColor()
     {
         return $this->color;
     }
 
-    public function setColor(?Color $color): self
+    public function setColor($color): void
     {
         $this->color = $color;
-
-        return $this;
     }
 
     public function getQuantity(): ?int

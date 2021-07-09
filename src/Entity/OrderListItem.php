@@ -27,8 +27,7 @@ class OrderListItem
     private $orderList;
 
     /**
-     * @ORM\ManyToOne(targetEntity=DeliveryAddress::class, inversedBy="orderListItems")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $deliveryAddress;
 
@@ -91,16 +90,14 @@ class OrderListItem
         return $this;
     }
 
-    public function getDeliveryAddress(): ?DeliveryAddress
+    public function getDeliveryAddress()
     {
         return $this->deliveryAddress;
     }
 
-    public function setDeliveryAddress(?DeliveryAddress $deliveryAddress): self
+    public function setDeliveryAddress($deliveryAddress): void
     {
         $this->deliveryAddress = $deliveryAddress;
-
-        return $this;
     }
 
     public function getStatus(): ?string

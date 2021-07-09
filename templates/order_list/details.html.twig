@@ -51,9 +51,9 @@
                 <tbody>
                     {% for orderItem in orderItems %}
                         <tr>
-                            <td>{{ orderItem.item.title }}</td>
-                            <td>{{ orderItem.size.value }}</td>
-                            <td>{{ orderItem.color.name }}</td>
+                            <td>{{ orderItem.itemTitle }}</td>
+                            <td>{{ orderItem.size }}</td>
+                            <td>{{ orderItem.color }}</td>
                             <td>{{ orderItem.quantity }}</td>
                             <td>{{ orderItem.price|number_format(2, '.', ',') }}</td>
                         </tr>
@@ -85,9 +85,8 @@
                         <th>
                             {{ 'orderTable.deliveryAddress'|trans({}, 'order_list') }}
                         </th>
-                        <td>{{ orderListItem.deliveryAddress.street }},
-                            {{ orderListItem.deliveryAddress.postalCode }}
-                            {{ orderListItem.deliveryAddress.city }}
+                        <td>
+                            {{ orderListItem.deliveryAddress }}
                         </td>
                     </tr>
                     <tr>

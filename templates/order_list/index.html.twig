@@ -54,9 +54,8 @@
                                 <td>{{ orderListItem.id }}</td>
                                 <td>{{ orderListItem.totalPrice|number_format(2, '.', ',') }}</td>
                                 <td>{{ orderListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
-                                <td>{{ orderListItem.deliveryAddress.street }},
-                                    {{ orderListItem.deliveryAddress.postalCode }}
-                                    {{ orderListItem.deliveryAddress.city }}
+                                <td>
+                                    {{ orderListItem.deliveryAddress }}
                                 </td>
                                 <td>
                                     {% if orderListItem.status == "U OBRADI" %}

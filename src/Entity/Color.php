@@ -56,11 +56,6 @@ class Color implements Translatable
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="color")
-     */
-    private $orderItems;
-
-    /**
      * @Gedmo\Locale
      */
     private $locale;
@@ -74,7 +69,6 @@ class Color implements Translatable
     {
         $this->itemColors = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
-        $this->orderItems = new ArrayCollection();
         $this->colorTranslations = new ArrayCollection();
     }
 
@@ -205,36 +199,6 @@ class Color implements Translatable
     public function setLocale($locale): void
     {
         $this->locale = $locale;
-    }
-
-    /**
-     * @return Collection|OrderItem[]
-     */
-    public function getOrderItems(): Collection
-    {
-        return $this->orderItems;
-    }
-
-    public function addOrderItem(OrderItem $orderItem): self
-    {
-        if (!$this->orderItems->contains($orderItem)) {
-            $this->orderItems[] = $orderItem;
-            $orderItem->setColor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderItem(OrderItem $orderItem): self
-    {
-        if ($this->orderItems->removeElement($orderItem)) {
-            // set the owning side to null (unless already changed)
-            if ($orderItem->getColor() === $this) {
-                $orderItem->setColor(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

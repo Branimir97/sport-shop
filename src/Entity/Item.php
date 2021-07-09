@@ -102,11 +102,6 @@ class Item
      */
     private $actionItem;
 
-    /**
-     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="item",orphanRemoval=true)
-     */
-    private $orderItems;
-
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -117,7 +112,6 @@ class Item
         $this->reviews = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
         $this->wishListItems = new ArrayCollection();
-        $this->orderItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -462,36 +456,6 @@ class Item
         }
 
         $this->actionItem = $actionItem;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OrderItem[]
-     */
-    public function getOrderItems(): Collection
-    {
-        return $this->orderItems;
-    }
-
-    public function addOrderItem(OrderItem $orderItem): self
-    {
-        if (!$this->orderItems->contains($orderItem)) {
-            $this->orderItems[] = $orderItem;
-            $orderItem->setItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderItem(OrderItem $orderItem): self
-    {
-        if ($this->orderItems->removeElement($orderItem)) {
-            // set the owning side to null (unless already changed)
-            if ($orderItem->getItem() === $this) {
-                $orderItem->setItem(null);
-            }
-        }
 
         return $this;
     }

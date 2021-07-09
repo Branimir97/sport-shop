@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\DeliveryAddressRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -61,16 +59,6 @@ class DeliveryAddress
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
-
-    /**
-     * @ORM\OneToMany(targetEntity=OrderListItem::class, mappedBy="deliveryAddress")
-     */
-    private $orderListItems;
-
-    public function __construct()
-    {
-        $this->orderListItems = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -169,36 +157,6 @@ class DeliveryAddress
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OrderListItem[]
-     */
-    public function getOrderListItems(): Collection
-    {
-        return $this->orderListItems;
-    }
-
-    public function addOrderListItem(OrderListItem $orderListItem): self
-    {
-        if (!$this->orderListItems->contains($orderListItem)) {
-            $this->orderListItems[] = $orderListItem;
-            $orderListItem->setDeliveryAddress($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderListItem(OrderListItem $orderListItem): self
-    {
-        if ($this->orderListItems->removeElement($orderListItem)) {
-            // set the owning side to null (unless already changed)
-            if ($orderListItem->getDeliveryAddress() === $this) {
-                $orderListItem->setDeliveryAddress(null);
-            }
-        }
 
         return $this;
     }

@@ -200,14 +200,19 @@ class CheckoutController extends AbstractController
                 }
                 $orderListItem->setOrderList($orderList);
                 $orderItem = new OrderItem();
-                $orderItem->setItem($cartItem->getItem());
-                $orderItem->setSize($cartItem->getSize());
-                $orderItem->setColor($cartItem->getColor());
+                $orderItem->setItemTitle($cartItem->getItem()->getTitle());
+                $orderItem->setSize($cartItem->getSize()->getValue());
+                $orderItem->setColor($cartItem->getColor()->getName());
                 $orderItem->setQuantity($cartItem->getQuantity());
                 $orderItem->setPrice($cartItem->getItem()->getPrice());
                 $entityManager->persist($orderItem);
                 $orderListItem->addOrderItem($orderItem);
-                $orderListItem->setDeliveryAddress($deliveryAddress);
+                $orderListItem->setDeliveryAddress(
+                    $deliveryAddress->getStreet().' | '.
+                    $deliveryAddress->getPostalCode().', '.
+                    $deliveryAddress->getCity().' | '.
+                    $deliveryAddress->getCountry()
+                );
                 $orderListItem->setDiscount($discount);
                 $orderListItem->setPriceWithoutDiscount($totalPrice);
                 if($totalPriceWithDiscount<300) {
