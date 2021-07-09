@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass=ColorRepository::class)
+ * @Gedmo\TranslationEntity(class="App\Entity\ColorTranslation")
  */
-class Color
+class Color implements Translatable
 {
     /**
      * @ORM\Id
@@ -49,6 +51,7 @@ class Color
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
      */
     private $name;
 
@@ -57,11 +60,22 @@ class Color
      */
     private $orderItems;
 
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ColorTranslation::class, mappedBy="object")
+     */
+    private $colorTranslations;
+
     public function __construct()
     {
         $this->itemColors = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
+        $this->colorTranslations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +192,22 @@ class Color
     }
 
     /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale): void
+    {
+        $this->locale = $locale;
+    }
+
+    /**
      * @return Collection|OrderItem[]
      */
     public function getOrderItems(): Collection
@@ -201,6 +231,36 @@ class Color
             // set the owning side to null (unless already changed)
             if ($orderItem->getColor() === $this) {
                 $orderItem->setColor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ColorTranslation[]
+     */
+    public function getColorTranslations(): Collection
+    {
+        return $this->colorTranslations;
+    }
+
+    public function addColorTranslation(ColorTranslation $colorTranslation): self
+    {
+        if (!$this->colorTranslations->contains($colorTranslation)) {
+            $this->colorTranslations[] = $colorTranslation;
+            $colorTranslation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColorTranslation(ColorTranslation $colorTranslation): self
+    {
+        if ($this->colorTranslations->removeElement($colorTranslation)) {
+            // set the owning side to null (unless already changed)
+            if ($colorTranslation->getObject() === $this) {
+                $colorTranslation->setObject(null);
             }
         }
 

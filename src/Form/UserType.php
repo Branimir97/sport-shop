@@ -3,8 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
-use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -55,60 +54,63 @@ class UserType extends AbstractType
                 'translation_domain' => 'register'
             ]);
 
-            if(!$isEditForm) {
-                $builder
-                    ->add('password', RepeatedType::class, [
-                        'type' => PasswordType::class,
-                        'mapped' => false,
-                        'first_options'  => [
-                            'help' => 'form.help.password',
-                            'label' => 'form.labels.password',
-                        ],
-                        'second_options' => [
-                            'help' => 'form.help.passwordRepeat',
-                            'label' => 'form.labels.passwordRepeat',
-                        ],
-                        'invalid_message' => 'form.invalid_message.password',
-                        'translation_domain' => 'register',
-                        'constraints' => [
-                            new NotBlank([
-                                'message' => 'validators.passwordNotBlank',
-                            ]),
-                            new Length([
-                                'min' => 8,
-                                'minMessage' => 'validators.passwordLength',
-                                'max' => 4096,
-                            ]),
-                        ],
-                    ])
-                    ->add('agreeTerms', CheckboxType::class, [
-                        'mapped' => false,
-                        'constraints' => [
-                            new IsTrue([
-                                'message' => 'validators.agreeTerms',
-                            ]),
-                        ],
-                        'label_html' => true,
-                        'label' => 'form.labels.agreeTerms',
-                        'translation_domain' => 'register'
-                    ])
-                    ->add('subscribeMe', CheckboxType::class, [
-                        'required' => false,
-                        'mapped' => false,
-                        'label' => 'form.labels.subscribe',
-                        'translation_domain' => 'register'
-                    ])
-//                    ->add('captchaCode', CaptchaType::class, [
-//                        'mapped' => false,
-//                        'captchaConfig' => 'ExampleCaptchaUserRegistration',
-////                        'constraints' => [
-////                            new ValidCaptcha([
-////                                'message' => 'Invalid captcha, please try again'
-////                            ])
-////                        ]
-//                    ])
-                ;
-            }
+        if(!$isEditForm) {
+            $builder
+                ->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'mapped' => false,
+                    'first_options'  => [
+                        'help' => 'form.help.password',
+                        'label' => 'form.labels.password',
+                    ],
+                    'second_options' => [
+                        'help' => 'form.help.passwordRepeat',
+                        'label' => 'form.labels.passwordRepeat',
+                    ],
+                    'invalid_message' => 'invalid_messages.password',
+                    'translation_domain' => 'register',
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'constraints.passwordNotBlank',
+                        ]),
+                        new Length([
+                            'min' => 8,
+                            'minMessage' => 'constraints.passwordLength',
+                            'max' => 4096,
+                        ]),
+                    ],
+                ])
+                ->add('agreeTerms', CheckboxType::class, [
+                    'mapped' => false,
+                    'constraints' => [
+                        new IsTrue([
+                            'message' => 'constraints.agreeTerms',
+                        ]),
+                    ],
+                    'label_html' => true,
+                    'label' => 'form.labels.agreeTerms',
+                    'translation_domain' => 'register'
+                ])
+                ->add('subscribeMe', CheckboxType::class, [
+                    'required' => false,
+                    'mapped' => false,
+                    'label' => 'form.labels.subscribe',
+                    'translation_domain' => 'register'
+                ])
+                ->add('captchaCode',  CaptchaType::class, [
+                    'width' => 200,
+                    'height' => 50,
+                    'length' => 6,
+                    'label' => 'Captcha',
+                    'invalid_message' => 'invalid_messages.captcha',
+                    'background_color' =>  [255, 255, 255],
+                    'attr' => [
+                        'placeholder' => 'form.captcha'
+                    ],
+                    'translation_domain' => 'register',
+                ])
+            ;
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

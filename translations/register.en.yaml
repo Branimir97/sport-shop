@@ -22,6 +22,7 @@ form:
                 terms and conditions of our website.
     subscribe: I want to receive all the news about SportShop promotions,
                promo codes and other important events.
+  captcha: Enter the captcha code from the image above here
   registerButton: Register
 
   help:
@@ -31,16 +32,6 @@ form:
     passwordRepeat: Passwords must match
     termsOfUse: Terms and conditions can be read
     termsOfUseLink: here
-
-  invalid_message:
-    password: Passwords must match.
-
-  constraints:
-    passwordNotBlank: Enter the password
-    passwordLength: Password must contain min. 8 characters
-    agreeTerms: For successful registration it is necessary to accept our
-                terms and conditions of our website.
-    email: An account already exists with this email address
 
 flash_message:
   registered_admin: New user successfully registered.

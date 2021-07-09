@@ -1,1 +1,10 @@
 authenticationException: Email not found.
+constraints:
+  passwordNotBlank: Enter the password
+  passwordLength: Password must contain min. 8 characters
+  agreeTerms: For successful registration it is necessary to accept our
+    terms and conditions of our website.
+  email: An account already exists with this email address
+invalid_messages:
+  captcha: The Captcha code from the image must match your entry.
+  password: Passwords must match.

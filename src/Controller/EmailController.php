@@ -27,7 +27,6 @@ class EmailController extends AbstractController
             ->subject('Time for Symfony Mailer!')
             ->text('Sending emails is fun again!')
             ->html('<p>See Twig integration for better HTML integration!</p>');
-//            ->addTextHeader('X-Auto-Response-Suppress', 'OOF, DR, RN, NRN, AutoReply');
              $mailer->send($email);
              return $this->redirectToRoute('homepage');
     }

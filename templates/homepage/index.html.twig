@@ -68,10 +68,7 @@
                                 {{ 'carouselContent1'|trans({}, 'homepage')}}
                             </p>
                         </div>
-                        <a href="{{ path('items_list', {
-                            ('categories'|trans({}, 'navigation')):
-                            ('specialOffers'|trans({}, 'navigation'))
-                            }) }}">
+                        <a href="{{ path('special_offer') }}">
                             <img src="{{ asset('/images/cover1.jpg') }}" alt="First slide">
                         </a>
                     </div>

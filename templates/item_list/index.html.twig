@@ -54,11 +54,11 @@
                                 {% endif %}
                             </div>
                             <div class="overlay">
-                                <a href="#" class="icon_wish_list"
+                                <a href="{{ path('wish_list_item_new', {'id':item.id}) }}" class="icon_wish_list"
                                    title="{{ 'addToWishListTitle'|trans({}, 'item_list') }}">
                                     <i class="fas fa-clipboard-check"></i>
                                 </a>
-                                <a href="#" class="icon_details"
+                                <a href="{{ path('item_details', {'id':item.id}) }}" class="icon_details"
                                    title="{{ 'detailsTitle'|trans({}, 'item_list') }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
