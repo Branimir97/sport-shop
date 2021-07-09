@@ -939,11 +939,7 @@
                         <a class="nav-link" href="{{ path('cart_index') }}">
                             {{ 'cart'|trans({}, 'navigation')}}
                             <span class="badge">
-                                {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
-                                    0
-                                {% else %}
-                                    {{ cart.cartItems|length }}
-                                {% endif %}
+                                {{ cart_items }}
                             </span>
                             <img class="nav_icon mr-1"
                                  src="{{ asset('icons/cart.png') }}" alt="icon">
