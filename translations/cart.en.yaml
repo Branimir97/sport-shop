@@ -32,7 +32,7 @@ flash_message:
   max_item_size_cart_error: The quantity of the same item in the cart and the currently selected quantity
                             exceed the total quantity of the item for the selected size.
                             Max. = %quantity%
-  review_added: Review successfully added.
+  review_added: Review sent to administrators for inspection.
   item_deleted: Item "%item_title%" successfully deleted from cart.
 
 delete_confirmation:

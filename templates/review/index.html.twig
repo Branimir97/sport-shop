@@ -39,10 +39,16 @@
                                 {{ 'reviewTable.author'|trans({}, 'review') }}
                             </th>
                             <th>
+                                {{ 'reviewTable.valid'|trans({}, 'review') }}
+                            </th>
+                            <th>
                                 {{ 'reviewTable.createdAt'|trans({}, 'review') }}
                             </th>
                             <th>
                                 {{ 'reviewTable.updatedAt'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.changeValidity'|trans({}, 'review') }}
                             </th>
                             <th>
                                 {{ 'reviewTable.actions'|trans({}, 'review') }}
@@ -65,9 +71,28 @@
                             </td>
                             <td>{{ review.item.title }}</td>
                             <td>{{ review.user.name }} {{ review.user.surname }}</td>
+                            <td>
+                                {% if review.valid is null %}
+                                    <i id="undefined" class="fas fa-question"></i>
+                                {% elseif review.valid %}
+                                    <i id="valid" class="fas fa-check"></i>
+                                {% else %}
+                                    <i id="invalid" class="fas fa-times"></i>
+                                {% endif %}
+                            </td>
                             <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
                             <td>
                                 {{ review.updatedAt ? review.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a href="{{ path('review_valid', {'id' : review.id}) }}"
+                                    title="{{ 'reviewTable.validTitle'|trans({}, 'review') }}">
+                                    <i id="valid" class="fas fa-check"></i>
+                                </a>
+                                <a href="{{ path('review_invalid', {'id' : review.id}) }}"
+                                    title="{{ 'reviewTable.invalidTitle'|trans({}, 'review') }}">
+                                    <i id="invalid" class="fas fa-times"></i>
+                                </a>
                             </td>
                             <td>
                                 <a href="{{ path('review_edit', {'id': review.id}) }}"

@@ -32,7 +32,7 @@ flash_message:
   max_item_size_cart_error: Količina istog artikla u košarici i trenutno odabrana količina
                             prelaze ukupnu količinu artikla za odabranu veličinu.
                             Max. = %quantity%
-  review_added: Recenzija uspješno dodana.
+  review_added: Recenzija poslana administratorima na uvid.
   item_deleted: Artikl "%item_title%" uspješno obrisan iz košarice.
 
 delete_confirmation:

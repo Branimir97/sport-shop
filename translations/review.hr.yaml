@@ -10,10 +10,14 @@ reviewTable:
   grade: Ocjena
   item: Artikl
   author: Autor
+  valid: Valjanost
   createdAt: Vrijeme stvaranja
   updatedAt: Vrijeme zadnje izmjene
+  changeValidity: Promijeni valjanost
   actions: Mogućnosti
   editTitle: Uredi
+  validTitle: Odobri rezenciju
+  invalidTitle: Odbij recenziju
   delete: Obriši recenziju
 
 form:
@@ -23,6 +27,8 @@ form:
   button_label: Spremi promjene
 
 flash_message:
+  review_valid: Recenzija odobrena.
+  review_invalid: Recenzija odbijena.
   review_edited: Recenzija uspješno ažurirana.
   review_deleted: Recenzija uspješno obrisana.
 

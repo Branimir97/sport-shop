@@ -23,15 +23,18 @@ class InjectTwigGlobals implements EventSubscriberInterface
     }
 
     public function injectGlobals() {
-        $user = $this->manager->getRepository( 'App\Entity\User' )
-                ->findOneBy(['email' => $this->security->getUser()->getUsername()]);
-        $cart = $user->getCart();
-        if(!isset($cart)) {
-            $cartItemsNumber = 0;
-        } else {
-            $cartItemsNumber = count($cart->getCartItems());
+        $user = $this->security->getUser();
+        if(isset($user)) {
+            $user = $this->manager->getRepository( 'App\Entity\User' )
+                ->findOneBy(['email' => $user->getUsername()]);
+            $cart = $user->getCart();
+            if(!isset($cart)) {
+                $cartItemsNumber = 0;
+            } else {
+                $cartItemsNumber = count($cart->getCartItems());
+            }
+            $this->twig->addGlobal( 'cart_items', $cartItemsNumber);
         }
-        $this->twig->addGlobal( 'cart_items', $cartItemsNumber);
     }
 
     public static function getSubscribedEvents(): array

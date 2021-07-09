@@ -10,10 +10,14 @@ reviewTable:
   grade: Grade
   item: Item
   author: Author
+  valid: Validity
   createdAt: Creation time
   updatedAt: Last modified time
+  changeValidity: Change validity
   actions: Actions
   editTitle: Edit
+  validTitle: Approve the review
+  invalidTitle: Decline the review
   delete: Delete review
 
 form:
@@ -23,6 +27,8 @@ form:
   button_label: Save changes
 
 flash_message:
+  review_valid: Review approved.
+  review_invalid: Review not approved.
   review_edited: Review successfully updated.
   review_deleted: Review successfully deleted.
 

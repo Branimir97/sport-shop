@@ -11,6 +11,7 @@ use App\Repository\CartItemRepository;
 use App\Repository\ItemColorRepository;
 use App\Repository\ItemRepository;
 use App\Repository\ItemSizeRepository;
+use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,8 @@ class ItemDetailsController extends AbstractController
                           ItemColorRepository $itemColorRepository,
                           UserRepository $userRepository,
                           CartItemRepository $cartItemRepository,
-                          TranslatorInterface $translator): Response
+                          TranslatorInterface $translator,
+                          ReviewRepository $reviewRepository): Response
     {
         $item = $itemRepository->findOneBy(['id' => $request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
@@ -151,7 +153,8 @@ class ItemDetailsController extends AbstractController
         return $this->render('item_details/index.html.twig', [
             'item' => $item,
             'formReview' => $formReview->createView(),
-            'formCart' => $formCart->createView()
+            'formCart' => $formCart->createView(),
+            'reviews' => $reviewRepository->findBy(['item' => $item, 'valid' => true])
         ]);
     }
 }

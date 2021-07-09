@@ -181,14 +181,14 @@
                 {% if app.user %}
                     {{ include('item/new_review_form_modal.html.twig') }}
                 {% endif %}
-                {% if item.reviews|length == 0 %}
+                {% if reviews|length == 0 %}
                     <p class="text-center">
                         {{ 'noReviews'|trans({}, 'item_details') }}
                     </p>
                 {% else %}
                     <div class="reviews">
                         <div class="row justify-content-md-center ml-1 mr-1 mt-3">
-                            {% for review in item.reviews|reverse %}
+                            {% for review in reviews|reverse %}
                                 <div class="col-sm-11 one-review mb-2">
                                     <div id="edit_icon">
                                         {% if app.user == review.user or is_granted("ROLE_ADMIN") %}
