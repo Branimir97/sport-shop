@@ -863,8 +863,8 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
                             <a class="dropdown-item"
-                               href="{{path(app.request.attributes.get('_route'),
-                                   app.request.attributes.get('_route_params')|merge({'_locale': 'hr'})) }}">
+                               href="{{ path(app.request.attributes.get('_route'),
+                               app.request.attributes.get('_route_params')|merge({'_locale': 'hr'})) }}">
                             <img class="nav_icon mr-1"
                                  src="{{ asset('icons/croatia.png') }}" alt="icon">
                                 {{ 'croatian'|trans({}, 'navigation')}}

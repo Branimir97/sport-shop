@@ -5,12 +5,14 @@
 {% endblock %}
 {% block body %}
     <div class="container text-center">
-        <h1 class="bg-light">
+        <h1 class="text-center mt-2 bg-light p-2">
             {{ 'other.title'|trans({}, 'error') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/warning.png') }}" alt="icon">
         </h1>
         <img src="{{ asset('images/logo.png') }}" alt="sport_shop_icon">
         <p>
-            {{ 'other.message'|trans({}, 'error') }}
+            {{ 'other.message'|trans({}, 'error') }}<br>
             <a href="{{ path('homepage') }}">
                 {{ 'homepage_link'|trans({}, 'error') }}
             </a>
