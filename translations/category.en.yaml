@@ -22,8 +22,10 @@ categoriesTable:
   delete: Delete category
 
 form:
-  category_name_placeholder: e.g. Mens
-  category_name_label: Name
+  category_name_placeholder_hr: e.g. Planinarenje
+  category_name_label_hr: Category name on croatian
+  category_name_placeholder_en: e.g. Mountain climbing
+  category_name_label_en: Category name on english
   button_label: Add category
   edit_button_label: Save changes
 

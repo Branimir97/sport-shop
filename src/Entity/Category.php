@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Gedmo\TranslationEntity(class="App\Entity\CategoryTranslation")
  */
-class Category
+class Category implements Translatable
 {
     /**
      * @ORM\Id
@@ -22,6 +24,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
      */
     private $name;
 
@@ -47,9 +50,20 @@ class Category
      */
     private $actionCategory;
 
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CategoryTranslation::class, mappedBy="object")
+     */
+    private $categoryTranslations;
+
     public function __construct()
     {
         $this->itemCategories = new ArrayCollection();
+        $this->categoryTranslations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +150,46 @@ class Category
         }
 
         $this->actionCategory = $actionCategory;
+
+        return $this;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    public function setLocale($locale): void
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @return Collection|CategoryTranslation[]
+     */
+    public function getCategoryTranslations(): Collection
+    {
+        return $this->categoryTranslations;
+    }
+
+    public function addCategoryTranslation(CategoryTranslation $categoryTranslation): self
+    {
+        if (!$this->categoryTranslations->contains($categoryTranslation)) {
+            $this->categoryTranslations[] = $categoryTranslation;
+            $categoryTranslation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryTranslation(CategoryTranslation $categoryTranslation): self
+    {
+        if ($this->categoryTranslations->removeElement($categoryTranslation)) {
+            // set the owning side to null (unless already changed)
+            if ($categoryTranslation->getObject() === $this) {
+                $categoryTranslation->setObject(null);
+            }
+        }
 
         return $this;
     }

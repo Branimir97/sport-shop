@@ -2,23 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\SizeTranslationRepository;
+use App\Repository\CategoryTranslationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * @ORM\Entity(repositoryClass=SizeTranslationRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryTranslationRepository::class)
  */
-class SizeTranslation extends AbstractPersonalTranslation
+class CategoryTranslation extends AbstractPersonalTranslation
 {
     /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="sizeTranslations")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categoryTranslations")
      */
     protected $object;
 
     /**
-     * SizeTranslation constructor.
+     * ColorTranslation constructor.
      * @param string $locale
      * @param string $field
      * @param string $value

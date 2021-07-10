@@ -26,19 +26,14 @@ class AppFixtures extends Fixture
         $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$avj5HbJl56Te5US1YZiQAQ$T9qpVqy9QHEokQZya9zJLjpHsS0pqh8aqFRHZkKcMOI');
 
         $manager->persist($user);
+
         $languageCodes = ['hr', 'en'];
-        foreach($languageCodes as $languageCode) {
-            $language = new Language();
-            $language->setCode($languageCode);
-            $manager->persist($language);
-            $manager->flush();
-        }
-        $categories = [
+
+        $categoriesHr = [
             "Muškarci",
             "Žene",
             "Djeca",
             "Sportska oprema",
-            "Ostalo",
             "Obuća",
             "Odjeća",
             "Tenisice",
@@ -62,6 +57,37 @@ class AppFixtures extends Fixture
             "Odbojka",
             "Tenis",
             "Stolni tenis",
+            "Fitnes"
+        ];
+
+        $categoriesEn = [
+            "Men",
+            "Women",
+            "Children",
+            "Sports equipment",
+            "Footwear",
+            "Clothes",
+            "Sneakers",
+            "Football boots",
+            "Running shoes",
+            "Boots",
+            "Footwear accessories",
+            "Insoles",
+            "Laces",
+            "Impregnation sprays",
+            "T-shirts",
+            "Pants",
+            "Jackets",
+            "Clothing accessories",
+            "Caps",
+            "Gloves",
+            "Scarfs",
+            "Football",
+            "Handball",
+            "Basketball",
+            "Volleyball",
+            "Tennis",
+            "Table tennis",
             "Fitness"
         ];
 
@@ -159,10 +185,18 @@ class AppFixtures extends Fixture
           "Skechers"
         ];
 
-        foreach($categories as $categoryName) {
+        for($i = 0; $i <= 27; $i++) {
             $category = new Category();
-            $category->setName($categoryName);
-            $manager->persist($category);
+            foreach($languageCodes as $language) {
+                $category->setLocale($language);
+                if($language == 'hr') {
+                    $category->setName($categoriesHr[$i]);
+                } else {
+                    $category->setName($categoriesEn[$i]);
+                }
+                $manager->persist($category);
+                $manager->flush();
+            }
         }
 
         foreach($sizesClothes as $size) {

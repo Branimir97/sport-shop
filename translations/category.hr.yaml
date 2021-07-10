@@ -22,8 +22,10 @@ categoriesTable:
   delete: Obriši kategoriju
 
 form:
-  category_name_placeholder: npr. Muškarci
-  category_name_label: Naziv
+  category_name_placeholder_hr: npr. Planinarenje
+  category_name_label_hr: Naziv kategorije na hrvatskom
+  category_name_placeholder_en: e.g. Mountain climbing
+  category_name_label_en: Category name on english
   button_label: Dodaj kategoriju
   edit_button_label: Spremi promjene
 

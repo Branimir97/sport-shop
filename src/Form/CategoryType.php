@@ -13,19 +13,27 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name_hr', TextType::class, [
+                'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'form.category_name_placeholder'
+                    'placeholder' => 'form.category_name_placeholder_hr'
                 ],
-                'label' => 'form.category_name_label',
+                'label' => 'form.category_name_label_hr',
                 'translation_domain' => 'category'
-            ]);
+            ])
+            ->add('name_en', TextType::class, [
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'form.category_name_placeholder_en'
+                ],
+                'label' => 'form.category_name_label_en',
+                'translation_domain' => 'category'
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Category::class,
-        ]);
+        $resolver->setDefaults([]);
     }
 }

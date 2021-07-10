@@ -101,8 +101,9 @@ class ColorController extends AbstractController
     {
         $form = $this->createForm(ItemColorType::class, $color);
         $colorNameTranslations = [];
-        foreach($color->getColorTranslations() as $colorT) {
-            $colorNameTranslations[$colorT->getLocale()] = $colorT->getContent();
+        foreach($color->getColorTranslations() as $colorTranslation) {
+            $colorNameTranslations[$colorTranslation->getLocale()] =
+                                        $colorTranslation->getContent();
         }
         $form->get('name_hr')->setData($colorNameTranslations['hr']);
         $form->get('name_en')->setData($colorNameTranslations['en']);

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\CategoryTranslationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,23 +42,40 @@ class CategoryController extends AbstractController
                         TranslatorInterface $translator): Response
     {
         $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CategoryType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryName = $form->get('name')->getData();
-            if(!is_null($categoryRepository->findOneBy(['name'=>$categoryName]))) {
-                $this->addFlash('danger',
-                    $translator->trans('flash_message.category_exists',
-                        [
-                            '%category_name%' => $categoryName
-                        ], 'category'));
+            $categoryNameHr = $form->get('name_hr')->getData();
+            $categoryNameEn = $form->get('name_en')->getData();
+            if(!is_null($categoryRepository->findOneBy(['name' => $categoryNameHr]))) {
+                if($request->getLocale() == 'hr') {
+                    $this->addFlash('danger',
+                        $translator->trans('flash_message.category_exists',
+                            [
+                                '%category_name%' => $categoryNameHr
+                            ], 'category'));
+                } else {
+                    $this->addFlash('danger',
+                        $translator->trans('flash_message.category_exists',
+                            [
+                                '%category_name%' => $categoryNameEn
+                            ], 'category'));
+                }
                 return $this->redirectToRoute('category_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
-
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $category->setLocale($language);
+                if($language == 'hr') {
+                    $category->setName($categoryNameHr);
+                } else {
+                    $category->setName($categoryNameEn);
+                }
+                $entityManager->persist($category);
+                $entityManager->flush();
+            }
             $this->addFlash('success',
                 $translator->trans('flash_message.category_added',
                     [], 'category'));
@@ -86,20 +104,48 @@ class CategoryController extends AbstractController
      * }, name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category,
-                         TranslatorInterface $translator): Response
+                         TranslatorInterface $translator,
+                         CategoryRepository $categoryRepository): Response
     {
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CategoryType::class);
+        $categoryNameTranslations = [];
+        foreach($category->getCategoryTranslations() as $categoryTranslation) {
+            $categoryNameTranslations[$categoryTranslation->getLocale()] =
+                $categoryTranslation->getContent();
+        }
+        $form->get('name_hr')->setData($categoryNameTranslations['hr']);
+        $form->get('name_en')->setData($categoryNameTranslations['en']);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash('success',
-                $translator->trans('flash_message.category_edited',
-                    [
-                        '%category_name%' => $category->getName()
-                    ], 'category'));
-
+            $categoryNameHr = $form->get('name_hr')->getData();
+            $categoryNameEn = $form->get('name_en')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $category->setLocale($language);
+                if ($language == 'hr') {
+                    $category->setName($categoryNameHr);
+                } else {
+                    $category->setName($categoryNameEn);
+                }
+                $entityManager->persist($category);
+                $entityManager->flush();
+                $entityManager->persist($category);
+                $entityManager->flush();
+            }
+            if($request->getLocale() == 'hr') {
+                $this->addFlash('success',
+                    $translator->trans('flash_message.category_edited',
+                        [
+                            '%category_name%' => $categoryNameHr
+                        ], 'category'));
+            } else {
+                $this->addFlash('success',
+                    $translator->trans('flash_message.category_edited',
+                        [
+                            '%category_name%' => $categoryNameEn
+                        ], 'category'));
+            }
             return $this->redirectToRoute('category_index');
         }
         return $this->render('category/edit.html.twig', [
