@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$avj5HbJl56Te5US1YZiQAQ$T9qpVqy9QHEokQZya9zJLjpHsS0pqh8aqFRHZkKcMOI');
 
         $manager->persist($user);
-
+        $languages = ['hr', 'en'];
         $categories = [
             "Muškarci",
             "Žene",
@@ -176,23 +176,16 @@ class AppFixtures extends Fixture
         foreach($colorCodes as $color) {
             $colorObj = new Color();
             $colorObj->setValue($color);
-            $manager->persist($colorObj);
-            $colorObj->setLocale('hr');
-            $colorObj->setName($colorNamesHr[$i]);
-            $manager->persist($colorObj);
-            $manager->flush();
-            $i++;
-        }
-
-        $i = 0;
-        foreach($colorCodes as $color) {
-            $colorObj = new Color();
-            $colorObj->setValue($color);
-            $manager->persist($colorObj);
-            $colorObj->setLocale('en');
-            $colorObj->setName($colorNamesEn[$i]);
-            $manager->persist($colorObj);
-            $manager->flush();
+            foreach($languages as $language) {
+                $colorObj->setLocale($language);
+                if($language == 'hr') {
+                    $colorObj->setName($colorNamesHr[$i]);
+                } else {
+                    $colorObj->setName($colorNamesEn[$i]);
+                }
+                $manager->persist($colorObj);
+                $manager->flush();
+            }
             $i++;
         }
 
