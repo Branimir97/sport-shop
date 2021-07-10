@@ -28,6 +28,12 @@ class Color implements Translatable
     private $value;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
+     */
+    private $name;
+
+    /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -48,12 +54,6 @@ class Color implements Translatable
      * @ORM\OneToMany(targetEntity=CartItem::class, mappedBy="color")
      */
     private $cartItems;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Gedmo\Translatable
-     */
-    private $name;
 
     /**
      * @Gedmo\Locale
@@ -87,6 +87,16 @@ class Color implements Translatable
         $this->value = $value;
 
         return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -173,29 +183,11 @@ class Color implements Translatable
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getLocale()
     {
         return $this->locale;
     }
 
-    /**
-     * @param mixed $locale
-     */
     public function setLocale($locale): void
     {
         $this->locale = $locale;

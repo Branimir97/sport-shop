@@ -18,10 +18,19 @@ class ItemColorType extends AbstractType
                 'label' => 'form.value_label',
                 'translation_domain' => 'color'
             ])
-            ->add('name', TextType::class, [
-                'label' => 'form.name_label',
+            ->add('name_hr', TextType::class, [
+                'mapped' => false,
+                'label' => 'form.name_label_hr',
                 'attr' => [
-                    'placeholder' => 'form.name_placeholder'
+                    'placeholder' => 'form.name_placeholder_hr'
+                ],
+                'translation_domain' => 'color'
+            ])
+            ->add('name_en', TextType::class, [
+                'mapped' => false,
+                'label' => 'form.name_label_en',
+                'attr' => [
+                    'placeholder' => 'form.name_placeholder_en'
                 ],
                 'translation_domain' => 'color'
             ])

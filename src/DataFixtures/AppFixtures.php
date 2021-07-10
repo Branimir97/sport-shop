@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Color;
+use App\Entity\Language;
 use App\Entity\Manufacturer;
 use App\Entity\Size;
 use App\Entity\User;
@@ -25,7 +26,13 @@ class AppFixtures extends Fixture
         $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$avj5HbJl56Te5US1YZiQAQ$T9qpVqy9QHEokQZya9zJLjpHsS0pqh8aqFRHZkKcMOI');
 
         $manager->persist($user);
-        $languages = ['hr', 'en'];
+        $languageCodes = ['hr', 'en'];
+        foreach($languageCodes as $languageCode) {
+            $language = new Language();
+            $language->setCode($languageCode);
+            $manager->persist($language);
+            $manager->flush();
+        }
         $categories = [
             "Muškarci",
             "Žene",
@@ -161,22 +168,38 @@ class AppFixtures extends Fixture
         foreach($sizesClothes as $size) {
             $sizeObj = new Size();
             $sizeObj->setValue($size);
-            $sizeObj->setType("Odjeća");
-            $manager->persist($sizeObj);
+            foreach($languageCodes as $language) {
+                $sizeObj->setLocale($language);
+                if($language == 'hr') {
+                    $sizeObj->setType("Odjeća");
+                } else {
+                    $sizeObj->setType("Clothes");
+                }
+                $manager->persist($sizeObj);
+                $manager->flush();
+            }
         }
 
         foreach($sizesFootWear as $size) {
             $sizeObj = new Size();
             $sizeObj->setValue($size);
-            $sizeObj->setType("Obuća");
-            $manager->persist($sizeObj);
+            foreach($languageCodes as $language) {
+                $sizeObj->setLocale($language);
+                if($language == 'hr') {
+                    $sizeObj->setType("Obuća");
+                } else {
+                    $sizeObj->setType("Footwear");
+                }
+                $manager->persist($sizeObj);
+                $manager->flush();
+            }
         }
 
         $i = 0;
         foreach($colorCodes as $color) {
             $colorObj = new Color();
             $colorObj->setValue($color);
-            foreach($languages as $language) {
+            foreach($languageCodes as $language) {
                 $colorObj->setLocale($language);
                 if($language == 'hr') {
                     $colorObj->setName($colorNamesHr[$i]);

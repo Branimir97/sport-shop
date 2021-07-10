@@ -25,16 +25,18 @@ colorsTable:
 
 form:
   value_label: Color
-  name_label: Color name
-  name_placeholder: e.g. Red
+  name_label_hr: Color name on croatian
+  name_placeholder_hr: e.g. Crvena
+  name_label_en: Color name on english
+  name_placeholder_en: e.g. Red
   button_label: Add color
   edit_button_label: Save changes
 
 flash_message:
   color_exists: Color with code "%color_code%" already exists.
   color_added: Color successfully added.
-  color_edited: Color ("%color_name%") successfully updated.
-  color_deleted: Color ("%color_name%") successfully deleted.
+  color_edited: Color ("%color_code%") successfully updated.
+  color_deleted: Color ("%color_code%") successfully deleted.
 
 delete_confirmation:
   message: Are you sure you want to delete this color?

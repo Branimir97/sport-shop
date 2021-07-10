@@ -43,7 +43,6 @@ class ColorController extends AbstractController
         $color = new Color();
         $form = $this->createForm(ItemColorType::class, $color);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $colorValue = $form->get('value')->getData();
             if(!is_null($colorRepository->findOneBy(['value'=>$colorValue]))) {
@@ -55,9 +54,19 @@ class ColorController extends AbstractController
                 return $this->redirectToRoute('color_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($color);
-            $entityManager->flush();
-
+            $colorNameHr = $form->get('name_hr')->getData();
+            $colorNameEn = $form->get('name_en')->getData();
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $color->setLocale($language);
+                if($language == 'hr') {
+                    $color->setName($colorNameHr);
+                } else {
+                    $color->setName($colorNameEn);
+                }
+                $entityManager->persist($color);
+                $entityManager->flush();
+            }
             $this->addFlash('success',
                 $translator->trans('flash_message.color_added',
                     [], 'color'));
@@ -86,18 +95,49 @@ class ColorController extends AbstractController
      *     "hr": "/{id}/uredi"
      * }, name="color_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Color $color, TranslatorInterface $translator): Response
+    public function edit(Request $request, Color $color,
+                         TranslatorInterface $translator,
+                         ColorRepository $colorRepository): Response
     {
         $form = $this->createForm(ItemColorType::class, $color);
+        $colorNameTranslations = [];
+        foreach($color->getColorTranslations() as $colorT) {
+            $colorNameTranslations[$colorT->getLocale()] = $colorT->getContent();
+        }
+        $form->get('name_hr')->setData($colorNameTranslations['hr']);
+        $form->get('name_en')->setData($colorNameTranslations['en']);
+        $currentColor = $color->getValue();
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            $colorValue = $form->get('value')->getData();
+            if($currentColor !== $colorValue && !is_null(
+                    $colorRepository->findOneBy(['value'=>$colorValue]))) {
+                $this->addFlash('danger',
+                    $translator->trans('flash_message.color_exists',
+                        [
+                            '%color_code%' => $colorValue
+                        ], 'color'));
+                return $this->redirectToRoute('color_edit',
+                    ['id' => $color->getId()]);
+            }
+            $colorNameHr = $form->get('name_hr')->getData();
+            $colorNameEn = $form->get('name_en')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $color->setLocale($language);
+                if($language == 'hr') {
+                    $color->setName($colorNameHr);
+                } else {
+                    $color->setName($colorNameEn);
+                }
+                $entityManager->persist($color);
+                $entityManager->flush();
+            }
             $this->addFlash('success',
                 $translator->trans('flash_message.color_edited',
                     [
-                        '%color_name%' => $color->getName()
+                        '%color_code%' => $color->getValue()
                     ], 'color'));
             return $this->redirectToRoute('color_index');
         }
@@ -111,7 +151,8 @@ class ColorController extends AbstractController
     /**
      * @Route("/{id}", name="color_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Color $color, TranslatorInterface $translator): Response
+    public function delete(Request $request, Color $color,
+                           TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$color->getId(),
             $request->request->get('_token'))) {
@@ -121,7 +162,7 @@ class ColorController extends AbstractController
             $this->addFlash('danger',
                 $translator->trans('flash_message.color_deleted',
                     [
-                        '%color_name%' => $color->getName()
+                        '%color_code%' => $color->getValue()
                     ], 'color'));
             $entityManager->flush();
         }
