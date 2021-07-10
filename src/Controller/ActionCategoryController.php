@@ -54,17 +54,26 @@ class ActionCategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $formTitle = $form->get('title')->getData();
             $formCategories = $form->get('category')->getData();
+            $formTitleHr = $form->get('title_hr')->getData();
+            $formTitleEn = $form->get('title_en')->getData();
             $formDiscountPercentage = $form->get('discountPercentage')->getData();
+            $languages = ['hr', 'en'];
             foreach($formCategories as $formCategory) {
                 $actionCategory = new ActionCategory();
-                $actionCategory->setTitle($formTitle);
                 $actionCategory->setCategory($formCategory);
                 $actionCategory->setDiscountPercentage($formDiscountPercentage);
-                $entityManager->persist($actionCategory);
+                foreach($languages as $language) {
+                    $actionCategory->setLocale($language);
+                    if($language == 'hr') {
+                        $actionCategory->setTitle($formTitleHr);
+                    } else {
+                        $actionCategory->setTitle($formTitleEn);
+                    }
+                    $entityManager->persist($actionCategory);
+                    $entityManager->flush();
+                }
             }
-            $entityManager->flush();
 
             $this->addFlash('success',
                     $translator->trans('flash_message.action_category_created',
@@ -96,11 +105,31 @@ class ActionCategoryController extends AbstractController
     public function edit(Request $request, ActionCategory $actionCategory,
                          TranslatorInterface $translator): Response
     {
-        $form = $this->createForm(ActionCategoryType::class, $actionCategory, ['isEdit'=>true]);
+        $form = $this->createForm(ActionCategoryType::class, $actionCategory, ['isEdit' => true]);
+        $actionNameTranslations = [];
+        foreach($actionCategory->getActionCategoryTranslations() as $actionCategoryTranslation) {
+            $actionNameTranslations[$actionCategoryTranslation->getLocale()] =
+                $actionCategoryTranslation->getContent();
+        }
+        $form->get('title_hr')->setData($actionNameTranslations['hr']);
+        $form->get('title_en')->setData($actionNameTranslations['en']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $formTitleHr = $form->get('title_hr')->getData();
+            $formTitleEn = $form->get('title_en')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $actionCategory->setLocale($language);
+                if($language == 'hr') {
+                    $actionCategory->setTitle($formTitleHr);
+                } else {
+                    $actionCategory->setTitle($formTitleEn);
+                }
+                $entityManager->persist($actionCategory);
+                $entityManager->flush();
+            }
 
             $this->addFlash('success',
                 $translator->trans('flash_message.action_category_edited',

@@ -15,19 +15,15 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $languageCodes = ['hr', 'en'];
 
         $user = new User();
         $user->setName("Branimir");
         $user->setSurname("Butković");
         $user->setEmail("branimir@gmail.com");
         $user->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
-        $user->setBirthDate(new \DateTime("1997-10-27"));
-        $user->setGender("Muški");
         $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$avj5HbJl56Te5US1YZiQAQ$T9qpVqy9QHEokQZya9zJLjpHsS0pqh8aqFRHZkKcMOI');
-
         $manager->persist($user);
-
-        $languageCodes = ['hr', 'en'];
 
         $categoriesHr = [
             "Muškarci",

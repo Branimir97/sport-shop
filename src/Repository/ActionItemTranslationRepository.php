@@ -18,33 +18,4 @@ class ActionItemTranslationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ActionItemTranslation::class);
     }
-
-    // /**
-    //  * @return ActionItemTranslation[] Returns an array of ActionItemTranslation objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ActionItemTranslation
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

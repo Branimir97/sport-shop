@@ -112,7 +112,7 @@ class ActionItemController extends AbstractController
     public function edit(Request $request, ActionItem $actionItem,
                          TranslatorInterface $translator): Response
     {
-        $form = $this->createForm(ActionItemType::class, $actionItem, ['isEdit'=>true]);
+        $form = $this->createForm(ActionItemType::class, $actionItem, ['isEdit' => true]);
         $actionNameTranslations = [];
         foreach($actionItem->getActionItemTranslations() as $actionItemTranslation) {
             $actionNameTranslations[$actionItemTranslation->getLocale()] =
