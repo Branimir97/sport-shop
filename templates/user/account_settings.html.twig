@@ -70,7 +70,13 @@
                          <p>
                              {{ 'usersTable.gender'|trans({}, 'user') }}:
                              <strong>
-                                 {{ app.user.gender }}
+                                 {% if app.user.gender is null %}
+                                     -
+                                 {% elseif app.user.gender == "Muški" %}
+                                     {{ 'form.labels.gender_choices.male'|trans({}, 'register') }}
+                                 {% elseif app.user.gender == "Ženski" %}
+                                     {{ 'form.labels.gender_choices.female'|trans({}, 'register') }}
+                                 {% endif %}
                              </strong>
                          </p>
                     {% endif %}

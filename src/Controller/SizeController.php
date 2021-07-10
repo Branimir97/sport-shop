@@ -55,31 +55,9 @@ class SizeController extends AbstractController
                 return $this->redirectToRoute('size_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $sizeType = $form->get('type')->getData();
-            $languages = ['hr', 'en'];
-            if($sizeType == "Obuća") {
-                foreach($languages as $language) {
-                    $size->setLocale($language);
-                    if($language == 'hr') {
-                        $size->setType("Obuća");
-                    } else {
-                        $size->setType("Footwear");
-                    }
-                    $entityManager->persist($size);
-                    $entityManager->flush();
-                }
-            } else {
-                foreach($languages as $language) {
-                    $size->setLocale($language);
-                    if($language == 'hr') {
-                        $size->setType("Odjeća");
-                    } else {
-                        $size->setType("Clothes");
-                    }
-                    $entityManager->persist($size);
-                    $entityManager->flush();
-                }
-            }
+            $entityManager->persist($size);
+            $entityManager->flush();
+
             $this->addFlash('success',
                 $translator->trans('flash_message.size_added',
                     [], 'size'));
@@ -127,32 +105,7 @@ class SizeController extends AbstractController
                         ], 'size'));
                 return $this->redirectToRoute('size_edit', ['id' => $size->getId()]);
             }
-            $entityManager = $this->getDoctrine()->getManager();
-            $sizeType = $form->get('type')->getData();
-            $languages = ['hr', 'en'];
-            if($sizeType == "Obuća") {
-                foreach($languages as $language) {
-                    $size->setLocale($language);
-                    if($language == 'hr') {
-                        $size->setType("Obuća");
-                    } else {
-                        $size->setType("Footwear");
-                    }
-                    $entityManager->persist($size);
-                    $entityManager->flush();
-                }
-            } else {
-                foreach($languages as $language) {
-                    $size->setLocale($language);
-                    if($language == 'hr') {
-                        $size->setType("Odjeća");
-                    } else {
-                        $size->setType("Clothes");
-                    }
-                    $entityManager->persist($size);
-                    $entityManager->flush();
-                }
-            }
+            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success',
                 $translator->trans('flash_message.size_edited',

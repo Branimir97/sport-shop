@@ -54,7 +54,13 @@
                         <tr>
                             <td>{{ size.id }}</td>
                             <td>{{ size.value }}</td>
-                            <td>{{ size.type }}</td>
+                            <td>
+                                {% if (size.type == "Obuća") %}
+                                    {{ 'form.type_choices.footwear'|trans({}, 'size') }}
+                                {% elseif (size.type == "Odjeća") %}
+                                    {{ 'form.type_choices.clothes'|trans({}, 'size') }}
+                                {% endif %}
+                            </td>
                             <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
                             <td>
                                 {{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}

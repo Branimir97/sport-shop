@@ -198,31 +198,17 @@ class AppFixtures extends Fixture
         foreach($sizesClothes as $size) {
             $sizeObj = new Size();
             $sizeObj->setValue($size);
-            foreach($languageCodes as $language) {
-                $sizeObj->setLocale($language);
-                if($language == 'hr') {
-                    $sizeObj->setType("Odjeća");
-                } else {
-                    $sizeObj->setType("Clothes");
-                }
-                $manager->persist($sizeObj);
-                $manager->flush();
-            }
+            $sizeObj->setType("Obuća");
+            $manager->persist($sizeObj);
+            $manager->flush();
         }
 
         foreach($sizesFootWear as $size) {
             $sizeObj = new Size();
             $sizeObj->setValue($size);
-            foreach($languageCodes as $language) {
-                $sizeObj->setLocale($language);
-                if($language == 'hr') {
-                    $sizeObj->setType("Obuća");
-                } else {
-                    $sizeObj->setType("Footwear");
-                }
-                $manager->persist($sizeObj);
-                $manager->flush();
-            }
+            $sizeObj->setType("Odjeća");
+            $manager->persist($sizeObj);
+            $manager->flush();
         }
 
         $i = 0;

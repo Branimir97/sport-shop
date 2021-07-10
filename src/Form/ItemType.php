@@ -23,11 +23,20 @@ class ItemType extends AbstractType
     {
         $isEditForm = $options['isEdit'];
         $builder
-            ->add('title', TextType::class, [
+            ->add('title_hr', TextType::class, [
+                'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'form.title_placeholder'
+                    'placeholder' => 'form.title_placeholder_hr'
                 ],
-                'label' => 'form.title_label',
+                'label' => 'form.title_label_hr',
+                'translation_domain' => 'item'
+            ])
+            ->add('title_en', TextType::class, [
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'form.title_placeholder_en'
+                ],
+                'label' => 'form.title_label_en',
                 'translation_domain' => 'item'
             ])
             ->add('manufacturer', EntityType::class, [
@@ -104,14 +113,26 @@ class ItemType extends AbstractType
             ;
         }
         $builder
-            ->add('description', TextareaType::class, [
+            ->add('description_hr', TextareaType::class, [
                 'required' => false,
+                'mapped' => false,
                 'attr' => [
                     'rows' => 10,
-                    'placeholder' => 'form.description_placeholder'
+                    'placeholder' => 'form.description_placeholder_hr'
                 ],
                 'help' => 'form.description_help',
-                'label' => 'form.description_label',
+                'label' => 'form.description_label_hr',
+                'translation_domain' => 'item'
+            ])
+            ->add('description_en', TextareaType::class, [
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'rows' => 10,
+                    'placeholder' => 'form.description_placeholder_en'
+                ],
+                'help' => 'form.description_help',
+                'label' => 'form.description_label_en',
                 'translation_domain' => 'item'
             ])
             ->add('price', NumberType::class, [

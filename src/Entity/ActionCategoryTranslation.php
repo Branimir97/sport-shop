@@ -18,7 +18,7 @@ class ActionCategoryTranslation extends AbstractPersonalTranslation
     protected $object;
 
     /**
-     * ActionItemTranslation constructor.
+     * ActionCategoryTranslation constructor.
      * @param string $locale
      * @param string $field
      * @param string $value

@@ -51,7 +51,15 @@
                     <th>
                         {{ 'usersTable.gender'|trans({}, 'user') }}
                     </th>
-                    <td>{{ user.gender ? user.gender : '-' }}</td>
+                    <td>
+                        {% if user.gender is null %}
+                            -
+                        {% elseif user.gender == "Muški" %}
+                            {{ 'form.labels.gender_choices.male'|trans({}, 'register') }}
+                        {% elseif user.gender == "Ženski" %}
+                            {{ 'form.labels.gender_choices.female'|trans({}, 'register') }}
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <th>

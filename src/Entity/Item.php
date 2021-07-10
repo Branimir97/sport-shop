@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
+ * @Gedmo\TranslationEntity(class="App\Entity\ItemTranslation")
  */
-class Item
+class Item implements Translatable
 {
     /**
      * @ORM\Id
@@ -22,6 +24,7 @@ class Item
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
      */
     private $title;
 
@@ -79,6 +82,7 @@ class Item
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Translatable
      */
     private $description;
 
@@ -102,6 +106,16 @@ class Item
      */
     private $actionItem;
 
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ItemTranslation::class, mappedBy="object")
+     */
+    private $itemTranslations;
+
     public function __construct()
     {
         $this->itemTags = new ArrayCollection();
@@ -112,6 +126,7 @@ class Item
         $this->reviews = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
         $this->wishListItems = new ArrayCollection();
+        $this->itemTranslations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -456,6 +471,46 @@ class Item
         }
 
         $this->actionItem = $actionItem;
+
+        return $this;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    public function setLocale($locale): void
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @return Collection|ItemTranslation[]
+     */
+    public function getItemTranslations(): Collection
+    {
+        return $this->itemTranslations;
+    }
+
+    public function addItemTranslation(ItemTranslation $itemTranslation): self
+    {
+        if (!$this->itemTranslations->contains($itemTranslation)) {
+            $this->itemTranslations[] = $itemTranslation;
+            $itemTranslation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemTranslation(ItemTranslation $itemTranslation): self
+    {
+        if ($this->itemTranslations->removeElement($itemTranslation)) {
+            // set the owning side to null (unless already changed)
+            if ($itemTranslation->getObject() === $this) {
+                $itemTranslation->setObject(null);
+            }
+        }
 
         return $this;
     }

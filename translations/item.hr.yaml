@@ -111,8 +111,10 @@ itemsTable:
   delete: Obriši artikl
 
 form:
-  title_placeholder: npr. Nike Air Max tenisice
-  title_label: Naziv
+  title_placeholder_hr: npr. Nike Air Max tenisice
+  title_label_hr: Naziv artikla na hrvatskom
+  title_placeholder_en: npr. Nike Air Max sneakers
+  title_label_en: Naziv artikla na engleskom
   manufacturer_help: Odaberite proizvođača
   manufacturer_label: Proizvođač
   category_help: Odaberite jednu ili više kategorija
@@ -127,8 +129,10 @@ form:
   image_help: Dopušteni formati slika su jpg, jpeg i png;
               Maksimalna dopuštena veličina pojedine slike je 2MB
   image_label: Slike
-  description_label: Opis artikla
-  description_placeholder: npr. sastav, savjeti oko uporabe, namjena, itd.
+  description_label_hr: Opis artikla na hrvatskom
+  description_placeholder_hr: Npr. sastav, savjeti oko uporabe, namjena, itd. na hrvatskom
+  description_label_en: Opis artikla na engleskom
+  description_placeholder_en: Npr. sastav, savjeti oko uporabe, namjena, itd. na engleskom
   description_help: Omogućeno je korištenje HTML elemenata
   price_placeholder: npr. 349,50
   price_help: Unos u kunama

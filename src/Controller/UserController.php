@@ -27,6 +27,7 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findBy([], ['id' => 'DESC']),
         ]);
@@ -40,6 +41,7 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -57,6 +59,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, TranslatorInterface $translator): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $form = $this->createForm(UserType::class, $user, ['isEditForm' => true]);
         $form->handleRequest($request);
 
@@ -89,6 +92,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user, TranslatorInterface $translator): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         if ($this->isCsrfTokenValid('delete'.$user->getId(),
             $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -118,6 +122,7 @@ class UserController extends AbstractController
                              LoyaltyCardRepository $loyaltyCardRepository,
                              SubscriberRepository $subscriberRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $deliveryAddresses = $deliveryAddressRepository->findBy(['user' => $this->getUser()]);
         $loyaltyCard = $loyaltyCardRepository->findOneBy(['user' => $this->getUser()]);
         $subscribed = $subscriberRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
@@ -139,6 +144,7 @@ class UserController extends AbstractController
                                   UserPasswordEncoderInterface $passwordEncoder,
                                   TranslatorInterface $translator)
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $user = $userRepository->findOneBy(['id' => $request->get('id')]);
         if(!is_null($user->getFacebookId()) || !is_null($user->getGoogleId())) {
             return $this->redirectToRoute('account_settings');

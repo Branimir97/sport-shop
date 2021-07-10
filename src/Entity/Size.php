@@ -11,9 +11,8 @@ use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass=SizeRepository::class)
- * @Gedmo\TranslationEntity(class="App\Entity\SizeTranslation")
  */
-class Size implements Translatable
+class Size
 {
     /**
      * @ORM\Id
@@ -29,7 +28,6 @@ class Size implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\Translatable
      */
     private $type;
 
@@ -55,21 +53,10 @@ class Size implements Translatable
      */
     private $cartItems;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SizeTranslation::class, mappedBy="object")
-     */
-    private $sizeTranslations;
-
-    /**
-     * @Gedmo\Locale
-     */
-    private $locale;
-
     public function __construct()
     {
         $this->itemSizes = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
-        $this->sizeTranslations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,46 +166,6 @@ class Size implements Translatable
             // set the owning side to null (unless already changed)
             if ($cartItem->getSize() === $this) {
                 $cartItem->setSize(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    public function setLocale($locale): void
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @return Collection|SizeTranslation[]
-     */
-    public function getSizeTranslations(): Collection
-    {
-        return $this->sizeTranslations;
-    }
-
-    public function addSizeTranslation(SizeTranslation $sizeTranslation): self
-    {
-        if (!$this->sizeTranslations->contains($sizeTranslation)) {
-            $this->sizeTranslations[] = $sizeTranslation;
-            $sizeTranslation->setObject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSizeTranslation(SizeTranslation $sizeTranslation): self
-    {
-        if ($this->sizeTranslations->removeElement($sizeTranslation)) {
-            // set the owning side to null (unless already changed)
-            if ($sizeTranslation->getObject() === $this) {
-                $sizeTranslation->setObject(null);
             }
         }
 

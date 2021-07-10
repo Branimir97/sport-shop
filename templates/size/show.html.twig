@@ -33,7 +33,13 @@
                     <th>
                         {{ 'sizesTable.itemType'|trans({}, 'size') }}
                     </th>
-                    <td>{{ size.type }}</td>
+                    <td>
+                        {% if (size.type == "Obuća") %}
+                            {{ 'form.type_choices.footwear'|trans({}, 'size') }}
+                        {% elseif (size.type == "Odjeća") %}
+                            {{ 'form.type_choices.clothes'|trans({}, 'size') }}
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <th>

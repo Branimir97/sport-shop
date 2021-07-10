@@ -112,8 +112,10 @@ itemsTable:
   delete: Delete item
 
 form:
-  title_placeholder: e.g. Nike Air Max sneakers
-  title_label: Title
+  title_placeholder_hr: e.g. Nike Air Max tenisice
+  title_label_hr: Item title on croatian
+  title_placeholder_en: e.g. Nike Air Max sneakers
+  title_label_en: Item title on english
   manufacturer_help: Choose a manufacturer
   manufacturer_label: Manufacturer
   category_help: Select one or more categories
@@ -128,8 +130,10 @@ form:
   image_help: Allowed image formats are jpg, jpeg and png;
               The maximum allowed size of an individual image is 2MB
   image_label: Images
-  description_label: Item description
-  description_placeholder: e.g. composition, tips on use, purpose, etc.
+  description_label_hr: Item description on croatian
+  description_placeholder_hr: e.g. composition, tips on use, purpose, etc. on croatian
+  description_label_en: Item description on english
+  description_placeholder_en:  e.g. composition, tips on use, purpose, etc. on english
   description_help: The use of HTML elements is enabled
   price_placeholder: e.g. 349,50
   price_help: Entry in HRK

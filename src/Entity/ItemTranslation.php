@@ -2,23 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\SizeTranslationRepository;
+use App\Repository\ItemTranslationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * @ORM\Entity(repositoryClass=SizeTranslationRepository::class)
+ * @ORM\Entity(repositoryClass=ItemTranslationRepository::class)
  */
-class SizeTranslation extends AbstractPersonalTranslation
+class ItemTranslation extends AbstractPersonalTranslation
 {
+
     /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="sizeTranslations")
+     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemTranslations")
      */
     protected $object;
 
     /**
-     * SizeTranslation constructor.
+     * ItemTranslation constructor.
      * @param string $locale
      * @param string $field
      * @param string $value
@@ -42,23 +43,27 @@ class SizeTranslation extends AbstractPersonalTranslation
      */
     private $updatedAt;
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

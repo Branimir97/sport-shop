@@ -51,7 +51,15 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.surname }}</td>
-                        <td>{{ user.gender ? user.gender : '-' }}</td>
+                        <td>
+                            {% if user.gender is null %}
+                                -
+                            {% elseif user.gender == "Muški" %}
+                                {{ 'form.labels.gender_choices.male'|trans({}, 'register') }}
+                            {% elseif user.gender == "Ženski" %}
+                                {{ 'form.labels.gender_choices.female'|trans({}, 'register') }}
+                            {% endif %}
+                        </td>
                         <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
                         <td>
                             {{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}
