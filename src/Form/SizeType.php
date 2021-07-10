@@ -25,7 +25,6 @@ class SizeType extends AbstractType
                     'form.type_choices.footwear' => "Obuća",
                     'form.type_choices.clothes' => "Odjeća"
                 ],
-                'choice_translation_domain' => true,
                 'help' => 'form.type_help',
                 'label' => 'form.type_label',
                 'translation_domain' => 'size'

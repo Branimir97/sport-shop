@@ -61,17 +61,26 @@ class ActionItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $formTitle = $form->get('title')->getData();
             $formItems = $form->get('item')->getData();
+            $formTitleHr = $form->get('title_hr')->getData();
+            $formTitleEn = $form->get('title_en')->getData();
             $formDiscountPercentage = $form->get('discountPercentage')->getData();
+            $languages = ['hr', 'en'];
             foreach($formItems as $formItem) {
                 $actionItem = new ActionItem();
-                $actionItem->setTitle($formTitle);
                 $actionItem->setItem($formItem);
                 $actionItem->setDiscountPercentage($formDiscountPercentage);
-                $entityManager->persist($actionItem);
+                foreach($languages as $language) {
+                    $actionItem->setLocale($language);
+                    if($language == 'hr') {
+                        $actionItem->setTitle($formTitleHr);
+                    } else {
+                        $actionItem->setTitle($formTitleEn);
+                    }
+                    $entityManager->persist($actionItem);
+                    $entityManager->flush();
+                }
             }
-            $entityManager->flush();
 
             $this->addFlash('success',
                 $translator->trans('flash_message.action_item_created',
@@ -104,10 +113,30 @@ class ActionItemController extends AbstractController
                          TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ActionItemType::class, $actionItem, ['isEdit'=>true]);
+        $actionNameTranslations = [];
+        foreach($actionItem->getActionItemTranslations() as $actionItemTranslation) {
+            $actionNameTranslations[$actionItemTranslation->getLocale()] =
+                $actionItemTranslation->getContent();
+        }
+        $form->get('title_hr')->setData($actionNameTranslations['hr']);
+        $form->get('title_en')->setData($actionNameTranslations['en']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $formTitleHr = $form->get('title_hr')->getData();
+            $formTitleEn = $form->get('title_en')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $actionItem->setLocale($language);
+                if($language == 'hr') {
+                    $actionItem->setTitle($formTitleHr);
+                } else {
+                    $actionItem->setTitle($formTitleEn);
+                }
+                $entityManager->persist($actionItem);
+                $entityManager->flush();
+            }
 
             $this->addFlash('success',
                 $translator->trans('flash_message.action_item_edited',

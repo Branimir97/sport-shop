@@ -26,8 +26,10 @@ actionsTable:
 form:
   item_help: Select one or more items
   item_label: Available items
-  title_label: Action name
-  title_placeholder: e.g. Discount on item - Nike Air Max
+  title_label_hr: Action name on croatian
+  title_placeholder_hr: e.g. Popust na artikl - Nike Air Max
+  title_label_en: Action name on english
+  title_placeholder_en: e.g. Discount on item - Nike Air Max
   discount_label: Discount percentage
   discount_help: Percentage ranging from [1-30]%
   button_label: Set category (s) on action

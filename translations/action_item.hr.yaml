@@ -26,8 +26,10 @@ actionsTable:
 form:
   item_help: Odaberite jedan ili više artikala
   item_label: Dostupni artikli
-  title_label: Naziv akcije
-  title_placeholder: npr. Popust na artikl - Nike Air Max
+  title_label_hr: Naziv akcije na hrvatskom
+  title_placeholder_hr: npr. Popust na artikl - Nike Air Max
+  title_label_en: Naziv akcije na engleskom
+  title_placeholder_en: npr. Discount on item - Nike Air Max
   discount_label: Postotak popusta
   discount_help: Postotak u rasponu od [1-30]%
   button_label: Postavi artikl/e na akciju

@@ -55,9 +55,31 @@ class SizeController extends AbstractController
                 return $this->redirectToRoute('size_new');
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($size);
-            $entityManager->flush();
-
+            $sizeType = $form->get('type')->getData();
+            $languages = ['hr', 'en'];
+            if($sizeType == "Obuća") {
+                foreach($languages as $language) {
+                    $size->setLocale($language);
+                    if($language == 'hr') {
+                        $size->setType("Obuća");
+                    } else {
+                        $size->setType("Footwear");
+                    }
+                    $entityManager->persist($size);
+                    $entityManager->flush();
+                }
+            } else {
+                foreach($languages as $language) {
+                    $size->setLocale($language);
+                    if($language == 'hr') {
+                        $size->setType("Odjeća");
+                    } else {
+                        $size->setType("Clothes");
+                    }
+                    $entityManager->persist($size);
+                    $entityManager->flush();
+                }
+            }
             $this->addFlash('success',
                 $translator->trans('flash_message.size_added',
                     [], 'size'));
@@ -87,13 +109,50 @@ class SizeController extends AbstractController
      * }, name="size_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Size $size,
-                         TranslatorInterface $translator): Response
+                         TranslatorInterface $translator,
+                         SizeRepository $sizeRepository): Response
     {
         $form = $this->createForm(SizeType::class, $size);
+        $currentSizeValue = $size->getValue();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $sizeValue = $form->get('value')->getData();
+            if($currentSizeValue !== $sizeValue &&
+                !is_null($sizeRepository->findOneBy(['value' => $sizeValue]))) {
+                $this->addFlash('danger',
+                    $translator->trans('flash_message.size_exists',
+                        [
+                            '%size_value%' => $sizeValue
+                        ], 'size'));
+                return $this->redirectToRoute('size_edit', ['id' => $size->getId()]);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $sizeType = $form->get('type')->getData();
+            $languages = ['hr', 'en'];
+            if($sizeType == "Obuća") {
+                foreach($languages as $language) {
+                    $size->setLocale($language);
+                    if($language == 'hr') {
+                        $size->setType("Obuća");
+                    } else {
+                        $size->setType("Footwear");
+                    }
+                    $entityManager->persist($size);
+                    $entityManager->flush();
+                }
+            } else {
+                foreach($languages as $language) {
+                    $size->setLocale($language);
+                    if($language == 'hr') {
+                        $size->setType("Odjeća");
+                    } else {
+                        $size->setType("Clothes");
+                    }
+                    $entityManager->persist($size);
+                    $entityManager->flush();
+                }
+            }
 
             $this->addFlash('success',
                 $translator->trans('flash_message.size_edited',

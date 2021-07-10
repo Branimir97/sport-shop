@@ -40,10 +40,19 @@ class ActionItemType extends AbstractType
             ;
         }
         $builder
-            ->add('title', TextType::class, [
-                'label' => 'form.title_label',
+            ->add('title_hr', TextType::class, [
+                'mapped' => false,
+                'label' => 'form.title_label_hr',
                 'attr' => [
-                    'placeholder' => 'form.title_placeholder'
+                    'placeholder' => 'form.title_placeholder_hr'
+                ],
+                'translation_domain' => 'action_item'
+            ])
+            ->add('title_en', TextType::class, [
+                'mapped' => false,
+                'label' => 'form.title_label_en',
+                'attr' => [
+                    'placeholder' => 'form.title_placeholder_en'
                 ],
                 'translation_domain' => 'action_item'
             ])

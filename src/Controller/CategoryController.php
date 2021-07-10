@@ -104,8 +104,7 @@ class CategoryController extends AbstractController
      * }, name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category,
-                         TranslatorInterface $translator,
-                         CategoryRepository $categoryRepository): Response
+                         TranslatorInterface $translator): Response
     {
         $form = $this->createForm(CategoryType::class);
         $categoryNameTranslations = [];
