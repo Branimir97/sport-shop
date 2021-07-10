@@ -69,11 +69,16 @@ class ItemController extends AbstractController
         if ($formNewItem->isSubmitted() && $formNewItem->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $item->setCipher(uniqid());
+            $titleHr = $formNewItem->get('title_hr')->getData();
+            $titleEn = $formNewItem->get('title_en')->getData();
             $categories = $formNewItem->get('category')->getData();
             $tags = $formNewItem->get('tag')->getData();
             $sizes = $formNewItem->get('size')->getData();
             $colors = $formNewItem->get('color')->getData();
             $images = $formNewItem->get('image')->getData();
+            $descriptionHr = $formNewItem->get('description_hr')->getData();
+            $descriptionEn = $formNewItem->get('description_en')->getData();
+
             foreach($categories as $category) {
                 $itemCategory = new ItemCategory();
                 $itemCategory->setItem($item);
@@ -102,6 +107,20 @@ class ItemController extends AbstractController
                 $image->setItem($item);
                 $entityManager->persist($image);
             }
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $item->setLocale($language);
+                    if($language == 'hr') {
+                        $item->setTitle($titleHr);
+                        $item->setDescription($descriptionHr);
+                    } else {
+                        $item->setTitle($titleEn);
+                        $item->setDescription($descriptionEn);
+                    }
+                $entityManager->persist($item);
+                $entityManager->flush();
+            }
+
             if (count($sizes) != 0 || count($colors) != 0) {
                 foreach($sizes as $size){
                     $itemSize = new ItemSize();
@@ -126,8 +145,7 @@ class ItemController extends AbstractController
                 return $this->redirectToRoute('item_quantity_set',
                     ['id' => $item->getId()]);
             }
-            $entityManager->persist($item);
-            $entityManager->flush();
+
             $this->addFlash('success',
                 $translator->trans('flash_message.item_added',
                     [], 'item'));
@@ -205,19 +223,57 @@ class ItemController extends AbstractController
     public function edit(Request $request, Item $item,
                          TranslatorInterface $translator): Response
     {
-        $formNewItem = $this->createForm(ItemType::class, $item, ['isEdit'=>true]);
+        $formNewItem = $this->createForm(ItemType::class, $item, ['isEdit' => true]);
+        $itemTitleTranslations = [];
+        $itemDescriptionTranslations = [];
+        foreach($item->getItemTranslations() as $itemTranslation) {
+            if ($itemTranslation->getField() == 'title') {
+                $itemTitleTranslations[$itemTranslation->getLocale()]
+                    = $itemTranslation->getContent();
+            } else if ($itemTranslation->getField() == 'description') {
+                $itemDescriptionTranslations[$itemTranslation->getLocale()]
+                    = $itemTranslation->getContent();
+            }
+        }
+        $formNewItem->get('title_hr')->setData($itemTitleTranslations['hr']);
+        $formNewItem->get('title_en')->setData($itemTitleTranslations['en']);
         $formNewItem->get('manufacturer')->setData($item->getManufacturer());
+        $formNewItem->get('description_hr')->setData($itemDescriptionTranslations['hr']);
+        $formNewItem->get('description_en')->setData($itemDescriptionTranslations['en']);
         $formNewItem->handleRequest($request);
         if ($formNewItem->isSubmitted() && $formNewItem->isValid()) {
+            $itemTitleHr = $formNewItem->get('title_hr')->getData();
+            $itemTitleEn = $formNewItem->get('title_en')->getData();
+            $itemDescriptionHr = $formNewItem->get('description_hr')->getData();
+            $itemDescriptionEn = $formNewItem->get('description_en')->getData();
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($item);
-            $entityManager->flush();
+            $languages = ['hr', 'en'];
+            foreach($languages as $language) {
+                $item->setLocale($language);
+                if($language == 'hr') {
+                    $item->setTitle($itemTitleHr);
+                    $item->setDescription($itemDescriptionHr);
+                } else {
+                    $item->setTitle($itemTitleEn);
+                    $item->setDescription($itemDescriptionEn);
+                }
+                $entityManager->persist($item);
+                $entityManager->flush();
+            }
+            if($request->getLocale() == 'hr') {
+                $this->addFlash('success',
+                    $translator->trans('flash_message.edit_message',
+                        [
+                            '%item_title%' => $itemTitleHr
+                        ], 'item'));
+            } else {
+                $this->addFlash('success',
+                    $translator->trans('flash_message.edit_message',
+                        [
+                            '%item_title%' => $itemTitleEn
+                        ], 'item'));
+            }
 
-            $this->addFlash('success',
-                $translator->trans('flash_message.edit_message',
-                    [
-                        '%item_title%' => $item->getTitle()
-                    ], 'item'));
             return $this->redirectToRoute('item_index');
         }
 

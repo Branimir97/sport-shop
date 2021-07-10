@@ -114,7 +114,6 @@ class ItemType extends AbstractType
         }
         $builder
             ->add('description_hr', TextareaType::class, [
-                'required' => false,
                 'mapped' => false,
                 'attr' => [
                     'rows' => 10,
@@ -125,7 +124,6 @@ class ItemType extends AbstractType
                 'translation_domain' => 'item'
             ])
             ->add('description_en', TextareaType::class, [
-                'required' => false,
                 'mapped' => false,
                 'attr' => [
                     'rows' => 10,
