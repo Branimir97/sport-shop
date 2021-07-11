@@ -150,11 +150,24 @@ class ItemDetailsController extends AbstractController
             return $this->redirect($request->getUri());
         }
 
+        $discount = 0;
+        if(!is_null($item->getActionItem())) {
+            $discount = $item->getActionItem()->getDiscountPercentage();
+        }
+        $itemCategories = $item->getItemCategories();
+        foreach($itemCategories as $itemCategory) {
+            if(!is_null($itemCategory->getCategory()->getActionCategory())) {
+                $discount = $itemCategory->getCategory()->getActionCategory()
+                    ->getDiscountPercentage();
+            }
+        }
+
         return $this->render('item_details/index.html.twig', [
             'item' => $item,
             'formReview' => $formReview->createView(),
             'formCart' => $formCart->createView(),
-            'reviews' => $reviewRepository->findBy(['item' => $item, 'valid' => true])
+            'reviews' => $reviewRepository->findBy(['item' => $item, 'valid' => true]),
+            'discount' => $discount
         ]);
     }
 }

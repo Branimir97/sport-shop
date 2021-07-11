@@ -13,6 +13,8 @@ size: Veličina
 warningMessage: Za dodavanje artikla u košaricu/listu želja potrebno je imati korisnički račun.
 loginRegister: Prijava/registracija
 price: Cijena
+price_old: Redovna cijena
+price_new: Akcijska cijena
 noTags: Tagovi nisu uneseni.
 tags: Tagovi
 itemDescription: Opis artikla

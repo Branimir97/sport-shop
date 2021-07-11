@@ -13,6 +13,8 @@ size: Size
 warningMessage: To add an item to the cart / wish list, you need to have an account.
 loginRegister: Login/Register
 price: Price
+price_old: Regular price
+price_new: Discount price
 noTags: No tags entered.
 tags: Tags
 itemDescription: Item description

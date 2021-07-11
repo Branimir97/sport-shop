@@ -30,6 +30,22 @@
                             <div class="carousel-inner">
                                 {% for image in item.images %}
                                     <div class="carousel-item">
+                                        {% if discount is not same as 0 %}
+                                            <div class="carousel-content1">
+                                                <p>
+                                                    - {{ discount }}%
+                                                </p>
+                                            </div>
+                                        {% endif %}
+                                        {% set difference = date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                        {% set daysDiff = difference.days %}
+                                        {% if daysDiff <= 2 %}
+                                            <div class="carousel-content2">
+                                                <p>
+                                                    {{ 'new'|trans({}, 'item_list') }}
+                                                </p>
+                                            </div>
+                                        {% endif %}
                                         <img src="{{ asset('uploads/')~image.path }}"
                                              alt="First slide">
                                     </div>
@@ -145,10 +161,21 @@
                     </div>
                 {% endif %}
                 <h6 class="text-center">
-                    {{ 'price'|trans({}, 'item_details') }}:
-                    <span id="price">
-                        {{ item.price|number_format(2, '.', ',') }} kn
-                    </span>
+                    {% if discount is not same as 0 %}
+                        {{ 'price_old'|trans({}, 'item_details') }}:
+                        <span id="price_old">
+                            {{ item.price|number_format(2, '.', ',') }} kn
+                        </span><br>
+                        {{ 'price_new'|trans({}, 'item_details') }}:
+                        <span id="price">
+                            {{ item.price - (item.price * discount/100)|number_format(2, '.', ',') }} kn
+                        </span>
+                    {% else %}
+                        {{ 'price'|trans({}, 'item_details') }}:
+                        <span id="price">
+                            {{ item.price|number_format(2, '.', ',') }} kn
+                        </span>
+                    {% endif %}
                 </h6>
                 <p>
                     {% if item.itemTags|length == 0 %}
