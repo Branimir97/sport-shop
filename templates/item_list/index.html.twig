@@ -50,12 +50,15 @@
                                         {{ 'new'|trans({}, 'item_list') }}
                                     </div>
                                 {% endif %}
-{#                                {% if item.actionItems %}#}
-                                    <div class="action_badge p-1">#}
-{#                                        - {{ item.actionItem.discountPercentage }}%#}
-                                    </div>
-{#                                {% endif %}#}
-
+                                {% if actions|length is not same as 0 %}
+                                    {% for key, value in actions %}
+                                        {% if key == item.id %}
+                                                <div class="action_badge p-1">
+                                                    - {{ actions[key] }}%
+                                                </div>
+                                            {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">
                                 {% else %}

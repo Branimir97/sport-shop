@@ -41,11 +41,12 @@ class ItemRepository extends ServiceEntityRepository
             ->addSelect('color')
             ->leftJoin('i.actionItem', 'ai')
             ->addSelect('ai');
+
         return $query->getQuery()
             ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)
             ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
                 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->getArrayResult();
+            ->getResult();
     }
 
     public function searchByCipherAndName($keyword)
