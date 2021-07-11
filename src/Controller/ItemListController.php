@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ActionItemRepository;
 use App\Repository\ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,16 +19,18 @@ class ItemListController extends AbstractController
      * }, name="items_list")
      */
     public function index(Request $request, ItemRepository $itemRepository,
-                          TranslatorInterface $translator): Response
+                          TranslatorInterface $translator,
+                          ActionItemRepository $actionItemRepository): Response
     {
         $locale = $request->getLocale();
         $categoriesRequest = $request->get
             ($translator->trans('categories', [], 'navigation'));
         $categories = explode(',', $categoriesRequest);
         $itemsQuery = $itemRepository->findByCategories($categories, $locale);
+
         return $this->render('item_list/index.html.twig', [
             'items' => $itemsQuery,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 }

@@ -50,10 +50,12 @@
                                         {{ 'new'|trans({}, 'item_list') }}
                                     </div>
                                 {% endif %}
-                                {% set loopIndex = loop.index %}
-{#                                <div class="action_badge p-1">#}
-{#                                    - {{ discounts[loopIndex-1] }}%#}
-{#                                </div>#}
+{#                                {% if item.actionItems %}#}
+                                    <div class="action_badge p-1">#}
+{#                                        - {{ item.actionItem.discountPercentage }}%#}
+                                    </div>
+{#                                {% endif %}#}
+
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">
                                 {% else %}

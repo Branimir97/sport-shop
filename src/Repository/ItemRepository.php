@@ -38,8 +38,9 @@ class ItemRepository extends ServiceEntityRepository
             ->leftJoin('i.itemColors', 'itemColors')
             ->addSelect('itemColors')
             ->leftJoin('itemColors.color', 'color')
-            ->addSelect('color');
-
+            ->addSelect('color')
+            ->leftJoin('i.actionItem', 'ai')
+            ->addSelect('ai');
         return $query->getQuery()
             ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)
             ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
