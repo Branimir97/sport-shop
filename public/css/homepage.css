@@ -5,7 +5,7 @@
 
 .carousel-content {
     position: absolute;
-    bottom: 5%;
+    top: 10%;
     left: 5%;
     color: white;
     text-shadow: -1px -1px 14px rgba(119, 234, 101, 1);

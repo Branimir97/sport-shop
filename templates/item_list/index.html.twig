@@ -9,7 +9,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        {% if pagination.getTotalItemCount == 0 %}
+        {% if items|length == 0 %}
             <h2 class="text-center mt-2 bg-light p-2">
                 {{ 'title'|trans({}, 'item_list') }}
                 <i id="title-icon" class="fas fa-list-ol ml-1"></i>
@@ -24,16 +24,22 @@
             <div class="bg-light text-center">
             <h2 class="mt-2 pt-2 pb-0 mb-0">
                 {{ 'title'|trans({}, 'item_list') }}
+                <i id="title-icon" class="fas fa-list-ol ml-1"></i>
             </h2>
             <small>
                 {{ 'categories'|trans({}, 'item_list') }}:
                 {% for category in categories %}
-                    {{ category|trans({}, 'navigation') }}
+                    <a href="{{ path('items_list', {
+                        ('categories'|trans({}, 'navigation')):
+                        (category|trans({}, 'navigation'))
+                        }) }}">
+                        {{ category|trans({}, 'navigation') }}
+                    </a>
                 {% endfor %}
             </small>
             </div>
             <div class="row">
-                {% for item in pagination %}
+                {% for item in items %}
                     <div class="col-sm-3 mb-2">
                         <div class="one_item">
                             <div class="img-wrapper">
@@ -94,8 +100,5 @@
                 {% endfor %}
             </div>
         {% endif %}
-    </div>
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}

@@ -62,7 +62,12 @@
                         <p>
                             {{ 'itemCategories'|trans({}, 'item_details') }}:
                             {% for itemCategory in item.itemCategories %}
-                                <a href="#">{{ itemCategory.category.name }}</a>
+                                <a href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    (itemCategory.category.name|trans({}, 'navigation'))
+                                    }) }}">
+                                    {{ itemCategory.category.name }}
+                                </a>
                             {% endfor %}
                         </p>
                     {% endif %}
