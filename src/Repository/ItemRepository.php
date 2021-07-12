@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Gedmo\Translatable\TranslatableListener;
 
@@ -21,7 +22,7 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
-    public function findByCategories($categories, $locale)
+    public function findByCategories($categories): QueryBuilder
     {
         $query = $this->createQueryBuilder('i');
 
@@ -42,11 +43,7 @@ class ItemRepository extends ServiceEntityRepository
             ->leftJoin('i.actionItem', 'ai')
             ->addSelect('ai');
 
-        return $query->getQuery()
-            ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)
-            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
-                'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->getResult();
+        return $query;
     }
 
     public function searchByCipherAndName($keyword)

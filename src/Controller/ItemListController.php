@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use App\Repository\ActionCategoryRepository;
 use App\Repository\ActionItemRepository;
-use App\Repository\CategoryRepository;
 use App\Repository\ItemCategoryRepository;
 use App\Repository\ItemRepository;
+use Doctrine\ORM\Query;
+use Gedmo\Translatable\TranslatableListener;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,16 +25,19 @@ class ItemListController extends AbstractController
      */
     public function index(Request $request, ItemRepository $itemRepository,
                           TranslatorInterface $translator,
-                          ActionItemRepository $actionItemRepository, ItemCategoryRepository $itemCategoryRepository): Response
+                          ActionItemRepository $actionItemRepository,
+                          ItemCategoryRepository $itemCategoryRepository,
+                          PaginatorInterface $paginator): Response
     {
         $locale = $request->getLocale();
         $categoriesRequest = $request->get
             ($translator->trans('categories', [], 'navigation'));
         $categories = explode(',', $categoriesRequest);
-        $itemsQuery = $itemRepository->findByCategories($categories, $locale);
+        $itemsQuery = $itemRepository->findByCategories($categories);
 
+        $results = $itemsQuery->getQuery()->getArrayResult();
         $actions = [];
-        foreach($itemsQuery as $item) {
+        foreach($results as $item) {
             foreach($actionItemRepository->findAll() as $actionItem) {
                 if($item == $actionItem->getItem()) {
                     $actions[$item->getId()] = $actionItem->getDiscountPercentage();
@@ -40,18 +45,26 @@ class ItemListController extends AbstractController
             }
         }
 
-        foreach($itemsQuery as $item) {
+        foreach($results as $item) {
             foreach ($itemCategoryRepository->findAll() as $itemCategory) {
                 if(!is_null($itemCategory->getCategory()->getActionCategory())) {
                     if($item == $itemCategory->getItem()) {
-                        $actions[$item->getId()] = $itemCategory->getCategory()->getActionCategory()->getDiscountPercentage();
+                        $actions[$item->getId()] = $itemCategory->
+                        getCategory()->getActionCategory()->getDiscountPercentage();
                     }
                 }
             }
         }
-
+        $pagination = $paginator->paginate(
+          $itemsQuery->getQuery()
+              ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)
+              ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+                  'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'),
+          $request->query->getInt('page', 1),
+          4
+        );
         return $this->render('item_list/index.html.twig', [
-            'items' => $itemsQuery,
+            'pagination' => $pagination,
             'categories' => $categories,
             'actions' => $actions
         ]);
