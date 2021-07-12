@@ -55,6 +55,8 @@ class ItemListController extends AbstractController
 //                }
 //            }
 //        }
+        //dodati action badgeve
+
         $pagination = $paginator->paginate(
           $itemsQuery->getQuery()
               ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)

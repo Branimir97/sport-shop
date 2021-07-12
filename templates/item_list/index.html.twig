@@ -19,6 +19,17 @@
                 <h6 class="bg-light p-2">
                     {{ 'noItems'|trans({}, 'item_list') }}
                 </h6>
+                <small>
+                    {{ 'categories'|trans({}, 'item_list') }}:
+                    {% for category in categories %}
+                        <a href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            (category|trans({}, 'navigation'))
+                        }) }}">
+                            {{ category|trans({}, 'navigation') }}
+                        </a>
+                    {% endfor %}
+                </small>
             </div>
         {% else %}
             <div class="bg-light text-center">
@@ -50,15 +61,15 @@
                                         {{ 'new'|trans({}, 'item_list') }}
                                     </div>
                                 {% endif %}
-                                {% if actions|length is not same as 0 %}
-                                    {% for key, value in actions %}
-                                        {% if key == item.id %}
-                                                <div class="action_badge p-1">
-                                                    - {{ actions[key] }}%
-                                                </div>
-                                            {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+{#                                {% if actions|length is not same as 0 %}#}
+{#                                    {% for key, value in actions %}#}
+{#                                        {% if key == item.id %}#}
+{#                                                <div class="action_badge p-1">#}
+{#                                                    - {{ actions[key] }}%#}
+{#                                                </div>#}
+{#                                            {% endif %}#}
+{#                                    {% endfor %}#}
+{#                                {% endif %}#}
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">
                                 {% else %}

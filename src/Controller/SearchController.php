@@ -36,6 +36,8 @@ class SearchController extends AbstractController
                 }
             }
         }
+
+        //napraviti pagination | dodati ispravne badgeve
         return $this->render('search/index.html.twig', [
             'searchKeyword' => $searchKeyword,
             'searchResults' => $searchResults,

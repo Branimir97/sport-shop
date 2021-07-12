@@ -29,7 +29,7 @@ class SpecialOfferController extends AbstractController
         $actionCategoriesItems = $itemRepository->getCategoryActionsQuery();
         $actionItemsCount = count($actionItems->getQuery()->getArrayResult());
         $actionCategoriesCount = count($actionCategoriesItems->getQuery()->getArrayResult());
-        if($request->get('id') == 1) {
+
             if($actionItemsCount !== 0) {
                 $pagination = $paginator->paginate(
                     $actionItems,
@@ -41,8 +41,8 @@ class SpecialOfferController extends AbstractController
                     array_push($discounts, $actionItem->getDiscountPercentage());
                 }
             }
-        }
-        else if($request->get('id') == 2) {
+
+
             if ($actionCategoriesCount !== 0) {
                 $pagination = $paginator->paginate(
                     $actionCategoriesItems,
@@ -60,7 +60,8 @@ class SpecialOfferController extends AbstractController
                     }
                 }
             }
-        }
+
+        //napraviti provjeru ako postoje i kategorije i artikli na akciji
 
         return $this->render('special_offer/index.html.twig', [
             'items' => $pagination,
