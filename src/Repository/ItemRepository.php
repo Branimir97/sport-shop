@@ -22,10 +22,9 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
-    public function findByCategories($categories): QueryBuilder
+    public function findByCategoriesQuery($categories): QueryBuilder
     {
         $query = $this->createQueryBuilder('i');
-
         for($i=0; $i<count($categories); $i++) {
             $query
                 ->join('i.itemCategories', 'itemCategories'.$i)
@@ -46,14 +45,39 @@ class ItemRepository extends ServiceEntityRepository
         return $query;
     }
 
+    public function getActionsOnItemsQuery(): QueryBuilder
+    {
+        $query = $this->createQueryBuilder('i');
+        $query->join('i.actionItem', 'ai')
+            ->where('ai IS NOT NULL')
+            ->addSelect('ai');
+
+        return $query;
+    }
+
+    public function getCategoryActionsQuery(): QueryBuilder
+    {
+        $query = $this->createQueryBuilder('i');
+        $query->join('i.itemCategories', 'ic')
+            ->addSelect('ic')
+            ->join('ic.category', 'c')
+            ->addSelect('c')
+            ->join('c.actionCategory', 'ac')
+            ->addSelect('ac')
+            ->where('ac IS NOT NULL');
+        return $query;
+    }
+
     public function searchByCipherAndName($keyword)
     {
         return $this->createQueryBuilder('i')
             ->where('i.title LIKE :title')
+            ->orWhere('i.cipher = :cipher')
             ->setParameter('title', '%'.$keyword.'%')
-            ->join('i.images', 'images')
-            ->join('i.itemColors', 'itemColors')
-            ->join('itemColors.color', 'color')
+            ->setParameter('cipher', $keyword)
+            ->leftJoin('i.images', 'images')
+            ->leftJoin('i.itemColors', 'itemColors')
+            ->leftJoin('itemColors.color', 'color')
             ->addSelect('images')
             ->addSelect('itemColors')
             ->addSelect('color')

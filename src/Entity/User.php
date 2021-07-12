@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -118,11 +117,17 @@ class User implements UserInterface
      */
     private $orderList;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserSearch::class, mappedBy="user")
+     */
+    private $userSearches;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->promoCodeUsers = new ArrayCollection();
+        $this->userSearches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -466,6 +471,36 @@ class User implements UserInterface
         }
 
         $this->orderList = $orderList;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSearch[]
+     */
+    public function getUserSearches(): Collection
+    {
+        return $this->userSearches;
+    }
+
+    public function addUserSearch(UserSearch $userSearch): self
+    {
+        if (!$this->userSearches->contains($userSearch)) {
+            $this->userSearches[] = $userSearch;
+            $userSearch->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSearch(UserSearch $userSearch): self
+    {
+        if ($this->userSearches->removeElement($userSearch)) {
+            // set the owning side to null (unless already changed)
+            if ($userSearch->getUser() === $this) {
+                $userSearch->setUser(null);
+            }
+        }
 
         return $this;
     }
