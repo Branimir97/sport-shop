@@ -7,6 +7,7 @@ pricePerPiece: Price per piece
 discount: Discount
 loyaltyCardCredits: Leveraging points with a loyalty card
 promoCode: Promo code
+promoCode_button: Confirm entry
 shipping: Shipping
 total: Total
 shippingFree: Free
@@ -41,10 +42,10 @@ form:
 flash_message:
   error_message: Error. You need to enter either a promo code or select use points
                  from the card or both.
-  used_promo_code: You have already used this promo code.
+  used_promo_code: The promo code does not exist or you have already used it.
   price_reduced_loyalty_credits: Price successfully reduced by the amount of points
                                  on the loyalty card.
   promo_code_accepted: Promo code %promoCode% accepted. Price successfully reduced by
-                       %promoCodeDiscountPercentage% %.
+                       %promoCodeDiscountPercentage%%.
   card_error: Error processing your card, check the data and try again!
   payment_success: Payment made successfully. The order is being processed for delivery.

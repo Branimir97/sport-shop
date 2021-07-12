@@ -112,7 +112,7 @@ class ColorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $colorValue = $form->get('value')->getData();
             if($currentColor !== $colorValue && !is_null(
-                    $colorRepository->findOneBy(['value'=>$colorValue]))) {
+                    $colorRepository->findOneBy(['value' => $colorValue]))) {
                 $this->addFlash('danger',
                     $translator->trans('flash_message.color_exists',
                         [

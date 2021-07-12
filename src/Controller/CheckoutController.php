@@ -11,11 +11,13 @@ use App\Form\PromoCodeUserType;
 use App\Repository\CartItemRepository;
 use App\Repository\CartRepository;
 use App\Repository\DeliveryAddressRepository;
+use App\Repository\LoyaltyCardRepository;
 use App\Repository\PromoCodeRepository;
 use App\Repository\PromoCodeUserRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,15 +37,13 @@ class CheckoutController extends AbstractController
     public function index(Request $request, CartRepository $cartRepository,
                           CartItemRepository $cartItemRepository,
                           DeliveryAddressRepository $deliveryAddressRepository,
-                          PromoCodeRepository $promoCodeRepository,
-                          PromoCodeUserRepository $promoCodeUserRepository,
                           UserRepository $userRepository,
                           TranslatorInterface $translator): Response
     {
+        $session = $this->get('session');
         $totalPrice = 0;
         $discount = 0;
         $entityManager = $this->getDoctrine()->getManager();
-        $session = $this->get('session');
         $cart = $cartRepository->findOneBy(['user' => $this->getUser()]);
         $cartItems = $cartItemRepository->findBy(['cart' => $cart]);
         $activeUserAddresses = $deliveryAddressRepository->findBy(['user'=>$this->getUser()]);
@@ -77,88 +77,10 @@ class CheckoutController extends AbstractController
         } else {
             $loyaltyCardCredits = null;
         }
-        $promoCodeUser = new PromoCodeUser();
-        $formPromoCode = $this->createForm(PromoCodeUserType::class, null,
-            ['loyaltyCardCredits' => $loyaltyCardCredits]);
-        $formPromoCode->handleRequest($request);
-        if ($formPromoCode->isSubmitted() && $formPromoCode->isValid()) {
-            $promoCodeObj = $promoCodeRepository->findOneBy(
-                ['code'=>$formPromoCode->get('code')->getData()]);
-            $promoCodeUserObj = $promoCodeUserRepository->findOneBy(
-                ['promoCode'=>$promoCodeObj, 'user'=>$this->getUser()]);
-            if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits > 0
-                && !$formPromoCode->get('use_credits')->getData() &&
-                is_null($promoCodeUserObj)) {
-                $this->addFlash('danger',
-                    $translator->trans('flash_message.error_message',
-                        [], 'checkout'));
-                return $this->redirect($request->getUri());
-            }
-            else if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits>0
-                && $formPromoCode->get('use_credits')->getData()) {
-                if(!is_null($promoCodeUserObj)) {
-                    $this->addFlash('danger',
-                        $translator->trans('flash_message.used_promo_code',
-                            [], 'checkout'));
-                    return $this->redirect($request->getUri());
-                }
-                $session->set('discountWithUsedCredits', $loyaltyCardCredits);
-                $loyaltyCard->setCredits(0);
-                $entityManager->persist($loyaltyCard);
-                $entityManager->flush();
-                $this->addFlash('success',
-                    $translator->trans('flash_message.price_reduced_loyalty_credits',
-                        [], 'checkout'));
-                return $this->redirect($request->getUri());
-            } else if((!is_null($loyaltyCardCredits) && $loyaltyCardCredits > 0
-                    && $formPromoCode->get('use_credits')->getData()) && is_null($promoCodeObj)) {
-                $session->set('discountWithUsedCredits', $loyaltyCardCredits);
-                $loyaltyCard->setCredits(0);
-                $entityManager->persist($loyaltyCard);
-                $entityManager->flush();
-                $this->addFlash('success',
-                    $translator->trans('flash_message.price_reduced_loyalty_credits',
-                        [], 'checkout'));
-                return $this->redirect($request->getUri());
-            }
-            else {
-                if(!is_null($promoCodeUserObj)) {
-                    $this->addFlash('danger',
-                        $translator->trans('flash_message.used_promo_code',
-                            [], 'checkout'));
-                } else {
-                    if(!is_null($loyaltyCardCredits) && $loyaltyCardCredits > 0
-                        && $formPromoCode->get('use_credits')->getData()) {
-                        $session->set('discountWithUsedCredits', $loyaltyCardCredits);
-                        $loyaltyCard->setCredits(0);
-                        $entityManager->persist($loyaltyCard);
-                        $entityManager->flush();
-                        $this->addFlash('success',
-                            $translator->trans('flash_message.price_reduced_loyalty_credits',
-                                [], 'checkout'));
-                    }
-                    $promoCodeUser->setUser($this->getUser());
-                    $promoCodeUser->setPromoCode($promoCodeObj);
-                    $entityManager->persist($promoCodeUser);
-                    $entityManager->flush();
-                    $this->addFlash('success',
-                        $translator->trans('flash_message.promo_code_accepted',
-                            [
-                                '%promoCode%' => $promoCodeObj->getCode(),
-                                '%promoCodeDiscountPercentage%' => $promoCodeObj->getDiscountPercentage()
-                            ], 'checkout'));
-                    $session->set('discountWithUsedPromoCode',
-                        $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
-                    $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
-                    $session->set('promoCode', $promoCodeObj->getCode());
-                }
-                return $this->redirect($request->getUri());
-            }
-        }
-        if($session->get('discountWithUsedCredits') !=null) {
+        if($session->get('discountWithUsedCredits') !== null) {
             $discount+=$session->get('discountWithUsedCredits');
         }
-        if($session->get('discountWithUsedPromoCode') !=null) {
+        if($session->get('discountWithUsedPromoCode') !== null) {
             $discount+=$session->get('discountWithUsedPromoCode');
         }
         if($totalPrice<$discount) {
@@ -166,13 +88,12 @@ class CheckoutController extends AbstractController
         } else {
             $totalPriceWithDiscount = $totalPrice-$discount;
         }
-        if($totalPriceWithDiscount<300) {
-            $creditsEarned = floor(($totalPriceWithDiscount+30)/10);
-        } else {
-            $creditsEarned = floor($totalPriceWithDiscount/10);
-        }
+
+        $creditsEarned = floor($totalPriceWithDiscount/10);
+
         $formCheckout = $this->createForm(CheckoutType::class, null,
             ['activeUserAddresses' => $userAddressesWithData]);
+
         $formCheckout->handleRequest($request);
         if($formCheckout->isSubmitted() && $formCheckout->isValid()) {
             if($user->getOrderList() != null) {
@@ -259,6 +180,7 @@ class CheckoutController extends AbstractController
             return $this->redirectToRoute('order_list');
         }
 
+        $session->set('totalPrice', $totalPrice);
         return $this->render('checkout/index.html.twig', [
             'cartItems' => $cartItems,
             'formCheckout' => $formCheckout->createView(),
@@ -267,7 +189,73 @@ class CheckoutController extends AbstractController
             'totalPrice' => $totalPrice,
             'discount' => $discount,
             'totalPriceWithDiscount' => $totalPriceWithDiscount,
-            'formPromoCode' => $formPromoCode->createView(),
         ]);
+    }
+
+
+    /**
+     * @Route({
+     *     "en": "/promo/code/checker",
+     *     "hr": "/promo/kod/provjera"
+     * }, name="promo_code_checker")
+     */
+    public function promoCodeChecker(Request $request, TranslatorInterface $translator,
+                                     PromoCodeRepository $promoCodeRepository,
+                                     PromoCodeUserRepository $promoCodeUserRepository): RedirectResponse
+    {
+        $session = $this->get('session');
+        $totalPrice = $session->get('totalPrice');
+        $code = $request->get('code');
+        $promoCodeObj = $promoCodeRepository->findOneBy(['code' => $code]);
+        $promoCodeUserObj = $promoCodeUserRepository->findOneBy(
+            ['promoCode' => $promoCodeObj, 'user' => $this->getUser()]);
+        if(is_null($promoCodeObj) || $promoCodeObj->getStatus() == 'ISTEKAO'
+                && !is_null($promoCodeUserObj)) {
+            $this->addFlash('danger',
+                $translator->trans('flash_message.used_promo_code',
+                    [], 'checkout'));
+        } else {
+            $promoCodeUser = new PromoCodeUser();
+            $promoCodeUser->setPromoCode($promoCodeObj);
+            $promoCodeUser->setUser($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($promoCodeUser);
+            $entityManager->flush();
+            $this->addFlash('success',
+                $translator->trans('flash_message.promo_code_accepted',
+                    [
+                        '%promoCode%' => $promoCodeObj->getCode(),
+                        '%promoCodeDiscountPercentage%' => $promoCodeObj->getDiscountPercentage()
+                    ], 'checkout'));
+            $session->set('discountWithUsedPromoCode',
+                $totalPrice*($promoCodeObj->getDiscountPercentage()/100));
+            $session->set('promoCodeDiscount', $promoCodeObj->getDiscountPercentage());
+            $session->set('promoCode', $promoCodeObj->getCode());
+        }
+        return $this->redirectToRoute('checkout');
+
+    }
+
+    /**
+     * @Route({
+     *     "en": "/credits/checker",
+     *     "hr": "/bodovi/provjera"
+     * }, name="credits_checker")
+     */
+    public function creditsChecker(UserRepository $userRepository,
+                                   TranslatorInterface $translator): RedirectResponse
+    {
+        $session = $this->get('session');
+        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
+        $loyaltyCardCredits = $user->getLoyaltyCard()->getCredits();
+        $session->set('discountWithUsedCredits', $loyaltyCardCredits);
+        $user->getLoyaltyCard()->setCredits(0);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        $this->addFlash('success',
+            $translator->trans('flash_message.price_reduced_loyalty_credits',
+                [], 'checkout'));
+        return $this->redirectToRoute('checkout');
     }
 }

@@ -7,6 +7,7 @@ pricePerPiece: Cijena po kom.
 discount: Popust
 loyaltyCardCredits: Iskorištavanje bodova s loyalty kartice
 promoCode: Promo kod
+promoCode_button: Potvrdi unos
 shipping: Poštarina
 total: Ukupno
 shippingFree: Besplatna
@@ -41,9 +42,9 @@ form:
 flash_message:
   error_message: Pogreška. Potrebno je unijeti ili promo kod ili odabrati
                  korištenje bodova s kartice ili oboje.
-  used_promo_code: Već ste iskoristili ovaj promo kod.
+  used_promo_code: Promo kod ne postoji ili ste ga već iskoristili.
   price_reduced_loyalty_credits: Cijena uspješno umanjena za količinu bodova na loyalty kartici.
   promo_code_accepted: Promo kod %promoCode% prihvaćen. Cijena uspješno umanjena za
-                       %promoCodeDiscountPercentage% %.
+                       %promoCodeDiscountPercentage%%.
   card_error: Pogreška prilikom obrade Vaše kartice, provjerite podatke i pokušajte ponovno!
   payment_success: Uspješno provedeno plaćanje. Narudžba je u procesu obrade za dostavu.

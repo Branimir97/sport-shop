@@ -148,7 +148,7 @@
                             </span>
                             <strong>- {{ discount|number_format(2, '.', ',') }} kn</strong>
                         </li>
-                        {% if totalPrice < 300 %}
+                        {% if totalPriceWithDiscount < 300 %}
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>
                                     {{ 'shipping'|trans({}, 'checkout') }}:
@@ -192,8 +192,33 @@
                     {% endif %}
                 </ul>
                 <div class="promo_code_credits p-2">
-                    {{ include('promo_code_user/_form.html.twig') }}
+                    <form class="form-inline my-2 my-lg-0"
+                          action="{{ path('promo_code_checker') }}"
+                          method="POST">
+                        <input class="form-control mr-sm-2" type="text"
+                               placeholder="{{ 'promoCode'|trans({}, 'checkout') }}"
+                                name="code" required>
+                        <button class="btn btn-outline-success my-2 my-sm-0"
+                                type="submit">
+                            {{ 'promoCode_button'|trans({}, 'checkout') }}
+                        </button>
+                    </form>
                 </div>
+                {% if loyaltyCardCredits is not null and loyaltyCardCredits > 0 %}
+                    <div class="promo_code_credits p-2">
+                        <form class="form-inline my-2 my-lg-0 "
+                              action="{{ path('credits_checker') }}"
+                              method="POST">
+                            <input class="form-control mr-sm-2" type="checkbox"
+                                   placeholder="{{ 'searchBarPlaceholder'|trans({}, 'navigation') }}"
+                                   name="credits" required>
+                            <button class="btn btn-outline-success my-2 my-sm-0"
+                                    type="submit">
+                                {{ 'loyaltyCardCredits'|trans({}, 'checkout') }}
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
                 {% if loyaltyCardCredits is not null %}
                     <p class="text-center pt-2">
                         {{ 'loyaltyCardText'|trans({}, 'checkout') }}:

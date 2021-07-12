@@ -100,18 +100,16 @@ class PromoCodeController extends AbstractController
                          TranslatorInterface $translator): Response
     {
         $form = $this->createForm(PromoCodeType::class, $promoCode);
+        $currentCode = $promoCode->getCode();
         $form->handleRequest($request);
-        $promoCodesObj = $promoCodeRepository->findAll();
-        $promoCodes = [];
-        foreach($promoCodesObj as $promoCodeObj) {
-            array_push($promoCodes, $promoCodeObj->getCode());
-        }
+
         if ($form->isSubmitted() && $form->isValid()) {
-            if(in_array($promoCode->getCode(), $promoCodes)) {
-                $this->addFlash('success',
-                    $translator->trans('flash_message.promo_code_edited',
+            if($promoCode->getCode() !== $currentCode &&
+            !is_null($promoCodeRepository->findOneBy(['code' => $promoCode->getCode()]))) {
+                $this->addFlash('danger',
+                    $translator->trans('flash_message.promo_code_exists',
                         [], 'promo_code'));
-                return $this->redirectToRoute('promo_code_index');
+                return $this->redirectToRoute('promo_code_edit', ['id' => $promoCode->getId()]);
             }
             $endDate = $form->get('endDate')->getData();
             $now = new \DateTime("now");
