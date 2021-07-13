@@ -33,6 +33,15 @@ new_action_item:
   message2: na akciji. Popust iznosi
   message3: a isti se obračunava prilikom naplate artikala iz košarice.
 
+new_subscriber:
+  subject: SportShop obavijest
+  title: Uspješna pretplata
+  respected: Poštovani pretplatniče
+  message: Zahvaljujemo što ste se preplatili na SportShop promotivne obavijesti.
+           Od ovog trenutka nadalje, primat će te obavijesti vezane za nove promo kodove te
+           nove akcije na kategorijama/artiklima s kojima možete ostvariti popuste prilikom
+           naplate artikala iz košarice.
+
 notice: Ovu poruku ste primili jer ste pretplaćeni na SportShop promotivne
         obavijesti. Ukoliko više ne želite primati obavijesti, možete ukloniti
         pretplatu u postavkama korisničkog računa.

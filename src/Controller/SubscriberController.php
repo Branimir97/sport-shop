@@ -5,9 +5,13 @@ namespace App\Controller;
 use App\Entity\Subscriber;
 use App\Repository\SubscriberRepository;
 use App\Repository\UserRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -35,10 +39,13 @@ class SubscriberController extends AbstractController
      *     "en": "/new",
      *     "hr": "/novi"
      * }, name="subscriber_new", methods={"POST"})
+     * @throws TransportExceptionInterface
      */
     public function new(Request $request,
                         SubscriberRepository $subscriberRepository,
-                        UserRepository $userRepository, TranslatorInterface $translator): Response
+                        UserRepository $userRepository,
+                        TranslatorInterface $translator,
+                        MailerInterface $mailer): Response
     {
         $subscriber = new Subscriber();
         $email = $request->request->get('email');
@@ -64,6 +71,16 @@ class SubscriberController extends AbstractController
             $entityManager->persist($subscriber);
             $entityManager->flush();
 
+            $subject = $translator->trans('new_subscriber.subject',
+                [], 'email');
+            $receiverEmail = $subscriber->getEmail();
+            $email = (new TemplatedEmail())
+                ->from('sport-shop@gmail.com')
+                ->to($receiverEmail)
+                ->subject($subject)
+                ->htmlTemplate('email/new_subscriber.html.twig');
+            $mailer->send($email);
+
             $this->addFlash('success',
                 $translator->trans('flash_message.subscriber_added',
                     [], 'subscriber'));
@@ -76,8 +93,10 @@ class SubscriberController extends AbstractController
      *     "en": "/new/registered/settings",
      *     "hr": "/novi/registrirani/postavke"
      * }, name="subscriber_new_registered_settings", methods={"GET","POST"})
+     * @throws TransportExceptionInterface
      */
-    public function newRegisteredSettings(TranslatorInterface $translator): Response
+    public function newRegisteredSettings(TranslatorInterface $translator,
+                                          MailerInterface $mailer): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $subscriber = new Subscriber();
@@ -86,6 +105,16 @@ class SubscriberController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($subscriber);
         $entityManager->flush();
+
+        $subject = $translator->trans('new_subscriber.subject',
+            [], 'email');
+        $receiverEmail = $subscriber->getEmail();
+        $email = (new TemplatedEmail())
+            ->from('sport-shop@gmail.com')
+            ->to($receiverEmail)
+            ->subject($subject)
+            ->htmlTemplate('email/new_subscriber.html.twig');
+        $mailer->send($email);
 
         $this->addFlash('success',
             $translator->trans('flash_message.subscriber_added',
@@ -98,10 +127,12 @@ class SubscriberController extends AbstractController
      *     "en": "/new/registered/settings/footer",
      *     "hr": "/novi/registrirani/podnožje"
      * }, name="subscriber_new_registered_footer", methods={"GET","POST"})
+     * @throws TransportExceptionInterface
      */
     public function newRegisteredFooter(Request $request,
                                         SubscriberRepository $subscriberRepository,
-                                        TranslatorInterface $translator): Response
+                                        TranslatorInterface $translator,
+                                        MailerInterface $mailer): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $formEmail = $request->get('email');
@@ -123,6 +154,16 @@ class SubscriberController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($subscriber);
         $entityManager->flush();
+
+        $subject = $translator->trans('new_subscriber.subject',
+            [], 'email');
+        $receiverEmail = $subscriber->getEmail();
+        $email = (new TemplatedEmail())
+            ->from('sport-shop@gmail.com')
+            ->to($receiverEmail)
+            ->subject($subject)
+            ->htmlTemplate('email/new_subscriber.html.twig');
+        $mailer->send($email);
 
         $this->addFlash('success',
             $translator->trans('flash_message.subscriber_added',

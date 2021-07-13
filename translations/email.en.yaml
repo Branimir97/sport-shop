@@ -33,6 +33,15 @@ new_action_item:
   message2: is on action. The discount is
   message3: and the same is calculated when billing items from the cart.
 
+new_subscriber:
+  subject: SportShop notice
+  title: Successful subscription
+  respected: Dear subscriber
+  message: Thank you for subscribing to SportShop promotional notices.
+            From now on, you will receive notifications regarding new promo codes as well
+            new promotions on categories / items with which you can get discounts when
+            billing items from the cart.
+
 notice: You received this message because you subscribed to the SportShop promotional
         notices. If you no longer wish to receive notifications, you can remove the
         subscription in your account settings.
