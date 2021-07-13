@@ -7,9 +7,12 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\SubscriberRepository;
 use App\Security\AppAuthenticator;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -28,14 +31,17 @@ class RegistrationController extends AbstractController
      * @param AppAuthenticator $authenticator
      * @param SubscriberRepository $subscriberRepository
      * @param TranslatorInterface $translator
+     * @param MailerInterface $mailer
      * @return Response
+     * @throws TransportExceptionInterface
      */
     public function register(Request $request,
                              UserPasswordEncoderInterface $passwordEncoder,
                              GuardAuthenticatorHandler $guardHandler,
                              AppAuthenticator $authenticator,
                              SubscriberRepository $subscriberRepository,
-                             TranslatorInterface $translator): Response
+                             TranslatorInterface $translator,
+                             MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -56,6 +62,20 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $subject = $translator->trans('new_user.subject',
+                [], 'email');
+            $receiverEmail = $user->getEmail();
+            $email = (new TemplatedEmail())
+                ->from('sport-shop@gmail.com')
+                ->to($receiverEmail)
+                ->subject($subject)
+                ->context([
+                        'name' => $user->getFullName()
+                    ]
+                )
+                ->htmlTemplate('email/new_user.html.twig');
+            $mailer->send($email);
+
             if($this->isGranted("ROLE_ADMIN")){
                 $this->addFlash('success',
                     $translator->trans('flash_message.registered_admin',
@@ -69,7 +89,6 @@ class RegistrationController extends AbstractController
                     $user, $request, $authenticator, 'main');
             }
         }
-
         return $this->render('user/register.html.twig', [
             'form' => $form->createView(),
         ]);

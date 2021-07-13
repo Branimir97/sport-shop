@@ -24,7 +24,7 @@ class InjectTwigGlobals implements EventSubscriberInterface
 
     public function injectGlobals() {
         $user = $this->security->getUser();
-        if(isset($user)) {
+        if(!is_null($user)) {
             $user = $this->manager->getRepository( 'App\Entity\User' )
                 ->findOneBy(['email' => $user->getUsername()]);
             $cart = $user->getCart();

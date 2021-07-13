@@ -22,7 +22,7 @@ class GoogleController extends AbstractController
     {
         return $clientRegistry
             ->getClient('google')
-            ->redirect([
+            ->redirect([], [
                 'profile', 'email', 'openid'
             ]);
     }
@@ -38,7 +38,8 @@ class GoogleController extends AbstractController
      * @Route("/connect/google/check", name="connect_google_check")
      * @return RedirectResponse
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry): RedirectResponse
+    public function connectCheckAction(Request $request,
+                                       ClientRegistry $clientRegistry): RedirectResponse
     {
         //done in MyGoogleAuthenticator
     }
