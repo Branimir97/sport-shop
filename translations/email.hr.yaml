@@ -42,6 +42,22 @@ new_subscriber:
            nove akcije na kategorijama/artiklima s kojima možete ostvariti popuste prilikom
            naplate artikala iz košarice.
 
+order_successful:
+  subject: SportShop obavijest
+  title: Uspješna narudžba br.
+  respected: Poštovani
+  message: Zahvaljujemo na narudžbi. Narudžba je na čekanju dok ne dobijemo
+           potvrdu o zaprimljenoj uplati. U međuvremenu, ispod se nalazi podsjetnik
+           što ste naručili.
+  order: Narudžba br.
+  item: Artikl
+  color: Boja
+  size: Veličina
+  quantity: Količina
+  totalPriceWithoutDiscount: Ukupna cijena bez popusta
+  totalPriceWithDiscount: Ukupna cijena s popustom
+  delivery_address: Adresa dostave i naplate
+
 notice: Ovu poruku ste primili jer ste pretplaćeni na SportShop promotivne
         obavijesti. Ukoliko više ne želite primati obavijesti, možete ukloniti
         pretplatu u postavkama korisničkog računa.

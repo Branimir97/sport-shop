@@ -42,6 +42,22 @@ new_subscriber:
             new promotions on categories / items with which you can get discounts when
             billing items from the cart.
 
+order_successful:
+  subject: SportShop notice
+  title: Successful order no.
+  respected: Dear
+  message: Thank you for your order. The order is pending until we receive it
+           confirmation of payment received. In the meantime, below is a reminder
+           what you ordered.
+  order: Order no.
+  item: Item
+  color: Color
+  size: Size
+  quantity: Quantity
+  totalPriceWithoutDiscount: Total price without discount
+  totalPriceWithDiscount: Total price with discount
+  delivery_address: Delivery and billing address
+
 notice: You received this message because you subscribed to the SportShop promotional
         notices. If you no longer wish to receive notifications, you can remove the
         subscription in your account settings.

@@ -16,10 +16,13 @@ use App\Repository\PromoCodeRepository;
 use App\Repository\PromoCodeUserRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -33,12 +36,14 @@ class CheckoutController extends AbstractController
      *     "en": "/billing",
      *     "hr": "/plaćanje"
      * }, name="checkout")
+     * @throws TransportExceptionInterface
      */
     public function index(Request $request, CartRepository $cartRepository,
                           CartItemRepository $cartItemRepository,
                           DeliveryAddressRepository $deliveryAddressRepository,
                           UserRepository $userRepository,
-                          TranslatorInterface $translator): Response
+                          TranslatorInterface $translator,
+                          MailerInterface $mailer): Response
     {
         $session = $this->get('session');
         $totalPrice = 0;
@@ -174,6 +179,26 @@ class CheckoutController extends AbstractController
             }
             $entityManager->flush();
             $session->clear();
+
+            $subject = $translator->trans('order_successful.subject',
+                [], 'email');
+            $receiverEmail = $this->getUser()->getEmail();
+            $email = (new TemplatedEmail())
+                ->from('sport-shop@gmail.com')
+                ->to($receiverEmail)
+                ->subject($subject)
+                ->context([
+                    'orderNumber' => $orderListItem->getId(),
+                    'user' => $this->getUser()->getFullName(),
+                    'createdAt' => $orderListItem->getCreatedAt(),
+                    'totalPriceWithoutDiscount' => $orderListItem->getPriceWithoutDiscount(),
+                    'totalPriceWithDiscount' => $orderListItem->getTotalPrice(),
+                    'deliveryAddress' => $orderListItem->getDeliveryAddress(),
+                    'cartItems' => $cartItems
+                ])
+                ->htmlTemplate('email/order_successful.html.twig');
+            $mailer->send($email);
+
             $this->addFlash('success',
                 $translator->trans('flash_message.payment_success',
                     [], 'checkout'));
