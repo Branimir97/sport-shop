@@ -3,11 +3,39 @@ new_user:
   welcome: Dobrodošli u svijet sporta
   respected: Poštovani
   message1: Zahvaljujemo što ste kreirali račun na SportShop web trgovini.
-    Registracijom ostvarujete mogućnost uvida u prethodne narudžbe,
-    popis želja, postavke korisničkog računa, dodavanje artikala u košaricu,
-    naplatu, i još mnogo toga, stoga brzo na
+            Registracijom ostvarujete mogućnost uvida u prethodne narudžbe,
+            popis želja, postavke korisničkog računa, dodavanje artikala u košaricu,
+            naplatu, i još mnogo toga, stoga brzo na
   message2: da sve isprobate!
   message3: Poruku dobrodošlice zaželio Vam je
-  footer1: Autorska prava 2021 | Sva prava pridržana od strane SportShop d.o.o.
-  footer2: Ovu je poruku e-pošte poslao SportShop d.o.o.,
-  footer3: Ul. Kneza Trpimira 2B | Osijek | Hrvatska
+
+new_promo_code:
+  subject: Novi SportShop promo kod
+  title: Generiran je novi promo kod
+  respected: Poštovani pretplatniče
+  message1: Obaviještavamo Vas da je generiran novi promo kod
+  message2: pomoću kojeg prilikom naplate možete ostvariti
+  message3: popusta na Vašoj narudžbi.
+
+new_action_category:
+  subject: Nova SportShop akcija
+  title: Akcija na kategoriju
+  respected: Poštovani pretplatniče
+  message1: Obaviještavamo Vas da su svi artikli pod kategorijom
+  message2: na akciji. Popust iznosi
+  message3: a isti se obračunava prilikom naplate artikala iz košarice.
+
+new_action_item:
+  subject: Nova SportShop akcija
+  title: Akcija na artikl
+  respected: Poštovani pretplatniče
+  message1: Obaviještavamo Vas da je artikl
+  message2: na akciji. Popust iznosi
+  message3: a isti se obračunava prilikom naplate artikala iz košarice.
+
+notice: Ovu poruku ste primili jer ste pretplaćeni na SportShop promotivne
+        obavijesti. Ukoliko više ne želite primati obavijesti, možete ukloniti
+        pretplatu u postavkama korisničkog računa.
+footer1: Autorska prava 2021 | Sva prava pridržana od strane SportShop d.o.o.
+footer2: Ovu je poruku e-pošte poslao SportShop d.o.o.
+footer3: Ul. Kneza Trpimira 2B | Osijek | Hrvatska

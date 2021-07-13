@@ -6,10 +6,14 @@ use App\Entity\ActionCategory;
 use App\Form\ActionCategoryType;
 use App\Repository\ActionCategoryRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\SubscriberRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,9 +41,12 @@ class ActionCategoryController extends AbstractController
      *     "en": "/new",
      *     "hr": "/nova"
      * }, name="action_category_new", methods={"GET","POST"})
+     * @throws TransportExceptionInterface
      */
     public function new(Request $request, CategoryRepository $categoryRepository,
-                        TranslatorInterface $translator): Response
+                        TranslatorInterface $translator,
+                        SubscriberRepository $subscriberRepository,
+                        MailerInterface $mailer): Response
     {
         $categories = $categoryRepository->findAll();
         $noActionCategories = [];
@@ -72,6 +79,23 @@ class ActionCategoryController extends AbstractController
                     }
                     $entityManager->persist($actionCategory);
                     $entityManager->flush();
+
+                }
+                $subscribers = $subscriberRepository->findAll();
+                $subject = $translator->trans('new_action_category.subject',
+                    [], 'email');
+                foreach($subscribers as $subscriber) {
+                    $receiverEmail = $subscriber->getEmail();
+                    $email = (new TemplatedEmail())
+                        ->from('sport-shop@gmail.com')
+                        ->to($receiverEmail)
+                        ->subject($subject)
+                        ->context([
+                            'categoryName' => $actionCategory->getCategory()->getName(),
+                            'discountPercentage' => $actionCategory->getDiscountPercentage()
+                        ])
+                        ->htmlTemplate('email/new_action_category.html.twig');
+                    $mailer->send($email);
                 }
             }
 

@@ -25,28 +25,28 @@
         </div>
         <div>
             <h2 class="bg-success mt-2 p-2 text-white">
-                {{ 'new_user.welcome'|trans({}, 'email') }}
+                {{ 'new_action_item.title'|trans({}, 'email') }}
+                - <strong class="text-white">{{ itemTitle }}</strong>
             </h2>
             <p class="mt-2">
-                {{ 'new_user.respected'|trans({}, 'email') }} <strong>{{ name }}</strong>,<br><br>
-
-                {{ 'new_user.message1'|trans({}, 'email') }}
-                <a href="https://127.0.0.1:8000/" title="SportShop d.o.o.">
-                    SportShop
-                </a>
-                {{ 'new_user.message2'|trans({}, 'email') }}
+                {{ 'new_action_item.respected'|trans({}, 'email') }},
                 <br><br>
-                {{ 'new_user.message3'|trans({}, 'email') }}
-                - <strong class="text-primary">Webmaster Branimir</strong>!
+                {{ 'new_action_item.message1'|trans({}, 'email') }}
+                <strong class="text-success">{{ itemTitle }}</strong>
+                {{ 'new_action_item.message2'|trans({}, 'email') }}
+                <strong class="text-danger">{{ discountPercentage }}%</strong>
+                {{ 'new_action_item.message3'|trans({}, 'email') }}
+                <br><br>
+                {{ 'notice'|trans({}, 'email') }}
             </p>
 
         </div>
         <small class="text-primary mt-3">
-            {{ 'new_user.footer1'|trans({}, 'email') }}
+            {{ 'footer1'|trans({}, 'email') }}
             <br>
-            {{ 'new_user.footer2'|trans({}, 'email') }}
+            {{ 'footer2'|trans({}, 'email') }}
             <br>
-            {{ 'new_user.footer3'|trans({}, 'email') }}
+            {{ 'footer3'|trans({}, 'email') }}
         </small>
     </div>
 </body>

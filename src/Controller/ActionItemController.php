@@ -6,10 +6,14 @@ use App\Entity\ActionItem;
 use App\Form\ActionItemType;
 use App\Repository\ActionItemRepository;
 use App\Repository\ItemRepository;
+use App\Repository\SubscriberRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,9 +41,12 @@ class ActionItemController extends AbstractController
      *     "en": "/new",
      *     "hr": "/nova"
      * }, name="action_item_new", methods={"GET","POST"})
+     * @throws TransportExceptionInterface
      */
     public function new(Request $request, ItemRepository $itemRepository,
-                        TranslatorInterface $translator): Response
+                        TranslatorInterface $translator,
+                        MailerInterface $mailer,
+                        SubscriberRepository $subscriberRepository): Response
     {
         $items = $itemRepository->findAll();
         $actionItems = [];
@@ -79,6 +86,22 @@ class ActionItemController extends AbstractController
                     }
                     $entityManager->persist($actionItem);
                     $entityManager->flush();
+                }
+                $subscribers = $subscriberRepository->findAll();
+                $subject = $translator->trans('new_action_item.subject',
+                    [], 'email');
+                foreach($subscribers as $subscriber) {
+                    $receiverEmail = $subscriber->getEmail();
+                    $email = (new TemplatedEmail())
+                        ->from('sport-shop@gmail.com')
+                        ->to($receiverEmail)
+                        ->subject($subject)
+                        ->context([
+                            'itemTitle' => $actionItem->getItem()->getTitle(),
+                            'discountPercentage' => $actionItem->getDiscountPercentage()
+                        ])
+                        ->htmlTemplate('email/new_action_item.html.twig');
+                    $mailer->send($email);
                 }
             }
 

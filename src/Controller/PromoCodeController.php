@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\PromoCode;
 use App\Form\PromoCodeType;
 use App\Repository\PromoCodeRepository;
+use App\Repository\SubscriberRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -36,10 +40,13 @@ class PromoCodeController extends AbstractController
      *     "en": "/new",
      *     "hr": "/novi",
      * }, name="promo_code_new", methods={"GET","POST"})
+     * @throws TransportExceptionInterface
      */
     public function new(Request $request,
                         PromoCodeRepository $promoCodeRepository,
-                        TranslatorInterface $translator): Response
+                        TranslatorInterface $translator,
+                        SubscriberRepository $subscriberRepository,
+                        MailerInterface $mailer): Response
     {
         $promoCode = new PromoCode();
         $form = $this->createForm(PromoCodeType::class, $promoCode);
@@ -66,6 +73,23 @@ class PromoCodeController extends AbstractController
             }
             $entityManager->persist($promoCode);
             $entityManager->flush();
+
+            $subscribers = $subscriberRepository->findAll();
+            $subject = $translator->trans('new_promo_code.subject',
+                [], 'email');
+            foreach($subscribers as $subscriber) {
+                $receiverEmail = $subscriber->getEmail();
+                $email = (new TemplatedEmail())
+                    ->from('sport-shop@gmail.com')
+                    ->to($receiverEmail)
+                    ->subject($subject)
+                    ->context([
+                        'promoCode' => $promoCode->getCode(),
+                        'discountPercentage' => $promoCode->getDiscountPercentage()
+                    ])
+                    ->htmlTemplate('email/new_promo_code.html.twig');
+                $mailer->send($email);
+            }
 
             $this->addFlash('success',
                 $translator->trans('flash_message.promo_code_created',
