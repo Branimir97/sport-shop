@@ -40,7 +40,8 @@ class ItemRepository extends ServiceEntityRepository
             ->leftJoin('itemColors.color', 'color')
             ->addSelect('color')
             ->leftJoin('i.actionItem', 'ai')
-            ->addSelect('ai');
+            ->addSelect('ai')
+            ->orderBy('i.id', 'DESC');
 
         return $query;
     }

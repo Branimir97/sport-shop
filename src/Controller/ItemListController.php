@@ -63,7 +63,7 @@ class ItemListController extends AbstractController
               ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
                   'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'),
           $request->query->getInt('page', 1),
-          4
+          16
         );
         return $this->render('item_list/index.html.twig', [
             'pagination' => $pagination,

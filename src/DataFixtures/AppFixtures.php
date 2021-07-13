@@ -129,7 +129,9 @@ class AppFixtures extends Fixture
             "#F781F3",
             "#084B8A",
             "#26A837",
-            "#A5C423"
+            "#A5C423",
+            "#000000",
+            "#FFFFFF"
         ];
 
         $colorNamesHr = [
@@ -143,7 +145,9 @@ class AppFixtures extends Fixture
             "Roza",
             "Tamno plava",
             "Zelena",
-            "Maslinasta"
+            "Maslinasta",
+            "Crna",
+            "Bijela"
         ];
 
         $colorNamesEn = [
@@ -157,7 +161,9 @@ class AppFixtures extends Fixture
             "Pink",
             "Dark blue",
             "Green",
-            "Olive"
+            "Olive",
+            "Black",
+            "White"
         ];
 
         $manufacturers = [
@@ -178,7 +184,18 @@ class AppFixtures extends Fixture
           "Lacoste",
           "Timberland",
           "Salomon",
-          "Skechers"
+          "Skechers",
+          "Kipsta",
+          "Kalenji",
+          "KipRun",
+          "Fouganza",
+          "Solognac",
+          "Kaperlan",
+          "Artengo",
+          "Quechua",
+          "Forclaz",
+          "Newfeel",
+          "Sidas"
         ];
 
         for($i = 0; $i <= 27; $i++) {
