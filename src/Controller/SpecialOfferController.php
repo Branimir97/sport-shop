@@ -23,49 +23,17 @@ class SpecialOfferController extends AbstractController
                           ItemRepository $itemRepository,
                           PaginatorInterface $paginator): Response
     {
-        $discounts = [];
-
-        $actionItems = $itemRepository->getActionsOnItemsQuery();
-        $actionCategoriesItems = $itemRepository->getCategoryActionsQuery();
-        $actionItemsCount = count($actionItems->getQuery()->getArrayResult());
-        $actionCategoriesCount = count($actionCategoriesItems->getQuery()->getArrayResult());
-//        $pagination = $paginator->paginate(
-//            $actionItems,
-//            $request->query->getInt('page', 1), 1);
-
-        if($actionItemsCount !== 0) {
-            $pagination = $paginator->paginate(
-                $actionItems,
-                $request->query->getInt('page', 1),
-                16
-            );
-            $actionItems = $actionItemRepository->findAll();
-            foreach ($actionItems as $actionItem) {
-                array_push($discounts, $actionItem->getDiscountPercentage());
-            }
-        }
-
-        if ($actionCategoriesCount !== 0) {
-            $pagination = $paginator->paginate(
-                $actionCategoriesItems,
-                $request->query->getInt('page', 1),
-                16
-            );
-
-            foreach ($actionCategoriesItems->getQuery()->getResult() as $item) {
-                $itemCategories = $item->getItemCategories();
-                foreach ($itemCategories as $itemCategory) {
-                    if (!is_null($itemCategory->getCategory()->getActionCategory())) {
-                        array_push($discounts, $itemCategory->getCategory()->getActionCategory()
-                            ->getDiscountPercentage());
-                    }
-                }
-            }
-        }
+        $actionItems = $actionItemRepository->findAll();
+        $actionItemsQuery = $itemRepository->getActionItemsQuery();
+        $pagination = $paginator->paginate(
+            $actionItemsQuery,
+            $request->query->getInt('page', 1),
+            16
+        );
 
         return $this->render('special_offer/index.html.twig', [
+            'actionItems' => $actionItems,
             'pagination' => $pagination,
-            'discounts' => $discounts
         ]);
     }
 }

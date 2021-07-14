@@ -34,10 +34,20 @@
                                         {{ 'new'|trans({}, 'special_offer') }}
                                     </div>
                                 {% endif %}
-                                {% set loopIndex = loop.index %}
-                                <div class="action_badge p-1">
-                                    - {{ discounts[loopIndex-1] }}%
-                                </div>
+
+                                {% for itemCategory in item.itemCategories %}
+                                    {% if itemCategory.category.actionCategory != null %}
+                                        <div class="action_badge p-1">
+                                            - {{ itemCategory.category.actionCategory.discountPercentage }}%
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if item.actionItem %}
+                                    <div class="action_badge p-1">
+                                        - {{ item.actionItem.discountPercentage }}%
+                                    </div>
+                                {% endif %}
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">
                                 {% else %}

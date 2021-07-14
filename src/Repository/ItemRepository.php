@@ -46,30 +46,23 @@ class ItemRepository extends ServiceEntityRepository
         return $query;
     }
 
-    public function getActionsOnItemsQuery(): QueryBuilder
+    public function getActionItemsQuery(): QueryBuilder
     {
         $query = $this->createQueryBuilder('i');
         $query
-            ->join('i.actionItem', 'ai')
-            ->where('ai IS NOT NULL')
-            ->addSelect('ai');
-
-        return $query;
-    }
-
-    public function getCategoryActionsQuery(): QueryBuilder
-    {
-        $query = $this->createQueryBuilder('i');
-        $query
-            ->join('i.itemCategories', 'ic')
+            ->leftJoin('i.itemCategories', 'ic')
             ->addSelect('ic')
             ->join('ic.category', 'c')
             ->addSelect('c')
             ->join('c.actionCategory', 'ac')
-            ->addSelect('ac')
-            ->where('ac IS NOT NULL');
+            ->where('ac IS NOT NULL')
+            ->leftJoin('i.actionItem', 'ai')
+            ->andWhere('ai IS NOT NULL');
         return $query;
     }
+
+
+
 
     public function searchByCipherAndName($keyword, $locale): QueryBuilder
     {
@@ -96,9 +89,11 @@ class ItemRepository extends ServiceEntityRepository
             ->leftJoin('i.images', 'images')
             ->leftJoin('i.itemColors', 'itemColors')
             ->leftJoin('itemColors.color', 'color')
+            ->leftJoin('i.actionItem', 'ai')
             ->addSelect('images')
             ->addSelect('itemColors')
-            ->addSelect('color');
+            ->addSelect('color')
+            ->addSelect('ai');
         return $query;
     }
 }

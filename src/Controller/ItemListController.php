@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\ActionItemRepository;
-use App\Repository\ItemCategoryRepository;
 use App\Repository\ItemRepository;
 use Doctrine\ORM\Query;
 use Gedmo\Translatable\TranslatableListener;
@@ -24,16 +22,13 @@ class ItemListController extends AbstractController
      */
     public function index(Request $request, ItemRepository $itemRepository,
                           TranslatorInterface $translator,
-                          PaginatorInterface $paginator,
-                          ActionItemRepository $actionItemRepository): Response
+                          PaginatorInterface $paginator): Response
     {
         $locale = $request->getLocale();
         $categoriesRequest = $request->get
             ($translator->trans('categories', [], 'navigation'));
         $categories = explode(',', $categoriesRequest);
         $itemsQuery = $itemRepository->findByCategoriesQuery($categories);
-
-        $actionItems = $actionItemRepository->findAll();
 
         $pagination = $paginator->paginate(
           $itemsQuery->getQuery()
@@ -44,7 +39,6 @@ class ItemListController extends AbstractController
           16
         );
         return $this->render('item_list/index.html.twig', [
-            'actionItems' => $actionItems,
             'pagination' => $pagination,
             'categories' => $categories,
         ]);

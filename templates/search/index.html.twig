@@ -46,6 +46,7 @@
                                         {{ 'new'|trans({}, 'item_list') }}
                                     </div>
                                 {% endif %}
+
                                 {% for itemCategory in item.itemCategories %}
                                     {% if itemCategory.category.actionCategory != null %}
                                         <div class="action_badge p-1">
@@ -53,13 +54,12 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-                                {% for actionItem in actionItems %}
-                                    {% if actionItem.item == item %}
-                                        <div class="action_badge p-1">
-                                            - {{ actionItem.discountPercentage }}%
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
+
+                                {% if item.actionItem %}
+                                    <div class="action_badge p-1">
+                                        - {{ item.actionItem.discountPercentage }}%
+                                    </div>
+                                {% endif %}
 
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">

@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\UserSearch;
-use App\Repository\ActionItemRepository;
 use App\Repository\ItemRepository;
 use App\Repository\UserSearchRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +21,6 @@ class SearchController extends AbstractController
      */
     public function index(Request $request, ItemRepository $itemRepository,
                           UserSearchRepository $userSearchRepository,
-                          ActionItemRepository $actionItemRepository,
                           PaginatorInterface $paginator): Response
     {
         $searchKeyword = $request->get('keyword');
@@ -42,7 +39,6 @@ class SearchController extends AbstractController
             }
         }
 
-        $actionItems = $actionItemRepository->findAll();
         $pagination = $paginator->paginate(
             $searchResults,
             $request->query->getInt('page', 1),
@@ -50,7 +46,6 @@ class SearchController extends AbstractController
         );
 
         return $this->render('search/index.html.twig', [
-            'actionItems' => $actionItems,
             'searchKeyword' => $searchKeyword,
             'pagination' => $pagination,
         ]);
