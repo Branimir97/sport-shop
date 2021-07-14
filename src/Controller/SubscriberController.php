@@ -93,7 +93,6 @@ class SubscriberController extends AbstractController
      *     "en": "/new/registered/settings",
      *     "hr": "/novi/registrirani/postavke"
      * }, name="subscriber_new_registered_settings", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function newRegisteredSettings(TranslatorInterface $translator,
                                           MailerInterface $mailer): Response
@@ -129,7 +128,6 @@ class SubscriberController extends AbstractController
      *     "en": "/new/registered/settings/footer",
      *     "hr": "/novi/registrirani/podnožje"
      * }, name="subscriber_new_registered_footer", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function newRegisteredFooter(Request $request,
                                         SubscriberRepository $subscriberRepository,

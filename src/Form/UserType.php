@@ -48,14 +48,14 @@ class UserType extends AbstractType
                 'help' => 'form.help.birthDate',
                 'label' => 'form.labels.birthDate',
                 'translation_domain' => 'register'
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'form.labels.email',
-                'translation_domain' => 'register'
             ]);
 
         if(!$isEditForm) {
             $builder
+                ->add('email', EmailType::class, [
+                    'label' => 'form.labels.email',
+                    'translation_domain' => 'register'
+                ])
                 ->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'mapped' => false,

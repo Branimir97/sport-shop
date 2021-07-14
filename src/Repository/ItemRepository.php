@@ -95,4 +95,9 @@ class ItemRepository extends ServiceEntityRepository
             ->orderBy('i.id', 'DESC');
         return $query;
     }
+
+//    public function getRecommendedItems() {
+//        return $this->createQueryBuilder('i')
+//
+//    }
 }
