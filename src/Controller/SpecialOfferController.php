@@ -47,7 +47,7 @@ class SpecialOfferController extends AbstractController
                 $pagination = $paginator->paginate(
                     $actionCategoriesItems,
                     $request->query->getInt('page', 1),
-                    3
+                    16
                 );
 
                 foreach ($actionCategoriesItems->getQuery()->getResult() as $item) {

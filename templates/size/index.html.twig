@@ -59,6 +59,8 @@
                                     {{ 'form.type_choices.footwear'|trans({}, 'size') }}
                                 {% elseif (size.type == "Odjeća") %}
                                     {{ 'form.type_choices.clothes'|trans({}, 'size') }}
+                                {% elseif (size.type == "Sport") %}
+                                    {{ 'form.type_choices.sport'|trans({}, 'size') }}
                                 {% endif %}
                             </td>
                             <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>

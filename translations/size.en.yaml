@@ -28,6 +28,7 @@ form:
   type_choices:
     footwear: Footwear
     clothes: Clothes
+    sport: Sport
   type_help: Select which item category the size fits
   type_label: Item category
   button_label: Save size

@@ -23,7 +23,8 @@ class SizeType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'form.type_choices.footwear' => "Obuća",
-                    'form.type_choices.clothes' => "Odjeća"
+                    'form.type_choices.clothes' => "Odjeća",
+                    'form.type_choices.sport' => "Sport"
                 ],
                 'help' => 'form.type_help',
                 'label' => 'form.type_label',

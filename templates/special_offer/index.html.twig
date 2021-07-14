@@ -86,5 +86,8 @@
                 {% endfor %}
             </div>
         {% endif %}
+        <div class="navigation mt-2">
+            {{ knp_pagination_render(items) }}
+        </div>
     </div>
 {% endblock %}

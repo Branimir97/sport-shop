@@ -58,7 +58,7 @@
                                 </div>
                                 <span class="text-success">
                                         -{{ (cartItem.item.price * cartItem.quantity)*
-                                    (cartItem.item.actionItem.discountPercentage)/100 }} kn
+                                    (cartItem.item.actionItem.discountPercentage)/100|number_format(2, '.', ',') }} kn
                                     </span>
                             </li>
                         {% endif %}
@@ -76,7 +76,7 @@
                                     </div>
                                     <span class="text-success">
                                         -{{ (cartItem.item.price * cartItem.quantity)*
-                                        (cartItemCategory.category.actionCategory.discountPercentage)/100 }} kn
+                                        (cartItemCategory.category.actionCategory.discountPercentage)/100|number_format(2, '.', ',') }} kn
                                     </span>
                                 </li>
                             {% endif %}
@@ -90,7 +90,7 @@
                                 </h6>
                             </div>
                             <span class="text-success">
-                                -{{ app.session.get('discountWithUsedCredits') }} kn
+                                -{{ app.session.get('discountWithUsedCredits')|number_format(2, '.', ',') }} kn
                             </span>
                         </li>
                     {% endif %}
@@ -107,7 +107,7 @@
                                 </small>
                             </div>
                             <span class="text-success">
-                                -{{ app.session.get('discountWithUsedPromoCode') }} kn
+                                -{{ app.session.get('discountWithUsedPromoCode')|number_format(2, '.', ',') }} kn
                             </span>
                         </li>
                     {% endif %}

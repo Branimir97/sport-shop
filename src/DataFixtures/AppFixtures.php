@@ -118,6 +118,18 @@ class AppFixtures extends Fixture
             "47",
         ];
 
+        $sizesSport = [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "N/D"
+        ];
+
         $colorCodes = [
             "#7E4539",
             "#397E55",
@@ -195,7 +207,17 @@ class AppFixtures extends Fixture
           "Quechua",
           "Forclaz",
           "Newfeel",
-          "Sidas"
+          "Sidas",
+          "Select",
+          "Tarmak",
+          "Spalding",
+          "Atorka",
+          "Copaya",
+          "Mikasa",
+          "Wilson",
+          "Pongori",
+          "Nyamba",
+          "Domyos",
         ];
 
         for($i = 0; $i <= 27; $i++) {
@@ -224,6 +246,14 @@ class AppFixtures extends Fixture
             $sizeObj = new Size();
             $sizeObj->setValue($size);
             $sizeObj->setType("Odjeća");
+            $manager->persist($sizeObj);
+            $manager->flush();
+        }
+
+        foreach($sizesSport as $size) {
+            $sizeObj = new Size();
+            $sizeObj->setValue($size);
+            $sizeObj->setType("Sport");
             $manager->persist($sizeObj);
             $manager->flush();
         }

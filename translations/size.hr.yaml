@@ -28,6 +28,7 @@ form:
   type_choices:
       footwear: Obuća
       clothes: Odjeća
+      sport: Sport
   type_help: Odabrati kojoj kategoriji artikla veličina odgovara
   type_label: Kategorija artikla
   button_label: Spremi veličinu
