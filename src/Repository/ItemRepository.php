@@ -54,14 +54,12 @@ class ItemRepository extends ServiceEntityRepository
             ->addSelect('ic')
             ->join('ic.category', 'c')
             ->addSelect('c')
-            ->join('c.actionCategory', 'ac')
+            ->leftJoin('c.actionCategory', 'ac')
             ->where('ac IS NOT NULL')
             ->leftJoin('i.actionItem', 'ai')
-            ->andWhere('ai IS NOT NULL');
+            ->orWhere('ai IS NOT NULL');
         return $query;
     }
-
-
 
 
     public function searchByCipherAndName($keyword, $locale): QueryBuilder
@@ -93,7 +91,8 @@ class ItemRepository extends ServiceEntityRepository
             ->addSelect('images')
             ->addSelect('itemColors')
             ->addSelect('color')
-            ->addSelect('ai');
+            ->addSelect('ai')
+            ->orderBy('i.id', 'DESC');
         return $query;
     }
 }

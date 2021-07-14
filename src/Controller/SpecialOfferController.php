@@ -19,11 +19,9 @@ class SpecialOfferController extends AbstractController
      * }, name="special_offer")
      */
     public function index(Request $request,
-                          ActionItemRepository $actionItemRepository,
                           ItemRepository $itemRepository,
                           PaginatorInterface $paginator): Response
     {
-        $actionItems = $actionItemRepository->findAll();
         $actionItemsQuery = $itemRepository->getActionItemsQuery();
         $pagination = $paginator->paginate(
             $actionItemsQuery,
@@ -32,7 +30,6 @@ class SpecialOfferController extends AbstractController
         );
 
         return $this->render('special_offer/index.html.twig', [
-            'actionItems' => $actionItems,
             'pagination' => $pagination,
         ]);
     }
