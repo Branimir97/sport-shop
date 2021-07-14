@@ -197,7 +197,9 @@ class CheckoutController extends AbstractController
                     'cartItems' => $cartItems
                 ])
                 ->htmlTemplate('email/order_successful.html.twig');
-            $mailer->send($email);
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $exception) {}
 
             $this->addFlash('success',
                 $translator->trans('flash_message.payment_success',

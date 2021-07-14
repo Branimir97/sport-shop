@@ -88,7 +88,9 @@ class PromoCodeController extends AbstractController
                         'discountPercentage' => $promoCode->getDiscountPercentage()
                     ])
                     ->htmlTemplate('email/new_promo_code.html.twig');
-                $mailer->send($email);
+                try {
+                    $mailer->send($email);
+                } catch (TransportExceptionInterface $exception) {}
             }
 
             $this->addFlash('success',

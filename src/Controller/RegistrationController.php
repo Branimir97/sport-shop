@@ -74,7 +74,9 @@ class RegistrationController extends AbstractController
                     ]
                 )
                 ->htmlTemplate('email/new_user.html.twig');
-            $mailer->send($email);
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $exception) {}
 
             if($this->isGranted("ROLE_ADMIN")){
                 $this->addFlash('success',

@@ -101,7 +101,11 @@ class MyGoogleAuthenticator extends SocialAuthenticator
                 ]
             )
             ->htmlTemplate('email/new_user.html.twig');
-        $this->mailer->send($email);
+
+        try {
+            $this->mailer->send($email);
+        } catch (TransportExceptionInterface $exception) {}
+
         return $user;
     }
 

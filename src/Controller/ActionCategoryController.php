@@ -95,7 +95,9 @@ class ActionCategoryController extends AbstractController
                             'discountPercentage' => $actionCategory->getDiscountPercentage()
                         ])
                         ->htmlTemplate('email/new_action_category.html.twig');
-                    $mailer->send($email);
+                    try {
+                        $mailer->send($email);
+                    } catch (TransportExceptionInterface $exception) {}
                 }
             }
 

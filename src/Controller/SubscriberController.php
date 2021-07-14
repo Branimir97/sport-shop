@@ -114,7 +114,9 @@ class SubscriberController extends AbstractController
             ->to($receiverEmail)
             ->subject($subject)
             ->htmlTemplate('email/new_subscriber.html.twig');
-        $mailer->send($email);
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $exception) {}
 
         $this->addFlash('success',
             $translator->trans('flash_message.subscriber_added',
@@ -163,7 +165,9 @@ class SubscriberController extends AbstractController
             ->to($receiverEmail)
             ->subject($subject)
             ->htmlTemplate('email/new_subscriber.html.twig');
-        $mailer->send($email);
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $exception) {}
 
         $this->addFlash('success',
             $translator->trans('flash_message.subscriber_added',
