@@ -54,22 +54,28 @@
                     <div class="col-sm-3 mb-2">
                         <div class="one_item">
                             <div class="img-wrapper">
-                                {% set difference = date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                {% set difference =
+                                    date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
                                 {% set daysDiff = difference.days %}
                                 {% if daysDiff <= 2 %}
                                     <div class="new_badge p-1">
                                         {{ 'new'|trans({}, 'item_list') }}
                                     </div>
                                 {% endif %}
-{#                                {% if actions|length is not same as 0 %}#}
-{#                                    {% for key, value in actions %}#}
-{#                                        {% if key == item.id %}#}
-{#                                                <div class="action_badge p-1">#}
-{#                                                    - {{ actions[key] }}%#}
-{#                                                </div>#}
-{#                                            {% endif %}#}
-{#                                    {% endfor %}#}
-{#                                {% endif %}#}
+                                {% for itemCategory in item.itemCategories %}
+                                    {% if itemCategory.category.actionCategory != null %}
+                                        <div class="action_badge p-1">
+                                            - {{ itemCategory.category.actionCategory.discountPercentage }}%
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for actionItem in actionItems %}
+                                    {% if actionItem.item == item %}
+                                        <div class="action_badge p-1">
+                                            - {{ actionItem.discountPercentage }}%
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">
                                 {% else %}

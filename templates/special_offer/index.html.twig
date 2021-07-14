@@ -14,7 +14,7 @@
             <img class="panel_icon ml-1"
                  src="{{ asset('icons/action.png') }}" alt="icon">
         </h2>
-        {% if items|length is same as 0 %}
+        {% if pagination.getTotalItemCount is same as 0 %}
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="">
                 <h6 class="bg-light p-2">
@@ -23,7 +23,7 @@
             </div>
         {% else %}
             <div class="row">
-                {% for item in items %}
+                {% for item in pagination %}
                     <div class="col-sm-3 mb-2">
                         <div class="one_item">
                             <div class="img-wrapper">
@@ -57,7 +57,7 @@
                                 </a>
                             </div>
                             <div class="item_info">
-                                <h6 class="text-center bg-light p-1 mb-0">
+                                <h6 class="text-center bg-light p-1 mb-0 title">
                                     {{ item.title }}
                                 </h6>
                                 <p class="text-muted text-center colors m-0 p-1">
@@ -87,7 +87,7 @@
             </div>
         {% endif %}
         <div class="navigation mt-2">
-            {{ knp_pagination_render(items) }}
+            {{ knp_pagination_render(pagination) }}
         </div>
     </div>
 {% endblock %}

@@ -13,7 +13,7 @@
             {{ 'title'|trans({}, 'search') }}
             <i class="fas fa-search"></i>
         </h2>
-        {% if searchResults|length == 0 %}
+        {% if pagination.getTotalItemCount is same as 0 %}
             <h6 class="text-center bg-info p-2 text-white">
                 {{ 'noSearchResults'|trans({}, 'search') }}
                 (
@@ -31,11 +31,11 @@
                 </strong>
                 ):
                 <strong>
-                    {{ searchResults|length }}
+                    {{ pagination.getTotalItemCount }}
                 </strong>
             </h6>
             <div class="row">
-                {% for item in searchResults %}
+                {% for item in pagination %}
                     <div class="col-sm-3 mb-2">
                         <div class="one_item">
                             <div class="img-wrapper">
@@ -46,10 +46,21 @@
                                         {{ 'new'|trans({}, 'item_list') }}
                                     </div>
                                 {% endif %}
-                                {% set loopIndex = loop.index %}
-                                    <div class="action_badge p-1">
-                                        - 2
-                                    </div>
+                                {% for itemCategory in item.itemCategories %}
+                                    {% if itemCategory.category.actionCategory != null %}
+                                        <div class="action_badge p-1">
+                                            - {{ itemCategory.category.actionCategory.discountPercentage }}%
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for actionItem in actionItems %}
+                                    {% if actionItem.item == item %}
+                                        <div class="action_badge p-1">
+                                            - {{ actionItem.discountPercentage }}%
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
                                 {% if item.images|length == 0 %}
                                     <img src="{{ asset('images/logo.png') }}" alt="item_image">
                                 {% else %}
@@ -69,7 +80,7 @@
                                 </a>
                             </div>
                             <div class="item_info">
-                                <h6 class="text-center bg-light p-1 mb-0">
+                                <h6 class="text-center bg-light p-1 mb-0 title">
                                     {{ item.title }}
                                 </h6>
                                 <p class="text-muted text-center colors m-0 p-1">
@@ -98,5 +109,8 @@
                 {% endfor %}
             </div>
         {% endif %}
+        <div class="navigation mt-2">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

@@ -49,7 +49,8 @@ class ItemRepository extends ServiceEntityRepository
     public function getActionsOnItemsQuery(): QueryBuilder
     {
         $query = $this->createQueryBuilder('i');
-        $query->join('i.actionItem', 'ai')
+        $query
+            ->join('i.actionItem', 'ai')
             ->where('ai IS NOT NULL')
             ->addSelect('ai');
 
@@ -59,7 +60,8 @@ class ItemRepository extends ServiceEntityRepository
     public function getCategoryActionsQuery(): QueryBuilder
     {
         $query = $this->createQueryBuilder('i');
-        $query->join('i.itemCategories', 'ic')
+        $query
+            ->join('i.itemCategories', 'ic')
             ->addSelect('ic')
             ->join('ic.category', 'c')
             ->addSelect('c')
@@ -69,20 +71,34 @@ class ItemRepository extends ServiceEntityRepository
         return $query;
     }
 
-    public function searchByCipherAndName($keyword)
+    public function searchByCipherAndName($keyword, $locale): QueryBuilder
     {
-        return $this->createQueryBuilder('i')
-            ->where('i.title LIKE :title')
-            ->orWhere('i.cipher = :cipher')
-            ->setParameter('title', '%'.$keyword.'%')
-            ->setParameter('cipher', $keyword)
+        $query = $this->createQueryBuilder('i');
+        if($locale == 'en') {
+            $query
+                ->join('i.itemTranslations', 'it')
+                ->where('it.field = :field')
+                ->andWhere('it.content LIKE :title')
+                ->orWhere('i.cipher = :cipher')
+                ->setParameter('field', 'title')
+                ->setParameter('title', '%'.$keyword.'%')
+                ->setParameter('cipher', $keyword);
+        }
+        if($locale == 'hr') {
+            $query
+                ->where('i.title LIKE :title')
+                ->orWhere('i.cipher = :cipher')
+                ->setParameter('title', '%'.$keyword.'%')
+                ->setParameter('cipher', $keyword);
+        }
+
+        $query
             ->leftJoin('i.images', 'images')
             ->leftJoin('i.itemColors', 'itemColors')
             ->leftJoin('itemColors.color', 'color')
             ->addSelect('images')
             ->addSelect('itemColors')
-            ->addSelect('color')
-            ->getQuery()
-            ->getArrayResult();
+            ->addSelect('color');
+        return $query;
     }
 }

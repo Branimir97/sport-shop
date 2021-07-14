@@ -24,9 +24,8 @@ class ItemListController extends AbstractController
      */
     public function index(Request $request, ItemRepository $itemRepository,
                           TranslatorInterface $translator,
-                          ActionItemRepository $actionItemRepository,
-                          ItemCategoryRepository $itemCategoryRepository,
-                          PaginatorInterface $paginator): Response
+                          PaginatorInterface $paginator,
+                          ActionItemRepository $actionItemRepository): Response
     {
         $locale = $request->getLocale();
         $categoriesRequest = $request->get
@@ -34,28 +33,7 @@ class ItemListController extends AbstractController
         $categories = explode(',', $categoriesRequest);
         $itemsQuery = $itemRepository->findByCategoriesQuery($categories);
 
-//        $results = $itemsQuery->getQuery()->getArrayResult();
-//        $actions = [];
-//        foreach($results as $item) {
-//            foreach($actionItemRepository->findAll() as $actionItem) {
-//                if($item == $actionItem->getItem()) {
-//                    $actions[$item->getId()] = $actionItem->getDiscountPercentage();
-//                }
-//            }
-//        }
-//
-//
-//            foreach ($itemCategoryRepository->findAll() as $itemCategory) {
-//                if(!is_null($itemCategory->getCategory()->getActionCategory())) {
-//                    foreach($results as $item) {
-//                    if($item == $itemCategory->getItem()) {
-//                        $actions[$item->getId()] = $itemCategory->
-//                        getCategory()->getActionCategory()->getDiscountPercentage();
-//                    }
-//                }
-//            }
-//        }
-        //dodati action badgeve
+        $actionItems = $actionItemRepository->findAll();
 
         $pagination = $paginator->paginate(
           $itemsQuery->getQuery()
@@ -66,9 +44,9 @@ class ItemListController extends AbstractController
           16
         );
         return $this->render('item_list/index.html.twig', [
+            'actionItems' => $actionItems,
             'pagination' => $pagination,
             'categories' => $categories,
-//            'actions' => $actions
         ]);
     }
 }

@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\UserSearch;
+use App\Repository\ActionItemRepository;
 use App\Repository\ItemRepository;
 use App\Repository\UserSearchRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +22,13 @@ class SearchController extends AbstractController
      * }, name="search")
      */
     public function index(Request $request, ItemRepository $itemRepository,
-                          UserSearchRepository $userSearchRepository): Response
+                          UserSearchRepository $userSearchRepository,
+                          ActionItemRepository $actionItemRepository,
+                          PaginatorInterface $paginator): Response
     {
         $searchKeyword = $request->get('keyword');
-        $searchResults = $itemRepository->searchByCipherAndName($searchKeyword);
-        if(count($searchResults) > 0 && $searchKeyword !== null) {
+        $searchResults = $itemRepository->searchByCipherAndName($searchKeyword, $request->getLocale());
+        if(count($searchResults->getQuery()->getArrayResult()) > 0 && $searchKeyword !== null) {
             if($this->getUser()) {
                 if(is_null($userSearchRepository->findOneBy(
                     ['user' => $this->getUser(), 'keyword' => $searchKeyword]))) {
@@ -37,10 +42,17 @@ class SearchController extends AbstractController
             }
         }
 
-        //napraviti pagination | dodati ispravne badgeve
+        $actionItems = $actionItemRepository->findAll();
+        $pagination = $paginator->paginate(
+            $searchResults,
+            $request->query->getInt('page', 1),
+            16
+        );
+
         return $this->render('search/index.html.twig', [
+            'actionItems' => $actionItems,
             'searchKeyword' => $searchKeyword,
-            'searchResults' => $searchResults,
+            'pagination' => $pagination,
         ]);
     }
 }

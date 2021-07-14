@@ -29,42 +29,42 @@ class SpecialOfferController extends AbstractController
         $actionCategoriesItems = $itemRepository->getCategoryActionsQuery();
         $actionItemsCount = count($actionItems->getQuery()->getArrayResult());
         $actionCategoriesCount = count($actionCategoriesItems->getQuery()->getArrayResult());
+//        $pagination = $paginator->paginate(
+//            $actionItems,
+//            $request->query->getInt('page', 1), 1);
 
-            if($actionItemsCount !== 0) {
-                $pagination = $paginator->paginate(
-                    $actionItems,
-                    $request->query->getInt('page', 1),
-                    3
-                );
-                $actionItems = $actionItemRepository->findAll();
-                foreach ($actionItems as $actionItem) {
-                    array_push($discounts, $actionItem->getDiscountPercentage());
-                }
+        if($actionItemsCount !== 0) {
+            $pagination = $paginator->paginate(
+                $actionItems,
+                $request->query->getInt('page', 1),
+                16
+            );
+            $actionItems = $actionItemRepository->findAll();
+            foreach ($actionItems as $actionItem) {
+                array_push($discounts, $actionItem->getDiscountPercentage());
             }
+        }
 
+        if ($actionCategoriesCount !== 0) {
+            $pagination = $paginator->paginate(
+                $actionCategoriesItems,
+                $request->query->getInt('page', 1),
+                16
+            );
 
-            if ($actionCategoriesCount !== 0) {
-                $pagination = $paginator->paginate(
-                    $actionCategoriesItems,
-                    $request->query->getInt('page', 1),
-                    16
-                );
-
-                foreach ($actionCategoriesItems->getQuery()->getResult() as $item) {
-                    $itemCategories = $item->getItemCategories();
-                    foreach ($itemCategories as $itemCategory) {
-                        if (!is_null($itemCategory->getCategory()->getActionCategory())) {
-                            array_push($discounts, $itemCategory->getCategory()->getActionCategory()
-                                ->getDiscountPercentage());
-                        }
+            foreach ($actionCategoriesItems->getQuery()->getResult() as $item) {
+                $itemCategories = $item->getItemCategories();
+                foreach ($itemCategories as $itemCategory) {
+                    if (!is_null($itemCategory->getCategory()->getActionCategory())) {
+                        array_push($discounts, $itemCategory->getCategory()->getActionCategory()
+                            ->getDiscountPercentage());
                     }
                 }
             }
-
-        //napraviti provjeru ako postoje i kategorije i artikli na akciji
+        }
 
         return $this->render('special_offer/index.html.twig', [
-            'items' => $pagination,
+            'pagination' => $pagination,
             'discounts' => $discounts
         ]);
     }

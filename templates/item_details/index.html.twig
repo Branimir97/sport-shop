@@ -37,7 +37,8 @@
                                                 </p>
                                             </div>
                                         {% endif %}
-                                        {% set difference = date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                        {% set difference =
+                                            date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
                                         {% set daysDiff = difference.days %}
                                         {% if daysDiff <= 2 %}
                                             <div class="carousel-content2">
