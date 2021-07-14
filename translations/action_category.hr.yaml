@@ -1,0 +1,44 @@
+index:
+  title: Upravljanje akcijama kategorija
+  noActions: Ne postoji niti jedna kategorija na akciji.
+  newAction: Postavi novu kategoriju na akciju
+
+new:
+  title: Nova akcija na kategorije
+
+show:
+  title: Akcija
+  editAction: Uredi podatke
+
+actionsList: Lista kategorija na akciji
+actionsTable:
+  category: Kategorija
+  name: Naziv akcije
+  discount: Popust [%]
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitleCategory: Informacije o kategoriji
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Ukloni akciju
+
+form:
+  category_help: Odaberite jednu ili više kategorija
+  category_label: Dostupne kategorije
+  title_label_hr: Naziv akcije na hrvatskom
+  title_placeholder_hr: npr. Popust na sve artikle iz kategorije Muškarci
+  title_label_en: Naziv akcije na engleskom
+  title_placeholder_en: npr. Discount on all items from the category Men
+  discount_label: Postotak popusta
+  discount_help: Postotak u rasponu od [1-30]%
+  button_label: Postavi kategoriju/e na akciju
+  edit_button_label: Spremi promjene
+
+flash_message:
+  action_category_created: Kategorija/e uspješno postavljena/e na akciju.
+  action_category_edited: Podaci o akciji uspješno ažurirani.
+  action_category_deleted: Akcija uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite ukloniti akciju za ovoj kategoriji?

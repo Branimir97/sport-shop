@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'show.title'|trans({}, 'user') }}
+    {{ user.name }} {{ user.surname }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'user') }}
+            {{ user.name }} {{ user.surname }}
+        </h2>
+        <a href="{{ path('user_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'usersList'|trans({}, 'user') }}
+        </a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <td>{{ user.id }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.email'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.authority'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.roles ? user.roles|json_encode : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.name'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.name }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.surname'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.surname }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.gender'|trans({}, 'user') }}
+                    </th>
+                    <td>
+                        {% if user.gender is null %}
+                            -
+                        {% elseif user.gender == "Muški" %}
+                            {{ 'form.labels.gender_choices.male'|trans({}, 'register') }}
+                        {% elseif user.gender == "Ženski" %}
+                            {{ 'form.labels.gender_choices.female'|trans({}, 'register') }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.birthDate'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.birthDate ? user.birthDate|date('d.m.Y.') : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        Facebook Id
+                    </th>
+                    <td>{{ user.facebookId ? user.facebookId : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        Google Id
+                    </th>
+                    <td>{{ user.googleId ? user.googleId : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.createdAt'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.updatedAt'|trans({}, 'user') }}
+                    </th>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'usersTable.deliveryAddresses'|trans({}, 'user') }}
+                    </th>
+                    <td>
+                        {% if user.deliveryAddresses|length > 0 %}
+                            {% for deliveryAddress in user.deliveryAddresses %}
+                                    {{ deliveryAddress.street }},
+                                    {{ deliveryAddress.postalCode }}
+                                    {{ deliveryAddress.city }} |
+                                    {{ deliveryAddress.country }}<br>
+                                    <a href="{{ path('delivery_address_edit',
+                                        {id:deliveryAddress.id}) }}">
+                                        {{ 'show.editAddress'|trans({}, 'user') }}
+                                        <i class="fas fa-edit"></i>
+                                    </a><br>
+                            {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="btn btn-success"
+               href="{{ path('user_edit', {'id': user.id}) }}">
+                {{ 'show.editUser'|trans({}, 'user') }}
+            </a>
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

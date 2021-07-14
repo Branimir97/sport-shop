@@ -1,0 +1,44 @@
+index:
+  title: Size management
+  noSizes: There are no sizes in our database.
+  newSize: Add new size
+
+new:
+  title: New size
+  heading: Adding new size
+
+show:
+  title: Size
+  editSize: Edit data
+
+sizesList: List of sizes
+sizesTable:
+  size: Size
+  itemType: Item type
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete size
+
+form:
+  value_placeholder: e.g. XXL for clothing or 45 for footwear
+  value_label: Size
+  type_choices:
+    footwear: Footwear
+    clothes: Clothes
+    sport: Sport
+  type_help: Select which item category the size fits
+  type_label: Item category
+  button_label: Save size
+  edit_button_label: Save changes
+
+flash_message:
+  size_exists: Size (%size_value%) already exists.
+  size_added: Size successfully added.
+  size_edited: Size (%size_value%) successfully updated.
+  size_deleted: Size (%size_value%) successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this size?

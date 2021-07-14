@@ -1,0 +1,19 @@
+title: Lista pretplaćenih korisnika
+noSubscribers: Ne postoji niti jedan pretplaćeni korisnik u bazi podataka.
+
+subscriberTable:
+  userEmail: Email korisnika
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  remove: Obriši pretplatu
+
+flash_message:
+  subscriber_exists: Već postoji pretplaćeni korisnik na navedenoj email adresi.
+  registered_email_used: Već postoji registrirani korisnik na navedenoj email adresi.
+  subscriber_added: Uspješno ste se pretplatili na naš newsletter!
+  registered_subscribe_message: Ukoliko niste pretplaćeni, možete se pretplatiti isključivo s
+                                Vašom email adresom korištenom za registraciju ovog računa.
+  subscriber_deleted: Pretplata uspješno uklonjena.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite ukloniti ovu pretplatu?

@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'order_list') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/cart_wish_order_list.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
+    <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
+{% endblock %}
+
+{% block body %}
+        <div class="container">
+            <h2 class="text-center mt-2 bg-light p-2">
+                {{ 'title'|trans({}, 'order_list') }}
+                <img class="panel_icon ml-1"
+                     src="{{ asset('icons/orders.png') }}" alt="icon">
+            </h2>
+            {% if orderListItems is not defined or orderListItems|length == 0 %}
+                <h6 class="text-center bg-info p-2 text-white">
+                    {{ 'noOrders'|trans({}, 'order_list') }}
+                </h6>
+                <p class="text-center">
+                    {{ 'orderMessage'|trans({}, 'order_list') }}
+                </p>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-warning">
+                        <thead>
+                        <tr>
+                            <th>
+                                {{ 'orderTable.number'|trans({}, 'order_list') }}
+                            </th>
+                            <th>
+                                {{ 'orderTable.price'|trans({}, 'order_list') }}
+                            </th>
+                            <th>
+                                {{ 'orderTable.createdAt'|trans({}, 'order_list') }}
+                            </th>
+                            <th>
+                                {{ 'orderTable.deliveryAddress'|trans({}, 'order_list') }}
+                            </th>
+                            <th>
+                                {{ 'orderTable.status'|trans({}, 'order_list') }}
+                            </th>
+                            <th>
+                                {{ 'orderTable.details'|trans({}, 'order_list') }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for orderListItem in orderListItems %}
+                            <tr>
+                                <td>{{ orderListItem.id }}</td>
+                                <td>{{ orderListItem.totalPrice|number_format(2, '.', ',') }}</td>
+                                <td>{{ orderListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                                <td>
+                                    {{ orderListItem.deliveryAddress }}
+                                </td>
+                                <td>
+                                    {% if orderListItem.status == "U OBRADI" %}
+                                        {{ orderListItem.status }}
+                                        <img class="icon"
+                                             src="{{ asset('icons/box.png') }}" alt="icon">
+                                    {% elseif orderListItem.status == "NA DOSTAVI" %}
+                                        {{ orderListItem.status }}
+                                        <img class="icon"
+                                             src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                    {% else %}
+                                        {{ orderListItem.status }}
+                                        <img class="icon"
+                                             src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('order_details', {'id':orderListItem.id}) }}">
+                                        {{ 'orderTable.orderLink'|trans({}, 'order_list') }}
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+index:
+  title: Promo code management
+  noPromoCodes: There are no promo codes in out database.
+  newPromoCode: Generate new promo code
+
+new:
+  title: New promo code
+  heading: Generating new promo code
+
+show:
+  title: Promo code
+  editPromoCode: Edit data
+
+promoCodesList: List of promo codes
+promoCodesTable:
+  promoCode: Promo code
+  discount: Discount
+  expirationTime: Expiration time
+  createdAt: Registration time
+  updatedAt: Last modified time
+  status: Status
+  actions: Actions
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Delete promo code
+
+form:
+  code_label: Promo code
+  code_placeholder: e.g. SPORTSHOP20
+  discount_percentage_label: Discount percentage
+  discount_percentage_help: Percentage in the range of [1-30]%
+  end_date_label: Code expiration time
+  button_label: Generate code
+  edit_button_label: Save changes
+
+flash_message:
+  promo_code_exists: There is already such a promo code.
+  promo_code_created: Promo code successfully generated.
+  promo_code_edited: Promo code successfully updated.
+  promo_code_deleted: Promo code successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this promo code?
+

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'index.title'|trans({}, 'action_item') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'index.title'|trans({}, 'action_item') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/action.png') }}" alt="icon">
+        </h2>
+        {% if not action_items %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>
+                    {{ 'index.noActions'|trans({}, 'action_item') }}
+                </p>
+                <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">
+                    {{ 'index.newAction'|trans({}, 'action_item') }}
+                </a>
+            </div>
+        {% else %}
+            <a href="{{ path('action_item_new') }}" class="btn btn-outline-info mb-3">
+                {{ 'index.newAction'|trans({}, 'action_item') }}
+            </a>
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'actionsTable.item'|trans({}, 'action_item') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.name'|trans({}, 'action_item') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.discount'|trans({}, 'action_item') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.createdAt'|trans({}, 'action_item') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.updatedAt'|trans({}, 'action_item') }}
+                            </th>
+                            <th>
+                                {{ 'actionsTable.actions'|trans({}, 'action_item') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for action_item in action_items %}
+                            <tr>
+                                <td>{{ action_item.id }}</td>
+                                <td>{{ action_item.item.title }}
+                                    <a href="{{ path('item_details', {'id':action_item.item.id}) }}"
+                                       title="{{ 'actionsTable.infoTitleItem'|trans({}, 'action_item') }}">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                </td>
+                                <td>{{ action_item.title }}</td>
+                                <td>{{ action_item.discountPercentage }}</td>
+                                <td>{{ action_item.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                                <td>{{ action_item.updatedAt ? action_item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                <td>
+                                    <a href="{{ path('action_item_show', {'id': action_item.id}) }}"
+                                       title="{{ 'actionsTable.infoTitle'|trans({}, 'action_item') }}">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a href="{{ path('action_item_edit', {'id': action_item.id}) }}"
+                                       title="{{ 'actionsTable.editTitle'|trans({}, 'action_item') }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('actions/action_item/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

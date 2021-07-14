@@ -1,0 +1,46 @@
+title: Features overview
+usersNumber: NUMBER OF USERS
+administratorsNumber: NUMBER OF ADMINISTRATORS
+soldItemsNumber: NUMBER OF ITEMS SOLD
+ordersNumber: NUMBER OF ORDERS
+earnings: EARNINGS [KN]
+promoCodesTitle: Active promo codes
+noPromoCodes: No promo code was recorded in the system.
+editPromoCode: Edit promo code
+actionsTitle: Active category actions
+noActions: No actions were recorded in the system.
+editAction: Edit action
+lastOrdersTitle: 10 last orders
+noOrders: No orders were recorded in the system.
+recentlyRegistratedUsersTitle: Recently registered users
+noUsers: No users are registered in the system.
+recentlyReviews: Recently written reviews
+noReviews: No reviews have been recorded in the system.
+
+ordersTable:
+  number: Order number
+  user: User
+  createdAt: Order execution time
+  status: Status
+  earnings: Total order amount [kn]
+  details: Details
+  detailsLink: More about the order
+
+usersTable:
+  email: Email address
+  name: Name
+  surname: Surname
+  gender: Gender
+  createdAt: Registration time
+  updatedAt: Last modified time
+  details: Details
+  detailsLink: More about the user
+
+reviewsTable:
+  grade: Grade
+  item: Item
+  user: Author
+  createdAt: Creation time
+  updatedAt: Last modified time
+  details: Details
+  editLink: Edit review

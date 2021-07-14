@@ -1,0 +1,9 @@
+<form method="post" action="{{ path('cart_item_delete', {'id': cartItem.id}) }}"
+      onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'cart') }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cartItem.id) }}">
+    <button class="btn btn-danger"
+            title="{{ 'cartTable.removeItemTitle'|trans({}, 'cart') }}">
+        <i class="far fa-trash-alt"></i>
+    </button>
+</form>

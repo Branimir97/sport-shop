@@ -1,0 +1,39 @@
+index:
+  title: Upravljanje loyalty karticama
+  noLoyaltyCards: Ne postoji niti jedna loyalty kartica vjernosti u bazi podataka.
+  newLoyaltyCard: Stvori novu loyalty karticu
+
+new:
+  title: Nova loyalty kartica
+  heading: Dodavanje nove loyalty kartice
+
+show:
+  title: Loyalty kartica br.
+  editLoyaltyCard: Uredi podatke
+
+loyaltyCardList: Lista loyalty kartica
+loyaltyCardTable:
+  cardNumber: Broj kartice
+  user: Korisnik
+  credits: Bodovi
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši karticu
+
+form:
+  user_help: Odaberite korisnika kojem želite stvoriti loyalty karticu
+  user_label: Odabir korisnika
+  credits_label: Broj bodova
+  button_label: Kreiraj loyalty karticu
+  edit_button_label: Spremi promjene
+
+flash_message:
+  loyalty_card_created: Loyalty kartica uspješno kreirana.
+  loyalty_card_edited: Loyalty kartica uspješno ažurirana.
+  loyalty_card_deleted: Loyalty kartica uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu loyalty karticu?

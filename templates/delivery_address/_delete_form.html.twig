@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('delivery_address_delete', {'id': delivery_address.id}) }}"
+      onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'delivery_address') }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ delivery_address.id) }}">
+    <button class="btn btn-danger mb-3 mt-2">
+        {{ 'deliveryAddressTable.delete'|trans({}, 'delivery_address') }}
+    </button>
+</form>

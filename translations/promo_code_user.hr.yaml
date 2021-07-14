@@ -1,0 +1,19 @@
+title: Upravljanje iskorištenim promo kodovima
+noUsedPromoCodes: Ne postoji niti jedan iskorišteni promo kod u bazi podataka.
+promoCodeUserTable:
+  promoCode: Promo kod
+  user: Korisnik
+  utilizationTime: Vrijeme iskorištenja
+  delete: Obriši evidenciju
+
+form:
+  code_label: Ovdje unesite promo kod
+  use_credits_label: Želim iskoristiti bodove na kartici
+  button_label: Potvrdi unos
+
+flash_message:
+  record_deleted: Uspješno obrisana evidencija o iskorištenom promo kodu od
+                  strane korisnika "%user_name% %user_surname%".
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati evidenciju o iskorištenosti ovog promo koda?

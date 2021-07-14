@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'wish_list') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/cart_wish_order_list.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'title'|trans({}, 'wish_list') }}
+            <i id="wish_list" class="fas fa-list-ul"></i>
+        </h2>
+        {% if wishList.wishListItems is not defined or wishList.wishListItems|length == 0 %}
+            <h6 class="text-center bg-info p-2 text-white">
+                {{ 'noWishListItems'|trans({}, 'wish_list') }}
+            </h6>
+            <p class="text-center">
+                {{ 'wishListMessage'|trans({}, 'wish_list') }}
+            </p>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-hover table-warning">
+                    <thead>
+                        <tr>
+                            <th>
+                                {{ 'wishListTable.image'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.itemName'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.itemCipher'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.itemPrice'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.createdAt'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.delete'|trans({}, 'wish_list') }}
+                            </th>
+                            <th>
+                                {{ 'wishListTable.continueShopping'|trans({}, 'wish_list') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for wishListItem in wishList.wishListItems %}
+                        <tr>
+                            <td>
+                                {% if wishListItem.item.images|length == 0 %}
+                                    <img class="item_img"
+                                         src="{{ asset('images/logo.png') }}" alt="logo">
+                                {% else %}
+                                    <img class="item_img"
+                                         src="{{ asset('uploads/')~wishListItem.item.images[0].path }}"
+                                         alt="image_{{ wishListItem.item.images[0].id }}">
+                                {% endif %}
+                            </td>
+                            <td>{{ wishListItem.item.title }}</td>
+                            <td>{{ wishListItem.item.cipher }}</td>
+                            <td>{{ wishListItem.item.price|number_format(2, '.', ',') }}</td>
+                            <td>{{ wishListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                            <td>
+                                {{ include('wish_list/_delete_form.html.twig') }}
+                            </td>
+                            <td>
+                                <a class="btn btn-success text-white"
+                                   href="{{ path('item_details', {'id':wishListItem.item.id}) }}"
+                                    title="{{ 'wishListTable.goToItem'|trans({}, 'wish_list') }}">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

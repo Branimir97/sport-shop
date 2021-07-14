@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+        .container {
+            width: 50%;
+        }
+        .img_wrapper img{
+            box-shadow:
+                    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+                    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <div class="container text-center">
+        <div class="img_wrapper">
+            <img src="https://i.ibb.co/yPhPY0j/logo.png" alt="logo">
+        </div>
+        <div>
+            <h2 class="bg-success mt-2 p-2 text-white">
+               {{ 'order_successful.title'|trans({}, 'email') }}
+                <strong>{{ orderNumber }}</strong>
+            </h2>
+            <p class="mt-2">
+                {{ 'order_successful.respected'|trans({}, 'email') }}
+                {{ user }},
+                <br><br>
+                {{ 'order_successful.message'|trans({}, 'email') }}
+            </p>
+            <h6 class="bg-secondary text-white p-2">
+                <strong>
+                    {{ 'order_successful.order'|trans({}, 'email') }} {{ orderNumber }}
+                </strong>
+                ({{ createdAt|date('H:i:s | d.m.Y.') }})
+            </h6>
+            <table class="table table-hover table-info">
+                <thead>
+                    <tr>
+                        <th>
+                            {{ 'order_successful.item'|trans({}, 'email') }}
+                        </th>
+                        <th>
+                            {{ 'order_successful.color'|trans({}, 'email') }}
+                        </th>
+                        <th>
+                            {{ 'order_successful.size'|trans({}, 'email') }}
+                        </th>
+                        <th>
+                            {{ 'order_successful.quantity'|trans({}, 'email') }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cartItem in cartItems %}
+                        <tr>
+                            <td>
+                                {{ cartItem.item.title }}
+                            </td>
+                            <td>
+                                {{ cartItem.color.name }}
+                            </td>
+                            <td>
+                                {{ cartItem.size.value }}
+                            </td>
+                            <td>
+                                {{ cartItem.quantity }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p class="bg-light">
+                {{ 'order_successful.totalPriceWithoutDiscount'|trans({}, 'email') }}:
+                <strong class="text-danger">
+                    {{ totalPriceWithoutDiscount|number_format(2, '.', ',') }} kn
+                </strong>
+            </p>
+            <p class="bg-light">
+                {{ 'order_successful.totalPriceWithDiscount'|trans({}, 'email') }}:
+                <strong class="text-success">
+                    {{ totalPriceWithDiscount|number_format(2, '.', ',') }} kn
+                </strong>
+            </p>
+            <h6 class="bg-secondary text-white p-2">
+                <strong>
+                    {{ 'order_successful.delivery_address'|trans({}, 'email') }}:
+                </strong>
+            </h6>
+            <p>
+                <small>
+                    {{ deliveryAddress }}
+                </small>
+            </p>
+        </div>
+        <small class="text-primary mt-3">
+            {{ 'footer1'|trans({}, 'email') }}
+            <br>
+            {{ 'footer2'|trans({}, 'email') }}
+            <br>
+            {{ 'footer3'|trans({}, 'email') }}
+        </small>
+    </div>
+</body>
+</html>

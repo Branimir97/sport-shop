@@ -1,0 +1,12 @@
+title: Prijava u sustav
+emailLabel: Email adresa
+passwordLabel: Lozinka
+rememberMe: Zapamti me
+signInButton: Prijava
+registrationText: Nemate postojeći račun na našoj platformi? Kreirajte Vaš račun
+registrationHrefText: ovdje
+facebookSignIn: Prijavi me koristeći Facebook
+googleSignIn: Prijavi me koristeći Google
+
+flash_message:
+  loggedIn: Uspješna prijava.

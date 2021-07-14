@@ -1,0 +1,184 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'account_settings.title'|trans({}, 'user') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/account_settings.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if not app.user.gender or not app.user.birthDate %}
+            <p class="bg-danger text-white p-2 text-center">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ 'account_settings.account_not_done'|trans({}, 'user') }}
+                <a id="done_profile"
+                   href="{{ path('user_edit', {id: app.user.id}) }}">
+                    {{ 'account_settings.done_profile'|trans({}, 'user') }}
+                </a>
+            </p>
+        {% endif %}
+        {% if subscribed is not null%}
+            <p class="bg-primary text-white p-2 text-center">
+                {{ 'account_settings.subscribed'|trans({}, 'user') }}
+                <a id="subscribe_delete"
+                   href="{{ path('subscriber_delete_registered') }}">
+                    {{ 'account_settings.subscribe_delete'|trans({}, 'user') }}
+                </a>
+            </p>
+        {% else %}
+            <p class="bg-warning p-2 text-center">
+                {{ 'account_settings.subscribe'|trans({}, 'user') }}
+                <a id="subscribe"
+                   href="{{ path('subscriber_new_registered_settings') }}">
+                    {{ 'account_settings.subscribe_button'|trans({}, 'user') }}
+                </a>
+            </p>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="mt-2 mb-3 bg-light text-center p-2">
+                    {{ 'account_settings.user_data'|trans({}, 'user') }}
+                </h2>
+                <div class="user_details p-2 mb-3">
+                    <div class="edit_icon pr-2">
+                        <a href="{{ path('user_edit', {id: app.user.id}) }}"
+                            title=" {{ 'show.editUser'|trans({}, 'user') }}">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </div>
+                    <p>
+                        {{ 'usersTable.name'|trans({}, 'user') }}:
+                        <strong>
+                            {{ app.user.name }}
+                        </strong>
+                    </p>
+                    <p>
+                        {{ 'usersTable.surname'|trans({}, 'user') }}:
+                        <strong>
+                            {{ app.user.surname }}
+                        </strong>
+                    </p>
+                    <p>
+                        {{ 'usersTable.email'|trans({}, 'user') }}:
+                        <strong>
+                            {{ app.user.email }}
+                        </strong>
+                    </p>
+                    {% if app.user.gender %}
+                         <p>
+                             {{ 'usersTable.gender'|trans({}, 'user') }}:
+                             <strong>
+                                 {% if app.user.gender is null %}
+                                     -
+                                 {% elseif app.user.gender == "Muški" %}
+                                     {{ 'form.labels.gender_choices.male'|trans({}, 'register') }}
+                                 {% elseif app.user.gender == "Ženski" %}
+                                     {{ 'form.labels.gender_choices.female'|trans({}, 'register') }}
+                                 {% endif %}
+                             </strong>
+                         </p>
+                    {% endif %}
+                    {% if app.user.birthDate %}
+                        <p>
+                            {{ 'usersTable.birthDate'|trans({}, 'user') }}:
+                            <strong>
+                                {{ app.user.birthDate|date("d.m.Y.") }}
+                            </strong>
+                        </p>
+                    {% endif %}
+                    <p>
+                        {{ 'usersTable.createdAt'|trans({}, 'user') }}:
+                        <strong>
+                            {{ app.user.createdAt|date("H:i:s | d.m.Y.") }}
+                        </strong>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h3 class="mt-2 mb-3 bg-light text-center p-2">
+                    {{ 'usersTable.deliveryAddresses'|trans({}, 'user') }}:
+                </h3>
+                {% if not deliveryAddresses %}
+                    <p class="bg-danger p-2 text-white text-center">
+                        {{ 'usersTable.deliveryAddress_warning'|trans({}, 'user') }}
+                    </p>
+                {% else %}
+                    {% for deliveryAddress in deliveryAddresses%}
+                        <div class="one_delivery_address">
+                            <div class="delete_icon p-2">
+                                <a href="{{ path('delivery_address_delete',
+                                    {id: deliveryAddress.id}) }}"
+                                   title="{{ 'show.editAddress'|trans({}, 'user') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                            <p class="p-2">
+                                <span>
+                                     {{ 'usersTable.deliveryAddress'|trans({}, 'user') }}#{{ loop.index }}
+                                </span><br>
+                                {{ deliveryAddress.street }}<br>
+                                {{ deliveryAddress.postalCode }}
+                                {{ deliveryAddress.city }}<br>
+                                {{ deliveryAddress.county }}<br>
+                                {{ deliveryAddress.country }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <a class="btn btn-outline-info mb-3"
+                   href="{{ path('delivery_address_new') }}">
+                    {{ 'usersTable.newDeliveryAddress'|trans({}, 'user') }}
+                </a>
+            </div>
+        </div>
+        {% if not loyalty_card %}
+            <p class="bg-success text-white p-2 text-center">
+                <i class="fas fa-address-card"></i>
+                {{ 'account_settings.loyalty_card.info'|trans({}, 'user') }}
+                <a id="loyalty_info" class="ml-2" target="_blank"
+                    href="{{ path('loyalty_program') }}">
+                    {{ 'account_settings.loyalty_card.more_info'|trans({}, 'user') }}
+                </a>
+                <a class="btn btn-warning ml-2" href="{{ path('loyalty_card_new')}}">
+                    {{ 'account_settings.loyalty_card.create'|trans({}, 'user') }}
+                </a>
+            </p>
+            {% else %}
+                <h3 class="mt-2 mb-3 bg-light text-center p-2">
+                    {{ 'account_settings.loyalty_card.title'|trans({}, 'user') }}
+                </h3>
+                <div class="loyalty_card mb-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="{{ asset('images/logo.png') }}" alt="sport_shop_logo">
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="mt-1 bg-light">
+                                {{ 'account_settings.loyalty_card.number'|trans({}, 'user') }}
+                            </h6>
+                            <p id="loyalty_card_info" class="m-0">
+                                {{ loyalty_card.number }}
+                            </p>
+                            <h6 class="mt-2 bg-light">
+                                {{ 'account_settings.loyalty_card.user'|trans({}, 'user') }}
+                            </h6>
+                            <p id="loyalty_card_info" class="m-0">
+                                {{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}
+                            </p>
+                            <h6 class="mt-2 bg-light">
+                                {{ 'account_settings.loyalty_card.credits'|trans({}, 'user') }}
+                            </h6>
+                            <p id="loyalty_card_info" class="m-0">
+                                {{ loyalty_card.credits }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    {{ include('loyalty_card/_delete_form.html.twig') }}
+                </div>
+        {% endif %}
+    </div>
+{% endblock %}

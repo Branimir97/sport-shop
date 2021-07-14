@@ -1,0 +1,19 @@
+title: List of subscribed users
+noSubscribers: There are no subscribed users in our database.
+
+subscriberTable:
+  userEmail: User email
+  createdAt: Creation time
+  updatedAt: Last modified time
+  remove: Remove subscription
+
+flash_message:
+  subscriber_exists: There is already a subscribed user at the specified email address.
+  registered_email_used: There is already a registered user at the specified email address.
+  subscriber_added: You have successfully subscribed to our newsletter!
+  registered_subscribe_message: If you are not subscribed, you can only subscribe with
+                                Your email address used to register this account.
+  subscriber_deleted: Subscription successfully removed.
+
+delete_confirmation:
+  message: Are you sure you want to remove this subscription?

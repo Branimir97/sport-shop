@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'order_list_item') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'title'|trans({}, 'order_list_item') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/orders.png') }}" alt="icon">
+        </h2>
+        {% if not order_list_items %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>
+                    {{ 'noOrders'|trans({}, 'order_list_item') }}
+                </p>
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                    <tr>
+                        <th>
+                            {{ 'orderTable.number'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.user'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.createdAt'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.deliveryAddress'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.status'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.price'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.actions'|trans({}, 'order_list_item') }}
+                        </th>
+                        <th>
+                            {{ 'orderTable.details'|trans({}, 'order_list_item') }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order_list_item in order_list_items %}
+                        <tr>
+                            <td>{{ order_list_item.id }}</td>
+                            <td>
+                                {{ order_list_item.orderList.user.name }}
+                                {{ order_list_item.orderList.user.surname }}
+                            </td>
+                            <td>
+                                {{ order_list_item.createdAt ?
+                                order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>{{ order_list_item.deliveryAddress }}</td>
+                            <td>
+                                {% if order_list_item.status == "U OBRADI" %}
+                                    {{ order_list_item.status }}
+                                    <img class="icon"
+                                         src="{{ asset('icons/box.png') }}" alt="icon">
+                                {% elseif order_list_item.status == "NA DOSTAVI" %}
+                                    {{ order_list_item.status }}
+                                    <img class="icon"
+                                         src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                {% else %}
+                                    {{ order_list_item.status }}
+                                    <img class="icon"
+                                         src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                {% endif %}
+                            </td>
+                            <td>{{ order_list_item.totalPrice|number_format(2, '.', ',') }}</td>
+                            <td>
+                                <a href="{{ path('order_list_item_status_processing',
+                                    {'id': order_list_item.id}) }}"
+                                    title="{{ 'orderTable.setStatusInProcess'|trans({}, 'order_list_item') }}">
+                                    <img class="icon"
+                                         src="{{ asset('icons/box.png') }}" alt="icon">
+                                </a>
+                                <a href="{{ path('order_list_item_status_delivering',
+                                    {'id': order_list_item.id}) }}"
+                                    title="{{ 'orderTable.setStatusDelivering'|trans({}, 'order_list_item') }}">
+                                    <img class="icon"
+                                         src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                </a>
+                                <a href="{{ path('order_list_item_status_delivered',
+                                    {'id': order_list_item.id}) }}"
+                                    title="{{ 'orderTable.setStatusDelivered'|trans({}, 'order_list_item') }}">
+                                    <img class="icon"
+                                         src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                </a>
+                                {{ include('order_list_item/_delete_form.html.twig') }}
+                            </td>
+                            <td>
+                                <a href="{{ path('order_details',
+                                    {'id':order_list_item.id}) }}">
+                                    {{ 'orderTable.orderLink'|trans({}, 'order_list_item') }}
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

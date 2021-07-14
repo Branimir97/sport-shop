@@ -1,0 +1,14 @@
+homepage_link: Povratak na početnu stranicu
+
+error403:
+  title: Zabranjen pristup
+  message: Pokušavate pristupiti nečemu za što nemate dozvolu.
+
+error404:
+  title: Stranica nije pronađena
+  message: Tražena stranica nije pronađena. Provjerite napisani URL.
+
+other:
+  title: Pogreška
+  message: Izgleda da je nešto pošlo po zlu.
+

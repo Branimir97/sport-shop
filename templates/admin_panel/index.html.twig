@@ -1,0 +1,328 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title'|trans({}, 'admin_panel_features')}}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/admin_panel.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row m-2">
+            <div class="col-sm-3">
+                <div id="users" class="card">
+                    <p>
+                        {{ 'usersNumber'|trans({}, 'admin_panel_features')}}
+                    </p>
+                    <h5>
+                        {{ users }}
+                    </h5>
+                    <small class="text-dark">
+                        {{ 'administratorsNumber'|trans({}, 'admin_panel_features')}}:
+                        {{ admins }}
+                    </small>
+                    <img id="icon"
+                         src="{{ asset('icons/users.png') }}" alt="icon">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="sold_items" class="card">
+                    <p>
+                        {{ 'soldItemsNumber'|trans({}, 'admin_panel_features')}}
+                    </p>
+                    <h5>
+                        {{ soldItems }}
+                    </h5>
+                    <img id="icon"
+                         src="{{ asset('icons/items.png') }}" alt="icon">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="orders" class="card">
+                    <p>
+                        {{ 'ordersNumber'|trans({}, 'admin_panel_features')}}
+                    </p>
+                    <h5>
+                        {{ orders }}
+                    </h5>
+                    <img id="icon"
+                         src="{{ asset('icons/orders.png') }}" alt="icon">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="earnings" class="card">
+                    <p>
+                        {{ 'earnings'|trans({}, 'admin_panel_features')}}
+                    </p>
+                    <h5>
+                        {{ earnings|number_format(2, '.', ',')}}
+                    </h5>
+                    <img id="icon"
+                         src="{{ asset('icons/earnings.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-sm-6">
+                <h3 class="text-center">
+                    {{ 'promoCodesTitle'|trans({}, 'admin_panel_features')}}
+                    <img class="ml-2" id="icon"
+                         src="{{ asset('icons/promo_code.png') }}" alt="icon">
+                </h3>
+                {% if promoCodes|length == 0 %}
+                <p class="text-center">
+                    {{ 'noPromoCodes'|trans({}, 'admin_panel_features')}}
+                </p>
+                {% else %}
+                    {% for promoCode in promoCodes %}
+                        <p class="text-center text-success">
+                            {{ promoCode.code }} | {{ promoCode.discountPercentage }}%
+                            <a class="ml-1" href="{{ path('promo_code_edit', {'id':promoCode.id}) }}"
+                                title="{{ 'editPromoCode'|trans({}, 'admin_panel_features')}}">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h3 class="text-center">
+                    {{ 'actionsTitle'|trans({}, 'admin_panel_features')}}
+                    <img class="ml-2" id="icon" src="{{ asset('icons/action.png') }}" alt="icon">
+                </h3>
+                {% if actionCategories|length == 0%}
+                    <p class="text-center">
+                        {{ 'noActions'|trans({}, 'admin_panel_features')}}
+                    </p>
+                {% else %}
+                    {% for actionCategory in actionCategories %}
+                        <p class="text-center text-success">
+                            {{ actionCategory.title }} | {{ actionCategory.discountPercentage }}%
+                            <a class="ml-1"
+                               href="{{ path('action_category_edit', {'id':actionCategory.id}) }}"
+                               title="{{ 'editAction'|trans({}, 'admin_panel_features')}}">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-sm-6">
+                <h3 class="text-center">
+                    {{ 'lastOrdersTitle'|trans({}, 'admin_panel_features')}}
+                    <img class="ml-2" id="icon"
+                         src="{{ asset('icons/orders.png') }}" alt="icon">
+                </h3>
+                {% if last10orderListItems|length == 0 %}
+                    <p class="text-center">
+                        {{ 'noOrders'|trans({}, 'admin_panel_features')}}
+                    </p>
+                {% else %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-info">
+                        <thead>
+                        <tr>
+                            <th>
+                                {{ 'ordersTable.number'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.user'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.createdAt'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.status'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.earnings'|trans({}, 'admin_panel_features')}}
+                            </th>
+                            <th>
+                                {{ 'ordersTable.details'|trans({}, 'admin_panel_features')}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order_list_item in last10orderListItems %}
+                            <tr>
+                                <td>{{ order_list_item.id }}</td>
+                                <td>
+                                    {{ order_list_item.orderList.user.name }}
+                                    {{ order_list_item.orderList.user.surname }}
+                                </td>
+                                <td>
+                                    {{ order_list_item.createdAt ?
+                                    order_list_item.createdAt|date('H:i:s | d.m.Y.') : '' }}
+                                </td>
+                                <td>
+                                    {% if order_list_item.status == "U OBRADI" %}
+                                        {{ order_list_item.status }}
+                                        <img class="icon"
+                                             src="{{ asset('icons/box.png') }}" alt="icon">
+                                    {% elseif order_list_item.status == "NA DOSTAVI" %}
+                                        {{ order_list_item.status }}
+                                        <img class="icon"
+                                             src="{{ asset('icons/delivery.png') }}" alt="icon">
+                                    {% else %}
+                                        {{ order_list_item.status }}
+                                        <img class="icon"
+                                             src="{{ asset('icons/delivering.png') }}" alt="icon">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ order_list_item.totalPrice|number_format(2, '.', ',') }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('order_details', {'id':order_list_item.id}) }}">
+                                        {{ 'ordersTable.detailsLink'|trans({}, 'admin_panel_features')}}
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h3 class="text-center">
+                    {{ 'recentlyRegistratedUsersTitle'|trans({}, 'admin_panel_features')}}
+                    <img class="ml-2" id="icon"
+                         src="{{ asset('icons/users.png') }}" alt="icon">
+                </h3>
+                {% if last5registeredUsers|length == 0 %}
+                    <p class="text-center">
+                        {{ 'noUsers'|trans({}, 'admin_panel_features')}}
+                    </p>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-info">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    {{ 'usersTable.email'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.name'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.surname'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.gender'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.createdAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.updatedAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'usersTable.details'|trans({}, 'admin_panel_features')}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in last5registeredUsers %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.surname }}</td>
+                                    <td>{{ user.gender ? user.gender : '-' }}</td>
+                                    <td>{{ user.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                                    <td>
+                                        {{ user.updatedAt ?
+                                        user.updatedAt|date('H:i:s | d.m.Y.') : '-' }}
+                                    </td>
+                                    <td>
+                                        <a class="btn" href="{{ path('user_show', {'id': user.id}) }}">
+                                            {{ 'usersTable.detailsLink'|trans({}, 'admin_panel_features')}}
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                <h3 class="text-center mt-3">
+                    {{ 'recentlyReviews'|trans({}, 'admin_panel_features')}}
+                    <img class="ml-2" id="icon" src="{{ asset('icons/review.png') }}" alt="icon">
+                </h3>
+                {% if last5reviews|length == 0 %}
+                    <p class="text-center">
+                        {{ 'noReviews'|trans({}, 'admin_panel_features')}}
+                    </p>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-info">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.grade'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.item'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.user'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.createdAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.updatedAt'|trans({}, 'admin_panel_features')}}
+                                </th>
+                                <th>
+                                    {{ 'reviewsTable.details'|trans({}, 'admin_panel_features')}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for review in last5reviews %}
+                                <tr>
+                                    <td>{{ review.id }}</td>
+                                    <td>
+                                        {% for i in 1..review.rating %}
+                                            <span class="fa fa-star checked"></span>
+                                        {% endfor %}
+                                        {% if review.rating < 5 %}
+                                            {% for i in review.rating .. 4%}
+                                                <span id="unchecked" class="fa fa-star"></span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ review.item.title }}</td>
+                                    <td>{{ review.user.name }} {{ review.user.surname }}</td>
+                                    <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                                    <td>
+                                        {{ review.updatedAt ?
+                                        review.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('review_edit', {'id': review.id}) }}">
+                                            {{ 'reviewsTable.editLink'|trans({}, 'admin_panel_features')}}
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

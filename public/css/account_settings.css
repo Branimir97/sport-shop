@@ -1,0 +1,69 @@
+.one_delivery_address{
+    position: relative;
+}
+
+.one_delivery_address, .user_details{
+    box-shadow:
+            rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+            rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+            rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.one_delivery_address span{
+    font-size: 15px;
+    color: darkcyan;
+}
+
+.one_delivery_address .delete_icon{
+    position: absolute;
+    right: 0;
+}
+
+.one_delivery_address .delete_icon:hover{
+    cursor: pointer;
+}
+
+.user_details{
+    position: relative;
+}
+
+.user_details .edit_icon{
+    position: absolute;
+    right: 0;
+}
+
+.user_details .edit_icon:hover{
+    cursor: pointer;
+}
+
+a#done_profile, a#loyalty_info{
+    color: lightcyan;
+}
+
+#subscribe {
+    color: blue;
+}
+
+#subscribe_delete{
+    color: yellow;
+}
+
+.loyalty_card{
+    width: 100%;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+p#loyalty_card_info{
+    color: green;
+}
+
+@media (min-width: 992px) {
+    .loyalty_card{
+        margin: auto;
+        text-align: unset;
+        width: 400px;
+        height: 200px;
+    }
+}
+

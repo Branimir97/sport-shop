@@ -1,0 +1,246 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'checkout') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 id="title" class="text-center mt-2 bg-success text-white p-2">
+            {{ 'title'|trans({}, 'checkout') }}
+            <i class="fas fa-hand-holding-usd"></i>
+        </h2>
+        <div class="row mt-3">
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">
+                        {{ 'yourCart'|trans({}, 'checkout') }}
+                    </span>
+                </h4>
+                <ul class="list-group mb-3">
+                    {% for cartItem in cartItems %}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">
+                                    {{ cartItem.item.title }}
+                                </h6>
+                                <small class="text-muted">
+                                    {{ cartItem.color.name }} {{ 'color'|trans({}, 'checkout') }} |
+                                </small>
+                                <small class="text-muted">
+                                    {{ 'size'|trans({}, 'checkout') }}
+                                    {{ cartItem.size.value }}
+                                </small><br>
+                                <small class="text-muted">
+                                    {{ 'quantity'|trans({}, 'checkout') }}:
+                                    {{ cartItem.quantity }} |
+                                </small>
+                                <small class="text-muted">
+                                    {{ 'pricePerPiece'|trans({}, 'checkout') }}:
+                                    {{ cartItem.item.price|number_format(2, '.', ',') }} kn
+                                </small>
+                            </div>
+                            <span class="text-muted">
+                                {{ (cartItem.item.price * cartItem.quantity)|number_format(2, '.', ',') }} kn
+                            </span>
+                        </li>
+                        {% if cartItem.item.actionItem != null %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">{{ cartItem.item.actionItem.title }}</h6>
+                                    <small class="text-muted">
+                                        {{ 'discount'|trans({}, 'checkout') }}:
+                                        {{ cartItem.item.actionItem.discountPercentage }}%
+                                    </small>
+                                </div>
+                                <span class="text-success">
+                                        -{{ (cartItem.item.price * cartItem.quantity)*
+                                    (cartItem.item.actionItem.discountPercentage)/100|number_format(2, '.', ',') }} kn
+                                    </span>
+                            </li>
+                        {% endif %}
+                        {% for cartItemCategory in cartItem.item.itemCategories %}
+                            {% if cartItemCategory.category.actionCategory != null %}
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <div class="text-success">
+                                        <h6 class="my-0">
+                                            {{ cartItemCategory.category.actionCategory.title }}
+                                        </h6>
+                                        <small class="text-muted">
+                                            {{ 'discount'|trans({}, 'checkout') }}:
+                                            {{ cartItemCategory.category.actionCategory.discountPercentage }}%
+                                        </small>
+                                    </div>
+                                    <span class="text-success">
+                                        -{{ (cartItem.item.price * cartItem.quantity)*
+                                        (cartItemCategory.category.actionCategory.discountPercentage)/100|number_format(2, '.', ',') }} kn
+                                    </span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    {% if app.session.get('discountWithUsedCredits') != null %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">
+                                    {{ 'loyaltyCardCredits'|trans({}, 'checkout') }}:
+                                </h6>
+                            </div>
+                            <span class="text-success">
+                                -{{ app.session.get('discountWithUsedCredits')|number_format(2, '.', ',') }} kn
+                            </span>
+                        </li>
+                    {% endif %}
+                    {% if app.session.get('discountWithUsedPromoCode') != null %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">
+                                    {{ 'promoCode'|trans({}, 'checkout') }}:
+                                    {{ app.session.get('promoCode') }}
+                                </h6>
+                                <small class="text-muted">
+                                    {{ 'discount'|trans({}, 'checkout') }}:
+                                    {{ app.session.get('promoCodeDiscount') }}%
+                                </small>
+                            </div>
+                            <span class="text-success">
+                                -{{ app.session.get('discountWithUsedPromoCode')|number_format(2, '.', ',') }} kn
+                            </span>
+                        </li>
+                    {% endif %}
+                    {% if discount == 0 %}
+                        {% if totalPrice < 300%}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>30 kn</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between text-danger">
+                                <span>
+                                    {{ 'total'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>{{ (totalPrice + 30)|number_format(2, '.', ',') }} kn</strong>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between text-success">
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>
+                                    {{ 'shippingFree'|trans({}, 'checkout') }}
+                                </strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between text-danger">
+                                <span>
+                                    {{ 'total'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>{{ totalPrice|number_format(2, '.', ',') }} kn</strong>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="list-group-item d-flex justify-content-between text-success">
+                            <span>
+                                {{ 'discount'|trans({}, 'checkout') }}:
+                            </span>
+                            <strong>- {{ discount|number_format(2, '.', ',') }} kn</strong>
+                        </li>
+                        {% if totalPriceWithDiscount < 300 %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>30 kn</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>
+                                    {{ 'totalWithoutDiscount'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>{{ (totalPrice+30)|number_format(2, '.', ',') }} kn</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between text-danger">
+                                <span>
+                                    {{ 'totalWithDiscount'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>{{ (totalPriceWithDiscount+30)|number_format(2, '.', ',') }} kn</strong>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between text-success">
+                                <span>
+                                    {{ 'shipping'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>
+                                    {{ 'shippingFree'|trans({}, 'checkout') }}
+                                </strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>
+                                    {{ 'totalWithoutDiscount'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>{{ totalPrice|number_format(2, '.', ',') }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between text-danger">
+                                <span>
+                                    {{ 'totalWithDiscount'|trans({}, 'checkout') }}:
+                                </span>
+                                <strong>{{ totalPriceWithDiscount|number_format(2, '.', ',') }} kn</strong>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                <div class="promo_code_credits p-2">
+                    <form class="form-inline my-2 my-lg-0"
+                          action="{{ path('promo_code_checker') }}"
+                          method="POST">
+                        <input class="form-control mr-sm-2" type="text"
+                               placeholder="{{ 'promoCode'|trans({}, 'checkout') }}"
+                                name="code" required>
+                        <button class="btn btn-outline-success my-2 my-sm-0"
+                                type="submit">
+                            {{ 'promoCode_button'|trans({}, 'checkout') }}
+                        </button>
+                    </form>
+                </div>
+                {% if loyaltyCardCredits is not null and loyaltyCardCredits > 0 %}
+                    <div class="promo_code_credits p-2">
+                        <form class="form-inline my-2 my-lg-0 "
+                              action="{{ path('credits_checker') }}"
+                              method="POST">
+                            <input class="form-control mr-sm-2" type="checkbox"
+                                   placeholder="{{ 'searchBarPlaceholder'|trans({}, 'navigation') }}"
+                                   name="credits" required>
+                            <button class="btn btn-outline-success my-2 my-sm-0"
+                                    type="submit">
+                                {{ 'loyaltyCardCredits'|trans({}, 'checkout') }}
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+                {% if loyaltyCardCredits is not null %}
+                    <p class="text-center pt-2">
+                        {{ 'loyaltyCardText'|trans({}, 'checkout') }}:
+                        {{ loyaltyCardCredits }}
+                        {{ 'loyaltyCardText2'|trans({}, 'checkout') }}
+                    </p>
+                    <p id="credits" class="text-center">
+                        {{ 'earnedCredits'|trans({}, 'checkout') }}:
+                        <span>
+                            <b>
+                                {{ creditsEarned }}
+                            </b>
+                        </span>
+                    </p>
+                {% endif %}
+            </div>
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">
+                    {{ 'deliveryAddressSelect'|trans({}, 'checkout') }}:
+                </h4>
+                {{ include('checkout/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

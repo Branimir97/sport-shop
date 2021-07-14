@@ -1,0 +1,39 @@
+title: Moja košarica
+noCartItems: Ne postoji niti jedan artikl u Vašoj košarici.
+startShopping: ps. Kreni u shopping!
+cartTable:
+  image: Slika artikla
+  item: Naziv artikla
+  size: Veličina
+  color: Boja
+  quantity: Količina
+  price: Cijena [kn]
+  totalPrice: Ukupna cijena [kn]
+  removeItem: Obriši artikl
+  removeItemTitle: Obriši artikl iz košarice
+  itemDetails: Detalji o artiklu
+
+totalCartPrice: Ukupna cijena artikala u košarici
+payment: Plaćanje
+
+form:
+  size_label: Odabir veličine
+  color_label: Odabir boje
+  quantity_label: Količina
+  button_label: Dodaj u košaricu
+
+flash_message:
+  max_item_size_error: Max. količina veličine %size% za ovaj artikl je %quantity%.
+  max_item_color_error: Max. količina boje (%color%) za ovaj artikl je %quantity%.
+  item_added: Artikl "%item_title%" uspješno dodan u košaricu.
+  max_item_color_cart_error: Količina istog artikla u košarici i trenutno odabrana
+                             količina prelaze ukupnu količinu artikla za odabranu boju.
+                             Max. = %quantity%
+  max_item_size_cart_error: Količina istog artikla u košarici i trenutno odabrana količina
+                            prelaze ukupnu količinu artikla za odabranu veličinu.
+                            Max. = %quantity%
+  review_added: Recenzija poslana administratorima na uvid.
+  item_deleted: Artikl "%item_title%" uspješno obrisan iz košarice.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovaj artikl iz košarice?

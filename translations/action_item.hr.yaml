@@ -1,0 +1,44 @@
+index:
+  title: Upravljanje akcijama artikala
+  noActions: Ne postoji niti jedan artkl na akciji.
+  newAction: Postavi novi artikl na akciju
+
+new:
+  title: Nova akcija na artikl
+
+show:
+  title: Akcija
+  editAction: Uredi podatke
+
+actionsList: Lista artikala na akciji
+actionsTable:
+  item: Artikl
+  name: Naziv akcije
+  discount: Popust [%]
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitleItem: Informacije o artiklu
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Ukloni akciju
+
+form:
+  item_help: Odaberite jedan ili više artikala
+  item_label: Dostupni artikli
+  title_label_hr: Naziv akcije na hrvatskom
+  title_placeholder_hr: npr. Popust na artikl - Nike Air Max
+  title_label_en: Naziv akcije na engleskom
+  title_placeholder_en: npr. Discount on item - Nike Air Max
+  discount_label: Postotak popusta
+  discount_help: Postotak u rasponu od [1-30]%
+  button_label: Postavi artikl/e na akciju
+  edit_button_label: Spremi promjene
+
+flash_message:
+  action_item_created: Artikl/i uspješno postavljen/i na akciju.
+  action_item_edited: Podaci o akciji uspješno ažurirani.
+  action_item_deleted: Akcija uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite ukloniti akciju za ovaj artikl?

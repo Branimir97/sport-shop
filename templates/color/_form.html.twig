@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="text-center">
+        <button class="btn btn-success mb-3">
+            {{ button_label|default('form.button_label'|trans({}, 'color')) }}
+        </button>
+    </div>
+{{ form_end(form) }}

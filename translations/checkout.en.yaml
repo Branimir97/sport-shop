@@ -1,0 +1,51 @@
+title: Billing
+yourCart: Your shopping cart
+color: color
+size: Size
+quantity: Quantity
+pricePerPiece: Price per piece
+discount: Discount
+loyaltyCardCredits: Leveraging points with a loyalty card
+promoCode: Promo code
+promoCode_button: Confirm entry
+shipping: Shipping
+total: Total
+shippingFree: Free
+totalWithDiscount: Total with discount
+totalWithoutDiscount: Total without discount
+loyaltyCardText: On the loyalty card you have
+loyaltyCardText2: credits.
+earnedCredits: The number of points earned on the loyalty card if you make a payment
+deliveryAddressSelect: Select delivery address
+paymentMethod: Payment method
+addNewDeliveryAddress: Add new delivery address
+
+form:
+  delivery_address_choices:
+    empty: There is no registered shipping address for your account
+    label: Select the desired delivery address
+  card_choices:
+    credit: Credit card
+    debit: Debit card
+    paypal: PayPal
+    label: Card selection
+  card_name_surname_label: Name and surname on the card
+  card_name_surname_placeholder: Name Surname
+  card_name_surname_help: Enter Your full name as written on the card
+  card_number_label: Card number
+  card_number_help: Carefully copy the number from the card | Copying is not recommended
+  card_expiration_label: Card expiration date
+  card_expiration_help: Only the month and the year are important
+  card_cvv_help: The number of 3 digits on the back of Your card
+  button_label: Make a payment
+
+flash_message:
+  error_message: Error. You need to enter either a promo code or select use points
+                 from the card or both.
+  used_promo_code: The promo code does not exist or you have already used it.
+  price_reduced_loyalty_credits: Price successfully reduced by the amount of points
+                                 on the loyalty card.
+  promo_code_accepted: Promo code %promoCode% accepted. Price successfully reduced by
+                       %promoCodeDiscountPercentage%%.
+  card_error: Error processing your card, check the data and try again!
+  payment_success: Payment made successfully. The order is being processed for delivery.

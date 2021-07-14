@@ -1,0 +1,36 @@
+index:
+  title: Upravljanje recenzijama
+  noReviews: Ne postoji ni jedna recenzija u bazi podataka.
+
+edit:
+  title: Uređivanje recenzije
+
+reviewList: Lista recenzija
+reviewTable:
+  grade: Ocjena
+  item: Artikl
+  author: Autor
+  valid: Valjanost
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  changeValidity: Promijeni valjanost
+  actions: Mogućnosti
+  editTitle: Uredi
+  validTitle: Odobri rezenciju
+  invalidTitle: Odbij recenziju
+  delete: Obriši recenziju
+
+form:
+  rating_label: Ocjena
+  rating_help: Raspon od min 1 do max 5
+  comment_label: Komentar
+  button_label: Spremi promjene
+
+flash_message:
+  review_valid: Recenzija odobrena.
+  review_invalid: Recenzija odbijena.
+  review_edited: Recenzija uspješno ažurirana.
+  review_deleted: Recenzija uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu recenziju?

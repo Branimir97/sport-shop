@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title'|trans({}, 'loyalty_program')}}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('/css/loyalty_program.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2 class="text-center mt-2 bg-light p-2">
+        {{ 'heading'|trans({}, 'loyalty_program')}}
+        <img class="panel_icon ml-1"
+             src="{{ asset('icons/loyalty_card.png') }}" alt="">
+    </h2>
+    <div class="card">
+        <p class="p-2 text-center">
+            {{ 'textSection'|trans({}, 'loyalty_program')}}
+        </p>
+    </div>
+
+    <h6 class="mt-3 mb-3 text-center p-2 bg-light">
+        {{ 'loyaltyCardText'|trans({}, 'loyalty_program')}}
+        <strong>
+            Branimir Butković
+        </strong>
+    </h6>
+    <div class="loyalty_card mb-3">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="{{ asset('images/logo.png') }}" alt="sport_shop_logo">
+            </div>
+            <div class="col-sm-6">
+                <h6 class="mt-1 bg-light">
+                    {{ 'loyaltyCardNumber'|trans({}, 'loyalty_program')}}
+                </h6>
+                <p id="loyalty_card_info" class="m-0">
+                    12102432014111
+                </p>
+                <h6 class="mt-2 bg-light">
+                    {{ 'loyaltyCardUser'|trans({}, 'loyalty_program')}}
+                </h6>
+                <p id="loyalty_card_info" class="m-0">
+                    Branimir Butković
+                </p>
+                <h6 class="mt-2 bg-light">
+                    {{ 'loyaltyCardCredits'|trans({}, 'loyalty_program')}}
+                </h6>
+                <p id="loyalty_card_info" class="m-0">
+                    52
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

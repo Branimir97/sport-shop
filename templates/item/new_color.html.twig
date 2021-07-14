@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'new_color.title'|trans({}, 'item') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edit_item.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'new_color.title'|trans({}, 'item') }}
+        </h2>
+        <a href="{{ path('item_edit', {'id':item.id}) }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'new_color.editItem'|trans({}, 'item') }}
+        </a>
+        <h6 class="text-center bg-light p-1">
+            {{ 'new_color.item'|trans({}, 'item') }}:
+        </h6>
+        <p class="text-center" id="title">
+            {{ item.title }}
+        </p>
+        <h6 class="text-center bg-light p-1">
+            {{ 'new_color.currentColors'|trans({}, 'item') }}:
+        </h6>
+        {% if item.itemColors|length == 0 %}
+            <p class="text-center">
+                {{ 'new_color.noItemColors'|trans({}, 'item') }}
+            </p>
+        {% else %}
+            {% for itemColor in item.itemColors %}
+                <p class="text-center m-0" style="color: {{ itemColor.color.value }}">
+                    - {{ itemColor.color.value }} | {{ itemColor.color.name }}
+                </p>
+            {% endfor %}
+        {% endif %}
+        {{ include('item/new_color_form.html.twig') }}
+    </div>
+{% endblock %}

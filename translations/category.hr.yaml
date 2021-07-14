@@ -1,0 +1,39 @@
+index:
+  title: Upravljanje kategorijama
+  noCategories: Ne postoji niti jedna kategorija u bazi podataka.
+  newCategory: Dodaj novu kategoriju
+
+new:
+  title: Nova kategorija
+  heading: Dodavanje nove kategorije
+
+show:
+  title: Kategorija
+  editCategory: Uredi podatke
+
+categoriesList: Lista kategorija
+categoriesTable:
+  name: Naziv kategorije
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši kategoriju
+
+form:
+  category_name_placeholder_hr: npr. Planinarenje
+  category_name_label_hr: Naziv kategorije na hrvatskom
+  category_name_placeholder_en: npr. Mountain climbing
+  category_name_label_en: Naziv kategorije na engleskom
+  button_label: Dodaj kategoriju
+  edit_button_label: Spremi promjene
+
+flash_message:
+  category_exists: Kategorija "%category_name%" već postoji.
+  category_added: Kategorija uspješno dodana.
+  category_edited: Kategorija "%category_name%" uspješno ažurirana.
+  category_deleted: Kategorija "%category_name%" uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu kategoriju?

@@ -1,0 +1,23 @@
+title: Payment and security
+textSection1Title: PAYMENT ON OUR WEBSITE IS SECURE!
+
+textSection1: After confirming that you want to buy items from the cart,
+              you will be redirected to the billing page.
+              After selecting the delivery address, it is necessary to select
+              the payment method (Debit / Credit Card or Paypal) and enter your card
+              details (your name, card number, expiration date and CVV number).
+              After entering the specified data, it is necessary to confirm the billing
+              procedure. If the transaction is successful you will be redirected to a list page
+              successfully executed orders, otherwise you will receive an error message.
+textSection2Part1: When creating and paying for an order for which it is as a method of payment
+                   you will receive two selected card payments to your e-mail address
+                   separate emails - first email about
+orderConfirmation: Order confirmation
+textSection2Part2: and after the payment transaction is completed, e-mail about
+paymentConfirmation: Payment confirmation
+textSection3Title1: ORDER CONFIRMATION
+textSection3Part1: the email you receive when you are on our site as a registered customer
+                   successfully put selected items in the cart, fill in the data, select
+                   card payment and confirmed payment.
+textSection3Title2: PAYMENT CONFIRMATION
+textSection3Part2: the email you receive after the payment transaction is completed.

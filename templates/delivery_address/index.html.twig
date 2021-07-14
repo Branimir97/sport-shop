@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'index.title'|trans({}, 'delivery_address') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'index.title'|trans({}, 'delivery_address') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/delivery_address.png') }}" alt="icon">
+        </h2>
+        {% if not delivery_addresses %}
+        <div class="text-center">
+            <img src="{{ asset('images/logo.png') }}" alt="">
+            <p>
+                {{ 'index.noDeliveryAddresses'|trans({}, 'delivery_address') }}
+            </p>
+        </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.street'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.city'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.county'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.postalCode'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.country'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.createdAt'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.updatedAt'|trans({}, 'delivery_address') }}
+                            </th>
+                            <th>
+                                {{ 'deliveryAddressTable.actions'|trans({}, 'delivery_address') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for delivery_address in delivery_addresses %}
+                        <tr>
+                            <td>{{ delivery_address.id }}</td>
+                            <td>{{ delivery_address.street }}</td>
+                            <td>{{ delivery_address.city }}</td>
+                            <td>{{ delivery_address.county }}</td>
+                            <td>{{ delivery_address.postalCode }}</td>
+                            <td>{{ delivery_address.country }}</td>
+                            <td>{{ delivery_address.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                            <td>
+                                {{ delivery_address.updatedAt ?
+                                delivery_address.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a class="btn" href="{{ path('delivery_address_show',
+                                    {'id': delivery_address.id}) }}"
+                                   title="{{ 'deliveryAddressTable.infoTitle'|trans({}, 'delivery_address') }}">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('delivery_address_edit',
+                                    {'id': delivery_address.id}) }}"
+                                   title="{{ 'deliveryAddressTable.editTitle'|trans({}, 'delivery_address') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('delivery_address/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

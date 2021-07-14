@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'details.title'|trans({}, 'order_list') }}
+    {{ orderListItem.id }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/order_list_status.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'details.title'|trans({}, 'order_list') }}
+            {{ orderListItem.id }}
+        </h2>
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('order_list_item_index') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                {{ 'orderList'|trans({}, 'order_list') }}
+            </a><br>
+        {% endif %}
+        <a href="{{ path('order_list') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'myOrderList'|trans({}, 'order_list') }}
+        </a>
+        <div class="table-responsive">
+            <table class="table table-hover table-warning">
+                <caption>
+                    {{ 'details.itemsListCaption'|trans({}, 'order_list') }}
+                </caption>
+                <thead>
+                    <tr>
+                        <th>
+                            {{ 'details.itemsTable.title'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.size'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.color'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.quantity'|trans({}, 'order_list') }}
+                        </th>
+                        <th>
+                            {{ 'details.itemsTable.price'|trans({}, 'order_list') }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orderItem in orderItems %}
+                        <tr>
+                            <td>{{ orderItem.itemTitle }}</td>
+                            <td>{{ orderItem.size }}</td>
+                            <td>{{ orderItem.color }}</td>
+                            <td>{{ orderItem.quantity }}</td>
+                            <td>{{ orderItem.price|number_format(2, '.', ',') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <small class="text-muted">
+                {{ 'details.messagePart1'|trans({}, 'order_list') }}<br>
+                {{ 'details.messagePart2'|trans({}, 'order_list') }}
+            </small>
+            <table class="table">
+                <caption>
+                    {{ 'details.otherOrderInfo'|trans({}, 'order_list') }}
+                </caption>
+                <tbody>
+                    <tr>
+                        <th>
+                            {{ 'orderTable.number'|trans({}, 'order_list') }}
+                        </th>
+                        <td>{{ orderListItem.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ 'orderTable.createdAt'|trans({}, 'order_list') }}
+                        </th>
+                        <td>{{ orderListItem.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ 'orderTable.deliveryAddress'|trans({}, 'order_list') }}
+                        </th>
+                        <td>
+                            {{ orderListItem.deliveryAddress }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ 'orderTable.status'|trans({}, 'order_list') }}
+                        </th>
+                        <td>
+                            {% if orderListItem.status == "U OBRADI" %}
+                                {{ orderListItem.status }}
+                                <img class="icon"
+                                     src="{{ asset('icons/box.png') }}" alt="icon">
+                            {% elseif orderListItem.status == "NA DOSTAVI" %}
+                                {{ orderListItem.status }}
+                                <img class="icon"
+                                     src="{{ asset('icons/delivery.png') }}" alt="icon">
+                            {% else %}
+                                {{ orderListItem.status }}
+                                <img class="icon"
+                                     src="{{ asset('icons/delivering.png') }}" alt="icon">
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ 'orderTable.price'|trans({}, 'order_list') }}
+                        </th>
+                        <td>{{ orderListItem.priceWithoutDiscount|number_format(2, '.', ',') }}</td>
+                    <tr class="text-danger">
+                        <th>
+                            {{ 'orderTable.discount'|trans({}, 'order_list') }}
+                        </th>
+                        <td>{{ orderListItem.discount|number_format(2, '.', ',') }}</td>
+                    </tr>
+                    <tr class="text-success">
+                        <th>
+                            {{ 'orderTable.priceWithDiscount'|trans({}, 'order_list') }}
+                        </th>
+                        <td>{{ orderListItem.totalPrice|number_format(2, '.', ',') }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'show.title'|trans({}, 'loyalty_card') }}
+    {{ loyalty_card.number }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center p-2 mt-2 bg-light">
+            {{ 'show.title'|trans({}, 'loyalty_card') }}
+            {{ loyalty_card.number }}
+        </h2>
+        <a href="{{ path('loyalty_card_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'loyaltyCardList'|trans({}, 'loyalty_card') }}
+        </a>
+        {{ include('loyalty_card/_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'loyalty_card')}) }}
+        <div class="text-center">
+            {{ include('loyalty_card/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

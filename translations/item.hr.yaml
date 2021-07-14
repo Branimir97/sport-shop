@@ -1,0 +1,213 @@
+index:
+  title: Upravljanje artiklima
+  noItems: Ne postoji niti jedan artikl u bazi podataka.
+  newItem: Dodaj novi artikl
+new:
+  title: Novi artikl
+  heading: Dodavanje novog artikla
+
+set_quantity:
+  title: Postavljanje količine artikala
+
+set_color_quantity:
+  title: Postavljanje količine boja
+  newColors: Postavljanje novih boja
+  warningMessage: Prije dodavanja boje, potrebno je unijeti količinu za odabrane boje.
+
+set_size_quantity:
+  title: Postavljanje količine veličina
+  newSizes: Postavljanje novih veličina
+  warningMessage: Prije dodavanja veličine, potrebno je unijeti količinu za odabrane veličine.
+
+show:
+  title: Artikl
+  editItem: Uredi podatke
+
+edit:
+  title: Uređivanje
+  heading: Uređivanje podataka o artiklu
+  subheading1: Naziv, proizvođač, opis, cijena
+  subheading2: Fotografije
+  noItemImages:  Artikl trenutno nema niti jednu fotografiju.
+  deleteItemImage: Obriši fotografiju
+  addItemImages: Dodaj fotografiju/e
+  subheading3: Kategorije, tagovi, boje, veličine
+  itemCategories: Kategorije artikla
+  deleteItemCategory: Obriši kategoriju
+  addItemCategory: Dodaj kategoriju
+  itemTags: Tagovi artikla
+  deleteItemTag: Obriši tag
+  addItemTag: Dodaj tag
+  itemColors: Boje artikla
+  deleteItemColor: Obriši boju
+  addItemColor: Dodaj boju
+  itemSizes: Veličine artikla
+  deleteItemSize: Obriši veličinu
+  addItemSize: Dodaj veličinu
+  noItemProperties: Nema
+  editQuantityTitle: Uredi količinu
+  quantityPieces: kom
+
+new_image:
+  title: Postavljanje novih fotografija
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemImages: Artikl trenutno nema niti jednu fotografiju.
+  currentImages: Trenutno postavljena/e fotografija/e
+
+new_category:
+  title: Postavljanje novih kategorija
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemCategories: Artikl trenutno nema niti jednu kategoriju.
+  currentCategories: Trenutno postavljena/e kategorija/e
+
+new_tag:
+  title: Postavljanje novih tagova
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemTags: Artikl trenutno nema niti jedan tag.
+  currentTags: Trenutno postavljen/i tag/ovi
+
+new_color:
+  title: Postavljanje novih boja
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemColors: Artikl trenutno nema niti jednu boju.
+  currentColors: Trenutno postavljena/e boja/e
+
+new_size:
+  title: Postavljanje novih veličina
+  editItem: Uređivanje artikla
+  item: Artikl
+  noItemSizes: Artikl trenutno nema niti jednu veličinu.
+  currentSizes: Trenutno postavljena/e veličina/e
+
+edit_color_quantity:
+  title: Uređivanje količine boje
+  editItem: Uređivanje artikla
+
+edit_size_quantity:
+  title: Uređivanje količine veličine
+  editItem: Uređivanje artikla
+
+new_review:
+  button: Dodaj novu recenziju
+  title: Dodavanje nove recenzije
+  close: Zatvori
+  add: Dodaj recenziju
+
+itemsList: Lista artikala
+itemsTable:
+  title: Naziv artikla
+  cipher: Šifra artikla
+  price: Cijena [kn]
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  basicInfoTitle: Osnovne informacije
+  editTitle: Uredi
+  showTitle: Prikaži artikl
+  delete: Obriši artikl
+
+form:
+  title_placeholder_hr: npr. Nike Air Max tenisice
+  title_label_hr: Naziv artikla na hrvatskom
+  title_placeholder_en: npr. Nike Air Max sneakers
+  title_label_en: Naziv artikla na engleskom
+  manufacturer_help: Odaberite proizvođača
+  manufacturer_label: Proizvođač
+  category_help: Odaberite jednu ili više kategorija
+  category_label: Kategorije
+  tag_help: Unesite svaki tag u novi red
+  tag_placeholder: npr. nogomet
+  tag_label: Tagovi
+  size_help: Odaberite jednu ili više veličina
+  size_label: Dostupne veličine
+  color_help: Odaberite jednu ili više boja
+  color_label: Dostupne boje
+  image_help: Dopušteni formati slika su jpg, jpeg i png;
+              Maksimalna dopuštena veličina pojedine slike je 2MB
+  image_label: Slike
+  description_label_hr: Opis artikla na hrvatskom
+  description_placeholder_hr: Npr. sastav, savjeti oko uporabe, namjena, itd. na hrvatskom
+  description_label_en: Opis artikla na engleskom
+  description_placeholder_en: Npr. sastav, savjeti oko uporabe, namjena, itd. na engleskom
+  description_help: Omogućeno je korištenje HTML elemenata
+  price_placeholder: npr. 349,50
+  price_help: Unos u kunama
+  price_label: Cijena
+  button_label: Dodaj artikl
+  edit_button_label: Spremi promjene
+
+form_add_image:
+  button_label: Dodaj fotografiju/e
+
+form_add_category:
+  other_categories: Ostale kategorije
+  button_label: Dodaj kategoriju/e
+
+form_add_tag:
+  tag_label: Novi tagovi
+  button_label: Dodaj tag/ove
+
+form_add_color:
+  other_colors: Ostale boje
+  button_label: Dodaj boju/e
+
+form_add_size:
+  other_sizes: Ostale veličine
+  button_label: Dodaj veličinu/e
+
+form_set_color_quantity:
+  color_label: Boja (%color_name%) - unesite količinu
+  color_placeholder: npr. 15
+  button_label: Postavi boju/e
+  edit_button_label: Spremi promjene
+  edit_quantity_label: Unesite novu količinu
+
+form_set_size_quantity:
+  size_label: Veličina (%size_value%) - unesite količinu
+  size_placeholder: npr. 15
+  button_label: Dodaj veličinu/e
+  edit_button_label: Spremi promjene
+  edit_quantity_label: Unesite novu količinu
+
+form_set_quantity:
+  button_label: Postavi količine boja/veličina
+
+flash_message:
+  image_error: Pogreška prilikom prijenosa fotografije/a.
+               Dopušteni formati fotografije/a jpg, jpeg i png.
+  enter_quantity: Artikl uspješno dodan. Unesite količinu za odabrane boje/veličine.
+  item_added: Artikl uspješno dodan.
+  added_quantites: Uspješno postavljene količine boja/artikala za novi artikl.
+  edit_message: Artikl "%item_title%" uspješno ažuriran.
+  image_added: Fotografija/e uspješno dodana/e.
+  image_deleted: Fotografija uspješno obrisana.
+  category_added: Kategorija/e uspješno dodana/e.
+  category_deleted: Kategorija "%category_name%" uspješno obrisana.
+  tag_error: Tag/ovi koji/e pokušavate unijeti već je/su povezan/i s ovim artiklom.
+  tag_added: Tag/ovi uspješno dodan/i.
+  tag_deleted: Tag "%tag%" uspješno obrisan.
+  color_added: Boja/e uspješno dodana/e.
+  color_edited: Boja (%color_name%) - količina uspješno ažurirana.
+  color_deleted: Boja uspješno izbrisana.
+  size_added: Veličina/e uspješno dodana/e.
+  size_edited: Veličina (%size_value%) - količina uspješno ažurirana.
+  size_deleted: Veličina uspješno izbrisana.
+  item_deleted: Artikl "%item_title%" uspješno obrisan.
+
+delete_confirmation:
+  item:
+    message: Jeste li sigurni da želite obrisati ovaj artikl?
+  image:
+    message: Jeste li sigurni da želite obrisati ovu fotografiju?
+  category:
+    message: Jeste li sigurni da želite obrisati ovu kategoriju?
+  tag:
+    message: Jeste li sigurni da želite obrisati ovaj tag?
+  color:
+    message: Jeste li sigurni da želite obrisati ovu boju?
+  size:
+    message: Jeste li sigurni da želite obrisati ovu veličinu?

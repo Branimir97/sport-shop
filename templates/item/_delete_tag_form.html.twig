@@ -1,0 +1,10 @@
+<form method="post" action="{{ path('item_tag_delete', {'id': itemTag.id}) }}"
+      onsubmit="return confirm('{{ 'delete_confirmation.tag.message'|trans({}, 'item') }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemTag.id) }}">
+    <button>
+        <i id="delete" class="far fa-trash-alt"
+           title="{{ 'edit.deleteItemTag'|trans({}, 'item') }}">
+        </i>
+    </button>
+</form>

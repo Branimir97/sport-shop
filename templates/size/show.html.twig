@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'show.title'|trans({}, 'size') }}
+    {{ size.value }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'size') }}
+            {{ size.value }}
+        </h2>
+        <a href="{{ path('size_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'sizesList'|trans({}, 'size') }}
+        </a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <td>{{ size.id }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'sizesTable.size'|trans({}, 'size') }}
+                    </th>
+                    <td>{{ size.value }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'sizesTable.itemType'|trans({}, 'size') }}
+                    </th>
+                    <td>
+                        {% if (size.type == "Obuća") %}
+                            {{ 'form.type_choices.footwear'|trans({}, 'size') }}
+                        {% elseif (size.type == "Odjeća") %}
+                            {{ 'form.type_choices.clothes'|trans({}, 'size') }}
+                        {% elseif (size.type == "Sport") %}
+                            {{ 'form.type_choices.sport'|trans({}, 'size') }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'sizesTable.createdAt'|trans({}, 'size') }}
+                    </th>
+                    <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'sizesTable.updatedAt'|trans({}, 'size') }}
+                    </th>
+                    <td>
+                        {{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="btn btn-outline-success" href="{{ path('size_edit', {'id': size.id}) }}">
+                {{ 'show.editSize'|trans({}, 'size') }}
+            </a>
+            {{ include('size/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

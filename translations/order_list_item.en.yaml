@@ -1,0 +1,24 @@
+title: Order management
+noOrders: There are no orders in our database.
+
+orderTable:
+  number: Order number
+  user: User
+  createdAt: Creation time
+  deliveryAddress: Delivery address
+  status: Status
+  price: Total order price [kn]
+  actions: Actions
+  details: Details
+  orderLink: More about order
+  setStatusInProcess: Set status in process
+  setStatusDelivering: Set status delivering
+  setStatusDelivered: Set status delivered
+  delete: Delete order
+
+flash_message:
+  status_updated: Order status successfully updated.
+  order_deleted: Order successfully deleted.
+
+delete_confirmation:
+  message: Are you sure you want to delete this order?

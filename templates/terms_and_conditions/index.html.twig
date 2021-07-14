@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title'|trans({}, 'terms_and_conditions')}}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/terms_and_conditions.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="text-center mt-2 bg-light p-2">
+        {{ 'title'|trans({}, 'terms_and_conditions')}}
+        <img id="icon_terms-conditions" class="ml-1"
+             src="{{ asset('icons/terms-and-conditions.png') }}" alt="icon">
+    </h2>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection1Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection1'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            {{ 'textSection2Part1'|trans({}, 'terms_and_conditions')}}
+            <strong>{{ 'termsOfUse1'|trans({}, 'terms_and_conditions')}}</strong><br>
+            <strong>{{ 'termsOfUse2'|trans({}, 'terms_and_conditions')}}</strong>
+            {{ 'textSection2Part2'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection3Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection3Part1'|trans({}, 'terms_and_conditions')}}
+            :
+            {{ 'textSection3Part2'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection4Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection4'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection5Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection5'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection6Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection6'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection7Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection7'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+    <div class="card">
+        <p>
+            <strong>{{ 'textSection8Title'|trans({}, 'terms_and_conditions')}}</strong><br>
+            {{ 'textSection8'|trans({}, 'terms_and_conditions')}}
+        </p>
+    </div>
+</div>
+{% endblock %}

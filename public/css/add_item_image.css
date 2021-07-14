@@ -1,0 +1,15 @@
+.image-wrapper {
+    position: relative;
+    display: block;
+    height: 100px;
+}
+
+.image-wrapper img{
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.container p#title{
+    color: green;
+}

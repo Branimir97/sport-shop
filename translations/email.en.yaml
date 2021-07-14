@@ -1,0 +1,66 @@
+new_user:
+  subject: Welcome to SportShop
+  welcome: Welcome to the world of sports
+  respected: Dear
+  message1: Thank you for creating an account on the SportShop web store.
+            By registering, you gain the possibility of insight into previous orders,
+            wish list, account settings, adding items to cart,
+            billing, and more, therefore quickly on
+  message2: to try everything!
+  message3: He wished you a welcome message
+
+new_promo_code:
+  subject: New SportShop promo code
+  title: A new promo code has been generated
+  respected: Dear subscriber
+  message1: We would like to inform you that a new promo code has been generated
+  message2: with which you can get
+  message3: discount on your order.
+
+new_action_category:
+  subject: New SportShop action
+  title: Action on category
+  respected: Dear subscriber
+  message1: We would like to inform you that all items under the category
+  message2: are on action. The discount is
+  message3: and the same is calculated when billing items from the cart.
+
+new_action_item:
+  subject: New SportShop action
+  title: Action on item
+  respected: Dear subscriber
+  message1: We would like to inform you that the item
+  message2: is on action. The discount is
+  message3: and the same is calculated when billing items from the cart.
+
+new_subscriber:
+  subject: SportShop notice
+  title: Successful subscription
+  respected: Dear subscriber
+  message: Thank you for subscribing to SportShop promotional notices.
+            From now on, you will receive notifications regarding new promo codes as well
+            new promotions on categories / items with which you can get discounts when
+            billing items from the cart.
+
+order_successful:
+  subject: SportShop notice
+  title: Successful order no.
+  respected: Dear
+  message: Thank you for your order. The order is pending until we receive it
+           confirmation of payment received. In the meantime, below is a reminder
+           what you ordered.
+  order: Order no.
+  item: Item
+  color: Color
+  size: Size
+  quantity: Quantity
+  totalPriceWithoutDiscount: Total price without discount
+  totalPriceWithDiscount: Total price with discount
+  delivery_address: Delivery and billing address
+
+notice: You received this message because you subscribed to the SportShop promotional
+        notices. If you no longer wish to receive notifications, you can remove the
+        subscription in your account settings.
+footer1: Copyright 2021 | All rights reserved by SportShop d.o.o.
+footer2: This email was sent by SportShop d.o.o.
+footer3: Street Kneza Trpimira 2B | Osijek | Croatia

@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'index.title'|trans({}, 'review') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/review_index.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'index.title'|trans({}, 'review') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/review.png') }}" alt="icon">
+        </h2>
+        {% if not reviews %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>
+                    {{ 'index.noReviews'|trans({}, 'review') }}
+                </p>
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'reviewTable.grade'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.item'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.author'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.valid'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.createdAt'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.updatedAt'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.changeValidity'|trans({}, 'review') }}
+                            </th>
+                            <th>
+                                {{ 'reviewTable.actions'|trans({}, 'review') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for review in reviews %}
+                        <tr>
+                            <td>{{ review.id }}</td>
+                            <td>
+                                {% for i in 1..review.rating %}
+                                    <span class="fa fa-star checked"></span>
+                                {% endfor %}
+                                {% if review.rating < 5 %}
+                                    {% for i in review.rating .. 4%}
+                                        <span id="unchecked" class="fa fa-star"></span>
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+                            <td>{{ review.item.title }}</td>
+                            <td>{{ review.user.name }} {{ review.user.surname }}</td>
+                            <td>
+                                {% if review.valid is null %}
+                                    <i id="undefined" class="fas fa-question"></i>
+                                {% elseif review.valid %}
+                                    <i id="valid" class="fas fa-check"></i>
+                                {% else %}
+                                    <i id="invalid" class="fas fa-times"></i>
+                                {% endif %}
+                            </td>
+                            <td>{{ review.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                            <td>
+                                {{ review.updatedAt ? review.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a href="{{ path('review_valid', {'id' : review.id}) }}"
+                                    title="{{ 'reviewTable.validTitle'|trans({}, 'review') }}">
+                                    <i id="valid" class="fas fa-check"></i>
+                                </a>
+                                <a href="{{ path('review_invalid', {'id' : review.id}) }}"
+                                    title="{{ 'reviewTable.invalidTitle'|trans({}, 'review') }}">
+                                    <i id="invalid" class="fas fa-times"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ path('review_edit', {'id': review.id}) }}"
+                                   title="{{ 'reviewTable.editTitle'|trans({}, 'review') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('review/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+title: Plaćanje
+yourCart: Vaša košarica
+color: boja
+size: Veličina
+quantity: Količina
+pricePerPiece: Cijena po kom.
+discount: Popust
+loyaltyCardCredits: Iskorištavanje bodova s loyalty kartice
+promoCode: Promo kod
+promoCode_button: Potvrdi unos
+shipping: Poštarina
+total: Ukupno
+shippingFree: Besplatna
+totalWithDiscount: Ukupno s popustom
+totalWithoutDiscount: Ukupno bez popusta
+loyaltyCardText: Na loyalty kartici vjernosti imate
+loyaltyCardText2: bodova.
+earnedCredits: Broj ostvarenih bodova na kartici vjernosti ukoliko izvršite plaćanje
+deliveryAddressSelect: Odabir adrese isporuke
+paymentMethod: Način plaćanja
+addNewDeliveryAddress: Dodaj novu adresu isporuke
+
+form:
+  delivery_address_choices:
+    empty: Ne postoji ni jedna registrirana adresa isporuke za Vaš račun
+    label: Odaberite željenu adresu isporuke
+  card_choices:
+    credit: Kreditna kartica
+    debit: Debitna kartica
+    paypal: PayPal
+    label: Odabir kartice
+  card_name_surname_label: Ime i prezime na kartici
+  card_name_surname_placeholder: Ime Prezime
+  card_name_surname_help: Unesite Vaše puno ime kao što je napisano na kartici
+  card_number_label: Broj kartice
+  card_number_help: Pažljivo prepišite broj s kartice | Nije preporučeno kopiranje
+  card_expiration_label: Datum isteka kartice
+  card_expiration_help: Bitni su isključivo mjesec i godina
+  card_cvv_help: Broj od najčešće 3 znamenke na poleđini Vaše kartice
+  button_label: Izvrši plaćanje
+
+flash_message:
+  error_message: Pogreška. Potrebno je unijeti ili promo kod ili odabrati
+                 korištenje bodova s kartice ili oboje.
+  used_promo_code: Promo kod ne postoji ili ste ga već iskoristili.
+  price_reduced_loyalty_credits: Cijena uspješno umanjena za količinu bodova na loyalty kartici.
+  promo_code_accepted: Promo kod %promoCode% prihvaćen. Cijena uspješno umanjena za
+                       %promoCodeDiscountPercentage%%.
+  card_error: Pogreška prilikom obrade Vaše kartice, provjerite podatke i pokušajte ponovno!
+  payment_success: Uspješno provedeno plaćanje. Narudžba je u procesu obrade za dostavu.

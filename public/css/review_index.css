@@ -1,0 +1,19 @@
+span.checked {
+    color: orange;
+}
+
+span#unchecked{
+    color: black;
+}
+
+#valid{
+    color: green;
+}
+
+#invalid{
+    color: red;
+}
+
+#undefined{
+    color: #007bb6;
+}

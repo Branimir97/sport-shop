@@ -1,0 +1,82 @@
+index:
+  title: Upravljanje korisnicima
+  newUser: Stvori novog korisnika
+
+show:
+  title: Korisnik
+  editAddress: Uredi podatke o adresi isporuke
+  editUser: Uredi podatke
+
+edit:
+  reset_password: Resetiraj lozinku
+
+reset_password:
+  title: Resetiranje lozinke
+  heading: Resetiranje lozinke za korisnika
+
+account_settings:
+  title: Postavke računa
+  account_not_done: Vaš korisnički račun nije u potpunosti dovršen.
+                    Ispunite preostale podatke s ciljem poboljšanja korisničkog iskustva.
+  done_profile: Dovrši
+  subscribed: Pretplaćeni ste na naš newsletter. U bilo kojem trenutku možete
+              ukloniti pretplatu!
+  subscribe_delete: Ukloni pretplatu
+  subscribe: Preplatite se na naš newsletter i prvi saznajte sve informacije o akcijama,
+             promo kodovima i ostalim događajima!
+  subscribe_button: Pretplati me
+  user_data: Podaci o korisniku
+  loyalty_card:
+    info: Kreiraj SportShop loyalty karticu vjernosti, skupljaj bodove, i
+          ostvari dodatne pogodnosti!
+    more_info: Više informacija
+    create: Kreiraj karticu
+    title: Loyalty kartica vjernosti
+    number: Broj kartice
+    user: Korisnik
+    credits: Bodovi
+
+usersList: Lista korisnika
+usersTable:
+  email: Email adresa
+  name: Ime
+  surname: Prezime
+  gender: Spol
+  createdAt: Vrijeme registracije
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši račun
+  loggedIn: Trenutno prijavljen
+  authority: Ovlasti
+  birthDate: Datum i godina rođenja
+  deliveryAddresses: Adrese isporuke
+  deliveryAddress_warning: Za uspješnu narudžbu, potrebno je imati unesenu adresu isporuke.
+  deliveryAddress: Adresa isporuke
+  newDeliveryAddress: Dodaj novu adresu isporuke
+
+form:
+  edit_button_label: Spremi promjene
+
+form_reset_password:
+  password_first_label: Nova lozinka *
+  password_first_help: Lozinka mora sadržavati min. 8 znakova
+  password_second_label: Ponovni unos nove lozinke *
+  password_second_help: Lozinke se moraju podudarati
+  invalid_message: Lozinke se moraju podudarati.
+  constraint_not_blank: Unesite novu lozinku
+  constraint_length: Nova lozinka mora sadržavati min. 8 znakova
+  current_password_label: Trenutna lozinka *
+  current_password_constraint_not_blank: Unesite lozinku
+  current_password_constraint_length: Lozinka mora sadržavati min. 8 znakova
+  button_label: Postavi novu lozinku
+
+flash_message:
+  user_edited: Podaci o korisniku (%user_name% %user_surname%) uspješno ažurirani.
+  user_deleted: Korisnički račun uspješno obrisan.
+  password_reset: Lozinka uspješno promijenjena.
+  form_error: Neispravan unos trenutne lozinke.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovaj korisnički račun?

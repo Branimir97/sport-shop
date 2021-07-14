@@ -1,0 +1,19 @@
+.item_img{
+    width: 75px;
+    height: 75px;
+}
+
+i#cart{
+    font-size: 25px;
+    color: green;
+}
+
+i#wish_list{
+    font-size: 25px;
+    color: #007bb6;
+}
+
+span#price{
+    font-size: 20px;
+    color: green;
+}

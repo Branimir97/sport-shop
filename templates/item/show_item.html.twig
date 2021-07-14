@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'item') }}
+            - {{ item.title }}
+        </h2>
+        <a href="{{ path('item_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'itemsList'|trans({}, 'item') }}
+        </a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <td>{{ item.id }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'itemsTable.title'|trans({}, 'item') }}
+                    </th>
+                    <td>{{ item.title }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'itemsTable.cipher'|trans({}, 'item') }}
+                    </th>
+                    <td>{{ item.cipher }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'itemsTable.price'|trans({}, 'item') }}
+                    </th>
+                    <td>{{ item.price|number_format(2, '.', ',') }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'itemsTable.createdAt'|trans({}, 'item') }}
+                    </th>
+                    <td>{{ item.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'itemsTable.updatedAt'|trans({}, 'item') }}
+                    </th>
+                    <td>{{ item.updatedAt ?
+                        item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="btn btn-outline-success"
+               href="{{ path('item_edit', {'id': item.id}) }}">
+                {{ 'show.editItem'|trans({}, 'item') }}
+            </a>
+            {{ include('item/_delete_item_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

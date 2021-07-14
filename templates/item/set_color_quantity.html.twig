@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'set_color_quantity.title'|trans({}, 'item') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/container40.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'set_color_quantity.title'|trans({}, 'item') }}
+        </h2>
+        <a href="{{ path('item_add_color', {'id':item.id}) }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'set_color_quantity.newColors'|trans({}, 'item') }}
+        </a>
+        <p class="bg-danger text-white p-2 text-center">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ 'set_color_quantity.warningMessage'|trans({}, 'item') }}
+        </p>
+        {{ include('item/set_color_quantity_form.html.twig') }}
+    </div>
+{% endblock %}

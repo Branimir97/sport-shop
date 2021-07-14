@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'show.title'|trans({}, 'promo_code') }}
+    "{{ promo_code.code }}"
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/promo_code.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'promo_code') }}
+            "{{ promo_code.code }}"
+        </h2>
+        <a href="{{ path('promo_code_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'promoCodesList'|trans({}, 'promo_code') }}
+        </a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <td>{{ promo_code.id }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'promoCodesTable.promoCode'|trans({}, 'promo_code') }}
+                    </th>
+                    <td>{{ promo_code.code }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'promoCodesTable.discount'|trans({}, 'promo_code') }}[%]
+                    </th>
+                    <td>{{ promo_code.discountPercentage }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'promoCodesTable.expirationTime'|trans({}, 'promo_code') }}
+                    </th>
+                    <td>
+                        {{ promo_code.endDate ? promo_code.endDate|date('H:i:s | d.m.Y.') : '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'promoCodesTable.createdAt'|trans({}, 'promo_code') }}
+                    </th>
+                    <td>{{ promo_code.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'promoCodesTable.updatedAt'|trans({}, 'promo_code') }}
+                    </th>
+                    <td>
+                        {{ promo_code.updatedAt ? promo_code.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'promoCodesTable.status'|trans({}, 'promo_code') }}
+                    </th>
+                    <td>
+                        {% if promo_code.status == "AKTIVAN" %}
+                            <p class="active_code">
+                                AKTIVAN <i class="fas fa-check"></i>
+                            </p>
+                        {% else %}
+                            <p class="inactive_code">
+                                ISTEKAO <i class="fas fa-times"></i>
+                            </p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="btn btn-outline-success" href="{{ path('promo_code_edit',
+                {'id': promo_code.id}) }}">
+                {{ 'show.editPromoCode'|trans({}, 'promo_code') }}
+            </a>
+            {{ include('promo_code/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

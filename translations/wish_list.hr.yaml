@@ -1,0 +1,20 @@
+title: Moj popis želja
+noWishListItems: Ne postoji niti jedan artikl na Vašem popisu želja.
+wishListMessage: ps. Ukoliko ne možete odmah kupiti željeni artikl, dodajte ga na popis želja!
+wishListTable:
+  image: Slika artikla
+  itemName: Naziv artikla
+  itemCipher: Šifra artikla
+  itemPrice: Cijena
+  createdAt: Vrijeme dodavanja na popis želja
+  delete: Obriši artikl s popisa želja
+  continueShopping: Nastavi kupnju
+  goToItem: Nastavi do artikla
+
+flash_message:
+  item_exists: Artikl je već dodan na Vašu listu želja.
+  item_added: Artikl "%item_title%" uspješno dodan na Vašu listu želja.
+  item_deleted: Artikl "%item_title%" uspješno obrisan iz Vaše liste želja.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovaj artikl iz Vašeg popisa želja?

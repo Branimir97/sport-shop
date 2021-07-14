@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'cart') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/cart_wish_order_list.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'title'|trans({}, 'cart') }}
+            <i id="cart" class="fas fa-shopping-cart"></i>
+        </h2>
+        {% if cart.cartItems is not defined or cart.cartItems|length == 0 %}
+            <h6 class="text-center bg-danger p-2 text-white">
+                {{ 'noCartItems'|trans({}, 'cart') }}
+            </h6>
+            <p class="text-center">
+                {{ 'startShopping'|trans({}, 'cart') }}
+            </p>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-hover table-warning">
+                    <thead>
+                    <tr>
+                        <th>
+                            {{ 'cartTable.image'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.item'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.size'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.color'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.quantity'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.price'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.totalPrice'|trans({}, 'cart') }}
+                        </th>
+                        <th>
+                            {{ 'cartTable.removeItem'|trans({}, 'cart') }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for cartItem in cart.cartItems %}
+                        <tr>
+                            <td>
+                                {% if cartItem.item.images|length == 0%}
+                                    <a href="{{ path('item_details', {'id':cartItem.item.id}) }}"
+                                        title="{{ 'cartTable.itemDetails'|trans({}, 'cart') }}">
+                                        <img class="item_img"
+                                             src="{{ asset('images/logo.png') }}" alt="logo">
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('item_details', {'id':cartItem.item.id}) }}"
+                                        title="{{ 'cartTable.itemDetails'|trans({}, 'cart') }}">
+                                        <img class="item_img"
+                                             src="{{ asset('uploads/')~cartItem.item.images[0].path }}"
+                                             alt="image_{{ cartItem.item.images[0].id }}">
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ cartItem.item.title }}
+                            </td>
+                            <td>
+                                {{ cartItem.size.value }}
+                            </td>
+                            <td>
+                                <div class="circle_wrapper">
+                                    <div class="circle"
+                                         style="background-color: {{ cartItem.color.value }}">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {{ cartItem.quantity }}
+                            </td>
+                            <td>
+                                {{ cartItem.item.price|number_format(2, '.', ',') }}
+                            </td>
+                            <td>
+                                {{ (cartItem.item.price * cartItem.quantity)|number_format(2, '.', ',') }}
+                            </td>
+                            <td>
+                                {{ include('cart/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right">
+                <h5>
+                    {{ 'totalCartPrice'|trans({}, 'cart') }}:
+                    <span id="price">
+                        {{ totalPrice|number_format(2, '.', ',') }}
+                    </span> kn
+                </h5>
+                <a class="btn btn-info text-white" href="{{ path('checkout') }}">
+                    {{ 'payment'|trans({}, 'cart') }}
+                    <i class="fab fa-paypal"></i>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

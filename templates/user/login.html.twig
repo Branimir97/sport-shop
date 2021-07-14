@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'login')}}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/login.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger mt-1 p-2 text-center">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+            <h2 class="mb-3 mt-2 text-center p-2 bg-light">
+                {{ 'title'|trans({}, 'login')}}
+                <img class="panel_icon ml-1"
+                     src="{{ asset('icons/sign_in.png') }}" alt="icon">
+            </h2>
+            <label for="inputEmail">{{ 'emailLabel'|trans({}, 'login')}}</label>
+            <input type="email" value="{{ last_username }}"
+                   name="email" id="inputEmail" class="form-control" required autofocus>
+            <label for="inputPassword">{{ 'passwordLabel'|trans({}, 'login')}}</label>
+
+            <input type="password" name="password" id="inputPassword"
+                   class="form-control" required>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}">
+
+            <div class="checkbox mt-2 text-center">
+                <label>
+                    <input type="checkbox" name="_remember_me" checked>
+                    {{ 'rememberMe'|trans({}, 'login')}}
+                </label>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary mt-2 mb-3" type="submit">
+                    {{ 'signInButton'|trans({}, 'login')}}
+                </button>
+            </div>
+            <p class="text-center">
+                {{ 'registrationText'|trans({}, 'login')}}
+                <a href="{{ path('app_register') }}">
+                    {{ 'registrationHrefText'|trans({}, 'login')}}
+                </a>!
+            </p>
+        </form>
+        <div class="text-center mb-3">
+            <a class="btn btn-outline-info mt-1"
+               href="{{ path('connect_facebook_start') }}">
+                {{ 'facebookSignIn'|trans({}, 'login')}}
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="btn btn-outline-success mt-1"
+               href="{{ path('connect_google_start') }}">
+                {{ 'googleSignIn'|trans({}, 'login')}}
+                <i class="fab fa-google"></i>
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'index.title'|trans({}, 'action_category') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'index.title'|trans({}, 'action_category') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/action.png') }}" alt="icon">
+        </h2>
+        {% if not action_categories %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>
+                    {{ 'index.noActions'|trans({}, 'action_category') }}
+                </p>
+                <a href="{{ path('action_category_new') }}" class="btn btn-outline-info mb-3">
+                    {{ 'index.newAction'|trans({}, 'action_category') }}
+                </a>
+            </div>
+        {% else %}
+            <a href="{{ path('action_category_new') }}" class="btn btn-outline-info mb-3">
+                {{ 'index.newAction'|trans({}, 'action_category') }}
+            </a>
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            {{ 'actionsTable.category'|trans({}, 'action_category') }}
+                        </th>
+                        <th>
+                            {{ 'actionsTable.name'|trans({}, 'action_category') }}
+                        </th>
+                        <th>
+                            {{ 'actionsTable.discount'|trans({}, 'action_category') }}
+                        </th>
+                        <th>
+                            {{ 'actionsTable.createdAt'|trans({}, 'action_category') }}
+                        </th>
+                        <th>
+                            {{ 'actionsTable.updatedAt'|trans({}, 'action_category') }}
+                        </th>
+                        <th>
+                            {{ 'actionsTable.actions'|trans({}, 'action_category') }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for action_category in action_categories %}
+                        <tr>
+                            <td>{{ action_category.id }}</td>
+                            <td>{{ action_category.category.name }}
+                                <a href="{{ path('category_show', {'id':action_category.category.id}) }}"
+                                   title="{{ 'actionsTable.infoTitleCategory'|trans({}, 'action_category') }}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </td>
+                            <td>{{ action_category.title }}</td>
+                            <td>{{ action_category.discountPercentage }}</td>
+                            <td>{{ action_category.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                            <td>{{ action_category.updatedAt ? action_category.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                            <td>
+                                <a href="{{ path('action_category_show', {'id': action_category.id}) }}"
+                                   title="{{ 'actionsTable.infoTitle'|trans({}, 'action_category') }}">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('action_category_edit', {'id': action_category.id}) }}"
+                                   title="{{ 'actionsTable.editTitle'|trans({}, 'action_category') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('actions/action_category/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

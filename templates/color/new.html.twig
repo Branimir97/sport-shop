@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'new.title'|trans({}, 'color') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'new.heading'|trans({}, 'color') }}
+        </h2>
+        <a href="{{ path('color_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'colorsList'|trans({}, 'color') }}
+        </a>
+        {{ include('color/_form.html.twig') }}
+    </div>
+{% endblock %}

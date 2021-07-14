@@ -1,0 +1,42 @@
+index:
+  title: Upravljanje bojama
+  noColors: Ne postoji niti jedna boja u bazi podataka.
+  newColor: Dodaj novu boju
+
+new:
+  title: Nova boja
+  heading: Dodavanje nove boje
+
+show:
+  title: boja
+  editColor: Uredi podatke
+
+colorsList: Lista boja
+colorsTable:
+  color: Boja
+  code: Kod boje
+  name: Naziv boje
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši boju
+
+form:
+  value_label: Boja
+  name_label_hr: Naziv boje na hrvatskom
+  name_placeholder_hr: npr. Crvena
+  name_label_en: Naziv boje na engleskom
+  name_placeholder_en: npr. Red
+  button_label: Dodaj boju
+  edit_button_label: Spremi promjene
+
+flash_message:
+  color_exists: Boja s kodom "%color_code%" već postoji.
+  color_added: Boja uspješno dodana.
+  color_edited: Boja ("%color_code%") uspješno ažurirana.
+  color_deleted: Boja ("%color_code%") uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu boju?

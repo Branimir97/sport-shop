@@ -1,0 +1,12 @@
+h2#title i{
+    font-size: 25px;
+}
+
+p#credits{
+    font-size: 16px;
+}
+
+.promo_code_credits{
+    border: 1px solid lightgray;
+    border-radius: 2%;
+}

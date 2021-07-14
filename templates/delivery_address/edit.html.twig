@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'show.title'|trans({}, 'delivery_address') }}
+    "{{ delivery_address.street }}"
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/container50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'delivery_address') }}
+            "{{ delivery_address.street }}"
+        </h2>
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('delivery_address_index') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                {{ 'deliveryAddressList'|trans({}, 'delivery_address') }}
+            </a>
+            {% else %}
+            <a href="{{ path('account_settings') }}">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                {{ 'accountSettings'|trans({}, 'delivery_address') }}
+            </a>
+        {% endif %}
+        {{ include('delivery_address/_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'delivery_address')}) }}
+        <div class="text-center">
+            {{ include('delivery_address/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

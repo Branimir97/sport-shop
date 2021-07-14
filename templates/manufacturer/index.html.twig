@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'index.title'|trans({}, 'manufacturer') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'index.title'|trans({}, 'manufacturer') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/manufacturers.png') }}" alt="icon">
+        </h2>
+        {% if not manufacturers %}
+            <div class="text-center">
+                <img src="{{ asset('images/logo.png') }}" alt="">
+                <p>
+                    {{ 'index.noManufacturers'|trans({}, 'manufacturer') }}
+                </p>
+                <a href="{{ path('manufacturer_new') }}" class="btn btn-outline-info mb-3">
+                    {{ 'index.newManufacturer'|trans({}, 'manufacturer') }}
+                </a>
+            </div>
+        {% else %}
+            <a href="{{ path('manufacturer_new') }}" class="btn btn-outline-info mb-3">
+                {{ 'index.newManufacturer'|trans({}, 'manufacturer') }}
+            </a>
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            {{ 'manufacturerTable.manufacturer'|trans({}, 'manufacturer') }}
+                        </th>
+                        <th>
+                            {{ 'manufacturerTable.createdAt'|trans({}, 'manufacturer') }}
+                        </th>
+                        <th>
+                            {{ 'manufacturerTable.updatedAt'|trans({}, 'manufacturer') }}
+                        </th>
+                        <th>
+                            {{ 'manufacturerTable.actions'|trans({}, 'manufacturer') }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for manufacturer in manufacturers %}
+                        <tr>
+                            <td>{{ manufacturer.id }}</td>
+                            <td>{{ manufacturer.name }}</td>
+                            <td>{{ manufacturer.createdAt|date('H:i:s | d.m.Y.') }}</td>
+                            <td>
+                                {{ manufacturer.updatedAt ?
+                                manufacturer.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a class="btn"
+                                   href="{{ path('manufacturer_show', {'id': manufacturer.id}) }}"
+                                   title="{{ 'manufacturerTable.infoTitle'|trans({}, 'manufacturer') }}">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}"
+                                   title="{{ 'manufacturerTable.editTitle'|trans({}, 'manufacturer') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('manufacturer/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

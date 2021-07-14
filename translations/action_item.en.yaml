@@ -1,0 +1,44 @@
+index:
+  title: Action item management
+  noActions: There are not items on action.
+  newAction: Put a new item on sale
+
+new:
+  title: New item action
+
+show:
+  title: Action
+  editAction: Edit data
+
+actionsList: List of items on action
+actionsTable:
+  item: Item
+  name: Action name
+  discount: Discount [%]
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitleItem: Item information
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Remove action
+
+form:
+  item_help: Select one or more items
+  item_label: Available items
+  title_label_hr: Action name on croatian
+  title_placeholder_hr: e.g. Popust na artikl - Nike Air Max
+  title_label_en: Action name on english
+  title_placeholder_en: e.g. Discount on item - Nike Air Max
+  discount_label: Discount percentage
+  discount_help: Percentage ranging from [1-30]%
+  button_label: Set category (s) on action
+  edit_button_label: Save changes
+
+flash_message:
+  action_item_created: Item (s) successfully placed on the action.
+  action_item_edited: Action data successfully updated.
+  action_item_deleted: Action deleted successfully.
+
+delete_confirmation:
+  message: Are you sure you want to remove the action for this item?

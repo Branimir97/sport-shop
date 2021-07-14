@@ -1,0 +1,52 @@
+index:
+  title: Upravljanje adresama isporuka
+  noDeliveryAddresses: Ne postoji niti jedna adresa isporuke u bazi podataka.
+
+new:
+  title: Nova adresa isporuke
+  heading: Dodavanje nove adrese isporuke
+
+show:
+  title: Adresa isporuke
+  editDeliveryAddress: Uredi podatke
+
+accountSettings: Postavke računa
+deliveryAddressList: Lista adresa isporuka
+deliveryAddressTable:
+  street: Ulica
+  city: Grad
+  county: Županija
+  postalCode: Poštanski broj
+  country: Država
+  createdAt: Vrijeme stvaranja
+  updatedAt: Vrijeme zadnje izmjene
+  actions: Mogućnosti
+  infoTitle: Prikaži pojedinosti
+  editTitle: Uredi
+  delete: Obriši adresu isporuke
+  user: Adresa pripada korisniku
+  editUser: Uredi podatke o korisniku
+
+form:
+  street_placeholder: npr. Kneza Trpimira 2B
+  street_label: Ulica
+  city_placeholder: npr. Osijek
+  city_label: Grad
+  county_placeholder: npr. Osječko-Baranjska
+  county_label: Županija
+  postalCode_placeholder: npr. 31000
+  postalCode_label: Poštanski broj
+  country_placeholder: npr. Hrvatska
+  country_label: Država
+  button_label: Dodaj adresu isporuke
+  edit_button_label: Spremi promjene
+
+flash_message:
+  delivery_address_exists: Adresa isporuke već postoji na ovom korisničkom računu.
+  delivery_address_added: Adresa isporuke uspješno dodana.
+  delivery_address_edited: Adresa isporuke "%street% %postal_code% %city%" uspješno ažurirana.
+  delivery_address_deleted: Adresa isporuke "%street% %postal_code% %city%" uspješno obrisana.
+
+delete_confirmation:
+  message: Jeste li sigurni da želite obrisati ovu adresu?
+

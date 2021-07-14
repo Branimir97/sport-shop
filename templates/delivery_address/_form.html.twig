@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.street) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.city) }}
+        </div>
+        <div class="col-sm-12">
+            {{ form_row(form.county) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.postalCode) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.country) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <div class="text-center">
+        <button class="btn btn-success mb-3">
+            {{ button_label|default('form.button_label'|trans({}, 'delivery_address')) }}
+        </button>
+    </div>
+{{ form_end(form) }}

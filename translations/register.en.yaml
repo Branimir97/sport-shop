@@ -1,0 +1,38 @@
+title: Register
+heading: New user registration
+
+form:
+  termsOfUse: Terms and conditions
+  termsOfUseTitle: Learn more about the terms and conditions of our webshop
+  labels:
+    name: Name *
+    surname: Surname *
+    gender: Gender
+    gender_choices:
+      select: Select...
+      male: Male
+      female: Female
+    birthDate: Date and year of birth
+    email: Email address *
+    password: Password *
+    passwordRepeat: Re-enter password *
+    newsletter: I want to receive all the news about SportShop promotions,
+                promo codes and other important events.
+    agreeTerms: For successful registration it is necessary to accept our
+                terms and conditions of our website.
+    subscribe: I want to receive all the news about SportShop promotions,
+               promo codes and other important events.
+  captcha: Enter the captcha code from the image above here
+  registerButton: Register
+
+  help:
+    gender: The parameter is optional, but contributes to a better user experience
+    birthDate: The parameter is optional, but contributes to a better user experience
+    password: Password must contain min. 8 characters
+    passwordRepeat: Passwords must match
+    termsOfUse: Terms and conditions can be read
+    termsOfUseLink: here
+
+flash_message:
+  registered_admin: New user successfully registered.
+  registered_user: You have successfully registered.

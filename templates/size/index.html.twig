@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'index.title'|trans({}, 'size') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'index.title'|trans({}, 'size') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/sizes.png') }}" alt="icon">
+        </h2>
+        {% if not sizes %}
+        <div class="text-center">
+            <img src="{{ asset('images/logo.png') }}" alt="">
+            <p>
+                {{ 'index.noSizes'|trans({}, 'size') }}
+            </p>
+            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">
+                {{ 'index.newSize'|trans({}, 'size') }}
+            </a>
+        </div>
+        {% else %}
+            <a href="{{ path('size_new') }}" class="btn btn-outline-info mb-3">
+                {{ 'index.newSize'|trans({}, 'size') }}
+            </a>
+            <div class="table-responsive">
+                <table class="table table-hover table-info">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                {{ 'sizesTable.size'|trans({}, 'size') }}
+                            </th>
+                            <th>
+                                {{ 'sizesTable.itemType'|trans({}, 'size') }}
+                            </th>
+                            <th>
+                                {{ 'sizesTable.createdAt'|trans({}, 'size') }}
+                            </th>
+                            <th>
+                                {{ 'sizesTable.updatedAt'|trans({}, 'size') }}
+                            </th>
+                            <th>
+                                {{ 'sizesTable.actions'|trans({}, 'size') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for size in sizes %}
+                        <tr>
+                            <td>{{ size.id }}</td>
+                            <td>{{ size.value }}</td>
+                            <td>
+                                {% if (size.type == "Obuća") %}
+                                    {{ 'form.type_choices.footwear'|trans({}, 'size') }}
+                                {% elseif (size.type == "Odjeća") %}
+                                    {{ 'form.type_choices.clothes'|trans({}, 'size') }}
+                                {% elseif (size.type == "Sport") %}
+                                    {{ 'form.type_choices.sport'|trans({}, 'size') }}
+                                {% endif %}
+                            </td>
+                            <td>{{ size.createdAt|date('H:i:s | d.m.Y.')}}</td>
+                            <td>
+                                {{ size.updatedAt ? size.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                            </td>
+                            <td>
+                                <a class="btn" href="{{ path('size_show', {'id': size.id}) }}"
+                                   title="{{ 'sizesTable.infoTitle'|trans({}, 'size') }}">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ path('size_edit', {'id': size.id}) }}"
+                                   title="{{ 'sizesTable.editTitle'|trans({}, 'size') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                {{ include('size/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

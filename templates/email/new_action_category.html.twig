@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+        .container {
+            width: 50%;
+        }
+        .img_wrapper img{
+            box-shadow:
+                    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+                    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <div class="container text-center">
+        <div class="img_wrapper">
+            <img src="https://i.ibb.co/yPhPY0j/logo.png" alt="logo">
+        </div>
+        <div>
+            <h2 class="bg-success mt-2 p-2 text-white">
+                {{ 'new_action_category.title'|trans({}, 'email') }}
+                - <strong class="text-white">{{ categoryName }}</strong>
+            </h2>
+            <p class="mt-2">
+                {{ 'new_action_category.respected'|trans({}, 'email') }},
+                <br><br>
+                {{ 'new_action_category.message1'|trans({}, 'email') }}
+                <strong class="text-success">{{ categoryName }}</strong>
+                {{ 'new_action_category.message2'|trans({}, 'email') }}
+                <strong class="text-danger">{{ discountPercentage }}%</strong>,
+                {{ 'new_action_category.message3'|trans({}, 'email') }}
+                <br><br>
+                {{ 'notice'|trans({}, 'email') }}
+            </p>
+
+        </div>
+        <small class="text-primary mt-3">
+            {{ 'footer1'|trans({}, 'email') }}
+            <br>
+            {{ 'footer2'|trans({}, 'email') }}
+            <br>
+            {{ 'footer3'|trans({}, 'email') }}
+        </small>
+    </div>
+</body>
+</html>

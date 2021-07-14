@@ -1,0 +1,28 @@
+<title>
+    {{ 'other.title'|trans({}, 'error') }}
+</title>
+
+<link rel="stylesheet" href="{{ asset("css/navigation.css") }}">
+<link rel="icon" href="{{ asset("/images/logo.png") }}">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
+
+<body>
+    <div class="container text-center">
+        <h1 class="text-center mt-2 bg-light p-2">
+            {{ 'other.title'|trans({}, 'error') }}
+            <img class="panel_icon ml-1"
+                 src="{{ asset('icons/warning.png') }}" alt="icon">
+        </h1>
+        <img src="{{ asset('images/logo.png') }}" alt="sport_shop_icon">
+        <p>
+            {{ 'other.message'|trans({}, 'error') }}<br>
+            <a href="{{ path('homepage') }}">
+                {{ 'homepage_link'|trans({}, 'error') }}
+            </a>
+        </p>
+    </div>
+</body>

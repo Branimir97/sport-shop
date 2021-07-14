@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title'|trans({}, 'payment_and_security')}}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/payment_and_security.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'title'|trans({}, 'payment_and_security')}}
+            <img id="icon_debit-card" class="ml-1"
+                 src="{{ asset('icons/debit-card.png') }}" alt="icon">
+        </h2>
+        <div class="row text-center mt-3 mb-3">
+            <div class="col-sm-6 card">
+                <p>
+                    <strong>
+                        {{ 'textSection1Title'|trans({}, 'payment_and_security')}}
+                    </strong><br>
+                    {{ 'textSection1'|trans({}, 'payment_and_security')}}
+                </p>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 mt-3 mb-3">
+                <div class="img-wrapper">
+                    <img src="{{ asset('images/payment_and_security1.jpg') }}" alt="">
+                </div>
+            </div>
+            <div class="col-sm-6"></div>
+            <div class="col-sm-3 card">
+                <p>
+                    {{ 'textSection2Part1'|trans({}, 'payment_and_security')}}
+                    <i>{{ 'orderConfirmation'|trans({}, 'payment_and_security')}}</i>
+                    {{ 'textSection2Part2'|trans({}, 'payment_and_security')}}
+                    <i>{{ 'paymentConfirmation'|trans({}, 'payment_and_security')}}</i>.
+                </p>
+            </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-4">
+                <div class="img-wrapper">
+                    <img src="{{ asset('images/payment_and_security2.jpg') }}" alt="">
+                </div>
+            </div>
+            <div class="col-sm-4 mt-3">
+                <div class="img-wrapper">
+                    <img src="{{ asset('images/payment_and_security3.jpg') }}" alt="">
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 card">
+                <p>
+                    <strong>{{ 'textSection3Title1'|trans({}, 'payment_and_security')}}</strong> -
+                    {{ 'textSection3Part1'|trans({}, 'payment_and_security')}}
+                    <br>
+                    <strong>{{ 'textSection3Title2'|trans({}, 'payment_and_security')}}</strong> -
+                    {{ 'textSection3Part2'|trans({}, 'payment_and_security')}}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

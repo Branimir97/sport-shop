@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'edit.title'|trans({}, 'item') }}
+    - {{ item.title }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/edit_item.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/color_circle50.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center p-2 mt-2 bg-light">
+            {{ 'edit.heading'|trans({}, 'item') }}
+            - {{ item.title }}
+        </h2>
+        <a href="{{ path('item_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'itemsList'|trans({}, 'item') }}
+        </a>
+        <h3 class="bg-light text-center p-1">
+            {{ 'edit.subheading1'|trans({}, 'item') }}
+        </h3>
+        {{ include('item/new_item_form.html.twig',
+            {'button_label': 'form.edit_button_label'|trans({}, 'item')}) }}
+        <h3 class="bg-light text-center p-1">
+            {{ 'edit.subheading2'|trans({}, 'item') }}
+        </h3>
+        {% if item.images|length == 0 %}
+                <p class="text-center">
+                    {{ 'edit.noItemImages'|trans({}, 'item') }}
+                </p>
+        {% else %}
+            <div class="row">
+            {% for image in item.images %}
+                    <div class="col-sm-3 mb-3">
+                        <div class="image-wrapper">
+                            <div class="delete_icon">
+                                {{ include('item/_delete_image_form.html.twig') }}
+                            </div>
+                            <img src="{{ asset('uploads/')~image.path }}" alt="image_{{ image.id }}">
+                        </div>
+                    </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+        <div class="text-center">
+            <a href="{{ path('item_image_add', {'id':item.id}) }}"
+                class="btn btn-warning p-1 mt-3">
+                {{ 'edit.addItemImages'|trans({}, 'item') }}
+                <i class="fas fa-images"></i>
+            </a>
+        </div>
+        <h3 class="bg-light text-center p-1 mb-3 mt-3">
+            {{ 'edit.subheading3'|trans({}, 'item') }}
+        </h3>
+        <div class="row text-center">
+            <div class="col-md-4 mb-3">
+                <h6>
+                    {{ 'edit.itemCategories'|trans({}, 'item') }}:
+                </h6>
+                {% if item.itemCategories|length == 0 %}
+                    <p id="empty">
+                        {{ 'edit.noItemProperties'|trans({}, 'item') }}
+                    </p>
+                {% else %}
+                    <div class="icon_wrapper">
+                        {% for itemCategory in item.itemCategories %}
+                            <div class="delete_icon">
+                                {{ include('item/_delete_category_form.html.twig') }}
+                            </div>
+                            - {{ itemCategory.category.name }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <a href="{{ path('item_add_category', {'id':item.id}) }}"
+                   class="btn btn-success p-1 mt-2">
+                    {{ 'edit.addItemCategory'|trans({}, 'item') }}
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h6>
+                    {{ 'edit.itemTags'|trans({}, 'item') }}:
+                </h6>
+                {% if item.itemTags|length == 0 %}
+                    <p id="empty">
+                        {{ 'edit.noItemProperties'|trans({}, 'item') }}
+                    </p>
+                {% else %}
+                    <div class="icon_wrapper">
+                        {% for itemTag in item.itemTags %}
+                            <div class="delete_icon">
+                                {{ include('item/_delete_tag_form.html.twig') }}
+                            </div>
+                            - {{ itemTag.tag }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <a href="{{ path('item_add_tag', {'id':item.id}) }}"
+                   class="btn btn-success p-1 mt-2">
+                    {{ 'edit.addItemTag'|trans({}, 'item') }}
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h6>
+                    {{ 'edit.itemColors'|trans({}, 'item') }}:
+                </h6>
+                {% if item.itemColors|length == 0 %}
+                    <p id="empty">
+                        {{ 'edit.noItemProperties'|trans({}, 'item') }}
+                    </p>
+                {% else %}
+                    <div class="icon_wrapper">
+                        {% for itemColor in item.itemColors %}
+                            <div class="delete_icon">
+                                {{ include('item/_delete_color_form.html.twig') }}
+                            </div>
+                            <p>- {{ itemColor.color.name }}| {{ itemColor.quantity }}
+                                {{ 'edit.quantityPieces'|trans({}, 'item') }}
+                                <a href="{{ path('item_color_quantity_edit',
+                                    {'id':itemColor.id}) }}"
+                                   title="{{ 'edit.editQuantityTitle'|trans({}, 'item') }}">
+                                    <i id="edit" class="far fa-edit"></i>
+                                </a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <a href="{{ path('item_add_color', {'id':item.id}) }}"
+                    class="btn btn-success p-1">
+                    {{ 'edit.addItemColor'|trans({}, 'item') }}
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h6>
+                    {{ 'edit.itemSizes'|trans({}, 'item') }}:
+                </h6>
+                {% if item.itemSizes|length == 0 %}
+                    <p id="empty">
+                        {{ 'edit.noItemProperties'|trans({}, 'item') }}
+                    </p>
+                {% else %}
+                    <div class="icon_wrapper">
+                        {% for itemSize in item.itemSizes %}
+                            <div class="delete_icon">
+                                {{ include('item/_delete_size_form.html.twig') }}
+                            </div>
+                            <p>- {{ itemSize.size.value }} | {{ itemSize.quantity }}
+                                {{ 'edit.quantityPieces'|trans({}, 'item') }}
+                                <a href="{{ path('item_size_quantity_edit',
+                                    {'id':itemSize.id}) }}"
+                                   title="{{ 'edit.editQuantityTitle'|trans({}, 'item') }}">
+                                    <i id="edit" class="far fa-edit ml-1"></i>
+                                </a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <a href="{{ path('item_add_size', {'id':item.id}) }}"
+                    class="btn btn-success p-1">
+                    {{ 'edit.addItemSize'|trans({}, 'item') }}
+                </a>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            {{ include('item/_delete_item_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+noImages: The item does not currently have any images.
+itemCategories: Item categories
+itemCipher: Item cipher
+addToWishList: Add to wish list
+noItemCategories: Categories not entered.
+noManufacturer: Manufacturer not entered.
+manufacturer: Manufacturer
+updatingData: Item information is being updated, so it is not possible to add it to the cart!
+outOfStock: Out of stock
+stocksAtTheEnd: Stocks at the end
+color: color
+size: Size
+warningMessage: To add an item to the cart / wish list, you need to have an account.
+loginRegister: Login/Register
+price: Price
+price_old: Regular price
+price_new: Discount price
+noTags: No tags entered.
+tags: Tags
+itemDescription: Item description
+reviews: Reviews
+noReviews: Currently no one has written a review for this item.
+editReviewTitle: Edit review
+reviewAuthor: Author
+reviewGrade: Grade
+reviewComment: Comment
+reviewCreatedAt: Creation time
+suggestedItems: Suggested items

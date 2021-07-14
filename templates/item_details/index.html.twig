@@ -1,0 +1,285 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ item.title }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/item_details.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/color_circle50.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid mt-1 mb-1 pl-0 pr-0">
+        <div class="row ml-0 mr-0">
+            <div class="col-md-6">
+                {% if item.images|length == 0 %}
+                    <div class="no-images text-center">
+                        <img src="{{ asset('images/logo.png') }}" alt="logo">
+                        <p>
+                            {{ 'noImages'|trans({}, 'item_details') }}
+                        </p>
+                    </div>
+                {% else %}
+                    <div id="carousel-item-info" class="carousel mt-1">
+                        <div id="carouselExampleIndicators2"
+                             class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                {% for i in 1..item.images|length %}
+                                    <li class="mr-1" data-target="#carouselExampleIndicators2"
+                                        data-slide-to="{{ i }}"></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for image in item.images %}
+                                    <div class="carousel-item">
+                                        {% if discount is not same as 0 %}
+                                            <div class="carousel-content1">
+                                                <p>
+                                                    - {{ discount }}%
+                                                </p>
+                                            </div>
+                                        {% endif %}
+                                        {% set difference =
+                                            date(item.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                        {% set daysDiff = difference.days %}
+                                        {% if daysDiff <= 2 %}
+                                            <div class="carousel-content2">
+                                                <p>
+                                                    {{ 'new'|trans({}, 'item_list') }}
+                                                </p>
+                                            </div>
+                                        {% endif %}
+                                        <img src="{{ asset('uploads/')~image.path }}"
+                                             alt="First slide">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators2"
+                               role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators2"
+                               role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-6 mt-3">
+                <h3 class="text-center bg-light p-1">
+                    {{ item.title }}
+                </h3>
+                <div class="category text-center">
+                    {% if item.itemCategories|length == 0 %}
+                        <p>
+                            {{ 'noItemCategories'|trans({}, 'item_details') }}
+                        </p>
+                    {% else %}
+                        <p>
+                            {{ 'itemCategories'|trans({}, 'item_details') }}:
+                            {% for itemCategory in item.itemCategories %}
+                                <a href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    (itemCategory.category.name|trans({}, 'navigation'))
+                                    }) }}">
+                                    {{ itemCategory.category.name }}
+                                </a>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+                <p>
+                    {{ 'itemCipher'|trans({}, 'item_details') }}:
+                    <span id="cipher">{{ item.cipher }}</span>
+                    {% if is_granted("ROLE_USER") %}
+                        <a id="wish_list" class="btn btn-primary text-white"
+                           href="{{ path('wish_list_item_new', {'id':item.id}) }}">
+                            {{ 'addToWishList'|trans({}, 'item_details') }}
+                            <i class="fas fa-list-ul"></i>
+                        </a>
+                    {% endif %}
+                </p>
+                {% if item.manufacturer is null %}
+                    <p>
+                        {{ 'noManufacturer'|trans({}, 'item_details') }}
+                    </p>
+                {% else %}
+                    <p>
+                        {{ 'manufacturer'|trans({}, 'item_details') }}:
+                        <span id="manufacturer">
+                            {{ item.manufacturer.name }}
+                        </span>
+                    </p>
+                {% endif %}
+                {% if is_granted("ROLE_USER") %}
+                    {% if item.itemColors|length == 0 or item.itemSizes|length == 0 %}
+                        <p class="bg-warning text-center p-1">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ 'updatingData'|trans({}, 'item_details') }}
+                        </p>
+                    {% endif %}
+                    {% for itemColor in item.itemColors %}
+                        {% if itemColor.quantity == 0 %}
+                            <small class="text-danger">
+                                {{ 'outOfStock'|trans({}, 'item_details') }} -
+                                {{ itemColor.color.name }}
+                                {{ 'color'|trans({}, 'item_details') }}
+                            </small><br>
+                        {% elseif itemColor.quantity < 10 %}
+                            <small class="text-muted">
+                                {{ 'stocksAtTheEnd'|trans({}, 'item_details') }} -
+                                {{ itemColor.color.name }}
+                                {{ 'color'|trans({}, 'item_details') }}
+                                ({{ itemColor.quantity }})
+                            </small><br>
+                        {% endif %}
+                    {% endfor %}
+                    {% for itemSize in item.itemSizes %}
+                        {% if itemSize.quantity == 0 %}
+                            <small class="text-danger">
+                                {{ 'outOfStock'|trans({}, 'item_details') }} -
+                                {{ 'size'|trans({}, 'item_details') }}
+                                {{ itemSize.size.value }}
+                            </small><br>
+                        {% elseif itemSize.quantity < 10 %}
+                            <small class="text-muted">
+                                {{ 'stocksAtTheEnd'|trans({}, 'item_details') }} -
+                                {{ 'size'|trans({}, 'item_details') }}
+                                {{ itemSize.size.value }} ({{ itemSize.quantity }})
+                            </small><br>
+                        {% endif %}
+                    {% endfor %}
+                    {{ include('cart/_form.html.twig') }}
+                {% else %}
+                    <h6 class="text-center bg-light p-1">
+                        {{ 'warningMessage'|trans({}, 'item_details') }}
+                    </h6>
+                    <div class="text-center mb-3">
+                        <a class="text-center" href="{{ path('app_login') }}">
+                            {{ 'loginRegister'|trans({}, 'item_details') }}
+                        </a>
+                    </div>
+                {% endif %}
+                <h6 class="text-center">
+                    {% if discount is not same as 0 %}
+                        {{ 'price_old'|trans({}, 'item_details') }}:
+                        <span id="price_old">
+                            {{ item.price|number_format(2, '.', ',') }} kn
+                        </span><br>
+                        {{ 'price_new'|trans({}, 'item_details') }}:
+                        <span id="price">
+                            {{ item.price - (item.price * discount/100)|number_format(2, '.', ',') }} kn
+                        </span>
+                    {% else %}
+                        {{ 'price'|trans({}, 'item_details') }}:
+                        <span id="price">
+                            {{ item.price|number_format(2, '.', ',') }} kn
+                        </span>
+                    {% endif %}
+                </h6>
+                <p>
+                    {% if item.itemTags|length == 0 %}
+                        {{ 'noTags'|trans({}, 'item_details') }}
+                    {% else %}
+                        {{ 'tags'|trans({}, 'item_details') }}:
+                        <span id="tag">
+                            {% for itemTag in item.itemTags%}
+                                #{{ itemTag.tag }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="row ml-0 mr-0">
+            <div class="col-md-6 mt-1">
+                <h3 class="text-center bg-light p-1">
+                    {{ 'itemDescription'|trans({}, 'item_details') }}
+                </h3>
+                {{ item.description|raw }}
+            </div>
+            <div class="col-md-6 mt-1 mb-2">
+                <h3 class="text-center bg-light p-1">
+                    {{ 'reviews'|trans({}, 'item_details') }}
+                </h3>
+                {% if app.user %}
+                    {{ include('item/new_review_form_modal.html.twig') }}
+                {% endif %}
+                {% if reviews|length == 0 %}
+                    <p class="text-center">
+                        {{ 'noReviews'|trans({}, 'item_details') }}
+                    </p>
+                {% else %}
+                    <div class="reviews">
+                        <div class="row justify-content-md-center ml-1 mr-1 mt-3">
+                            {% for review in reviews|reverse %}
+                                <div class="col-sm-11 one-review mb-2">
+                                    <div id="edit_icon">
+                                        {% if app.user == review.user or is_granted("ROLE_ADMIN") %}
+                                            <a href="{{ path('review_edit', {id: review.id}) }}"
+                                               title="{{ 'editReviewTitle'|trans({}, 'item_details') }}">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <h6 class="p-1 border-bottom">
+                                        <span class="mr-1">
+                                           {{ 'reviewAuthor'|trans({}, 'item_details') }}:
+                                        </span>
+                                        {{ review.user.name }} {{ review.user.surname }}
+                                    </h6>
+                                    <h6 class="p-1 border-bottom">
+                                        <span>
+                                           {{ 'reviewGrade'|trans({}, 'item_details') }}:
+                                        </span>
+                                        {% for i in 1..review.rating %}
+                                            <span class="fa fa-star checked"></span>
+                                        {% endfor %}
+                                        {% if review.rating < 5 %}
+                                            {% for i in review.rating .. 4%}
+                                                <span id="unchecked" class="fa fa-star"></span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </h6>
+                                    <p>
+                                        <span>
+                                            {{ 'reviewComment'|trans({}, 'item_details') }}:
+                                        </span><br>
+                                        {{ review.comment }}
+                                    </p>
+                                    <p class="text-right">
+                                        <span>
+                                            {{ 'reviewCreatedAt'|trans({}, 'item_details') }}:
+                                        </span>
+                                        {{ review.createdAt|date('H:i:s | d.m.Y.') }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if app.user %}
+            <h3 class="text-center bg-light p-1 mt-3 ml-5 mr-5">
+                {{ 'suggestedItems'|trans({}, 'item_details') }}:
+            </h3>
+            <div class="row ml-0 mr-0">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('.carousel-indicators li:first-child').addClass('active')
+            $('.carousel-item:first-child').addClass('active')
+        })
+    </script>
+{% endblock %}

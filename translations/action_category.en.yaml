@@ -1,0 +1,44 @@
+index:
+  title: Action category management
+  noActions: There are not categories on action.
+  newAction: Put a new category on sale
+
+new:
+  title: New category action
+
+show:
+  title: Action
+  editAction: Edit data
+
+actionsList: List of categories on action
+actionsTable:
+  category: Category
+  name: Action name
+  discount: Discount [%]
+  createdAt: Creation time
+  updatedAt: Last modified time
+  actions: Actions
+  infoTitleCategory: Category information
+  infoTitle: Show details
+  editTitle: Edit
+  delete: Remove action
+
+form:
+  category_help: Select one or more categories
+  category_label: Available categories
+  title_label_hr: Action name on croatian
+  title_placeholder_hr: e.g. Popust na sve artikle iz kategorije Muškarci
+  title_label_en: Action name on english
+  title_placeholder_en: e.g. Discount on all items from the category Men
+  discount_label: Discount percentage
+  discount_help: Percentage ranging from [1-30]%
+  button_label: Set category (s) on action
+  edit_button_label: Save changes
+
+flash_message:
+  action_category_created: Category (s) successfully placed on the action.
+  action_category_edited: Action data successfully updated.
+  action_category_deleted: Action deleted successfully.
+
+delete_confirmation:
+  message: Are you sure you want to remove the action for this category?

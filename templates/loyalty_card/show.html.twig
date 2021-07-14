@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'show.title'|trans({}, 'loyalty_card') }}
+    {{ loyalty_card.number }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/show_loyalty.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 bg-light p-2">
+            {{ 'show.title'|trans({}, 'loyalty_card') }}
+            {{ loyalty_card.number }}
+        </h2>
+        <a href="{{ path('loyalty_card_index') }}">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            {{ 'loyaltyCardList'|trans({}, 'loyalty_card') }}
+        </a>
+        <div class="loyalty_card mb-3">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo">
+                </div>
+                <div class="col-sm-6">
+                    <h6 class="mt-1 bg-light">
+                        {{ 'loyaltyCardTable.cardNumber'|trans({}, 'loyalty_card') }}
+                    </h6>
+                    <p id="loyalty_info" class="m-0">
+                        {{ loyalty_card.number }}
+                    </p>
+                    <h6 class="mt-2 bg-light">
+                        {{ 'loyaltyCardTable.user'|trans({}, 'loyalty_card') }}
+                    </h6>
+                    <p id="loyalty_info" class="m-0">
+                        {{ loyalty_card.user.name }} {{ loyalty_card.user.surname }}
+                    </p>
+                    <h6 class="mt-2 bg-light">
+                        {{ 'loyaltyCardTable.credits'|trans({}, 'loyalty_card') }}
+                    </h6>
+                    <p id="loyalty_info" class="m-0">
+                        {{ loyalty_card.credits }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-outline-success"
+               href="{{ path('loyalty_card_edit', {'id': loyalty_card.id}) }}">
+                {{ 'show.editLoyaltyCard'|trans({}, 'loyalty_card') }}
+            </a>
+            {{ include('loyalty_card/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

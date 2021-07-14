@@ -1,0 +1,9 @@
+<form method="post" action="{{ path('wish_list_item_delete', {'id': wishListItem.id}) }}"
+      onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'wish_list') }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ wishListItem.id) }}">
+    <button class="btn btn-danger"
+            title="{{ 'wishListTable.delete'|trans({}, 'wish_list') }}">
+        <i class="far fa-trash-alt"></i>
+    </button>
+</form>

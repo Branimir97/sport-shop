@@ -1,0 +1,64 @@
+.image-wrapper {
+    position: relative;
+    display: block;
+    height: 200px;
+}
+.image-wrapper img{
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.image-wrapper .delete_icon button{
+    position: absolute;
+    right: 0;
+    color: red;
+    border-radius: 10%;
+}
+
+.image-wrapper .delete_icon button:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.icon_wrapper {
+    position: relative;
+}
+
+.icon_wrapper .delete_icon button{
+    position: absolute;
+    right: 10%;
+    border: none;
+}
+
+.icon_wrapper .delete_icon button:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.row .col-sm-4 h6 {
+    text-decoration: underline;
+}
+.row .col-sm-4 p#empty {
+    color: red;
+}
+
+i#edit {
+    color: #3b5998;
+}
+
+i#delete {
+    color: red;
+}
+
+.container p#title{
+    color: green;
+}
+
+.container p#category{
+    color: red;
+}
+
+.container p#empty{
+    color: red;
+}

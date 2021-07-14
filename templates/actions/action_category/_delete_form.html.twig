@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('action_category_delete', {'id': action_category.id}) }}"
+      onsubmit="return confirm('{{ 'delete_confirmation.message'|trans({}, 'action_category') }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ action_category.id) }}">
+    <button class="btn btn-danger mb-3 mt-2">
+        {{ 'actionsTable.delete'|trans({}, 'action_category') }}
+    </button>
+</form>

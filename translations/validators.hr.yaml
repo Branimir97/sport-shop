@@ -1,0 +1,10 @@
+authenticationException: Email nije pronađen.
+constraints:
+  passwordNotBlank: Unesite lozinku
+  passwordLength: Lozinka mora sadržavati min. 8 znakova
+  agreeTerms: Za uspješnu registraciju potrebno je prihvatiti
+              naše uvjete i odredbe našeg web mjesta.
+  email: Već postoji račun s ovom email adresom
+invalid_messages:
+  captcha: Pogreška prilikom unosa captcha koda.
+  password: Lozinke se moraju podudarati.
