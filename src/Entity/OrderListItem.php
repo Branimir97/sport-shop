@@ -49,7 +49,7 @@ class OrderListItem
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="orderListItem")
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="orderListItem", orphanRemoval=true)
      */
     private $orderItem;
 

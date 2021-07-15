@@ -117,7 +117,8 @@ class LoyaltyCardController extends AbstractController
                          TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
-        $form = $this->createForm(LoyaltyCardType::class, $loyaltyCard, ['isEdit'=>true]);
+        $form = $this->createForm(LoyaltyCardType::class,
+            $loyaltyCard, ['isEdit' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -32,7 +32,7 @@ class ActionCategoryController extends AbstractController
     public function index(ActionCategoryRepository $actionCategoryRepository): Response
     {
         return $this->render('actions/action_category/index.html.twig', [
-            'action_categories' => $actionCategoryRepository->findBy([], ['id'=>'DESC']),
+            'action_categories' => $actionCategoryRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -41,7 +41,6 @@ class ActionCategoryController extends AbstractController
      *     "en": "/new",
      *     "hr": "/nova"
      * }, name="action_category_new", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function new(Request $request, CategoryRepository $categoryRepository,
                         TranslatorInterface $translator,
@@ -87,7 +86,6 @@ class ActionCategoryController extends AbstractController
                 foreach($subscribers as $subscriber) {
                     $receiverEmail = $subscriber->getEmail();
                     $email = (new TemplatedEmail())
-                        ->from('sport-shop@gmail.com')
                         ->to($receiverEmail)
                         ->subject($subject)
                         ->context([

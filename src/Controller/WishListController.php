@@ -44,7 +44,8 @@ class WishListController extends AbstractController
      */
     public function new(Request $request, UserRepository $userRepository,
                         WishListItemRepository $wishListItemRepository,
-                        ItemRepository $itemRepository, TranslatorInterface $translator): Response
+                        ItemRepository $itemRepository,
+                        TranslatorInterface $translator): Response
     {
         $item = $itemRepository->findOneBy(['id'=>$request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();

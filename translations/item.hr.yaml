@@ -181,7 +181,7 @@ flash_message:
                Dopušteni formati fotografije/a jpg, jpeg i png.
   enter_quantity: Artikl uspješno dodan. Unesite količinu za odabrane boje/veličine.
   item_added: Artikl uspješno dodan.
-  added_quantites: Uspješno postavljene količine boja/artikala za novi artikl.
+  added_quantities: Uspješno postavljene količine boja/artikala za novi artikl.
   edit_message: Artikl "%item_title%" uspješno ažuriran.
   image_added: Fotografija/e uspješno dodana/e.
   image_deleted: Fotografija uspješno obrisana.

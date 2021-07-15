@@ -32,7 +32,7 @@ class ActionItemController extends AbstractController
     public function index(ActionItemRepository $actionItemRepository): Response
     {
         return $this->render('actions/action_item/index.html.twig', [
-            'action_items' => $actionItemRepository->findBy([], ['id'=>'DESC']),
+            'action_items' => $actionItemRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -41,7 +41,6 @@ class ActionItemController extends AbstractController
      *     "en": "/new",
      *     "hr": "/nova"
      * }, name="action_item_new", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function new(Request $request, ItemRepository $itemRepository,
                         TranslatorInterface $translator,
@@ -93,7 +92,6 @@ class ActionItemController extends AbstractController
                 foreach($subscribers as $subscriber) {
                     $receiverEmail = $subscriber->getEmail();
                     $email = (new TemplatedEmail())
-                        ->from('sport-shop@gmail.com')
                         ->to($receiverEmail)
                         ->subject($subject)
                         ->context([

@@ -7,11 +7,9 @@ use App\Entity\OrderList;
 use App\Entity\OrderListItem;
 use App\Entity\PromoCodeUser;
 use App\Form\CheckoutType;
-use App\Form\PromoCodeUserType;
 use App\Repository\CartItemRepository;
 use App\Repository\CartRepository;
 use App\Repository\DeliveryAddressRepository;
-use App\Repository\LoyaltyCardRepository;
 use App\Repository\PromoCodeRepository;
 use App\Repository\PromoCodeUserRepository;
 use App\Repository\UserRepository;
@@ -36,7 +34,6 @@ class CheckoutController extends AbstractController
      *     "en": "/billing",
      *     "hr": "/plaćanje"
      * }, name="checkout")
-     * @throws TransportExceptionInterface
      */
     public function index(Request $request, CartRepository $cartRepository,
                           CartItemRepository $cartItemRepository,
@@ -184,7 +181,6 @@ class CheckoutController extends AbstractController
                 [], 'email');
             $receiverEmail = $this->getUser()->getEmail();
             $email = (new TemplatedEmail())
-                ->from('sport-shop@gmail.com')
                 ->to($receiverEmail)
                 ->subject($subject)
                 ->context([

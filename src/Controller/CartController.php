@@ -52,7 +52,8 @@ class CartController extends AbstractController
                                CartItemRepository $cartItemRepository,
                                TranslatorInterface $translator): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cartItem->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$cartItem->getId(),
+            $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($cartItem);
 

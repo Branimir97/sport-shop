@@ -88,7 +88,7 @@ class User implements UserInterface
     private $deliveryAddresses;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user", orphanRemoval=true)
      */
     private $reviews;
 
@@ -118,7 +118,7 @@ class User implements UserInterface
     private $orderList;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserSearch::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=UserSearch::class, mappedBy="user", orphanRemoval=true)
      */
     private $userSearches;
 

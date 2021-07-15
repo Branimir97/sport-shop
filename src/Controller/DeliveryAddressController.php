@@ -37,7 +37,8 @@ class DeliveryAddressController extends AbstractController
      *     "hr": "/nova"
      * }, name="delivery_address_new", methods={"GET","POST"})
      */
-    public function new(Request $request, DeliveryAddressRepository $deliveryAddressRepository,
+    public function new(Request $request,
+                        DeliveryAddressRepository $deliveryAddressRepository,
                         TranslatorInterface $translator): Response
     {
         $deliveryAddress = new DeliveryAddress();

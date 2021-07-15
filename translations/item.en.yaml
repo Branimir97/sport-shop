@@ -182,7 +182,7 @@ flash_message:
                Allowed photo formats jpg, jpeg and png.
   enter_quantity: Item successfully added. Enter the quantity for the selected colors / sizes.
   item_added: Item successfully added.
-  added_quantites: Successfully set quantities of colors / items for a new item.
+  added_quantities: Successfully set quantities of colors / items for a new item.
   edit_message: Item "%item_title%" successfully updated.
   image_added: Photo (s) successfully added.
   image_deleted: Photo deleted successfully.

@@ -33,7 +33,6 @@ class RegistrationController extends AbstractController
      * @param TranslatorInterface $translator
      * @param MailerInterface $mailer
      * @return Response
-     * @throws TransportExceptionInterface
      */
     public function register(Request $request,
                              UserPasswordEncoderInterface $passwordEncoder,
@@ -66,7 +65,6 @@ class RegistrationController extends AbstractController
                 [], 'email');
             $receiverEmail = $user->getEmail();
             $email = (new TemplatedEmail())
-                ->from('sport-shop@gmail.com')
                 ->to($receiverEmail)
                 ->subject($subject)
                 ->context([
