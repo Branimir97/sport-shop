@@ -59,7 +59,6 @@ class ItemRepository extends ServiceEntityRepository
         return $query;
     }
 
-
     public function searchByCipherAndName($keyword, $locale): QueryBuilder
     {
         $query = $this->createQueryBuilder('i');
@@ -92,5 +91,28 @@ class ItemRepository extends ServiceEntityRepository
             ->addSelect('ai')
             ->orderBy('i.id', 'DESC');
         return $query;
+    }
+
+    public function findSuggestedItems($gender)
+    {
+        $query = $this->createQueryBuilder('i')
+            ->select('i.id')
+            ->join('i.itemCategories', 'ic')
+            ->join('ic.category', 'c');
+        if($gender !== null) {
+            if($gender == "Muški") {
+                $query
+                    ->where('c.name = :categoryMen')
+                    ->setParameter('categoryMen', "Muškarci");
+            } else if($gender == "Ženski") {
+                $query
+                    ->where('c.name = :categoryWomen')
+                    ->setParameter('categoryWomen', "Žene");
+            }
+        } else {
+            return null;
+        }
+
+        return $query->getQuery()->getArrayResult();
     }
 }

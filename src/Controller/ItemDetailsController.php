@@ -162,12 +162,32 @@ class ItemDetailsController extends AbstractController
             }
         }
 
+        $suggestedItems = [];
+        $suggestedItemIds = [];
+        $randomSuggestedItems = [];
+        if($this->getUser()) {
+            $suggestedItems = $itemRepository->findSuggestedItems($this->getUser()->getGender());
+        }
+
+        if(!is_null($suggestedItems)) {
+            foreach($suggestedItems as $suggestedItem) {
+                foreach($suggestedItem as $id) {
+                    $suggestedItemIds[$id] = $id;
+                }
+            }
+            $randomSuggestedItemIds = array_rand($suggestedItemIds, 4);
+            foreach($randomSuggestedItemIds as $id) {
+                array_push($randomSuggestedItems, $itemRepository->findOneBy(['id' => $id]));
+            }
+        }
+
         return $this->render('item_details/index.html.twig', [
             'item' => $item,
             'formReview' => $formReview->createView(),
             'formCart' => $formCart->createView(),
             'reviews' => $reviewRepository->findBy(['item' => $item, 'valid' => true]),
-            'discount' => $discount
+            'discount' => $discount,
+            'suggestedItems' => $randomSuggestedItems
         ]);
     }
 }
