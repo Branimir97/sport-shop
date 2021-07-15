@@ -10,7 +10,7 @@ class HomeController extends AbstractController
 {
     /**
      * @Route({
-     *     "en": "homepage",
+     *     "en": "/homepage",
      *     "hr": "/"
      * }, name="homepage")
      */

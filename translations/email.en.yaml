@@ -1,6 +1,6 @@
 new_user:
   subject: Welcome to SportShop
-  welcome: Welcome to the world of sports
+  welcome: Welcome to the world of sports!
   respected: Dear
   message1: Thank you for creating an account on the SportShop web store.
             By registering, you gain the possibility of insight into previous orders,
@@ -54,8 +54,7 @@ order_successful:
   color: Color
   size: Size
   quantity: Quantity
-  totalPriceWithoutDiscount: Total price without discount
-  totalPriceWithDiscount: Total price with discount
+  totalPriceWithDiscount: Total price
   delivery_address: Delivery and billing address
 
 notice: You received this message because you subscribed to the SportShop promotional

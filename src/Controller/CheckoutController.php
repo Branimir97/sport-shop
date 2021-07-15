@@ -187,7 +187,6 @@ class CheckoutController extends AbstractController
                     'orderNumber' => $orderListItem->getId(),
                     'user' => $this->getUser()->getFullName(),
                     'createdAt' => $orderListItem->getCreatedAt(),
-                    'totalPriceWithoutDiscount' => $orderListItem->getPriceWithoutDiscount(),
                     'totalPriceWithDiscount' => $orderListItem->getTotalPrice(),
                     'deliveryAddress' => $orderListItem->getDeliveryAddress(),
                     'cartItems' => $cartItems
