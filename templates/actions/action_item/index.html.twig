@@ -65,7 +65,9 @@
                                 <td>{{ action_item.title }}</td>
                                 <td>{{ action_item.discountPercentage }}</td>
                                 <td>{{ action_item.createdAt|date('H:i:s | d.m.Y.') }}</td>
-                                <td>{{ action_item.updatedAt ? action_item.updatedAt|date('H:i:s | d.m.Y.') : '' }}</td>
+                                <td>
+                                    {{ action_item.updatedAt ? action_item.updatedAt|date('H:i:s | d.m.Y.') : '' }}
+                                </td>
                                 <td>
                                     <a href="{{ path('action_item_show', {'id': action_item.id}) }}"
                                        title="{{ 'actionsTable.infoTitle'|trans({}, 'action_item') }}">
