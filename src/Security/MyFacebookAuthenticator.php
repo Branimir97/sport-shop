@@ -94,7 +94,6 @@ class MyFacebookAuthenticator extends SocialAuthenticator
             [], 'email');
         $receiverEmail = $facebookUser->getEmail();
         $email = (new TemplatedEmail())
-            ->from('sport-shop@gmail.com')
             ->to($receiverEmail)
             ->subject($subject)
             ->context([
