@@ -38,7 +38,8 @@ class FacebookController extends AbstractController
      * @Route("/connect/facebook/check", name="connect_facebook_check")
      * @return RedirectResponse
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry): RedirectResponse
+    public function connectCheckAction(Request $request,
+                                       ClientRegistry $clientRegistry): RedirectResponse
     {
         //done in MyFacebookAuthenticator
     }

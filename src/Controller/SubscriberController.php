@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -39,7 +38,6 @@ class SubscriberController extends AbstractController
      *     "en": "/new",
      *     "hr": "/novi"
      * }, name="subscriber_new", methods={"POST"})
-     * @throws TransportExceptionInterface
      */
     public function new(Request $request,
                         SubscriberRepository $subscriberRepository,
@@ -75,11 +73,12 @@ class SubscriberController extends AbstractController
                 [], 'email');
             $receiverEmail = $subscriber->getEmail();
             $email = (new TemplatedEmail())
-                ->from('sport-shop@gmail.com')
                 ->to($receiverEmail)
                 ->subject($subject)
                 ->htmlTemplate('email/new_subscriber.html.twig');
-            $mailer->send($email);
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $exception) {}
 
             $this->addFlash('success',
                 $translator->trans('flash_message.subscriber_added',
@@ -93,7 +92,6 @@ class SubscriberController extends AbstractController
      *     "en": "/new/registered/settings",
      *     "hr": "/novi/registrirani/postavke"
      * }, name="subscriber_new_registered_settings", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function newRegisteredSettings(TranslatorInterface $translator,
                                           MailerInterface $mailer): Response
@@ -110,7 +108,6 @@ class SubscriberController extends AbstractController
             [], 'email');
         $receiverEmail = $subscriber->getEmail();
         $email = (new TemplatedEmail())
-            ->from('sport-shop@gmail.com')
             ->to($receiverEmail)
             ->subject($subject)
             ->htmlTemplate('email/new_subscriber.html.twig');
@@ -129,7 +126,6 @@ class SubscriberController extends AbstractController
      *     "en": "/new/registered/settings/footer",
      *     "hr": "/novi/registrirani/podnožje"
      * }, name="subscriber_new_registered_footer", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function newRegisteredFooter(Request $request,
                                         SubscriberRepository $subscriberRepository,
@@ -161,7 +157,6 @@ class SubscriberController extends AbstractController
             [], 'email');
         $receiverEmail = $subscriber->getEmail();
         $email = (new TemplatedEmail())
-            ->from('sport-shop@gmail.com')
             ->to($receiverEmail)
             ->subject($subject)
             ->htmlTemplate('email/new_subscriber.html.twig');
@@ -185,7 +180,7 @@ class SubscriberController extends AbstractController
                                      TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
-        $subscriber = $subscriberRepository->findOneBy(['email'=>$this->getUser()->getUsername()]);
+        $subscriber = $subscriberRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($subscriber);
         $entityManager->flush();

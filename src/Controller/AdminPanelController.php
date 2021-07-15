@@ -49,7 +49,7 @@ class AdminPanelController extends AbstractController
             }
             $earnings+=$orderListItem->getTotalPrice();
         }
-        $promoCodes = $promoCodeRepository->findBy(['status' => "AKTIVAN"],['id' => 'DESC']);
+        $promoCodes = $promoCodeRepository->findBy(['status' => "AKTIVAN"], ['id' => 'DESC']);
         $actionCategories = $actionCategoryRepository->findAll();
         return $this->render('admin_panel/index.html.twig', [
             'users' => $usersNumber+$adminsNumber,

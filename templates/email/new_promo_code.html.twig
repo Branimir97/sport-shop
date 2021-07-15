@@ -1,53 +1,78 @@
 <!doctype html>
 <html lang="{{ app.request.locale }}">
 <head>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
+
     <style>
-        .container {
-            width: 50%;
+        .img_wrapper {
+            text-align: center;
         }
         .img_wrapper img{
-            box-shadow:
-                    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-                    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+            border: 1px dot-dash wheat;
+        }
+
+        .heading {
+            text-align: center;
+            background-color: #19D895;
+            color: white;
+            padding: 1%;
+            margin-top: 5px;
+        }
+
+        .heading > .promoCode {
+            color: white;
+
+        }
+
+        .messages {
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .messages > .promoCode {
+            color: green;
+
+        }
+
+        .discount {
+            color: red;
+        }
+
+        .footer {
+            color: #19D895;
+            text-align: center;
         }
     </style>
     <title></title>
 </head>
 <body>
-<div class="container text-center">
     <div class="img_wrapper">
         <img src="https://i.ibb.co/yPhPY0j/logo.png" alt="logo">
     </div>
     <div>
-        <h2 class="bg-success mt-2 p-2 text-white">
+        <h2 class="heading">
             {{ 'new_promo_code.title'|trans({}, 'email') }}
-            - <strong class="text-white">{{ promoCode }}</strong>
+            - <strong class="promoCode">{{ promoCode }}</strong>
         </h2>
-        <p class="mt-2">
+        <h3 class="messages">
             {{ 'new_promo_code.respected'|trans({}, 'email') }},
             <br><br>
             {{ 'new_promo_code.message1'|trans({}, 'email') }}
-            <strong class="text-success">{{ promoCode }}</strong>
+            <strong class="promoCode">{{ promoCode }}</strong>
             {{ 'new_promo_code.message2'|trans({}, 'email') }}
-            <strong class="text-danger">{{ discountPercentage }}%</strong>
+            <strong class="discount">{{ discountPercentage }}%</strong>
             {{ 'new_promo_code.message3'|trans({}, 'email') }}
             <br><br>
             {{ 'notice'|trans({}, 'email') }}
-        </p>
-
+        </h3>
     </div>
-    <small class="text-primary mt-3">
-        {{ 'footer1'|trans({}, 'email') }}
-        <br>
-        {{ 'footer2'|trans({}, 'email') }}
-        <br>
-        {{ 'footer3'|trans({}, 'email') }}
-    </small>
-</div>
+    <div class="footer">
+        <small>
+            {{ 'footer1'|trans({}, 'email') }}
+            <br>
+            {{ 'footer2'|trans({}, 'email') }}
+            <br>
+            {{ 'footer3'|trans({}, 'email') }}
+        </small>
+    </div>
 </body>
 </html>

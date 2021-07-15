@@ -31,7 +31,8 @@ class OrderListController extends AbstractController
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUsername()]);
         $orderList = $orderListRepository->findOneBy(['user' => $user]);
-        $orderListItems = $orderListItemRepository->findBy(['orderList' => $orderList], ['id' => 'DESC']);
+        $orderListItems = $orderListItemRepository->findBy(['orderList' => $orderList],
+            ['id' => 'DESC']);
         return $this->render('order_list/index.html.twig', [
             'orderListItems' => $orderListItems,
         ]);

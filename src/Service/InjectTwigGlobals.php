@@ -14,7 +14,8 @@ class InjectTwigGlobals implements EventSubscriberInterface
     private $manager;
     private $security;
 
-    public function __construct(Environment $twig, EntityManagerInterface $manager,
+    public function __construct(Environment $twig,
+                                EntityManagerInterface $manager,
                                 Security $security)
     {
         $this->twig = $twig;

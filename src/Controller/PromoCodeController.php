@@ -40,7 +40,6 @@ class PromoCodeController extends AbstractController
      *     "en": "/new",
      *     "hr": "/novi",
      * }, name="promo_code_new", methods={"GET","POST"})
-     * @throws TransportExceptionInterface
      */
     public function new(Request $request,
                         PromoCodeRepository $promoCodeRepository,
@@ -80,7 +79,6 @@ class PromoCodeController extends AbstractController
             foreach($subscribers as $subscriber) {
                 $receiverEmail = $subscriber->getEmail();
                 $email = (new TemplatedEmail())
-                    ->from('sport-shop@gmail.com')
                     ->to($receiverEmail)
                     ->subject($subject)
                     ->context([
@@ -135,7 +133,8 @@ class PromoCodeController extends AbstractController
                 $this->addFlash('danger',
                     $translator->trans('flash_message.promo_code_exists',
                         [], 'promo_code'));
-                return $this->redirectToRoute('promo_code_edit', ['id' => $promoCode->getId()]);
+                return $this->redirectToRoute('promo_code_edit',
+                    ['id' => $promoCode->getId()]);
             }
             $endDate = $form->get('endDate')->getData();
             $now = new \DateTime("now");

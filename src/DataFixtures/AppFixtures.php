@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Color;
-use App\Entity\Language;
 use App\Entity\Manufacturer;
 use App\Entity\Size;
 use App\Entity\User;

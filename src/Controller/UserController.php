@@ -57,7 +57,8 @@ class UserController extends AbstractController
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function edit(Request $request, User $user, TranslatorInterface $translator): Response
+    public function edit(Request $request, User $user,
+                         TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         $form = $this->createForm(UserType::class, $user, ['isEditForm' => true]);
@@ -90,7 +91,8 @@ class UserController extends AbstractController
      *     "hr": "/korisnik/{id}"
      * }, name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user, TranslatorInterface $translator): Response
+    public function delete(Request $request, User $user,
+                           TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
         if ($this->isCsrfTokenValid('delete'.$user->getId(),

@@ -1,6 +1,6 @@
 new_user:
   subject: Dobrodošli u SportShop
-  welcome: Dobrodošli u svijet sporta
+  welcome: Dobrodošli u svijet sporta!
   respected: Poštovani
   message1: Zahvaljujemo što ste kreirali račun na SportShop web trgovini.
             Registracijom ostvarujete mogućnost uvida u prethodne narudžbe,
@@ -54,8 +54,7 @@ order_successful:
   color: Boja
   size: Veličina
   quantity: Količina
-  totalPriceWithoutDiscount: Ukupna cijena bez popusta
-  totalPriceWithDiscount: Ukupna cijena s popustom
+  totalPriceWithDiscount: Ukupna cijena
   delivery_address: Adresa dostave i naplate
 
 notice: Ovu poruku ste primili jer ste pretplaćeni na SportShop promotivne

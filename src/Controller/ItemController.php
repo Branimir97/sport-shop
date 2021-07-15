@@ -195,7 +195,7 @@ class ItemController extends AbstractController
             }
             $entityManager->flush();
             $this->addFlash('success',
-                $translator->trans('flash_message.added_quantites',
+                $translator->trans('flash_message.added_quantities',
                     [], 'item'));
             return $this->redirectToRoute('item_index');
         }
@@ -401,7 +401,8 @@ class ItemController extends AbstractController
     public function deleteCategory(Request $request, ItemCategory $itemCategory,
                                    TranslatorInterface $translator): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$itemCategory->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$itemCategory->getId(),
+            $request->request->get('_token'))) {
             $itemId = $itemCategory->getItem()->getId();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($itemCategory);
@@ -472,7 +473,8 @@ class ItemController extends AbstractController
     public function deleteTag(Request $request, ItemTag $itemTag,
                               TranslatorInterface $translator): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$itemTag->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$itemTag->getId(),
+            $request->request->get('_token'))) {
             $itemId = $itemTag->getItem()->getId();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($itemTag);
@@ -763,7 +765,7 @@ class ItemController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$item->getId(),
             $request->request->get('_token'))) {
-            $images = $imageRepository->findBy(['item'=>$item]);
+            $images = $imageRepository->findBy(['item' => $item]);
             if($images !== null) {
                 foreach($images as $image) {
                     unlink('../public/uploads/'.$image->getPath());

@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UserSearchesRepository;
+use App\Repository\UserSearchRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=UserSearchesRepository::class)
+ * @ORM\Entity(repositoryClass=UserSearchRepository::class)
  */
 class UserSearch
 {
