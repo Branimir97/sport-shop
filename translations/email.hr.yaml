@@ -1,7 +1,7 @@
 new_user:
   subject: Dobrodošli u SportShop
   welcome: Dobrodošli u svijet sporta!
-  respected: Poštovani
+  respected: Poštovani/a
   message1: Zahvaljujemo što ste kreirali račun na SportShop web trgovini.
             Registracijom ostvarujete mogućnost uvida u prethodne narudžbe,
             popis želja, postavke korisničkog računa, dodavanje artikala u košaricu,
@@ -45,7 +45,7 @@ new_subscriber:
 order_successful:
   subject: SportShop obavijest
   title: Uspješna narudžba br.
-  respected: Poštovani
+  respected: Poštovani/a
   message: Zahvaljujemo na narudžbi. Narudžba je na čekanju dok ne dobijemo
            potvrdu o zaprimljenoj uplati. U međuvremenu, ispod se nalazi podsjetnik
            što ste naručili.
