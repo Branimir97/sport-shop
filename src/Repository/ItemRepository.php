@@ -93,7 +93,7 @@ class ItemRepository extends ServiceEntityRepository
         return $query;
     }
 
-    public function findSuggestedItems($gender)
+    public function findSuggestedItems($gender, $userSearch)
     {
         $query = $this->createQueryBuilder('i')
             ->select('i.id')
@@ -109,7 +109,15 @@ class ItemRepository extends ServiceEntityRepository
                     ->where('c.name = :categoryWomen')
                     ->setParameter('categoryWomen', "Žene");
             }
-        } else {
+        }
+
+        if($userSearch !== null) {
+            $query
+                ->orWhere('i.title LIKE :title')
+                ->setParameter('title', '%'.$userSearch->getKeyword().'%');
+        }
+
+        else {
             return null;
         }
 
