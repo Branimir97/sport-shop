@@ -110,8 +110,7 @@ class ItemRepository extends ServiceEntityRepository
                     ->setParameter('categoryWomen', "Žene");
             }
         }
-
-        if($userSearch !== null) {
+        else if($userSearch !== null) {
             $query
                 ->orWhere('i.title LIKE :title')
                 ->setParameter('title', '%'.$userSearch->getKeyword().'%');
