@@ -13,6 +13,7 @@ use App\Repository\ItemRepository;
 use App\Repository\ItemSizeRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
+use App\Repository\UserSearchRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,8 @@ class ItemDetailsController extends AbstractController
                           UserRepository $userRepository,
                           CartItemRepository $cartItemRepository,
                           TranslatorInterface $translator,
-                          ReviewRepository $reviewRepository): Response
+                          ReviewRepository $reviewRepository,
+                          UserSearchRepository $userSearchRepository): Response
     {
         $item = $itemRepository->findOneBy(['id' => $request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
@@ -166,7 +168,9 @@ class ItemDetailsController extends AbstractController
         $suggestedItemIds = [];
         $randomSuggestedItems = [];
         if($this->getUser()) {
-            $suggestedItems = $itemRepository->findSuggestedItems($this->getUser()->getGender());
+            $userSearch = $userSearchRepository->findOneBy(['user' => 4], ['id' => 'DESC']);
+            $suggestedItems = $itemRepository->findSuggestedItems($this->getUser()->getGender(), $userSearch);
+
         }
 
         if(!is_null($suggestedItems)) {
