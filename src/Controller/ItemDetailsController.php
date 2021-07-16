@@ -168,9 +168,8 @@ class ItemDetailsController extends AbstractController
         $suggestedItemIds = [];
         $randomSuggestedItems = [];
         if($this->getUser()) {
-            $userSearch = $userSearchRepository->findOneBy(['user' => 4], ['id' => 'DESC']);
+            $userSearch = $userSearchRepository->findOneBy(['user' => $this->getUser()], ['id' => 'DESC']);
             $suggestedItems = $itemRepository->findSuggestedItems($this->getUser()->getGender(), $userSearch);
-
         }
 
         if(!is_null($suggestedItems)) {
@@ -179,9 +178,21 @@ class ItemDetailsController extends AbstractController
                     $suggestedItemIds[$id] = $id;
                 }
             }
-            $randomSuggestedItemIds = array_rand($suggestedItemIds, 4);
-            foreach($randomSuggestedItemIds as $id) {
-                array_push($randomSuggestedItems, $itemRepository->findOneBy(['id' => $id]));
+            if(count($suggestedItemIds) > 0) {
+                if(count($suggestedItemIds) >= 4) {
+                    $randomSuggestedItemIds = array_rand($suggestedItemIds, 4);
+                } else {
+                    $randomSuggestedItemIds = array_rand($suggestedItemIds, count($suggestedItemIds));
+                }
+                if((count($suggestedItemIds)) == 1) {
+                    array_push($randomSuggestedItems,
+                        $itemRepository->findOneBy(['id' => $randomSuggestedItemIds]));
+                } else {
+                    foreach($randomSuggestedItemIds as $id) {
+                        array_push($randomSuggestedItems,
+                            $itemRepository->findOneBy(['id' => $id]));
+                    }
+                }
             }
         }
 
