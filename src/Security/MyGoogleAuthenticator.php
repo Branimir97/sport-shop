@@ -61,7 +61,6 @@ class MyGoogleAuthenticator extends SocialAuthenticator
     }
 
     /**
-     * @throws TransportExceptionInterface
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
@@ -92,7 +91,6 @@ class MyGoogleAuthenticator extends SocialAuthenticator
             [], 'email');
         $receiverEmail = $googleUser->getEmail();
         $email = (new TemplatedEmail())
-            ->from('sport-shop@gmail.com')
             ->to($receiverEmail)
             ->subject($subject)
             ->context([
@@ -100,7 +98,6 @@ class MyGoogleAuthenticator extends SocialAuthenticator
                 ]
             )
             ->htmlTemplate('email/new_user.html.twig');
-
         try {
             $this->mailer->send($email);
         } catch (TransportExceptionInterface $exception) {}

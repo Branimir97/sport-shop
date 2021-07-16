@@ -13,6 +13,7 @@ use App\Repository\ItemRepository;
 use App\Repository\ItemSizeRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
+use App\Repository\UserSearchRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,8 @@ class ItemDetailsController extends AbstractController
                           UserRepository $userRepository,
                           CartItemRepository $cartItemRepository,
                           TranslatorInterface $translator,
-                          ReviewRepository $reviewRepository): Response
+                          ReviewRepository $reviewRepository,
+                          UserSearchRepository $userSearchRepository): Response
     {
         $item = $itemRepository->findOneBy(['id' => $request->get('id')]);
         $entityManager = $this->getDoctrine()->getManager();
@@ -162,12 +164,34 @@ class ItemDetailsController extends AbstractController
             }
         }
 
+        $suggestedItems = [];
+        $suggestedItemIds = [];
+        $randomSuggestedItems = [];
+        if($this->getUser()) {
+            $userSearch = $userSearchRepository->findOneBy(['user' => 4], ['id' => 'DESC']);
+            $suggestedItems = $itemRepository->findSuggestedItems($this->getUser()->getGender(), $userSearch);
+
+        }
+
+        if(!is_null($suggestedItems)) {
+            foreach($suggestedItems as $suggestedItem) {
+                foreach($suggestedItem as $id) {
+                    $suggestedItemIds[$id] = $id;
+                }
+            }
+            $randomSuggestedItemIds = array_rand($suggestedItemIds, 4);
+            foreach($randomSuggestedItemIds as $id) {
+                array_push($randomSuggestedItems, $itemRepository->findOneBy(['id' => $id]));
+            }
+        }
+
         return $this->render('item_details/index.html.twig', [
             'item' => $item,
             'formReview' => $formReview->createView(),
             'formCart' => $formCart->createView(),
             'reviews' => $reviewRepository->findBy(['item' => $item, 'valid' => true]),
-            'discount' => $discount
+            'discount' => $discount,
+            'suggestedItems' => $randomSuggestedItems
         ]);
     }
 }
