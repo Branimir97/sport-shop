@@ -41,7 +41,7 @@ class HomeController extends AbstractController
                $categories = array_values(array_unique($categories));
             }
             $suggestedItems = $itemRepository
-                ->findSuggestedItems($this->getUser()->getGender(), $categories);
+                ->findSuggestedItems($this->getUser()->getGender(), $categories, $request->getLocale());
         }
 
         if(!is_null($suggestedItems)) {
