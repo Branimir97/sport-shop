@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -95,12 +96,16 @@ class UserController extends AbstractController
                            TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(),
             $request->request->get('_token'))) {
+            $session = new Session();
+            $session->invalidate();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         }
+
         $this->addFlash('danger',
             $translator->trans('flash_message.user_deleted',
                 [], 'user'));

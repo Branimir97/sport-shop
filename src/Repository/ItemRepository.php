@@ -85,39 +85,42 @@ class ItemRepository extends ServiceEntityRepository
             ->leftJoin('i.itemColors', 'itemColors')
             ->leftJoin('itemColors.color', 'color')
             ->leftJoin('i.actionItem', 'ai')
+            ->leftJoin('i.itemCategories', 'itemCategories')
             ->addSelect('images')
             ->addSelect('itemColors')
             ->addSelect('color')
             ->addSelect('ai')
+            ->addSelect('itemCategories')
             ->orderBy('i.id', 'DESC');
         return $query;
     }
 
-    public function findSuggestedItems($gender, $userSearch)
+    public function findSuggestedItems($gender, $categories)
     {
-        $query = $this->createQueryBuilder('i')
+        $query = $this->createQueryBuilder('i');
+
+        $query
             ->select('i.id')
-            ->join('i.itemCategories', 'ic')
-            ->join('ic.category', 'c');
+            ->join('i.itemCategories', 'itemCategories')
+            ->join('itemCategories.category', 'category');
+
         if($gender !== null) {
             if($gender == "Muški") {
                 $query
-                    ->where('c.name = :categoryMen')
+                    ->where('category.name = :categoryMen')
                     ->setParameter('categoryMen', "Muškarci");
             } else if($gender == "Ženski") {
                 $query
-                    ->where('c.name = :categoryWomen')
+                    ->where('category.name = :categoryWomen')
                     ->setParameter('categoryWomen', "Žene");
             }
         }
-        else if($userSearch !== null) {
-            $query
-                ->orWhere('i.title LIKE :title')
-                ->setParameter('title', '%'.$userSearch->getKeyword().'%');
-        }
 
-        else {
-            return null;
+        if($categories !== null) {
+            $query
+                ->orWhere('category.name IN (:categories)')
+                ->setParameter('categories', $categories)
+                ->distinct();
         }
 
         return $query->getQuery()->getArrayResult();
