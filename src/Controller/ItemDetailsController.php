@@ -164,62 +164,12 @@ class ItemDetailsController extends AbstractController
             }
         }
 
-        $suggestedItems = [];
-        $suggestedItemIds = [];
-        $randomSuggestedItems = [];
-        $categories = [];
-        if($this->getUser()) {
-            $userSearch = $userSearchRepository->findOneBy(
-                ['user' => $this->getUser()], ['id' => 'DESC']);
-            if(!is_null($userSearch)) {
-                $searchResults = $itemRepository
-                    ->searchByCipherAndName($userSearch->getKeyword(), $request->getLocale());
-
-                foreach($searchResults->getQuery()->getResult() as $item) {
-                    $itemCategories = $item->getItemCategories();
-                    foreach($itemCategories as $itemCategory) {
-                        array_push($categories, $itemCategory->getCategory()->getName());
-                    }
-                }
-                $categories = array_values(array_unique($categories));
-            }
-            $suggestedItems = $itemRepository
-                ->findSuggestedItems($this->getUser()->getGender(), $categories, $request->getLocale());
-        }
-
-        if(!is_null($suggestedItems)) {
-            foreach($suggestedItems as $suggestedItem) {
-                foreach($suggestedItem as $id) {
-                    $suggestedItemIds[$id] = $id;
-                }
-            }
-            if(count($suggestedItemIds) > 0) {
-                if(count($suggestedItemIds) >= 4) {
-                    $randomSuggestedItemIds =
-                        array_rand($suggestedItemIds, 4);
-                } else {
-                    $randomSuggestedItemIds =
-                        array_rand($suggestedItemIds, count($suggestedItemIds));
-                }
-                if((count($suggestedItemIds)) == 1) {
-                    array_push($randomSuggestedItems,
-                        $itemRepository->findOneBy(['id' => $randomSuggestedItemIds]));
-                } else {
-                    foreach($randomSuggestedItemIds as $id) {
-                        array_push($randomSuggestedItems,
-                            $itemRepository->findOneBy(['id' => $id]));
-                    }
-                }
-            }
-        }
-
         return $this->render('item_details/index.html.twig', [
             'item' => $item,
             'formReview' => $formReview->createView(),
             'formCart' => $formCart->createView(),
             'reviews' => $reviewRepository->findBy(['item' => $item, 'valid' => true]),
-            'discount' => $discount,
-            'suggestedItems' => $randomSuggestedItems
+            'discount' => $discount
         ]);
     }
 }
