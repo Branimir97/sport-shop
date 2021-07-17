@@ -11,6 +11,11 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    public function __construct($environment, $debug) {
+        date_default_timezone_set('Europe/Zagreb');
+        parent::__construct($environment, $debug);
+    }
+
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $container->import('../config/{packages}/*.yaml');
@@ -22,8 +27,6 @@ class Kernel extends BaseKernel
         } elseif (is_file($path = \dirname(__DIR__).'/config/services.php')) {
             (require $path)($container->withPath($path), $this);
         }
-
-        date_default_timezone_set( 'Europe/Zagreb' );
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void

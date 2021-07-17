@@ -95,7 +95,7 @@ class ItemRepository extends ServiceEntityRepository
         return $query;
     }
 
-    public function findSuggestedItems($gender, $categories)
+    public function findSuggestedItems($gender, $categories, $locale)
     {
         $query = $this->createQueryBuilder('i');
 
@@ -117,12 +117,18 @@ class ItemRepository extends ServiceEntityRepository
         }
 
         if($categories !== null) {
-            $query
-                ->orWhere('category.name IN (:categories)')
-                ->setParameter('categories', $categories)
-                ->distinct();
+            if($locale == 'en') {
+                $query
+                    ->join('category.categoryTranslations', 'categoryTrans')
+                    ->orWhere('categoryTrans.content IN (:categories)')
+                    ->setParameter('categories', $categories);
+            } else  {
+                $query
+                    ->orWhere('category.name IN (:categories)')
+                    ->setParameter('categories', $categories);
+            }
         }
 
-        return $query->getQuery()->getArrayResult();
+        return $query->distinct()->getQuery()->getArrayResult();
     }
 }
