@@ -23,6 +23,8 @@ form:
     subscribe: I want to receive all the news about SportShop promotions,
                promo codes and other important events.
   captcha: Enter the captcha code from the image above here
+  category_help: Text
+  category_label: Text
   registerButton: Register
 
   help:

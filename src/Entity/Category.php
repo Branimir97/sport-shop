@@ -60,10 +60,16 @@ class Category implements Translatable
      */
     private $categoryTranslations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserProminentCategory::class, mappedBy="category", orphanRemoval=true)
+     */
+    private $userProminentCategories;
+
     public function __construct()
     {
         $this->itemCategories = new ArrayCollection();
         $this->categoryTranslations = new ArrayCollection();
+        $this->userProminentCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +194,36 @@ class Category implements Translatable
             // set the owning side to null (unless already changed)
             if ($categoryTranslation->getObject() === $this) {
                 $categoryTranslation->setObject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProminentCategory[]
+     */
+    public function getUserProminentCategories(): Collection
+    {
+        return $this->userProminentCategories;
+    }
+
+    public function addUserProminentCategory(UserProminentCategory $userProminentCategory): self
+    {
+        if (!$this->userProminentCategories->contains($userProminentCategory)) {
+            $this->userProminentCategories[] = $userProminentCategory;
+            $userProminentCategory->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProminentCategory(UserProminentCategory $userProminentCategory): self
+    {
+        if ($this->userProminentCategories->removeElement($userProminentCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($userProminentCategory->getCategory() === $this) {
+                $userProminentCategory->setCategory(null);
             }
         }
 

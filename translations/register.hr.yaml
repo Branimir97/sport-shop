@@ -23,6 +23,8 @@ form:
     subscribe: Želim primati sve novosti o SportShop akcijama, promo kodovima
                i ostalim važnim događajima.
   captcha: Ovdje unesite captcha kod sa slike iznad
+  category_help: Ukoliko odaberete manje od n kategorija
+  category_label: Ovdje možete odabrati kategorije koje Vas zanimaju
   registerButton: Registracija
 
   help:
