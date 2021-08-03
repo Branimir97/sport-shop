@@ -21,6 +21,22 @@
         </div>
     </div>
     {{ form_rest(form) }}
+    {% if prominentCategories|length != 0 %}
+        <h6>
+            {{ 'edit.already_selected_prominent_categories'|trans({}, 'user')}}
+            :
+        </h6>
+        {% for prominentCategory in prominentCategories %}
+            <span id="prominent_category">
+                {{ prominentCategory.category.name }}
+            </span>
+            <br>
+        {% endfor %}
+        <hr>
+        <a href="{{ path('reset_prominent_categories', {id: user.id}) }}">
+            {{ 'edit.cancel_prominent_categories'|trans({}, 'user')}}
+        </a>
+    {% endif %}
     <div class="mb-2">
         <small class="text-muted mb-2">
             {{ 'form.help.termsOfUse'|trans({}, 'register')}}

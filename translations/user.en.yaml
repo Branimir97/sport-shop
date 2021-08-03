@@ -9,6 +9,8 @@ show:
 
 edit:
   reset_password: Reset the password
+  already_selected_prominent_categories: Highlighted categories already selected
+  cancel_prominent_categories: Deselect the highlighted categories
 
 reset_password:
   title: Password reset
@@ -79,6 +81,7 @@ flash_message:
   user_deleted: Account successfully deleted.
   password_reset: Password changed successfully.
   form_error: Invalid current password entry.
+  cancel_prominent_categories: Selected highlighted categories successfully removed.
 
 delete_confirmation:
   message: Are you sure you want to delete this account?
