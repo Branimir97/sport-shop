@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ItemRepository;
+use App\Repository\UserProminentCategoryRepository;
 use App\Repository\UserSearchRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,8 @@ class HomeController extends AbstractController
      */
     public function index(Request $request,
                           ItemRepository $itemRepository,
-                          UserSearchRepository $userSearchRepository): Response
+                          UserSearchRepository $userSearchRepository,
+                          UserProminentCategoryRepository $userProminentCategoryRepository): Response
     {
         $suggestedItems = [];
         $suggestedItemIds = [];
@@ -70,8 +72,15 @@ class HomeController extends AbstractController
             }
         }
 
+        $prominentCategories = [];
+        $prominentCategoriesDb = $userProminentCategoryRepository->findBy(['user' => $this->getUser()]);
+        foreach($prominentCategoriesDb as $prominentCategory) {
+            array_push($prominentCategories, $prominentCategory->getCategory());
+        }
+
         return $this->render('homepage/index.html.twig', [
-            'suggestedItems' => $randomSuggestedItems
+            'suggestedItems' => $randomSuggestedItems,
+            'prominentCategories' => $prominentCategories
         ]);
     }
 }

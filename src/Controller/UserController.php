@@ -67,10 +67,15 @@ class UserController extends AbstractController
                          UserProminentCategoryRepository $userProminentCategoryRepository): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
-        $userProminentCategories =
+        $categories = [];
+        $userProminentCategoriesDb =
             $userProminentCategoryRepository->findBy(['user' => $this->getUser()]);
+        foreach($userProminentCategoriesDb as $userProminentCategory) {
+            array_push($categories, $userProminentCategory->getCategory());
+        }
+//        dd($categories);
         $form = $this->createForm(UserType::class, $user,
-            ['isEditForm' => true, 'prominent_categories' => $userProminentCategories]);
+            ['isEditForm' => true, 'prominent_categories' => $categories]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,17 +97,14 @@ class UserController extends AbstractController
                         '%user_name%' => $user->getName(),
                         '%user_surname%' => $user->getSurname()
                     ], 'user'));
-            if($this->isGranted("ROLE_ADMIN")){
-                return $this->redirectToRoute('user_index');
-            } else {
-                return $this->redirectToRoute('account_settings');
-            }
+
+            return $this->redirectToRoute('account_settings');
         }
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
-            'prominentCategories' => $userProminentCategories
+            'prominentCategories' => $userProminentCategoriesDb
         ]);
     }
 

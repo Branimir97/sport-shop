@@ -11,7 +11,8 @@ carouselContent5: Vježbanje je jednostavnije uz dobar izbor odjeće
 carouselContent6: Sve za vaš omiljeni sport na jednom mjestu
 recommendedItemsTitle: Preporučeni artikli
 noRecommendedItems: Trenutno nemamo preporuka za Vas. Posjetite ovaj odjeljak kasnije!
-prominentCategoriesTitle: Istaknute kategorije
+prominentCategoriesTitleUser: Vaše istaknute kategorije
+prominentCategoriesTitleSystem: Istaknute kategorije SportShop web trgovine
 football: NOGOMET
 handball: RUKOMET
 running: TRČANJE

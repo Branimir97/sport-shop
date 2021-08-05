@@ -120,10 +120,9 @@ class UserType extends AbstractType
                     'mapped' => false,
                     'multiple' => true,
                     'class' => Category::class,
-                    'query_builder' => function (EntityRepository $entityRepository) use ($prominentCategories) {
-                        return $entityRepository->createQueryBuilder('c')
-                            ->where('c NOT IN (:categories)')
-                            ->setParameter('categories', $prominentCategories);
+                    'query_builder' => function (EntityRepository $entityRepository)  {
+                        return $entityRepository->createQueryBuilder('c');
+
                     },
                     'choice_label' => 'name',
                     'help' => 'form.help.category',
@@ -131,7 +130,7 @@ class UserType extends AbstractType
                     'translation_domain' => 'register',
                     'constraints' => [
                         new Count([
-                            'max' => 8,
+                            'max' => 10,
                         ])
                     ]
                 ])
@@ -143,8 +142,13 @@ class UserType extends AbstractType
             'mapped' => false,
             'multiple' => true,
             'class' => Category::class,
-            'query_builder' => function (EntityRepository $entityRepository) {
-                return $entityRepository->createQueryBuilder('c');
+            'query_builder' => function (EntityRepository $entityRepository) use ($prominentCategories) {
+                if(count($prominentCategories) == 0) {
+                    return $entityRepository->createQueryBuilder('c');
+                }
+                return $entityRepository->createQueryBuilder('c')
+                    ->where('c NOT IN (:array)')
+                    ->setParameter('array', $prominentCategories);
             },
             'choice_label' => 'name',
             'help' => 'form.help.category',
@@ -152,7 +156,7 @@ class UserType extends AbstractType
             'translation_domain' => 'register',
             'constraints' => [
                 new Count([
-                    'max' => 8,
+                    'max' => 10 - count($prominentCategories),
                 ])
             ]
         ]);
