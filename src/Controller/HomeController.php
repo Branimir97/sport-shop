@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ItemRepository;
+use App\Repository\UserProminentCategoryRepository;
 use App\Repository\UserSearchRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,8 @@ class HomeController extends AbstractController
      */
     public function index(Request $request,
                           ItemRepository $itemRepository,
-                          UserSearchRepository $userSearchRepository): Response
+                          UserSearchRepository $userSearchRepository,
+                          UserProminentCategoryRepository $userProminentCategoryRepository): Response
     {
         $suggestedItems = [];
         $suggestedItemIds = [];
@@ -28,6 +30,7 @@ class HomeController extends AbstractController
         if($this->getUser()) {
             $userSearch = $userSearchRepository->findOneBy(
                 ['user' => $this->getUser()], ['id' => 'DESC']);
+            $userProminentCategories = $userProminentCategoryRepository->findBy(['user' => $this->getUser()]);
             if(!is_null($userSearch)) {
                 $searchResults = $itemRepository
                     ->searchByCipherAndName($userSearch->getKeyword(), $request->getLocale());
@@ -38,12 +41,16 @@ class HomeController extends AbstractController
                         array_push($categories, $itemCategory->getCategory()->getName());
                     }
                 }
-               $categories = array_values(array_unique($categories));
             }
+            if(!is_null($userProminentCategories)) {
+                foreach($userProminentCategories as $userProminentCategory) {
+                    array_push($categories, $userProminentCategory->getCategory()->getName());
+                }
+            }
+            $categories = array_values(array_unique($categories));
             $suggestedItems = $itemRepository
                 ->findSuggestedItems($this->getUser()->getGender(), $categories, $request->getLocale());
         }
-
         if(!is_null($suggestedItems)) {
             foreach($suggestedItems as $suggestedItem) {
                 foreach($suggestedItem as $id) {
@@ -70,8 +77,15 @@ class HomeController extends AbstractController
             }
         }
 
+        $prominentCategories = [];
+        $prominentCategoriesDb = $userProminentCategoryRepository->findBy(['user' => $this->getUser()]);
+        foreach($prominentCategoriesDb as $prominentCategory) {
+            array_push($prominentCategories, $prominentCategory->getCategory());
+        }
+
         return $this->render('homepage/index.html.twig', [
-            'suggestedItems' => $randomSuggestedItems
+            'suggestedItems' => $randomSuggestedItems,
+            'prominentCategories' => $prominentCategories
         ]);
     }
 }

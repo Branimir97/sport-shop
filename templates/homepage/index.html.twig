@@ -241,126 +241,143 @@
             {% endif %}
         {% endif %}
 
-        <h4 class="bg-secondary text-center mt-1 pt-1 text-white top-categories-title">
-            {{ 'prominentCategoriesTitle'|trans({}, 'homepage')}}
-        </h4>
-        <div class="row ml-0 mr-0 mt-1 top-categories">
-            <div class="col-md-15">
-                <div class="row ml-0 mr-0 no-gutters">
-                    <div class="col-md-12 mb-2 item1">
-                        <p>
-                            {{ 'football'|trans({}, 'homepage')}}
-                        </p>
-                        <a
-                            href="{{ path('items_list', {
-                                ('categories'|trans({}, 'navigation')):
-                                ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                ('football'|trans({}, 'navigation'))
-                            }) }}">
-                            <img src="{{ asset('/images/football.jpg') }}" alt="">
-                        </a>
+        {% if app.user and prominentCategories|length != 0 %}
+            <h4 class="bg-secondary text-center mt-1 pt-1 text-white top-categories-title">
+                {{ 'prominentCategoriesTitleUser'|trans({}, 'homepage')}}
+            </h4>
+            <div class="row ml-0 mr-0 mt-1 top-categories justify-content-center">
+                {% for prominentCategory in prominentCategories %}
+                    <div class="col-md-15">
+                        <div class="item1 mb-2">
+                            <p>
+                                {{ prominentCategory.name }}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ( prominentCategory.name )
+                                }) }}">
+                                <img src="{{ asset('/images/'~prominentCategory.name~'.jpg') }}" alt="">
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-12 mb-2 item2">
-                        <p>
-                            {{ 'handball'|trans({}, 'homepage')}}
-                        </p>
-                        <a
-                            href="{{ path('items_list', {
-                                ('categories'|trans({}, 'navigation')):
-                                ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                ('handball'|trans({}, 'navigation'))
-                            }) }}">
-                            <img src="{{ asset('/images/handball.jpg') }}" alt="">
-                        </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h4 class="bg-secondary text-center mt-1 pt-1 text-white top-categories-title">
+                {{ 'prominentCategoriesTitleSystem'|trans({}, 'homepage')}}
+            </h4>
+            <div class="row ml-0 mr-0 mt-1 top-categories">
+                <div class="col-md-15">
+                    <div class="row ml-0 mr-0 no-gutters">
+                        <div class="col-md-12 mb-2 item1">
+                            <p>
+                                {{ 'football'|trans({}, 'homepage')}}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ('football'|trans({}, 'navigation'))
+                                }) }}">
+                                <img src="{{ asset('/images/Football.jpg') }}" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-12 mb-2 item2">
+                            <p>
+                                {{ 'handball'|trans({}, 'homepage')}}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ('handball'|trans({}, 'navigation'))
+                                }) }}">
+                                <img src="{{ asset('/images/Handball.jpg') }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-15 activity mb-2">
+                    <p>
+                        {{ 'running'|trans({}, 'homepage')}}
+                    </p>
+                    <a
+                        href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('footwear'|trans({}, 'navigation'))~ ',' ~
+                            ('runningShoes'|trans({}, 'navigation'))
+                        }) }}">
+                        <img src="{{ asset('/images/Running shoes.jpg') }}" alt="">
+                    </a>
+                </div>
+                <div class="col-md-15">
+                    <div class="row ml-0 mr-0 no-gutters">
+                        <div class="col-md-12 mb-2 item1">
+                            <p>
+                                {{ 'basketball'|trans({}, 'homepage')}}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ('basketball'|trans({}, 'navigation'))
+                                }) }}">
+                                <img src="{{ asset('/images/Basketball.jpg') }}" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-12 mb-2 item2">
+                            <p>
+                                {{ 'volleyball'|trans({}, 'homepage')}}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ('volleyball'|trans({}, 'navigation'))
+                                }) }}">
+                                <img src="{{ asset('/images/Volleyball.jpg') }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-15 activity mb-2">
+                    <p>
+                        {{ 'fitness'|trans({}, 'homepage')}}
+                    </p>
+                    <a
+                        href="{{ path('items_list', {
+                            ('categories'|trans({}, 'navigation')):
+                            ('fitness'|trans({}, 'navigation'))
+                        }) }}">
+                        <img src="{{ asset('/images/fitness.jpg') }}" alt="">
+                    </a>
+                </div>
+                <div class="col-md-15">
+                    <div class="row ml-0 mr-0 no-gutters">
+                        <div class="col-md-12 mb-2 item1">
+                            <p>
+                                {{ 'tennis'|trans({}, 'homepage')}}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ('tennis'|trans({}, 'navigation'))
+                                }) }}">
+                                <img src="{{ asset('/images/Tennis.jpg') }}" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-12 mb-2 item2">
+                            <p>
+                                {{ 'tableTennis'|trans({}, 'homepage')}}
+                            </p>
+                            <a
+                                href="{{ path('items_list', {
+                                    ('categories'|trans({}, 'navigation')):
+                                    ('tableTennis'|trans({}, 'navigation'))
+                                }) }}">
+                                <img src="{{ asset('/images/Table tennis.jpg') }}" alt="">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-15 activity mb-2">
-                <p>
-                    {{ 'running'|trans({}, 'homepage')}}
-                </p>
-                <a
-                    href="{{ path('items_list', {
-                        ('categories'|trans({}, 'navigation')):
-                        ('footwear'|trans({}, 'navigation'))~ ',' ~
-                        ('runningShoes'|trans({}, 'navigation'))
-                    }) }}">
-                    <img src="{{ asset('/images/running.jpg') }}" alt="">
-                </a>
-            </div>
-            <div class="col-md-15">
-                <div class="row ml-0 mr-0 no-gutters">
-                    <div class="col-md-12 mb-2 item1">
-                        <p>
-                            {{ 'basketball'|trans({}, 'homepage')}}
-                        </p>
-                        <a
-                            href="{{ path('items_list', {
-                                ('categories'|trans({}, 'navigation')):
-                                ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                ('basketball'|trans({}, 'navigation'))
-                            }) }}">
-                            <img src="{{ asset('/images/basketball.jpg') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-12 mb-2 item2">
-                        <p>
-                            {{ 'volleyball'|trans({}, 'homepage')}}
-                        </p>
-                        <a
-                            href="{{ path('items_list', {
-                                ('categories'|trans({}, 'navigation')):
-                                ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                ('volleyball'|trans({}, 'navigation'))
-                            }) }}">
-                            <img src="{{ asset('/images/volleyball.jpg') }}" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-15 activity mb-2">
-                <p>
-                    {{ 'fitness'|trans({}, 'homepage')}}
-                </p>
-                <a
-                    href="{{ path('items_list', {
-                        ('categories'|trans({}, 'navigation')):
-                        ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                        ('fitness'|trans({}, 'navigation'))
-                    }) }}">
-                    <img src="{{ asset('/images/fitness.jpg') }}" alt="">
-                </a>
-            </div>
-            <div class="col-md-15">
-                <div class="row ml-0 mr-0 no-gutters">
-                    <div class="col-md-12 mb-2 item1">
-                        <p>
-                            {{ 'tennis'|trans({}, 'homepage')}}
-                        </p>
-                        <a
-                            href="{{ path('items_list', {
-                                ('categories'|trans({}, 'navigation')):
-                                ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                ('tennis'|trans({}, 'navigation'))
-                            }) }}">
-                            <img src="{{ asset('/images/tennis.jpg') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-12 mb-2 item2">
-                        <p>
-                            {{ 'tableTennis'|trans({}, 'homepage')}}
-                        </p>
-                        <a
-                            href="{{ path('items_list', {
-                                ('categories'|trans({}, 'navigation')):
-                                ('sportsEquipment'|trans({}, 'navigation'))~ ',' ~
-                                ('tableTennis'|trans({}, 'navigation'))
-                            }) }}">
-                            <img src="{{ asset('/images/table-tennis.jpg') }}" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}

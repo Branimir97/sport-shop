@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserProminentCategory;
 use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Repository\DeliveryAddressRepository;
 use App\Repository\LoyaltyCardRepository;
 use App\Repository\SubscriberRepository;
+use App\Repository\UserProminentCategoryRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -56,33 +59,52 @@ class UserController extends AbstractController
      * @param Request $request
      * @param User $user
      * @param TranslatorInterface $translator
+     * @param UserProminentCategoryRepository $userProminentCategoryRepository
      * @return Response
      */
     public function edit(Request $request, User $user,
-                         TranslatorInterface $translator): Response
+                         TranslatorInterface $translator,
+                         UserProminentCategoryRepository $userProminentCategoryRepository): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
-        $form = $this->createForm(UserType::class, $user, ['isEditForm' => true]);
+        $categories = [];
+        $userProminentCategoriesDb =
+            $userProminentCategoryRepository->findBy(['user' => $this->getUser()]);
+        foreach($userProminentCategoriesDb as $userProminentCategory) {
+            array_push($categories, $userProminentCategory->getCategory());
+        }
+//        dd($categories);
+        $form = $this->createForm(UserType::class, $user,
+            ['isEditForm' => true, 'prominent_categories' => $categories]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $userProminentCategories = $form->get('userProminentCategory')->getData();
+            if(!(is_null($userProminentCategories))) {
+                foreach($userProminentCategories as $category) {
+                    $userProminentCategoryObj = new UserProminentCategory();
+                    $userProminentCategoryObj->setUser($user);
+                    $userProminentCategoryObj->setCategory($category);
+                    $entityManager->persist($userProminentCategoryObj);
+                }
+            }
+            $entityManager->flush();
+
             $this->addFlash('success',
                 $translator->trans('flash_message.user_edited',
                     [
                         '%user_name%' => $user->getName(),
                         '%user_surname%' => $user->getSurname()
                     ], 'user'));
-            if($this->isGranted("ROLE_ADMIN")){
-                return $this->redirectToRoute('user_index');
-            } else {
-                return $this->redirectToRoute('account_settings');
-            }
+
+            return $this->redirectToRoute('account_settings');
         }
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'prominentCategories' => $userProminentCategoriesDb
         ]);
     }
 
@@ -207,5 +229,29 @@ class UserController extends AbstractController
             'form' => $form->createView(),
             'user' => $user,
         ]);
+    }
+
+    /**
+     * @Route({
+     *     "en": "/{id}/cancel/prominent/categories",
+     *     "hr": "/{id}/resetiranje/istaknutih/kategorija"
+     * }, name="reset_prominent_categories", methods={"GET", "POST"})
+     */
+    public function resetProminentCategories(Request $request,
+                                             UserRepository $userRepository,
+                                             TranslatorInterface $translator): RedirectResponse
+    {
+        $user = $userRepository->findOneBy(['id' => $request->get('id')]);
+        $userProminentCategories = $user->getUserProminentCategories();
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach($userProminentCategories as $userProminentCategory) {
+            $entityManager->remove($userProminentCategory);
+        }
+        $entityManager->flush();
+
+        $this->addFlash('success',
+            $translator->trans('flash_message.cancel_prominent_categories',
+                [], 'user'));
+        return $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
     }
 }

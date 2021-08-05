@@ -22,6 +22,7 @@ form:
     agreeTerms: Registracijom prihvaćate uvjete i odredbe našeg web shopa.
     subscribe: Želim primati sve novosti o SportShop akcijama, promo kodovima
                i ostalim važnim događajima.
+    category: Ovdje možete odabrati kategorije koje Vas zanimaju
   captcha: Ovdje unesite captcha kod sa slike iznad
   registerButton: Registracija
 
@@ -32,6 +33,7 @@ form:
     passwordRepeat: Lozinke se moraju podudarati
     termsOfUse: Uvjete i odredbe moguće je pročitati
     termsOfUseLink: ovdje
+    category: Odabrane kategorije istaknut će se korisniku na naslovnici
 
 flash_message:
   registered_admin: Novi korisnik uspješno registriran.

@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -23,6 +27,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $isEditForm = $options['isEditForm'];
+        $prominentCategories = $options['prominent_categories'];
         $builder
             ->add('name', TextType::class, [
                 'label' => 'form.labels.name',
@@ -48,7 +53,8 @@ class UserType extends AbstractType
                 'help' => 'form.help.birthDate',
                 'label' => 'form.labels.birthDate',
                 'translation_domain' => 'register'
-            ]);
+            ])
+        ;
 
         if(!$isEditForm) {
             $builder
@@ -109,8 +115,51 @@ class UserType extends AbstractType
                     ],
                     'translation_domain' => 'register',
                 ])
+                ->add('userProminentCategory', EntityType::class, [
+                    'required' => false,
+                    'mapped' => false,
+                    'multiple' => true,
+                    'class' => Category::class,
+                    'query_builder' => function (EntityRepository $entityRepository)  {
+                        return $entityRepository->createQueryBuilder('c');
+
+                    },
+                    'choice_label' => 'name',
+                    'help' => 'form.help.category',
+                    'label' => 'form.labels.category',
+                    'translation_domain' => 'register',
+                    'constraints' => [
+                        new Count([
+                            'max' => 10,
+                        ])
+                    ]
+                ])
             ;
         }
+        $builder
+            ->add('userProminentCategory', EntityType::class, [
+            'required' => false,
+            'mapped' => false,
+            'multiple' => true,
+            'class' => Category::class,
+            'query_builder' => function (EntityRepository $entityRepository) use ($prominentCategories) {
+                if(count($prominentCategories) == 0) {
+                    return $entityRepository->createQueryBuilder('c');
+                }
+                return $entityRepository->createQueryBuilder('c')
+                    ->where('c NOT IN (:array)')
+                    ->setParameter('array', $prominentCategories);
+            },
+            'choice_label' => 'name',
+            'help' => 'form.help.category',
+            'label' => 'form.labels.category',
+            'translation_domain' => 'register',
+            'constraints' => [
+                new Count([
+                    'max' => 10 - count($prominentCategories),
+                ])
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -118,6 +167,7 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             'isEditForm' => false,
+            'prominent_categories' => []
         ]);
     }
 }

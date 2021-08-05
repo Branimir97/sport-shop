@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Subscriber;
 use App\Entity\User;
+use App\Entity\UserProminentCategory;
 use App\Form\UserType;
 use App\Repository\SubscriberRepository;
 use App\Security\AppAuthenticator;
@@ -59,6 +60,16 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($subscriber);
             }
             $entityManager->persist($user);
+
+            $userProminentCategories = $form->get('userProminentCategory')->getData();
+            if(!(is_null($userProminentCategories))) {
+                foreach($userProminentCategories as $category) {
+                    $userProminentCategoryObj = new UserProminentCategory();
+                    $userProminentCategoryObj->setUser($user);
+                    $userProminentCategoryObj->setCategory($category);
+                    $entityManager->persist($userProminentCategoryObj);
+                }
+            }
             $entityManager->flush();
 
             $subject = $translator->trans('new_user.subject',
@@ -91,6 +102,7 @@ class RegistrationController extends AbstractController
         }
         return $this->render('user/register.html.twig', [
             'form' => $form->createView(),
+            'prominentCategories' => []
         ]);
     }
 }

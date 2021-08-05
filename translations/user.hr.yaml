@@ -9,6 +9,8 @@ show:
 
 edit:
   reset_password: Resetiraj lozinku
+  already_selected_prominent_categories: Već odabrane istaknute kategorije
+  cancel_prominent_categories: Poništi odabir istaknutih kategorija
 
 reset_password:
   title: Resetiranje lozinke
@@ -77,6 +79,7 @@ flash_message:
   user_deleted: Korisnički račun uspješno obrisan.
   password_reset: Lozinka uspješno promijenjena.
   form_error: Neispravan unos trenutne lozinke.
+  cancel_prominent_categories: Odabrane istaknute kategorije uspješno uklonjene.
 
 delete_confirmation:
   message: Jeste li sigurni da želite obrisati ovaj korisnički račun?

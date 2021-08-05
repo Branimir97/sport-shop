@@ -10,7 +10,8 @@ carouselContent5: Exercising is easier with a good selection of clothes
 carouselContent6: Everything for your favorite sport in one place
 recommendedItemsTitle: Recommended items
 noRecommendedItems: We currently have no recommendation for you. Visit this section later!
-prominentCategoriesTitle: Prominent categories
+prominentCategoriesTitleUser: Your prominent categories
+prominentCategoriesTitleSystem: Featured categories of SportShop web store
 football: FOOTBALL
 handball: HANDBALL
 running: RUNNING

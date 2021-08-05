@@ -22,6 +22,7 @@ form:
                 terms and conditions of our website.
     subscribe: I want to receive all the news about SportShop promotions,
                promo codes and other important events.
+    category: Here you can select the categories that interest you
   captcha: Enter the captcha code from the image above here
   registerButton: Register
 
@@ -32,6 +33,7 @@ form:
     passwordRepeat: Passwords must match
     termsOfUse: Terms and conditions can be read
     termsOfUseLink: here
+    category: The selected categories will be highlighted to the user on the homepage
 
 flash_message:
   registered_admin: New user successfully registered.

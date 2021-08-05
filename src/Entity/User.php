@@ -122,12 +122,18 @@ class User implements UserInterface
      */
     private $userSearches;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserProminentCategory::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userProminentCategories;
+
     public function __construct()
     {
         $this->deliveryAddresses = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->promoCodeUsers = new ArrayCollection();
         $this->userSearches = new ArrayCollection();
+        $this->userProminentCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -499,6 +505,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userSearch->getUser() === $this) {
                 $userSearch->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProminentCategory[]
+     */
+    public function getUserProminentCategories(): Collection
+    {
+        return $this->userProminentCategories;
+    }
+
+    public function addUserProminentCategory(UserProminentCategory $userProminentCategory): self
+    {
+        if (!$this->userProminentCategories->contains($userProminentCategory)) {
+            $this->userProminentCategories[] = $userProminentCategory;
+            $userProminentCategory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProminentCategory(UserProminentCategory $userProminentCategory): self
+    {
+        if ($this->userProminentCategories->removeElement($userProminentCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($userProminentCategory->getUser() === $this) {
+                $userProminentCategory->setUser(null);
             }
         }
 
