@@ -30,6 +30,7 @@ class HomeController extends AbstractController
         if($this->getUser()) {
             $userSearch = $userSearchRepository->findOneBy(
                 ['user' => $this->getUser()], ['id' => 'DESC']);
+            $userProminentCategories = $userProminentCategoryRepository->findBy(['user' => $this->getUser()]);
             if(!is_null($userSearch)) {
                 $searchResults = $itemRepository
                     ->searchByCipherAndName($userSearch->getKeyword(), $request->getLocale());
@@ -40,12 +41,16 @@ class HomeController extends AbstractController
                         array_push($categories, $itemCategory->getCategory()->getName());
                     }
                 }
-               $categories = array_values(array_unique($categories));
             }
+            if(!is_null($userProminentCategories)) {
+                foreach($userProminentCategories as $userProminentCategory) {
+                    array_push($categories, $userProminentCategory->getCategory()->getName());
+                }
+            }
+            $categories = array_values(array_unique($categories));
             $suggestedItems = $itemRepository
                 ->findSuggestedItems($this->getUser()->getGender(), $categories, $request->getLocale());
         }
-
         if(!is_null($suggestedItems)) {
             foreach($suggestedItems as $suggestedItem) {
                 foreach($suggestedItem as $id) {
